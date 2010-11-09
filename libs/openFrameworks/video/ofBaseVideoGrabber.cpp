@@ -20,6 +20,7 @@ ofBaseVideoGrabber::ofBaseVideoGrabber(){
 
 //--------------------------------------------------------------------
 ofBaseVideoGrabber::~ofBaseVideoGrabber(){
+	//up to parent to close device
 	clearMemory();
 }
 

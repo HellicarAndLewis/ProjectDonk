@@ -15,25 +15,33 @@ ofVideoGrabber::~ofVideoGrabber(){
 }
 
 //--------------------------------------------------------------------
-void ofVideoGrabber::setGrabber(ofBaseVideoGrabber * grabberPtr){
+bool ofVideoGrabber::setGrabber(ofBaseVideoGrabber * newGrabber){
 	if( grabber == NULL ){
-		grabber = grabberPtr;
+		grabber = newGrabber;
+		return true;
+	}else{
+		//TODO: should we delete grabberPtr? This is why we need smart pointers. 
+		ofLog(OF_LOG_ERROR, "ofVideoGrabber::setGrabber - grabber already set!");
 	}
+	return false;
+}
+
+//--------------------------------------------------------------------
+ofBaseVideoGrabber * ofVideoGrabber::getGrabber(){
+	return grabber;
 }
 
 //--------------------------------------------------------------------
 bool ofVideoGrabber::initGrabber(int w, int h, bool setUseTexture){
 	
 	if( grabber == NULL ){
-		setGrabber( new GRABBER_TYPE );
+		setGrabber( new OF_VID_GRABBER_TYPE );
 	}
 
 	bool bOk = grabber->initGrabber(w, h, setUseTexture);
 	width	= grabber->getWidth();
 	height	= grabber->getWidth();	
 	return bOk;	
-
-	return false;
 }
 
 //--------------------------------------------------------------------
@@ -158,7 +166,6 @@ void ofVideoGrabber::draw(float _x, float _y){
 		grabber->draw(_x, _y);
 	}
 }
-
 
 //----------------------------------------------------------
 float ofVideoGrabber::getHeight(){

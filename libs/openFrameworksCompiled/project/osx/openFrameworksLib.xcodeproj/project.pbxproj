@@ -17,6 +17,12 @@
 		E47DB2051289D4BE0037831F /* ofGStreamerGrabber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E47DB2031289D4BE0037831F /* ofGStreamerGrabber.cpp */; };
 		E47DB21E1289D6FE0037831F /* ofUnicapGrabber.h in Headers */ = {isa = PBXBuildFile; fileRef = E47DB21C1289D6FE0037831F /* ofUnicapGrabber.h */; };
 		E47DB21F1289D6FE0037831F /* ofUnicapGrabber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E47DB21D1289D6FE0037831F /* ofUnicapGrabber.cpp */; };
+		E47DB27E1289DD1A0037831F /* ofBaseVideoPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = E47DB27C1289DD1A0037831F /* ofBaseVideoPlayer.h */; };
+		E47DB27F1289DD1A0037831F /* ofBaseVideoPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E47DB27D1289DD1A0037831F /* ofBaseVideoPlayer.cpp */; };
+		E47DB2821289E1570037831F /* ofQuickTimePlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = E47DB2801289E1570037831F /* ofQuickTimePlayer.h */; };
+		E47DB2831289E1570037831F /* ofQuickTimePlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E47DB2811289E1570037831F /* ofQuickTimePlayer.cpp */; };
+		E47DB2A41289E7290037831F /* ofGStreamerPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = E47DB2A21289E7290037831F /* ofGStreamerPlayer.h */; };
+		E47DB2A51289E7290037831F /* ofGStreamerPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E47DB2A31289E7290037831F /* ofGStreamerPlayer.cpp */; };
 		E4B27C1810CBEB9D00536013 /* ofAppGlutWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B27AAD10CBE92A00536013 /* ofAppGlutWindow.cpp */; };
 		E4B27C1910CBEB9D00536013 /* ofAppRunner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B27AAF10CBE92A00536013 /* ofAppRunner.cpp */; };
 		E4B27C1A10CBEB9D00536013 /* ofArduino.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B27AB310CBE92A00536013 /* ofArduino.cpp */; };
@@ -66,6 +72,12 @@
 		E47DB2031289D4BE0037831F /* ofGStreamerGrabber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofGStreamerGrabber.cpp; sourceTree = "<group>"; };
 		E47DB21C1289D6FE0037831F /* ofUnicapGrabber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofUnicapGrabber.h; sourceTree = "<group>"; };
 		E47DB21D1289D6FE0037831F /* ofUnicapGrabber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofUnicapGrabber.cpp; sourceTree = "<group>"; };
+		E47DB27C1289DD1A0037831F /* ofBaseVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofBaseVideoPlayer.h; sourceTree = "<group>"; };
+		E47DB27D1289DD1A0037831F /* ofBaseVideoPlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofBaseVideoPlayer.cpp; sourceTree = "<group>"; };
+		E47DB2801289E1570037831F /* ofQuickTimePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofQuickTimePlayer.h; sourceTree = "<group>"; };
+		E47DB2811289E1570037831F /* ofQuickTimePlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofQuickTimePlayer.cpp; sourceTree = "<group>"; };
+		E47DB2A21289E7290037831F /* ofGStreamerPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofGStreamerPlayer.h; sourceTree = "<group>"; };
+		E47DB2A31289E7290037831F /* ofGStreamerPlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofGStreamerPlayer.cpp; sourceTree = "<group>"; };
 		E4B27AAC10CBE92A00536013 /* ofAppBaseWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofAppBaseWindow.h; path = ../../../openFrameworks/app/ofAppBaseWindow.h; sourceTree = SOURCE_ROOT; };
 		E4B27AAD10CBE92A00536013 /* ofAppGlutWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofAppGlutWindow.cpp; path = ../../../openFrameworks/app/ofAppGlutWindow.cpp; sourceTree = SOURCE_ROOT; };
 		E4B27AAE10CBE92A00536013 /* ofAppGlutWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofAppGlutWindow.h; path = ../../../openFrameworks/app/ofAppGlutWindow.h; sourceTree = SOURCE_ROOT; };
@@ -287,6 +299,10 @@
 		E4B27AD510CBE92A00536013 /* video */ = {
 			isa = PBXGroup;
 			children = (
+				E4B27ADB10CBE92A00536013 /* ofVideoGrabber.cpp */,
+				E4B27ADC10CBE92A00536013 /* ofVideoGrabber.h */,
+				E47DB14F1289AE8A0037831F /* ofBaseVideoGrabber.cpp */,
+				E47DB14E1289AE8A0037831F /* ofBaseVideoGrabber.h */,
 				E47DB14A1289AC6B0037831F /* ofQuickTimeGrabber.cpp */,
 				E47DB14B1289AC6B0037831F /* ofQuickTimeGrabber.h */,
 				E47DB1DA1289D1690037831F /* ofDirectShowGrabber.cpp */,
@@ -295,14 +311,16 @@
 				E47DB2021289D4BE0037831F /* ofGStreamerGrabber.h */,
 				E47DB21D1289D6FE0037831F /* ofUnicapGrabber.cpp */,
 				E47DB21C1289D6FE0037831F /* ofUnicapGrabber.h */,
-				E4B27AD610CBE92A00536013 /* ofQtUtils.cpp */,
-				E4B27AD710CBE92A00536013 /* ofQtUtils.h */,
-				E4B27ADB10CBE92A00536013 /* ofVideoGrabber.cpp */,
-				E4B27ADC10CBE92A00536013 /* ofVideoGrabber.h */,
-				E47DB14F1289AE8A0037831F /* ofBaseVideoGrabber.cpp */,
-				E47DB14E1289AE8A0037831F /* ofBaseVideoGrabber.h */,
 				E4B27ADD10CBE92A00536013 /* ofVideoPlayer.cpp */,
 				E4B27ADE10CBE92A00536013 /* ofVideoPlayer.h */,
+				E47DB27D1289DD1A0037831F /* ofBaseVideoPlayer.cpp */,
+				E47DB27C1289DD1A0037831F /* ofBaseVideoPlayer.h */,
+				E47DB2811289E1570037831F /* ofQuickTimePlayer.cpp */,
+				E47DB2801289E1570037831F /* ofQuickTimePlayer.h */,
+				E47DB2A31289E7290037831F /* ofGStreamerPlayer.cpp */,
+				E47DB2A21289E7290037831F /* ofGStreamerPlayer.h */,
+				E4B27AD610CBE92A00536013 /* ofQtUtils.cpp */,
+				E4B27AD710CBE92A00536013 /* ofQtUtils.h */,
 			);
 			name = video;
 			path = ../../../openFrameworks/video;
@@ -409,6 +427,9 @@
 				E47DB1DB1289D1690037831F /* ofDirectShowGrabber.h in Headers */,
 				E47DB2041289D4BE0037831F /* ofGStreamerGrabber.h in Headers */,
 				E47DB21E1289D6FE0037831F /* ofUnicapGrabber.h in Headers */,
+				E47DB27E1289DD1A0037831F /* ofBaseVideoPlayer.h in Headers */,
+				E47DB2821289E1570037831F /* ofQuickTimePlayer.h in Headers */,
+				E47DB2A41289E7290037831F /* ofGStreamerPlayer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -483,6 +504,9 @@
 				E47DB1DC1289D1690037831F /* ofDirectShowGrabber.cpp in Sources */,
 				E47DB2051289D4BE0037831F /* ofGStreamerGrabber.cpp in Sources */,
 				E47DB21F1289D6FE0037831F /* ofUnicapGrabber.cpp in Sources */,
+				E47DB27F1289DD1A0037831F /* ofBaseVideoPlayer.cpp in Sources */,
+				E47DB2831289E1570037831F /* ofQuickTimePlayer.cpp in Sources */,
+				E47DB2A51289E7290037831F /* ofGStreamerPlayer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

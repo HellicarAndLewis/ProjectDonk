@@ -9,22 +9,22 @@
 
 #ifdef OF_VIDEO_CAPTURE_QUICKTIME
 	#include "ofQuickTimeGrabber.h"
-	#define GRABBER_TYPE ofQuickTimeGrabber()
+	#define OF_VID_GRABBER_TYPE ofQuickTimeGrabber()
 #endif
 
 #ifdef OF_VIDEO_CAPTURE_DIRECTSHOW
 	#include "ofDirectShowGrabber.h"
-	#define GRABBER_TYPE ofDirectShowGrabber()
+	#define OF_VID_GRABBER_TYPE ofDirectShowGrabber()
 #endif
 
 #ifdef OF_VIDEO_CAPTURE_GSTREAMER
 	#include "ofGStreamerGrabber.h"
-	#define GRABBER_TYPE ofGStreamerGrabber()	
+	#define OF_VID_GRABBER_TYPE ofGStreamerGrabber()	
 #endif
 
 #ifdef OF_VIDEO_CAPTURE_UNICAP
 	#include "ofUnicapGrabber.h"
-	#define GRABBER_TYPE ofUnicapGrabber()		
+	#define OF_VID_GRABBER_TYPE ofUnicapGrabber()		
 #endif
 
 class ofVideoGrabber : public ofBaseVideo{
@@ -34,7 +34,7 @@ class ofVideoGrabber : public ofBaseVideo{
 		ofVideoGrabber();
 		virtual ~ofVideoGrabber();
 		
-		void					setGrabber(ofBaseVideoGrabber * grabberPtr);
+		bool					setGrabber(ofBaseVideoGrabber * newGrabber);
 		ofBaseVideoGrabber *	getGrabber();
 
 		void				listDevices();
