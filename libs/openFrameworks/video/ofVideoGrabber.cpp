@@ -1,9 +1,15 @@
 #include "ofVideoGrabber.h"
 #include "ofUtils.h"
 
+//TODO: allow for non rgb pixel formats to work with textures
+//TODO: getImageBytes() 
+//TODO: getBytesPerPixel()
+//TODO: add ofPixels support which would take care of the above
+
 //--------------------------------------------------------------------
 ofVideoGrabber::ofVideoGrabber(){
-	grabber = NULL;
+	grabber			= NULL;
+	bUseTexture		= false;
 }
 
 //--------------------------------------------------------------------
@@ -12,6 +18,8 @@ ofVideoGrabber::~ofVideoGrabber(){
 		delete grabber;
 		grabber = NULL;
 	}	
+	
+	tex.clear();
 }
 
 //--------------------------------------------------------------------
@@ -33,14 +41,20 @@ ofBaseVideoGrabber * ofVideoGrabber::getGrabber(){
 
 //--------------------------------------------------------------------
 bool ofVideoGrabber::initGrabber(int w, int h, bool setUseTexture){
+	bUseTexture = setUseTexture;
 	
 	if( grabber == NULL ){
 		setGrabber( new OF_VID_GRABBER_TYPE );
 	}
 
-	bool bOk = grabber->initGrabber(w, h, setUseTexture);
-	width	= grabber->getWidth();
-	height	= grabber->getWidth();	
+	bool bOk = grabber->initGrabber(w, h);
+	width	 = grabber->getWidth();
+	height	 = grabber->getHeight();	
+	
+	if( bOk && bUseTexture ){
+		tex.allocate(width, height, GL_RGB);
+	}
+	
 	return bOk;	
 }
 
@@ -83,9 +97,7 @@ unsigned char * ofVideoGrabber::getPixels(){
 //------------------------------------
 //for getting a reference to the texture
 ofTexture & ofVideoGrabber::getTextureReference(){
-	if(	grabber != NULL ){
-		return grabber->getTextureReference();
-	}
+	return tex;
 }
 
 //---------------------------------------------------------------------------
@@ -99,15 +111,17 @@ bool  ofVideoGrabber::isFrameNew(){
 //--------------------------------------------------------------------
 void ofVideoGrabber::update(){
 	if(	grabber != NULL ){
-		grabber->update();
+		grabber->grabFrame();
+		if( bUseTexture && grabber->isFrameNew() ){
+			//note we should look at ways to do other pixel formats. 
+			tex.loadData(grabber->getPixels(), tex.getWidth(), tex.getHeight(), GL_RGB);
+		}
 	}
 }
 
 //--------------------------------------------------------------------
 void ofVideoGrabber::grabFrame(){
-	if(	grabber != NULL ){
-		grabber->grabFrame();
-	}
+	update();
 }
 
 //--------------------------------------------------------------------
@@ -115,6 +129,7 @@ void ofVideoGrabber::close(){
 	if(	grabber != NULL ){
 		grabber->close();
 	}
+	tex.clear();
 }
 
 //--------------------------------------------------------------------
@@ -126,45 +141,33 @@ void ofVideoGrabber::videoSettings(void){
 
 //------------------------------------
 void ofVideoGrabber::setUseTexture(bool bUse){
-	if(	grabber != NULL ){
-		grabber->setUseTexture(bUse);
-	}	
+	bUseTexture = bUse;	
 }
 
 
 //----------------------------------------------------------
 void ofVideoGrabber::setAnchorPercent(float xPct, float yPct){
-	if(	grabber != NULL ){
-		grabber->setAnchorPercent(xPct, yPct);
-	}
+	tex.setAnchorPercent(xPct, yPct);
 }
 
 //----------------------------------------------------------
 void ofVideoGrabber::setAnchorPoint(int x, int y){
-   	if(	grabber != NULL ){
-		grabber->setAnchorPoint(x, y);
-	}
+	tex.setAnchorPoint(x, y);
 }
 
 //----------------------------------------------------------
 void ofVideoGrabber::resetAnchor(){
-   	if(	grabber != NULL ){
-		grabber->resetAnchor();
-	}
+	tex.resetAnchor();
 }
 
 //------------------------------------
 void ofVideoGrabber::draw(float _x, float _y, float _w, float _h){
-   	if(	grabber != NULL ){
-		grabber->draw(_x, _y, _w, _h);
-	}
+	tex.draw(_x, _y, _w, _h);
 }
 
 //------------------------------------
 void ofVideoGrabber::draw(float _x, float _y){
-   	if(	grabber != NULL ){
-		grabber->draw(_x, _y);
-	}
+	tex.draw(_x, _y);
 }
 
 //----------------------------------------------------------

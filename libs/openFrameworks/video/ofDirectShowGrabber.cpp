@@ -15,6 +15,16 @@ ofDirectShowGrabber::ofDirectShowGrabber(){
 	#endif
 	//---------------------------------
 
+	// common
+	bIsFrameNew				= false;
+	bVerbose 				= false;
+	bGrabberInited 			= false;
+	bChooseDevice			= false;
+	deviceID				= 0;
+	width 					= 320;	// default setting
+	height 					= 240;	// default setting
+	pixels					= NULL;
+	attemptFramerate		= -1;
 }
 
 
@@ -25,8 +35,7 @@ ofDirectShowGrabber::~ofDirectShowGrabber(){
 
 
 //--------------------------------------------------------------------
-bool ofDirectShowGrabber::initGrabber(int w, int h, bool setUseTexture){
-	bUseTexture = setUseTexture;
+bool ofDirectShowGrabber::initGrabber(int w, int h){
 	
 	//---------------------------------
 	#ifdef OF_VIDEO_CAPTURE_DIRECTSHOW
@@ -205,9 +214,56 @@ void ofDirectShowGrabber::close(){
 	#endif
 	//---------------------------------
 
-	ofBaseVideoGrabber::clearMemory();
+	clearMemory();
 	
 }
+
+
+//--------------------------------------------------------------------
+void ofDirectShowGrabber::clearMemory(){
+	if (pixels != NULL){
+		delete[] pixels;
+		pixels = NULL;
+	}
+
+}
+
+//---------------------------------------------------------------------------
+unsigned char * ofDirectShowGrabber::getPixels(){
+	return pixels;
+}
+
+//--------------------------------------------------------------------
+float ofDirectShowGrabber::getWidth(){
+	return width;
+}	
+
+//--------------------------------------------------------------------
+float ofDirectShowGrabber::getHeight(){
+	return height;
+}
+
+//---------------------------------------------------------------------------
+bool  ofDirectShowGrabber::isFrameNew(){
+	return bIsFrameNew;
+}
+
+//--------------------------------------------------------------------
+void ofDirectShowGrabber::setVerbose(bool bTalkToMe){
+	bVerbose = bTalkToMe;
+}
+
+//--------------------------------------------------------------------
+void ofDirectShowGrabber::setDeviceID(int _deviceID){
+	deviceID		= _deviceID;
+	bChooseDevice	= true;
+}
+
+//--------------------------------------------------------------------
+void ofDirectShowGrabber::setDesiredFrameRate(int framerate){
+	attemptFramerate = framerate;
+}
+
 
 //--------------------------------------------------------------------
 void ofDirectShowGrabber::videoSettings(void){

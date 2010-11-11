@@ -3,6 +3,16 @@
 
 //--------------------------------------------------------------------
 ofGStreamerGrabber::ofGStreamerGrabber(){
+	
+	// common
+	bIsFrameNew				= false;
+	bVerbose 				= false;
+	bGrabberInited 			= false;
+	bChooseDevice			= false;
+	deviceID				= 0;
+	width 					= 320;	// default setting
+	height 					= 240;	// default setting
+	attemptFramerate		= -1;
 
 }
 
@@ -13,9 +23,7 @@ ofGStreamerGrabber::~ofGStreamerGrabber(){
 }
 
 //--------------------------------------------------------------------
-bool ofGStreamerGrabber::initGrabber(int w, int h, bool setUseTexture){
-
-	bUseTexture = setUseTexture;
+bool ofGStreamerGrabber::initGrabber(int w, int h){
 	
 	//---------------------------------
 	#ifdef OF_VIDEO_CAPTURE_GSTREAMER
@@ -25,12 +33,6 @@ bool ofGStreamerGrabber::initGrabber(int w, int h, bool setUseTexture){
 		if(gstUtils.initGrabber(w,h,attemptFramerate)){
 			width 	= w;
 			height 	= h;
-			if (bUseTexture){
-				// create the texture, set the pixels to black and
-				// upload them to the texture (so at least we see nothing black the callback)
-				tex.allocate(width,height,GL_RGB);
-				tex.loadData(gstUtils.getPixels(), width, height, GL_RGB);
-			}
 			bGrabberInited = true;
 			ofLog(OF_LOG_VERBOSE, "ofVideoGrabber: initied");
 		}else{
@@ -79,11 +81,6 @@ void ofGStreamerGrabber::grabFrame(){
 		if (bGrabberInited){
 			gstUtils.update();
 			bIsFrameNew = gstUtils.isFrameNew();
-			if(bIsFrameNew) {
-				if (bUseTexture){
-					tex.loadData(gstUtils.getPixels(), width, height, GL_RGB);
-				}
-			}
 		}
 
 	//---------------------------------
@@ -105,6 +102,43 @@ void ofGStreamerGrabber::close(){
 	#endif
 	//---------------------------------
 	
-	ofBaseVideoGrabber::clearMemory();
+	clearMemory();
 	
 }
+
+//--------------------------------------------------------------------
+float ofGStreamerGrabber::getWidth(){
+	return width;
+}	
+
+//--------------------------------------------------------------------
+float ofGStreamerGrabber::getHeight(){
+	return height;
+}
+
+//--------------------------------------------------------------------
+void ofGStreamerGrabber::clearMemory(){
+	//nothing to be done?
+}
+
+//---------------------------------------------------------------------------
+bool  ofGStreamerGrabber::isFrameNew(){
+	return bIsFrameNew;
+}
+
+//--------------------------------------------------------------------
+void ofGStreamerGrabber::setVerbose(bool bTalkToMe){
+	bVerbose = bTalkToMe;
+}
+
+//--------------------------------------------------------------------
+void ofGStreamerGrabber::setDeviceID(int _deviceID){
+	deviceID		= _deviceID;
+	bChooseDevice	= true;
+}
+
+//--------------------------------------------------------------------
+void ofGStreamerGrabber::setDesiredFrameRate(int framerate){
+	attemptFramerate = framerate;
+}
+

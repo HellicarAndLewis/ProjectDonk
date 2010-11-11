@@ -3,7 +3,16 @@
 
 //--------------------------------------------------------------------
 ofUnicapGrabber::ofUnicapGrabber(){
-
+	// common
+	bIsFrameNew				= false;
+	bVerbose 				= false;
+	bGrabberInited 			= false;
+	bChooseDevice			= false;
+	deviceID				= 0;
+	pixels					= NULL;	
+	width 					= 320;	// default setting
+	height 					= 240;	// default setting
+	attemptFramerate		= -1;
 }
 
 
@@ -23,9 +32,7 @@ ofUnicapGrabber::~ofUnicapGrabber(){
 }
 
 //--------------------------------------------------------------------
-bool ofUnicapGrabber::initGrabber(int w, int h, bool setUseTexture){
-
-	bUseTexture = setUseTexture;
+bool ofUnicapGrabber::initGrabber(int w, int h){
 
 	//---------------------------------
 	#ifdef OF_VIDEO_CAPTURE_UNICAP
@@ -37,6 +44,8 @@ bool ofUnicapGrabber::initGrabber(int w, int h, bool setUseTexture){
 
 			width 	= w;
 			height 	= h;
+			
+			clearMemory();
 			pixels	= new unsigned char[width * height * 3];
 
 			if (bUseTexture){
@@ -134,8 +143,47 @@ void ofUnicapGrabber::close(){
 	#endif
 	//---------------------------------
 	
-	ofBaseVideoGrabber::clearMemory();
+	clearMemory();
 	
+}
+
+//---------------------------------------------------------------------------
+unsigned char * ofUnicapGrabber::getPixels(){
+	return pixels;
+}
+
+//--------------------------------------------------------------------
+float ofUnicapGrabber::getWidth(){
+	return width;
+}	
+
+//--------------------------------------------------------------------
+float ofUnicapGrabber::getHeight(){
+	return height;
+}
+
+//--------------------------------------------------------------------
+void ofUnicapGrabber::clearMemory(){
+	if (pixels != NULL){
+		delete[] pixels;
+		pixels = NULL;
+	}
+}
+
+//---------------------------------------------------------------------------
+bool  ofUnicapGrabber::isFrameNew(){
+	return bIsFrameNew;
+}
+
+//--------------------------------------------------------------------
+void ofUnicapGrabber::setDeviceID(int _deviceID){
+	deviceID		= _deviceID;
+	bChooseDevice	= true;
+}
+
+//--------------------------------------------------------------------
+void ofUnicapGrabber::setDesiredFrameRate(int framerate){
+	attemptFramerate = framerate;
 }
 
 //--------------------------------------------------------------------

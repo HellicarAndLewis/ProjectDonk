@@ -18,14 +18,37 @@ class ofDirectShowGrabber : public ofBaseVideoGrabber{
 		ofDirectShowGrabber();
 		virtual ~ofDirectShowGrabber();
 
-		bool			initGrabber(int w, int h, bool bTexture = true);
-		void			grabFrame();
-		
 		void 			listDevices();
-		void			close();
+		bool			initGrabber(int w, int h);
+		void			grabFrame();
+
 		void			videoSettings();
+		void			close();
+		
+		void			clearMemory();
+		
+		unsigned char	* getPixels();
+		bool			isFrameNew();
+
+		float			getWidth();
+		float			getHeight();
+
+		void			setVerbose(bool bTalkToMe);
+		void			setDeviceID(int _deviceID);
+		void			setDesiredFrameRate(int framerate);
+		
 
 	protected:
+	
+		bool					bChooseDevice;
+		int						deviceID;
+		bool 					bVerbose;
+		bool 					bGrabberInited;
+	    unsigned char * 		pixels;
+		int						attemptFramerate;
+		bool 					bIsFrameNew;	
+		
+		int						width, height;	
 		//--------------------------------- directshow
 		#ifdef OF_VIDEO_CAPTURE_DIRECTSHOW
 			int 					device;

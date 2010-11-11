@@ -68,7 +68,9 @@ class ofVideoGrabber : public ofBaseVideo{
 		int					width;
 
 	protected:
-	
+		
+		ofTexture tex;
+		bool bUseTexture;
 		ofBaseVideoGrabber		* grabber;
 
 };

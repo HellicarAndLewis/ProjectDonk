@@ -22,14 +22,35 @@ class ofQuickTimeGrabber : public ofBaseVideoGrabber{
 		ofQuickTimeGrabber();
 		virtual ~ofQuickTimeGrabber();
 
-		bool			initGrabber(int w, int h, bool bTexture = true);
-		void			grabFrame();
+		bool					initGrabber(int w, int h);
+		void					grabFrame();
 		
-		void 			listDevices();
-		void			close();
-		void			videoSettings();
+		void					listDevices();
+		void					close();
+		void					videoSettings();
+		
+		void					clearMemory();
+		unsigned char			* getPixels();
+		bool					isFrameNew();
+
+		float					getWidth();
+		float					getHeight();
+
+		void					setVerbose(bool bTalkToMe);
+		void					setDeviceID(int _deviceID);
+		void					setDesiredFrameRate(int framerate);
 
 	protected:
+
+		bool					bChooseDevice;
+		int						deviceID;
+		bool 					bVerbose;
+		bool 					bGrabberInited;
+	    unsigned char * 		pixels;
+		int						attemptFramerate;
+		bool 					bIsFrameNew;	
+		
+		int						width, height;
 
 		unsigned char *			offscreenGWorldPixels;	// 32 bit: argb (qt k32ARGBPixelFormat)
 		int						w,h;
@@ -48,6 +69,7 @@ class ofQuickTimeGrabber : public ofBaseVideoGrabber{
 
 		bool					saveSettings();
 		bool					loadSettings();
+		
 
 };
 

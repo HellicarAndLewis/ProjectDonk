@@ -18,7 +18,7 @@ class ofGStreamerGrabber : public ofBaseVideoGrabber{
 		ofGStreamerGrabber();
 		virtual ~ofGStreamerGrabber();
 
-		bool			initGrabber(int w, int h, bool bTexture = true);
+		bool			initGrabber(int w, int h);
 		void			grabFrame();
 		
 		void 			listDevices();
@@ -26,7 +26,26 @@ class ofGStreamerGrabber : public ofBaseVideoGrabber{
 
 		unsigned char 	* getPixels();
 
+		void			clearMemory();
+		bool			isFrameNew();
+
+		float			getWidth();
+		float			getHeight();
+
+		void			setVerbose(bool bTalkToMe);
+		void			setDeviceID(int _deviceID);
+		void			setDesiredFrameRate(int framerate);		
+
 	protected:
+	
+		bool					bChooseDevice;
+		int						deviceID;
+		bool 					bVerbose;
+		bool 					bGrabberInited;
+		int						attemptFramerate;
+		bool 					bIsFrameNew;	
+		
+		int						width, height;	
 		#ifdef OF_VIDEO_CAPTURE_GSTREAMER
 			ofGstUtils				gstUtils;
 		#endif

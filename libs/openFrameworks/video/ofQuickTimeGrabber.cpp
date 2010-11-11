@@ -40,6 +40,17 @@ ofQuickTimeGrabber::ofQuickTimeGrabber(){
 	#endif
 	//---------------------------------
 
+	// common
+	bIsFrameNew				= false;
+	bVerbose 				= false;
+	bGrabberInited 			= false;
+	bChooseDevice			= false;
+	deviceID				= 0;
+	width 					= 320;	// default setting
+	height 					= 240;	// default setting
+	pixels					= NULL;
+	attemptFramerate		= -1;
+
 }
 
 
@@ -61,10 +72,24 @@ ofQuickTimeGrabber::~ofQuickTimeGrabber(){
 
 }
 
+//--------------------------------------------------------------------
+void ofQuickTimeGrabber::setVerbose(bool bTalkToMe){
+	bVerbose = bTalkToMe;
+}
 
 //--------------------------------------------------------------------
-bool ofQuickTimeGrabber::initGrabber(int w, int h, bool setUseTexture){
-	bUseTexture = setUseTexture;
+void ofQuickTimeGrabber::setDeviceID(int _deviceID){
+	deviceID		= _deviceID;
+	bChooseDevice	= true;
+}
+
+//--------------------------------------------------------------------
+void ofQuickTimeGrabber::setDesiredFrameRate(int framerate){
+	attemptFramerate = framerate;
+}
+
+//--------------------------------------------------------------------
+bool ofQuickTimeGrabber::initGrabber(int w, int h){
 
 	//---------------------------------
 	#ifdef OF_VIDEO_CAPTURE_QUICKTIME
@@ -175,17 +200,6 @@ bool ofQuickTimeGrabber::initGrabber(int w, int h, bool setUseTexture){
 		
 		ofLog(OF_LOG_NOTICE,"end setup ofQuickTimeGrabber");
 		ofLog(OF_LOG_NOTICE,"-------------------------------------\n");
-
-
-		//---------------------------------- 6 - setup texture if needed
-
-		if (bUseTexture){
-			// create the texture, set the pixels to black and
-			// upload them to the texture (so at least we see nothing black the callback)
-			tex.allocate(width,height,GL_RGB);
-			memset(pixels, 0, width*height*3);
-			tex.loadData(pixels, width, height, GL_RGB);
-		}
 
 		// we are done
 		return true;
@@ -320,10 +334,6 @@ void ofQuickTimeGrabber::grabFrame(){
 				#if defined(TARGET_OSX) && defined(__BIG_ENDIAN__)
 					convertPixels(offscreenGWorldPixels, pixels, width, height);
 				#endif
-				
-				if (bUseTexture){
-					tex.loadData(pixels, width, height, GL_RGB);
-				}
 			}
 		}
 
@@ -343,6 +353,35 @@ void ofQuickTimeGrabber::grabFrame(){
 
 }
 
+//---------------------------------------------------------------------------
+unsigned char * ofQuickTimeGrabber::getPixels(){
+	return pixels;
+}
+
+//---------------------------------------------------------------------------
+bool  ofQuickTimeGrabber::isFrameNew(){
+	return bIsFrameNew;
+}
+
+//--------------------------------------------------------------------
+float ofQuickTimeGrabber::getWidth(){
+	return width;
+}	
+
+//--------------------------------------------------------------------
+float ofQuickTimeGrabber::getHeight(){
+	return height;
+}
+
+//--------------------------------------------------------------------
+void ofQuickTimeGrabber::clearMemory(){
+	if (pixels != NULL){
+		delete[] pixels;
+		pixels = NULL;
+	}
+
+}
+
 //--------------------------------------------------------------------
 void ofQuickTimeGrabber::close(){
 
@@ -357,7 +396,7 @@ void ofQuickTimeGrabber::close(){
 	#endif
 	//---------------------------------
 
-	ofBaseVideoGrabber::clearMemory();
+	clearMemory();
 	
 }
 

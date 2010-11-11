@@ -10,7 +10,6 @@
 		E47DB14C1289AC6B0037831F /* ofQuickTimeGrabber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E47DB14A1289AC6B0037831F /* ofQuickTimeGrabber.cpp */; };
 		E47DB14D1289AC6B0037831F /* ofQuickTimeGrabber.h in Headers */ = {isa = PBXBuildFile; fileRef = E47DB14B1289AC6B0037831F /* ofQuickTimeGrabber.h */; };
 		E47DB1501289AE8A0037831F /* ofBaseVideoGrabber.h in Headers */ = {isa = PBXBuildFile; fileRef = E47DB14E1289AE8A0037831F /* ofBaseVideoGrabber.h */; };
-		E47DB1511289AE8A0037831F /* ofBaseVideoGrabber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E47DB14F1289AE8A0037831F /* ofBaseVideoGrabber.cpp */; };
 		E47DB1DB1289D1690037831F /* ofDirectShowGrabber.h in Headers */ = {isa = PBXBuildFile; fileRef = E47DB1D91289D1690037831F /* ofDirectShowGrabber.h */; };
 		E47DB1DC1289D1690037831F /* ofDirectShowGrabber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E47DB1DA1289D1690037831F /* ofDirectShowGrabber.cpp */; };
 		E47DB2041289D4BE0037831F /* ofGStreamerGrabber.h in Headers */ = {isa = PBXBuildFile; fileRef = E47DB2021289D4BE0037831F /* ofGStreamerGrabber.h */; };
@@ -65,7 +64,6 @@
 		E47DB14A1289AC6B0037831F /* ofQuickTimeGrabber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofQuickTimeGrabber.cpp; path = ../../../openFrameworks/video/ofQuickTimeGrabber.cpp; sourceTree = SOURCE_ROOT; };
 		E47DB14B1289AC6B0037831F /* ofQuickTimeGrabber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofQuickTimeGrabber.h; path = ../../../openFrameworks/video/ofQuickTimeGrabber.h; sourceTree = SOURCE_ROOT; };
 		E47DB14E1289AE8A0037831F /* ofBaseVideoGrabber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofBaseVideoGrabber.h; sourceTree = "<group>"; };
-		E47DB14F1289AE8A0037831F /* ofBaseVideoGrabber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofBaseVideoGrabber.cpp; sourceTree = "<group>"; };
 		E47DB1D91289D1690037831F /* ofDirectShowGrabber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofDirectShowGrabber.h; sourceTree = "<group>"; };
 		E47DB1DA1289D1690037831F /* ofDirectShowGrabber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofDirectShowGrabber.cpp; sourceTree = "<group>"; };
 		E47DB2021289D4BE0037831F /* ofGStreamerGrabber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofGStreamerGrabber.h; sourceTree = "<group>"; };
@@ -301,7 +299,6 @@
 			children = (
 				E4B27ADB10CBE92A00536013 /* ofVideoGrabber.cpp */,
 				E4B27ADC10CBE92A00536013 /* ofVideoGrabber.h */,
-				E47DB14F1289AE8A0037831F /* ofBaseVideoGrabber.cpp */,
 				E47DB14E1289AE8A0037831F /* ofBaseVideoGrabber.h */,
 				E47DB14A1289AC6B0037831F /* ofQuickTimeGrabber.cpp */,
 				E47DB14B1289AC6B0037831F /* ofQuickTimeGrabber.h */,
@@ -500,7 +497,6 @@
 				E4B27C2610CBEB9D00536013 /* ofVideoGrabber.cpp in Sources */,
 				E4B27C2710CBEB9D00536013 /* ofVideoPlayer.cpp in Sources */,
 				E47DB14C1289AC6B0037831F /* ofQuickTimeGrabber.cpp in Sources */,
-				E47DB1511289AE8A0037831F /* ofBaseVideoGrabber.cpp in Sources */,
 				E47DB1DC1289D1690037831F /* ofDirectShowGrabber.cpp in Sources */,
 				E47DB2051289D4BE0037831F /* ofGStreamerGrabber.cpp in Sources */,
 				E47DB21F1289D6FE0037831F /* ofUnicapGrabber.cpp in Sources */,
