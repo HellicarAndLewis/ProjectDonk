@@ -22,10 +22,22 @@ class ofGStreamerPlayer : public ofBaseVideoPlayer{
 		 void			play();
 		 void			stop();
 		 
-		 unsigned char * getPixels();
+		 void			clearMemory();
+	
+		 bool 			isFrameNew();
+		 unsigned char * 	getPixels();
+		
+		 float 			getWidth();
+		 float 			getHeight();
+
+		 bool			isPaused();
+		 bool			isLoaded();
+		 bool			isPlaying();		 
 
 		 float 			getPosition();
 		 float 			getDuration();
+		 int			getTotalNumFrames();
+		 float			getSpeed();
 		 bool			getIsMovieDone();
 
 		 void 			setPosition(float pct);
@@ -36,13 +48,24 @@ class ofGStreamerPlayer : public ofBaseVideoPlayer{
 		 void 			setPaused(bool bPause);
 
 		 int			getCurrentFrame();
-		 int			getTotalNumFrames();
 
 		 void			firstFrame();
 		 void			nextFrame();
 		 void			previousFrame();
 				
 	protected:
+		
+		int				width, height;
+		bool			bLoaded;
+		bool			bHavePixelsChanged;
+		int				nFrames;				// number of frames
+		int				currentLoopState;
+		bool 			bStarted;
+		bool 			bPlaying;
+		bool 			bPaused;
+		bool 			bIsFrameNew;			// if we are new
+		float			speed;			
+	
 		//--------------------------------------
 		#ifdef OF_VIDEO_PLAYER_GSTREAMER
 		//--------------------------------------

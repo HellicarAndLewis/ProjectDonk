@@ -18,23 +18,22 @@ class ofGStreamerGrabber : public ofBaseVideoGrabber{
 		ofGStreamerGrabber();
 		virtual ~ofGStreamerGrabber();
 
-		bool			initGrabber(int w, int h);
-		void			grabFrame();
+		void					listDevices();
+		bool					initGrabber(int w, int h);
+		void					grabFrame();
+		bool					isFrameNew();
+
+		unsigned char			* getPixels();
 		
-		void 			listDevices();
-		void			close();
+		void					close();
+		void					clearMemory();
+		
+		float					getWidth();
+		float					getHeight();
 
-		unsigned char 	* getPixels();
-
-		void			clearMemory();
-		bool			isFrameNew();
-
-		float			getWidth();
-		float			getHeight();
-
-		void			setVerbose(bool bTalkToMe);
-		void			setDeviceID(int _deviceID);
-		void			setDesiredFrameRate(int framerate);		
+		void					setVerbose(bool bTalkToMe);
+		void					setDeviceID(int _deviceID);
+		void					setDesiredFrameRate(int framerate);	
 
 	protected:
 	

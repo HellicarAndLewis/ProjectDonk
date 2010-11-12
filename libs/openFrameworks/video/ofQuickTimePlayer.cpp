@@ -97,10 +97,6 @@ OSErr 	DrawCompleteProc(Movie theMovie, long refCon){
 	#endif
 
 	ofvp->bHavePixelsChanged = true;
-	if (ofvp->bUseTexture == true){
-		ofvp->tex.loadData(ofvp->pixels, ofvp->width, ofvp->height, GL_RGB);
-	}
-
 	return noErr;
 }
 
@@ -122,6 +118,15 @@ ofQuickTimePlayer::ofQuickTimePlayer (){
 	#endif
 	//--------------------------------------------------------------
 
+	bLoaded 					= false;
+	width 						= 0;
+	height						= 0;
+	speed 						= 1;
+	bStarted					= false;
+	pixels						= NULL;
+	nFrames						= 0;
+	bPaused						= true;
+	currentLoopState			= OF_LOOP_NORMAL;
 }
 
 
@@ -139,6 +144,11 @@ ofQuickTimePlayer::~ofQuickTimePlayer(){
 	#endif
 	//--------------------------------------
 
+}
+
+//---------------------------------------------------------------------------
+unsigned char * ofQuickTimePlayer::getPixels(){
+	return pixels;	
 }
 
 //---------------------------------------------------------------------------
@@ -176,6 +186,11 @@ void ofQuickTimePlayer::idleMovie(){
 		}
 	}
 
+}
+
+//---------------------------------------------------------------------------
+bool ofQuickTimePlayer::isFrameNew(){
+	return bIsFrameNew;
 }
 
 //---------------------------------------------------------------------------
@@ -225,15 +240,7 @@ void ofQuickTimePlayer::createImgMemAndGWorld(){
 	LockPixels(GetGWorldPixMap(offscreenGWorld));
 	SetGWorld (offscreenGWorld, NULL);
 	SetMovieGWorld (moviePtr, offscreenGWorld, nil);
-	//------------------------------------ texture stuff:
-	if (bUseTexture){
-		// create the texture, set the pixels to black and
-		// upload them to the texture (so at least we see nothing black the callback)
-		tex.allocate(width,height,GL_RGB);
-		memset(pixels, 0, width*height*3);
-		tex.loadData(pixels, width, height, GL_RGB);
-		allocated = true;
-	}
+
 }
 
 //--------------------------------------
@@ -323,10 +330,6 @@ bool ofQuickTimePlayer::loadMovie(string name){
 			convertPixels(offscreenGWorldPixels, pixels, width, height);
 		#endif
 
-		if (bUseTexture == true){
-			tex.loadData(pixels, width, height, GL_RGB);
-		}
-
 		bStarted 				= false;
 		bLoaded 				= true;
 		bPlaying 				= false;
@@ -371,9 +374,6 @@ void ofQuickTimePlayer::start(){
 			convertPixels(offscreenGWorldPixels, pixels, width, height);
 		#endif
 		bHavePixelsChanged = true;
-		if (bUseTexture == true){
-			tex.loadData(pixels, width, height, GL_RGB);
-		}
 
 		bStarted = true;
 		bPlaying = true;
@@ -770,4 +770,60 @@ void ofQuickTimePlayer::setPaused(bool _bPause){
 	//--------------------------------------
 
 }
+
+
+
+
+
+
+
+
+
+//---------------------------------------------------------------------------
+void ofQuickTimePlayer::clearMemory(){
+
+	if(pixels){
+		delete[] pixels;
+		pixels = NULL;
+	}
+
+}
+
+//---------------------------------------------------------------------------
+float ofQuickTimePlayer::getSpeed(){
+	return speed;
+}
+
+//------------------------------------
+int ofQuickTimePlayer::getTotalNumFrames(){
+	return nFrames;
+}
+
+//----------------------------------------------------------
+float ofQuickTimePlayer::getWidth(){
+	return (float)width;
+}
+
+//----------------------------------------------------------
+float ofQuickTimePlayer::getHeight(){
+	return (float)height;
+}
+
+//----------------------------------------------------------
+bool ofQuickTimePlayer::isPaused(){
+	return bPaused;
+}
+
+//----------------------------------------------------------
+bool ofQuickTimePlayer::isLoaded(){
+	return bLoaded;
+}
+
+//----------------------------------------------------------
+bool ofQuickTimePlayer::isPlaying(){
+	return bPlaying;
+}
+
+	
+
 

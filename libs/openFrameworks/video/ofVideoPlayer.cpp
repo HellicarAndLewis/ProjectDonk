@@ -4,14 +4,19 @@
 //---------------------------------------------------------------------------
 ofVideoPlayer::ofVideoPlayer (){
 	player						= NULL;
+	bUseTexture					= true;
 }
 
 //---------------------------------------------------------------------------
 ofVideoPlayer::~ofVideoPlayer(){
+	close();
+	
 	if( player != NULL ){
 		delete player;
 		player = NULL;
 	}
+	
+	tex.clear();
 }
 
 //---------------------------------------------------------------------------
@@ -42,6 +47,10 @@ bool ofVideoPlayer::loadMovie(string name){
 	width	 = player->getWidth();
 	height	 = player->getHeight();
 	
+	if( bOk && bUseTexture ){
+		tex.allocate(width, height, GL_RGB);
+	}
+	
 	return bOk;
 }
 
@@ -50,16 +59,13 @@ unsigned char * ofVideoPlayer::getPixels(){
 	if( player != NULL ){		
 		return player->getPixels();
 	}
+	return NULL;	
 }
 
 //---------------------------------------------------------------------------
 //for getting a reference to the texture
 ofTexture & ofVideoPlayer::getTextureReference(){
-	if( player != NULL ){	
-		return player->getTextureReference();
-	}
-	
-	//TODO: fix this! create the player automatically?
+	return tex;
 }
 
 
@@ -68,36 +74,36 @@ bool ofVideoPlayer::isFrameNew(){
 	if( player != NULL ){
 		return player->isFrameNew();
 	}
-	
 	return false;
 }
 
 //--------------------------------------------------------------------
 void ofVideoPlayer::update(){
-	if( player != NULL ){	
-		player->update();
+	if(	player != NULL ){
+		player->idleMovie();
+		if( bUseTexture && player->isFrameNew() ){
+			//note we should look at ways to do other pixel formats. 
+			tex.loadData(player->getPixels(), tex.getWidth(), tex.getHeight(), GL_RGB);
+		}
 	}
 }
 
 //---------------------------------------------------------------------------
 void ofVideoPlayer::idleMovie(){
-	if( player != NULL ){	
-		player->idleMovie();
-	}
+	update();
 }
 
 //---------------------------------------------------------------------------
 void ofVideoPlayer::closeMovie(){
-	if( player != NULL ){
-		player->closeMovie();
-	}
+	close();
 }
 
 //---------------------------------------------------------------------------
 void ofVideoPlayer::close(){
 	if( player != NULL ){
-		player->close();
+		player->closeMovie();
 	}
+	tex.clear();
 }
 
 //--------------------------------------------------------
@@ -224,47 +230,32 @@ void ofVideoPlayer::setPaused(bool _bPause){
 
 //------------------------------------
 void ofVideoPlayer::setUseTexture(bool bUse){
-	if( player != NULL ){
-		player->setUseTexture(bUse);
-	}
+	bUseTexture = bUse;
 }
-
-//we could cap these values - but it might be more useful
-//to be able to set anchor points outside the image
 
 //----------------------------------------------------------
 void ofVideoPlayer::setAnchorPercent(float xPct, float yPct){
-	if( player != NULL ){
-		player->setAnchorPercent(xPct, yPct);
-	}
+	tex.setAnchorPercent(xPct, yPct);
 }
 
 //----------------------------------------------------------
 void ofVideoPlayer::setAnchorPoint(int x, int y){
-	if( player != NULL ){
-		player->setAnchorPoint(x, y);
-	}
+	tex.setAnchorPoint(x, y);
 }
 
 //----------------------------------------------------------
 void ofVideoPlayer::resetAnchor(){
-	if( player != NULL ){
-		player->resetAnchor();
-	}
+	tex.resetAnchor();
 }
 
 //------------------------------------
 void ofVideoPlayer::draw(float _x, float _y, float _w, float _h){
-	if( player != NULL ){
-		player->draw(_x, _y, _w, _h);
-	}
+	tex.draw(_x, _y, _w, _h);
 }
 
 //------------------------------------
 void ofVideoPlayer::draw(float _x, float _y){
-	if( player != NULL ){
-		player->draw(_x, _y);
-	}
+	tex.draw(_x, _y);
 }
 
 //------------------------------------
@@ -276,19 +267,19 @@ int ofVideoPlayer::getTotalNumFrames(){
 }
 
 //----------------------------------------------------------
-float ofVideoPlayer::getHeight(){
-	if(	player != NULL ){
-		height = player->getHeight();
-	}
-	return (float)height;
-}
-
-//----------------------------------------------------------
 float ofVideoPlayer::getWidth(){
 	if(	player != NULL ){
 		width = player->getWidth();
 	}
 	return (float)width;
+}
+
+//----------------------------------------------------------
+float ofVideoPlayer::getHeight(){
+	if(	player != NULL ){
+		height = player->getHeight();
+	}
+	return (float)height;
 }
 
 //----------------------------------------------------------

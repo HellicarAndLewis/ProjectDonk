@@ -18,24 +18,24 @@ class ofDirectShowGrabber : public ofBaseVideoGrabber{
 		ofDirectShowGrabber();
 		virtual ~ofDirectShowGrabber();
 
-		void 			listDevices();
-		bool			initGrabber(int w, int h);
-		void			grabFrame();
+		void					listDevices();
+		bool					initGrabber(int w, int h);
+		void					grabFrame();
+		bool					isFrameNew();
 
-		void			videoSettings();
-		void			close();
+		unsigned char			* getPixels();
 		
-		void			clearMemory();
+		void					close();
+		void					clearMemory();
+
+		void					videoSettings();
 		
-		unsigned char	* getPixels();
-		bool			isFrameNew();
+		float					getWidth();
+		float					getHeight();
 
-		float			getWidth();
-		float			getHeight();
-
-		void			setVerbose(bool bTalkToMe);
-		void			setDeviceID(int _deviceID);
-		void			setDesiredFrameRate(int framerate);
+		void					setVerbose(bool bTalkToMe);
+		void					setDeviceID(int _deviceID);
+		void					setDesiredFrameRate(int framerate);
 		
 
 	protected:

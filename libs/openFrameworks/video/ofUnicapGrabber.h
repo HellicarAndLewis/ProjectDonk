@@ -17,25 +17,25 @@ class ofUnicapGrabber : public ofBaseVideoGrabber{
 		ofUnicapGrabber();
 		virtual ~ofUnicapGrabber();
 
-		bool			initGrabber(int w, int h);
-		void			grabFrame();
-		unsigned char	* getPixels();
+		void					listDevices();
+		bool					initGrabber(int w, int h);
+		void					grabFrame();
+		bool					isFrameNew();
+
+		unsigned char			* getPixels();
 		
-		void 			listDevices();
-		void			close();
+		void					close();
+		void					clearMemory();
 
-		void			videoSettings();
-				
-		void			clearMemory();
-		bool			isFrameNew();
+		void					videoSettings();
+		
+		float					getWidth();
+		float					getHeight();
 
-		float			getWidth();
-		float			getHeight();
-
-		void			setVerbose(bool bTalkToMe);
-		void			setDeviceID(int _deviceID);
-		void			setDesiredFrameRate(int framerate);			
-
+		void					setVerbose(bool bTalkToMe);
+		void					setDeviceID(int _deviceID);
+		void					setDesiredFrameRate(int framerate);
+		
 	protected:		
 		bool					bChooseDevice;
 		int						deviceID;

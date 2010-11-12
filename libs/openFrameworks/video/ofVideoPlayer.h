@@ -81,6 +81,9 @@ class ofVideoPlayer : public ofBaseVideo{
 
 	protected:
 		ofBaseVideoPlayer		* player;
+		
+		ofTexture tex;
+		bool bUseTexture;
 
 };
 #endif

@@ -14,6 +14,8 @@ ofVideoGrabber::ofVideoGrabber(){
 
 //--------------------------------------------------------------------
 ofVideoGrabber::~ofVideoGrabber(){
+	close();
+
 	if(	grabber != NULL ){
 		delete grabber;
 		grabber = NULL;

@@ -7,7 +7,14 @@
 
 //---------------------------------------------------------------------------
 ofGStreamerPlayer::ofGStreamerPlayer (){
-
+	bLoaded 					= false;
+	width 						= 0;
+	height						= 0;
+	speed 						= 1;
+	bStarted					= false;
+	nFrames						= 0;
+	bPaused						= true;
+	currentLoopState			= OF_LOOP_NORMAL;
 }
 
 //---------------------------------------------------------------------------
@@ -43,7 +50,6 @@ void ofGStreamerPlayer::idleMovie(){
 				bHavePixelsChanged = true;
 				width = gstUtils.getWidth();
 				height = gstUtils.getHeight();
-				tex.loadData(gstUtils.getPixels(), width, height, GL_RGB);
 			}
 
 		//--------------------------------------------------------------
@@ -71,6 +77,12 @@ void ofGStreamerPlayer::idleMovie(){
 }
 
 //---------------------------------------------------------------------------
+bool ofGStreamerPlayer::isFrameNew(){
+	return bIsFrameNew;
+}
+
+
+//---------------------------------------------------------------------------
 void ofGStreamerPlayer::closeMovie(){
 
     //--------------------------------------
@@ -94,14 +106,9 @@ bool ofGStreamerPlayer::loadMovie(string name){
 	//--------------------------------------
 
 		if(gstUtils.loadMovie(name)){
-			if(bUseTexture){
-				tex.allocate(gstUtils.getWidth(),gstUtils.getHeight(),GL_RGB);
-				tex.loadData(gstUtils.getPixels(), gstUtils.getWidth(), gstUtils.getHeight(), GL_RGB);
-			}
 			height = gstUtils.getHeight();
 			width  = gstUtils.getWidth();
 			bLoaded = true;
-			allocated = true;
 			ofLog(OF_LOG_VERBOSE,"ofGStreamerPlayer: movie loaded");
 			return true;
 		}else{
@@ -423,3 +430,40 @@ int ofGStreamerPlayer::getTotalNumFrames(){
 	//--------------------------------------
 
 }
+
+
+//---------------------------------------------------------------------------
+void ofGStreamerPlayer::clearMemory(){
+
+}
+
+//---------------------------------------------------------------------------
+float ofGStreamerPlayer::getSpeed(){
+	return speed;
+}
+
+//----------------------------------------------------------
+float ofGStreamerPlayer::getWidth(){
+	return (float)width;
+}
+
+//----------------------------------------------------------
+float ofGStreamerPlayer::getHeight(){
+	return (float)height;
+}
+
+//----------------------------------------------------------
+bool ofGStreamerPlayer::isPaused(){
+	return bPaused;
+}
+
+//----------------------------------------------------------
+bool ofGStreamerPlayer::isLoaded(){
+	return bLoaded;
+}
+
+//----------------------------------------------------------
+bool ofGStreamerPlayer::isPlaying(){
+	return bPlaying;
+}
+

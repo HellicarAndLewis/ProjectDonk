@@ -22,17 +22,18 @@ class ofQuickTimeGrabber : public ofBaseVideoGrabber{
 		ofQuickTimeGrabber();
 		virtual ~ofQuickTimeGrabber();
 
+		void					listDevices();
 		bool					initGrabber(int w, int h);
 		void					grabFrame();
-		
-		void					listDevices();
-		void					close();
-		void					videoSettings();
-		
-		void					clearMemory();
-		unsigned char			* getPixels();
 		bool					isFrameNew();
 
+		unsigned char			* getPixels();
+		
+		void					close();
+		void					clearMemory();
+
+		void					videoSettings();
+		
 		float					getWidth();
 		float					getHeight();
 
