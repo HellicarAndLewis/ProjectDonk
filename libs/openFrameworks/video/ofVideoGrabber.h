@@ -72,6 +72,7 @@ class ofVideoGrabber : public ofBaseVideo{
 		ofTexture tex;
 		bool bUseTexture;
 		ofBaseVideoGrabber		* grabber;
+		int RequestedDeviceID;
 
 };
 

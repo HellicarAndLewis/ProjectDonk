@@ -8,8 +8,9 @@
 
 //--------------------------------------------------------------------
 ofVideoGrabber::ofVideoGrabber(){
-	grabber			= NULL;
-	bUseTexture		= false;
+	grabber				= NULL;
+	bUseTexture			= false;
+	RequestedDeviceID	= -1;
 }
 
 //--------------------------------------------------------------------
@@ -20,7 +21,7 @@ ofVideoGrabber::~ofVideoGrabber(){
 		delete grabber;
 		grabber = NULL;
 	}	
-	
+		
 	tex.clear();
 }
 
@@ -47,6 +48,10 @@ bool ofVideoGrabber::initGrabber(int w, int h, bool setUseTexture){
 	
 	if( grabber == NULL ){
 		setGrabber( new OF_VID_GRABBER_TYPE );
+	}
+
+	if( RequestedDeviceID >= 0 ){
+		grabber->setDeviceID(RequestedDeviceID);
 	}
 
 	bool bOk = grabber->initGrabber(w, h);
@@ -76,8 +81,9 @@ void ofVideoGrabber::setVerbose(bool bTalkToMe){
 
 //--------------------------------------------------------------------
 void ofVideoGrabber::setDeviceID(int _deviceID){
-	if(	grabber != NULL ){
-		grabber->setDeviceID(_deviceID);
+	RequestedDeviceID = _deviceID;
+	if( grabber != NULL ){
+		ofLog(OF_LOG_WARNING, "call setDeviceID before grabber is started!");
 	}
 }
 
