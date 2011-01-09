@@ -14,6 +14,10 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
+	ofSetColor(0, 0, 0);
+	ofDrawBitmapString("Note: Key pressed doesn't currently work - so ESC / Apple Q isn't hooked up", 10, 20);
+	ofDrawBitmapString("Drag images from the finder into my window!", ofGetWidth()/2 - 200,	ofGetHeight()/2);
+
 	ofEnableAlphaBlending();
 	ofSetColor(255, 255, 255, 255);
 	for(int k = 0; k < img.size(); k++){

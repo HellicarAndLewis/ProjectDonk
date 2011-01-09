@@ -17,7 +17,7 @@ class ofBaseApp{
 		virtual void draw(){}
 		virtual void exit(){}
 
-		void filesDragged(vector <string> filePaths, ofPoint dragPos){ }
+		virtual void filesDragged(vector <string> filePaths, ofPoint dragPos){ }
 
 		virtual void windowResized(int w, int h){}
 

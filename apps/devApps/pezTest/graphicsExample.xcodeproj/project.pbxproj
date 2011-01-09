@@ -100,7 +100,7 @@
 		E45BE9770E8CC7DD009D7055 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		E45BE9790E8CC7DD009D7055 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		E45BE97A0E8CC7DD009D7055 /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
-		E4B69B5B0A3A1756003C02F2 /* graphicsExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = graphicsExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4B69B5B0A3A1756003C02F2 /* PezWindowWithDragFiles.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PezWindowWithDragFiles.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B69E1D0A3A1BDC003C02F2 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = src/main.cpp; sourceTree = SOURCE_ROOT; };
 		E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = testApp.cpp; path = src/testApp.cpp; sourceTree = SOURCE_ROOT; };
 		E4B69E1F0A3A1BDC003C02F2 /* testApp.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = testApp.h; path = src/testApp.h; sourceTree = SOURCE_ROOT; };
@@ -338,7 +338,7 @@
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
-				E4B69B5B0A3A1756003C02F2 /* graphicsExample.app */,
+				E4B69B5B0A3A1756003C02F2 /* PezWindowWithDragFiles.app */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
 				E4C2422310CC54B6004149E2 /* openFrameworks */,
@@ -454,9 +454,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E4B69B5A0A3A1756003C02F2 /* graphicsExample */ = {
+		E4B69B5A0A3A1756003C02F2 /* PezWindowWithDragFiles */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "graphicsExample" */;
+			buildConfigurationList = E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "PezWindowWithDragFiles" */;
 			buildPhases = (
 				E4B69B580A3A1756003C02F2 /* Sources */,
 				E4B69B590A3A1756003C02F2 /* Frameworks */,
@@ -469,9 +469,9 @@
 			dependencies = (
 				E4C2422810CC54DA004149E2 /* PBXTargetDependency */,
 			);
-			name = graphicsExample;
+			name = PezWindowWithDragFiles;
 			productName = myOFApp;
-			productReference = E4B69B5B0A3A1756003C02F2 /* graphicsExample.app */;
+			productReference = E4B69B5B0A3A1756003C02F2 /* PezWindowWithDragFiles.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -500,7 +500,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				E4B69B5A0A3A1756003C02F2 /* graphicsExample */,
+				E4B69B5A0A3A1756003C02F2 /* PezWindowWithDragFiles */,
 			);
 		};
 /* End PBXProject section */
@@ -824,7 +824,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "graphicsExample" */ = {
+		E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "PezWindowWithDragFiles" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E4B69B600A3A1757003C02F2 /* Debug */,
