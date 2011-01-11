@@ -320,7 +320,15 @@ FIBITMAP *  ofImage::getBmpFromPixels(ofPixels &pix){
 	int bpp						= pix.getBitsPerPixel();
 	int bytesPerPixel			= pix.getBytesPerPixel();
 
+	#ifdef TARGET_LITTLE_ENDIAN
+		pix.swapRgb();
+	#endif
+
 	bmp							= FreeImage_ConvertFromRawBits(pixels, w,h, w*bytesPerPixel, bpp, 0,0,0, true);
+
+	#ifdef TARGET_LITTLE_ENDIAN
+		pix.swapRgb();
+	#endif
 
 	//this is for grayscale images they need to be paletted from: http://sourceforge.net/forum/message.php?msg_id=2856879
 	if( pix.getImageType() == OF_IMAGE_GRAYSCALE ){
@@ -451,12 +459,7 @@ bool ofImage::loadImageIntoPixels(string fileName, ofPixels &pix){
 	//-----------------------------
 
 	if (bLoaded ){
-
 		putBmpIntoPixels(bmp,pix);
-
-
-	} else {
-		width = height = bpp = 0;
 	}
 
 	if (bmp != NULL){
@@ -503,8 +506,6 @@ bool ofImage::loadImageFromMemory(unsigned char * buffer, unsigned int numBytes,
 
 	if (bLoaded){
 		putBmpIntoPixels(bmp,pix);
-	} else {
-		width = height = bpp = 0;
 	}
 
 	if (bmp != NULL){
@@ -527,15 +528,8 @@ void  ofImage::saveImageFromPixels(string fileName, ofPixels &pix){
 		return;
 	}
 
-	#ifdef TARGET_LITTLE_ENDIAN
-		pix.swapRgb();
-	#endif
 
 	FIBITMAP * bmp	= getBmpFromPixels(pix);
-
-	#ifdef TARGET_LITTLE_ENDIAN
-		pix.swapRgb();
-	#endif
 
 	fileName = ofToDataPath(fileName);
 	if (pix.isAllocated()){
