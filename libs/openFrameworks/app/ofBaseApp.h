@@ -1,6 +1,14 @@
 #pragma once
 
 
+#include "ofPoint.h"
+
+typedef struct {
+	vector < string > files;
+	ofPoint position;
+} dragInfo;
+
+
 class ofBaseApp{
 
 	public:
@@ -30,7 +38,7 @@ class ofBaseApp{
 		virtual void audioReceived( float * input, int bufferSize, int nChannels ){}
 		virtual void audioRequested( float * output, int bufferSize, int nChannels ){}
 
-		virtual void dragEvent(vector < string > fileNames) { }
+		virtual void dragEvent(dragInfo info) { }
 	
 	
 		int mouseX, mouseY;			// for processing heads

@@ -45,9 +45,6 @@
     <ClInclude Include="..\..\..\openFrameworks\app\ofAppRunner.h">
       <Filter>libs\openFrameworks\app</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\openFrameworks\app\ofSimpleApp.h">
-      <Filter>libs\openFrameworks\app</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\openFrameworks\graphics\ofBitmapFont.h">
       <Filter>libs\openFrameworks\graphics</Filter>
     </ClInclude>
@@ -150,6 +147,12 @@
     <ClInclude Include="..\..\..\openFrameworks\math\ofVec4f.h">
       <Filter>libs\openFrameworks\math</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\openFrameworks\app\ofBaseApp.h">
+      <Filter>libs\openFrameworks\app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\openFrameworks\graphics\ofPixels.h">
+      <Filter>libs\openFrameworks\graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\openFrameworks\app\ofAppGlutWindow.cpp">
@@ -232,6 +235,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\openFrameworks\math\ofQuaternion.cpp">
       <Filter>libs\openFrameworks\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\openFrameworks\graphics\ofPixels.cpp">
+      <Filter>libs\openFrameworks\graphics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

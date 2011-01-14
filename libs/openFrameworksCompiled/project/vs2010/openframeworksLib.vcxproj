@@ -83,6 +83,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\openFrameworks\app\ofAppBaseWindow.h" />
+    <ClInclude Include="..\..\..\openFrameworks\app\ofBaseApp.h" />
+    <ClInclude Include="..\..\..\openFrameworks\graphics\ofPixels.h" />
     <ClInclude Include="..\..\..\openFrameworks\math\ofMath.h" />
     <ClInclude Include="..\..\..\openFrameworks\math\ofMatrix3x3.h" />
     <ClInclude Include="..\..\..\openFrameworks\math\ofMatrix4x4.h" />
@@ -94,7 +96,6 @@
     <ClInclude Include="..\..\..\openFrameworks\ofMain.h" />
     <ClInclude Include="..\..\..\openFrameworks\app\ofAppGlutWindow.h" />
     <ClInclude Include="..\..\..\openFrameworks\app\ofAppRunner.h" />
-    <ClInclude Include="..\..\..\openFrameworks\app\ofSimpleApp.h" />
     <ClInclude Include="..\..\..\openFrameworks\graphics\ofBitmapFont.h" />
     <ClInclude Include="..\..\..\openFrameworks\graphics\ofGraphics.h" />
     <ClInclude Include="..\..\..\openFrameworks\graphics\ofImage.h" />
@@ -130,6 +131,7 @@
     </ClCompile>
     <ClCompile Include="..\..\..\openFrameworks\graphics\ofGraphics.cpp" />
     <ClCompile Include="..\..\..\openFrameworks\graphics\ofImage.cpp" />
+    <ClCompile Include="..\..\..\openFrameworks\graphics\ofPixels.cpp" />
     <ClCompile Include="..\..\..\openFrameworks\graphics\ofTexture.cpp" />
     <ClCompile Include="..\..\..\openFrameworks\graphics\ofTrueTypeFont.cpp" />
     <ClCompile Include="..\..\..\openFrameworks\math\ofMath.cpp" />
