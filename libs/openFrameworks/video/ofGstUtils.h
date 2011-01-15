@@ -64,9 +64,9 @@ public:
 	bool setPipelineWithSink(string pipeline);
 
 	bool isFrameNew();
-	unsigned char * getPixels();
-	ofPixels getOFPixels();
-	ofPixels getOFPixels() const;
+	unsigned char * 	getPixels();
+	ofPixels			getPixelsReference();
+	ofPixels 			getPixelsCopy() const;
 	void update();
 
 	void play();
@@ -100,6 +100,8 @@ public:
 	void setFrameByFrame(bool bFrameByFrame);
 
 	void close();
+
+	GstElement * getPipeline(){return gstPipeline;}
 
 protected:
 	void 				gstHandleMessage();

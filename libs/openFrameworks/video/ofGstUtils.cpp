@@ -875,11 +875,11 @@ unsigned char * ofGstUtils::getPixels(){
 	return pixels.getPixels();
 }
 
-ofPixels ofGstUtils::getOFPixels(){
+ofPixels	ofGstUtils::getPixelsReference(){
 	return pixels;
 }
 
-ofPixels ofGstUtils::getOFPixels() const{
+ofPixels ofGstUtils::getPixelsCopy() const{
 	return pixels;
 }
 

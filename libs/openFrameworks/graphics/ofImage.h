@@ -56,8 +56,10 @@ class ofImage : public ofBaseImage{
 
 		// getting the data
 		unsigned char * 	getPixels();			// up to you to get this right
-		ofPixels		 	getOFPixels();
-		ofPixels		 	getOFPixels() const;
+
+		ofPixels			getPixelsReference();
+		ofPixels 			getPixelsCopy() const;
+
 
 		// alter the image
 		void 				setFromPixels(unsigned char * pixels, int w, int h, ofImageType type, bool bOrderIsRGB = true);

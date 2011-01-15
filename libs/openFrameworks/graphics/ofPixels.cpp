@@ -7,47 +7,56 @@
 
 #include "ofPixels.h"
 
-ofPixels::ofPixels(){
-	bAllocated = false;
-	pixels = NULL;
-	clear();
+ofPixels::Data::Data(){
+	pixels			= NULL;
+	width			= 0;
+	height			= 0;
+	bytesPerPixel	= 0;
+	bitsPerPixel	= 0;
+	bAllocated		= false;
+	glDataType		= GL_LUMINANCE;
+	imageType		= OF_IMAGE_UNDEFINED;
+
 }
 
-ofPixels::~ofPixels(){
-	clear();
-}
-
-ofPixels::ofPixels(const ofPixels & mom){
-	bAllocated = false;
-	pixels = NULL;
-	if(mom.isAllocated()){
-		allocate(mom.getWidth(),mom.getHeight(),mom.getImageType());
-		memcpy(pixels,mom.getPixels(),mom.getWidth()*mom.getHeight()*mom.getBytesPerPixel());
+ofPixels::Data::~Data(){
+	if(pixels){
+		delete[] pixels;
+		pixels = NULL;
 	}
 }
 
+ofPixels::ofPixels(): data(new Data){
 
-/*ofPixels::ofPixels(ofPixels && mom){
-	pixels = mom.pixels;
-	width = mom.width;
-	height = mom.height;
+}
 
-	bitsPerPixel = mom.bitsPerPixel;
-	bytesPerPixel = mom.bytesPerPixel;
-	glDataType = mom.glDataType;
-	imageType = mom.imageType;
-	bAllocated = mom.bAllocated;
+void ofPixels::convertToCopy(){
+	Data * newData = new Data(*data.get());
+	Data * oldData = data.get();
+	data.assign(newData);
+	if(data->bAllocated){
+		data->bAllocated=false;
+		data->pixels=NULL;
+		setFromPixels(oldData->pixels,data->width,data->height,data->imageType);
+	}
+}
 
-	mom.pixels = NULL;
-	mom.bAllocated = false;
-}*/
+/*ofPixels::ofPixels(ofPixels & mom,bool reference): data(reference?mom.data.get():new Data()){
+	if(!reference && mom.isAllocated()){
+		allocate(mom.getWidth(),mom.getHeight(),mom.getImageType());
+		memcpy(data->pixels,mom.getPixels(),mom.getWidth()*mom.getHeight()*mom.getBytesPerPixel());
+	}
+}
+
 
 void ofPixels::operator=(const ofPixels & mom){
-	if(mom.isAllocated()){
+	if(!mom.reference && mom.isAllocated()){
 		allocate(mom.getWidth(),mom.getHeight(),mom.getImageType());
-		memcpy(pixels,mom.getPixels(),mom.getWidth()*mom.getHeight()*mom.getBytesPerPixel());
+		memcpy(data->pixels,mom.getPixels(),mom.getWidth()*mom.getHeight()*mom.getBytesPerPixel());
+	}else if(mom.reference){
+		data.assign(mom.data.get());
 	}
-}
+}*/
 
 void ofPixels::allocate(int w, int h, int bitsPerPixel){
 	ofImageType type;
@@ -71,88 +80,78 @@ void ofPixels::allocate(int w, int h, int bitsPerPixel){
 void ofPixels::allocate(int w, int h, ofImageType type){
 
 	//we check if we are already allocated at the right size
-	if(bAllocated && w==width && h==height && type==imageType){
+	if(data->bAllocated && w==data->width && h==data->height && type==data->imageType){
 		return; //we don't need to allocate
 	}
 
 	//we do need to allocate, clear the data
 	clear();
 
-	imageType = type;
-	width= w;
-	height = h;
-	switch(imageType){
+	data->imageType = type;
+	data->width= w;
+	data->height = h;
+	switch(data->imageType){
 	case OF_IMAGE_GRAYSCALE:
-		bytesPerPixel = 1;
-		glDataType = GL_LUMINANCE;
+		data->bytesPerPixel = 1;
+		data->glDataType = GL_LUMINANCE;
 		break;
 	case OF_IMAGE_COLOR:
-		bytesPerPixel = 3;
-		glDataType = GL_RGB;
+		data->bytesPerPixel = 3;
+		data->glDataType = GL_RGB;
 		break;
 	case OF_IMAGE_COLOR_ALPHA:
-		bytesPerPixel = 4;
-		glDataType = GL_RGBA;
+		data->bytesPerPixel = 4;
+		data->glDataType = GL_RGBA;
 		break;
 	}
 
-	bitsPerPixel = bytesPerPixel * 8;
-	pixels = new unsigned char[w*h*bytesPerPixel];
-	bAllocated = true;
+	data->bitsPerPixel = data->bytesPerPixel * 8;
+	data->pixels = new unsigned char[w*h*data->bytesPerPixel];
+	data->bAllocated = true;
 
 }
 
 void ofPixels::set(unsigned char val){
-	memset(pixels,val,width*height*bytesPerPixel);
+	memset(data->pixels,val,data->width*data->height*data->bytesPerPixel);
 }
 
 void ofPixels::setFromPixels(unsigned char * newPixels,int w, int h, ofImageType newType){
 	allocate(w,h,newType);
-	memcpy(pixels,newPixels,w*h*bytesPerPixel);
+	memcpy(data->pixels,newPixels,w*h*data->bytesPerPixel);
 }
 
 
 void ofPixels::swapRgb(){
-	if (bitsPerPixel != 8){
-		int sizePixels		= width*height;
+	if (data->bitsPerPixel != 8){
+		int sizePixels		= data->width*data->height;
 		int cnt				= 0;
-		unsigned char * pixels_ptr = pixels;
+		unsigned char * pixels_ptr = data->pixels;
 
 		while (cnt < sizePixels){
 			std::swap(pixels_ptr[0],pixels_ptr[2]);
 			cnt++;
-			pixels_ptr+=bytesPerPixel;
+			pixels_ptr+=data->bytesPerPixel;
 		}
 	}
 }
 
 void ofPixels::clear(){
-	if(pixels){
-		delete[] pixels;
-		pixels = NULL;
-	}
-	width			= 0;
-	height			= 0;
-	bytesPerPixel	= 0;
-	bitsPerPixel	= 0;
-	bAllocated		= false;
-	glDataType		= GL_LUMINANCE;
-	imageType		= OF_IMAGE_UNDEFINED;
+	data.assign(new Data());
 }
 
 unsigned char * ofPixels::getPixels(){
-	return pixels;
+	return data->pixels;
 }
 
-unsigned char * const ofPixels::getPixels() const{
-	return pixels;
+const unsigned char * ofPixels::getPixels() const{
+	return data->pixels;
 }
 
 int ofPixels::getPixelIndex(int x, int y){
-	if( !bAllocated ){
+	if( !data->bAllocated ){
 		return 0;
 	}else{
-		return ( x + y * width ) * bytesPerPixel;
+		return ( x + y * data->width ) * data->bytesPerPixel;
 	}
 }
 
@@ -160,46 +159,50 @@ ofColor ofPixels::getPixel(int x, int y){
 	ofColor c;
 	int index = getPixelIndex(x, y);
 
-	if( bytesPerPixel == 1 ){
-		c.set( pixels[index] );
-	}else if( bytesPerPixel == 3 ){
-		c.set( pixels[index], pixels[index+1], pixels[index+2] );
-	}else if( bytesPerPixel == 4 ){
-		c.set( pixels[index], pixels[index+1], pixels[index+2], pixels[index+3] );
+	if( data->bytesPerPixel == 1 ){
+		c.set( data->pixels[index] );
+	}else if( data->bytesPerPixel == 3 ){
+		c.set( data->pixels[index], data->pixels[index+1], data->pixels[index+2] );
+	}else if( data->bytesPerPixel == 4 ){
+		c.set( data->pixels[index], data->pixels[index+1], data->pixels[index+2], data->pixels[index+3] );
 	}
 
 	return c;
 }
 
-unsigned char ofPixels::operator[](int pos){
-	return pixels[pos];
+unsigned char & ofPixels::operator[](int pos){
+	return data->pixels[pos];
+}
+
+unsigned char & ofPixels::at(int pos){
+	return data->pixels[pos];
 }
 
 bool ofPixels::isAllocated() const{
-	return bAllocated;
+	return data->bAllocated;
 }
 
 int ofPixels::getWidth() const{
-	return width;
+	return data->width;
 }
 
 int ofPixels::getHeight() const{
-	return height;
+	return data->height;
 }
 
 int ofPixels::getBytesPerPixel() const{
-	return bytesPerPixel;
+	return data->bytesPerPixel;
 }
 
 int ofPixels::getBitsPerPixel() const{
-	return bitsPerPixel;
+	return data->bitsPerPixel;
 }
 
 ofImageType ofPixels::getImageType() const{
-	return imageType;
+	return data->imageType;
 }
 
 int ofPixels::getGlDataType() const{
-	return glDataType;
+	return data->glDataType;
 }
 

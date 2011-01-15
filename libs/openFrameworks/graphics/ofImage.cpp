@@ -54,7 +54,9 @@ ofImage::ofImage(const ofImage& mom) {
 
 //----------------------------------------------------------
 ofImage::~ofImage(){
-	clear();
+	// we don't clear the pixels here in case there's a reference alive
+	// it will be cleared when the last reference is deleted
+	if(bUseTexture)	tex.clear();
 }
 
 //----------------------------------------------------------
@@ -176,11 +178,13 @@ unsigned char * ofImage::getPixels(){
 	return myPixels.getPixels();
 }
 
-ofPixels ofImage::getOFPixels(){
-	return myPixels;
+ofPixels ofImage::getPixelsCopy() const{
+	ofPixels pixelsCpy(myPixels);
+	pixelsCpy.convertToCopy();
+	return pixelsCpy;
 }
 
-ofPixels ofImage::getOFPixels() const{
+ofPixels ofImage::getPixelsReference(){
 	return myPixels;
 }
 
@@ -280,7 +284,7 @@ void ofImage::grabScreen(int _x, int _y, int _w, int _h){
 //------------------------------------
 void ofImage::clone(const ofImage &mom){
 
-	myPixels = mom.getOFPixels();
+	myPixels = mom.getPixelsCopy();
 
 	tex.clear();
 	bUseTexture = mom.bUseTexture;
@@ -592,12 +596,12 @@ void  ofImage::saveImageFromPixels(string fileName, ofPixels &pix){
 
 //----------------------------------------------------------
 float ofImage::getHeight(){
-	return height;
+	return myPixels.getHeight();
 }
 
 //----------------------------------------------------------
 float ofImage::getWidth(){
-	return width;
+	return myPixels.getWidth();
 }
 
 //----------------------------------------------------------

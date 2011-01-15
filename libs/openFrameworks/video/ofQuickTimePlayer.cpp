@@ -151,16 +151,6 @@ unsigned char * ofQuickTimePlayer::getPixels(){
 }
 
 //---------------------------------------------------------------------------
-ofPixels ofQuickTimePlayer::getOFPixels(){
-	return pixels;
-}
-
-//---------------------------------------------------------------------------
-ofPixels ofQuickTimePlayer::getOFPixels() const{
-	return pixels;
-}
-
-//---------------------------------------------------------------------------
 void ofQuickTimePlayer::update(){
 
 	if (bLoaded == true){

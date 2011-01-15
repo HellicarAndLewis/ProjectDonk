@@ -62,22 +62,14 @@ unsigned char * ofVideoPlayer::getPixels(){
 	return NULL;	
 }
 
-//
-//---------------------------------------------------------------------------
-//ofPixels ofVideoPlayer::getOFPixels(){
-//	if( player != NULL ){
-//		return player->getOFPixels();
-//	}
-//	return ofPixels();
-//}
-//
-//---------------------------------------------------------------------------
-//ofPixels ofVideoPlayer::getOFPixels() const{
-//	if( player != NULL ){
-//		return player->getOFPixels();
-//	}
-//	return ofPixels();
-//}
+ofPixels ofVideoPlayer::getPixelsReference(){
+	return player->getPixelsReference();
+}
+
+ofPixels ofVideoPlayer::getPixelsCopy() const{
+	return player->getPixelsCopy();
+}
+
 
 //---------------------------------------------------------------------------
 //for getting a reference to the texture

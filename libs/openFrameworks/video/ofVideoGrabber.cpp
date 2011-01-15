@@ -102,6 +102,15 @@ unsigned char * ofVideoGrabber::getPixels(){
 	return NULL;
 }
 
+
+ofPixels ofVideoGrabber::getPixelsReference(){
+	return grabber->getPixelsReference();
+}
+
+ofPixels ofVideoGrabber::getPixelsCopy() const{
+	return grabber->getPixelsCopy();
+}
+
 //------------------------------------
 //for getting a reference to the texture
 ofTexture & ofVideoGrabber::getTextureReference(){

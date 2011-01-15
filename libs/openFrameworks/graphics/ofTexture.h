@@ -114,6 +114,7 @@ class ofTexture : public ofBaseDraws{
 
 	void loadData(float * data, int w, int h, int glDataType);
 	void loadData(unsigned char * data, int w, int h, int glDataType);
+	void loadData(const ofPixels & pixels);
 
 	void loadScreenData(int x, int y, int w, int h);
 

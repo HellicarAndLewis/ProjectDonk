@@ -13,8 +13,10 @@
 #include "ofPoint.h"
 #include "ofRectangle.h"
 #include "ofConstants.h"
-class ofPixels;
+#include "Poco/SharedPtr.h"
 
+class ofPixels;
+typedef Poco::SharedPtr<ofPixels> ofPixelsRef;
 
 //----------------------------------------------------------
 // ofBaseDraws
@@ -73,6 +75,8 @@ class ofBaseHasPixels{
 public:
 	virtual ~ofBaseHasPixels(){}
 	virtual unsigned char * getPixels()=0;
+	virtual ofPixels getPixelsReference()=0;
+	virtual ofPixels getPixelsCopy() const=0;
 //	virtual ofPixels getOFPixels()=0;
 //	virtual ofPixels getOFPixels() const=0;
 };

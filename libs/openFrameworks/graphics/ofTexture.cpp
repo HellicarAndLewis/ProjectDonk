@@ -2,6 +2,7 @@
 #include "ofUtils.h"		// for nextPow2()
 #include "ofAppRunner.h"	// for getWidth()
 #include "ofGraphics.h"
+#include "ofPixels.h"
 
 static bool bTexHackEnabled = true;
 
@@ -162,6 +163,9 @@ void ofTexture::loadData(float * data, int w, int h, int glDataType){
 	loadData( (void *)data, w, h, glDataType);
 }
 
+void ofTexture::loadData(const ofPixels & pixels){
+	loadData( (void *)pixels.getPixels(),pixels.getWidth(),pixels.getHeight(),pixels.getGlDataType());
+}
 //----------------------------------------------------------
 void ofTexture::loadData(void * data, int w, int h, int glDataType){
 
