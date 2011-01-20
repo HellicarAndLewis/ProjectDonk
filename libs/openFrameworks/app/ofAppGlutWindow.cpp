@@ -274,7 +274,7 @@ void ofAppGlutWindow::initializeWindow(){
     glutReshapeFunc(resize_cb);
 	
 #ifdef TARGET_OSX
-	glutDragEventFunc(dragEvent);
+	//glutDragEventFunc(dragEvent);
 #endif 
 
     nFramesSinceWindowResized = 0;

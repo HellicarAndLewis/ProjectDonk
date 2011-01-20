@@ -1,0 +1,36 @@
+
+17/01/11
++ Got code working with 007 (had to comment out glutDragFunc in openframeworks lib)
++ Fixed a bug with viewports not rendering in the right places.
++ Tested 2 projector mode.
++ got projectors to show correctly
++ cleaned up ofxXmlGui a bit, added comments.
++ allow gui to edit both projectors
++ sent email to memo to see if he could add viewport functionality to ofCamera
++ gui on separate screen
+
+
+19/01/11
++ fixed ofxXmlGui to work with a tabbed interface if needed (like ofxSimpleGuiToo)
++ setup .gitignore
++ implement kinects as ofNodes
++ implement projectors as ofCameras
++ implement Viewports as ofCameras
++ save camera/kinect coords
++ fix viewports
++ add kinects to the scene
+
+
+20/01/11
++ made OBJ loader load normals and texCoords
+- fine tuning positioning
+- weird rotation of camera - put camera on top and see what it looks like when you rotate left and right
+- make it so projectors accurately display field of view
+- compile in release mode
+
+
+
+2 demos:
+	- Audio reactive on projection
+	- Kinect bubble demo
+

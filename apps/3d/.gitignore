@@ -1,0 +1,30 @@
+# hacked from openFrameworks .gitignore
+*.mode*
+*.pbxuser
+build/
+obj/
+*.o
+openFrameworks.a
+openFrameworksDebug.a
+openFrameworksUniversal.a
+*.app/
+
+
+#codeblocks files
+apps/*/*/*.layout
+apps/*/*/*.depend
+apps/*/*/bin/clickToLaunch*
+apps/*/*/bin/libs
+apps/*/*/obj
+
+#codeblocks OF lib files
+libs/openFrameworksCompiled/project/*/*.depend
+libs/openFrameworksCompiled/project/*/*.layout
+
+#linux temporary files
+*~
+#mac stuff
+.DS_Store
+
+*(Autosaved)*
+*/doc/html/
