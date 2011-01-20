@@ -40,17 +40,27 @@ public:
 
 		resetTransform();
 		if(rotateThenPosition) {
+			
+			
+			
 			rotate(rot.y, 1, 0, 0);
 			rotate(-rot.x, 0, 1, 0);
 			rotate(rot.z, 0, 0, 1);
-			move(pos.x, -pos.y, pos.z);
+			
+			ofVec3f p = pos;
+			p.rotate(rot.y, ofVec3f(1, 0, 0));
+			p.rotate(-rot.x, ofVec3f(0, 1, 0));
+			p.rotate(rot.z, ofVec3f(0, 0, 1));
+			setPosition(p);
+			
+			
+			//			move(pos.x, -pos.y, pos.z);
 		} else {
 			move(pos.x, -pos.y, pos.z);
 			rotate(rot.y, 1, 0, 0);
 			rotate(-rot.x, 0, 1, 0);
 			rotate(rot.z, 0, 0, 1);
-		}
-		
+		}		
 	}
 	
 	bool enabled;

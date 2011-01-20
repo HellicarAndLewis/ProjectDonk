@@ -54,7 +54,7 @@ bool ofxOBJModel::load(string path) {
 	// obj file format vertexes are 1-indexed
 	points.push_back(ofPoint());
 	normals.push_back(ofPoint());
-	
+	texCoords.push_back(ofPoint());
 	ifstream myfile (path.c_str());
 	if (myfile.is_open()) {
 		while (! myfile.eof()) {
@@ -446,6 +446,7 @@ ofRectangle ObjFace::get2DRect() {
 
 void ObjFace::draw(bool drawSolid) {
 	
+	// this is super slow drawing but it doesn't need to be fast.
 	if(drawSolid) {
 		if(points.size()==3) {
 			glBegin(GL_TRIANGLES);
@@ -464,12 +465,7 @@ void ObjFace::draw(bool drawSolid) {
 			glVertex3f(points[i].x, points[i].y, points[i].z);
 		}
 		glEnd();
-		for(int i = 0; i < points.size(); i++) {
-			glPushMatrix();
-			glTranslatef(points[i].x, points[i].y, points[i].z);
-			ofDrawBitmapString(ofToString(texCoords[i].x)+","+ofToString(texCoords[i].y), 0, 0);
-			glPopMatrix();
-		}
+		
 	} else {
 		glBegin(GL_LINE_LOOP);
 		for(int i = 0; i < points.size(); i++) {

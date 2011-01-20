@@ -31,6 +31,7 @@
 		EAAABF4212E86E25007DEA03 /* Viewport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAAABF3112E86E25007DEA03 /* Viewport.cpp */; };
 		EAAABF4312E86E25007DEA03 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAAABF3412E86E25007DEA03 /* main.cpp */; };
 		EAAABF4412E86E25007DEA03 /* Settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAAABF3912E86E25007DEA03 /* Settings.cpp */; };
+		EAAAC1DA12E8A1DC007DEA03 /* ProjectedRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAAAC1D912E8A1DC007DEA03 /* ProjectedRect.cpp */; };
 		EAC10BA612E742C000362420 /* Bubble.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAC10BA512E742C000362420 /* Bubble.cpp */; };
 		EAC12C1A12E6F94F0071CE8E /* testApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAC12C1812E6F94F0071CE8E /* testApp.cpp */; };
 		EAF9774F12E45B8D0009DBBE /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF9774212E45B8D0009DBBE /* GLUT.framework */; };
@@ -168,11 +169,13 @@
 		EAAABF3212E86E25007DEA03 /* Viewport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Viewport.h; sourceTree = "<group>"; };
 		EAAABF3312E86E25007DEA03 /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
 		EAAABF3412E86E25007DEA03 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		EAAABF3512E86E25007DEA03 /* ProjectedRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectedRect.h; sourceTree = "<group>"; };
 		EAAABF3612E86E25007DEA03 /* Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scene.h; sourceTree = "<group>"; };
 		EAAABF3812E86E25007DEA03 /* GLHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLHelpers.h; sourceTree = "<group>"; };
 		EAAABF3912E86E25007DEA03 /* Settings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Settings.cpp; sourceTree = "<group>"; };
 		EAAABF3A12E86E25007DEA03 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
+		EAAAC1CE12E8A0D9007DEA03 /* general.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = general.xml; path = bin/data/settings/general.xml; sourceTree = "<group>"; };
+		EAAAC1D812E8A1DC007DEA03 /* ProjectedRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectedRect.h; path = projection/ProjectedRect.h; sourceTree = "<group>"; };
+		EAAAC1D912E8A1DC007DEA03 /* ProjectedRect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ProjectedRect.cpp; path = projection/ProjectedRect.cpp; sourceTree = "<group>"; };
 		EAC10BA512E742C000362420 /* Bubble.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bubble.cpp; sourceTree = "<group>"; };
 		EAC12C1812E6F94F0071CE8E /* testApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = testApp.cpp; sourceTree = "<group>"; };
 		EAC12C1912E6F94F0071CE8E /* testApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testApp.h; sourceTree = "<group>"; };
@@ -229,6 +232,7 @@
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
+				EAAAC1CE12E8A0D9007DEA03 /* general.xml */,
 				E4B69B5B0A3A1756003C02F2 /* emptyExampleDebug.app */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				EAAABF1C12E86E25007DEA03 /* lib */,
@@ -437,10 +441,10 @@
 		EAAABF1C12E86E25007DEA03 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				EAAAC1DB12E8A1E2007DEA03 /* projection */,
 				EAAABF1D12E86E25007DEA03 /* app */,
 				EAAABF3312E86E25007DEA03 /* constants.h */,
 				EAAABF3412E86E25007DEA03 /* main.cpp */,
-				EAAABF3512E86E25007DEA03 /* ProjectedRect.h */,
 				EAAABF3612E86E25007DEA03 /* Scene.h */,
 				EAAABF3712E86E25007DEA03 /* util */,
 			);
@@ -505,6 +509,15 @@
 				EAAABF3A12E86E25007DEA03 /* Settings.h */,
 			);
 			path = util;
+			sourceTree = "<group>";
+		};
+		EAAAC1DB12E8A1E2007DEA03 /* projection */ = {
+			isa = PBXGroup;
+			children = (
+				EAAAC1D812E8A1DC007DEA03 /* ProjectedRect.h */,
+				EAAAC1D912E8A1DC007DEA03 /* ProjectedRect.cpp */,
+			);
+			name = projection;
 			sourceTree = "<group>";
 		};
 		EAF9774112E45B8D0009DBBE /* frameworks */ = {
@@ -617,7 +630,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "# /Applications/Doxygen.app/Contents/Resources/doxygen /Work/openFrameworks/apps/3d/emptyExample/doc/Doxyfile\necho \"Generating documentation\"\nDOXYGEN_PATH=/Applications/Doxygen.app/Contents/Resources/doxygen\nif [ -x $DOXYGEN_PATH ]; then\n\techo \"Found doxygen\"\n\t$DOXYGEN_PATH $PROJECT_DIR/doc/Doxyfile\nelse\n\techo \"Doxygen not found!\"\nfi\n";
+			shellScript = "echo \"Generating documentation\"\n\nDOXYGEN_PATH=/Applications/Doxygen.app/Contents/Resources/doxygen\n\nif [ -x $DOXYGEN_PATH ]; then\n\techo \"Found doxygen\"\n\techo $PROJECT_DIR\n\tpwd\n\t$DOXYGEN_PATH $PROJECT_DIR/doc/Doxyfile\nelse\n\techo \"Doxygen not found!\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -650,6 +663,7 @@
 				EAAABF4212E86E25007DEA03 /* Viewport.cpp in Sources */,
 				EAAABF4312E86E25007DEA03 /* main.cpp in Sources */,
 				EAAABF4412E86E25007DEA03 /* Settings.cpp in Sources */,
+				EAAAC1DA12E8A1DC007DEA03 /* ProjectedRect.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

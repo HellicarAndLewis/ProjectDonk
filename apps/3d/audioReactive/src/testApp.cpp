@@ -48,8 +48,8 @@ void testApp::drawView() {
 
 void testApp::drawFace(vector<ofPoint> &points) {
 	
-	ofFbo *tex = &bubbles.fbo;
-	tex->getTexture(0).bind();
+	ProjectedRect *tex = &bubbles;
+	tex->bind();
 	if(points.size()==4) {
 		glBegin(GL_QUADS);
 	} else {
@@ -65,7 +65,7 @@ void testApp::drawFace(vector<ofPoint> &points) {
 	}
 	glEnd();
 	
-	tex->getTexture(0).unbind();
+	tex->unbind();
 }
 
 void testApp::audioReceived(float *input, int bufferSize, int numChannels) {

@@ -85,7 +85,7 @@ void Projector::begin() {
 	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(ofMatrix4x4::getInverseOf(getGlobalTransformMatrix()).getPtr());
-	ofViewport(x, ofGetHeight() - (height+y), width, height);
+	glViewport(x, ofGetHeight() - (height+y), width, height);
 	
 }
 

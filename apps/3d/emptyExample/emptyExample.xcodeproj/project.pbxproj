@@ -608,7 +608,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "# /Applications/Doxygen.app/Contents/Resources/doxygen /Work/openFrameworks/apps/3d/emptyExample/doc/Doxyfile\necho \"Generating documentation\"\nDOXYGEN_PATH=/Applications/Doxygen.app/Contents/Resources/doxygen\nif [ -x $DOXYGEN_PATH ]; then\n\techo \"Found doxygen\"\n\t$DOXYGEN_PATH $PROJECT_DIR/doc/Doxyfile\nelse\n\techo \"Doxygen not found!\"\nfi\n";
+			shellScript = "\necho \"Generating documentation\"\nDOXYGEN_PATH=/Applications/Doxygen.app/Contents/Resources/doxygen\nif [ -x $DOXYGEN_PATH ]; then\n\techo \"Found doxygen\"\n\t$DOXYGEN_PATH $PROJECT_DIR/doc/Doxyfile\nelse\n\techo \"Doxygen not found!\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

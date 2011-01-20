@@ -121,52 +121,9 @@ void OrthoViewport::begin() {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 //	glLoadMatrixf(ofMatrix4x4::getInverseOf(getGlobalTransformMatrix()).getPtr());
-	ofViewport(x, ofGetHeight() - (height+y), width, height);
+	glViewport(x, ofGetHeight() - (height+y), width, height);
 	
 }
 void OrthoViewport::end() {
 	
 }
-/*
-void OrthoViewport::positionView() {
-	positionViewport();
-	
-	
-	glMatrixMode (GL_PROJECTION);						// Select The Projection Matrix
-	glLoadIdentity ();							// Reset The Projection Matrix
-	
-	
-	float aspect = width/height;
-	float size = scale;
-	glOrtho(-size/2, size/2, -size/(2*aspect), size/(2*aspect), -10000, 10000);
-
-	//glScalef(scale, scale, scale);
-	glTranslatef(translation.x, translation.y, 0);
-	switch(type) {
-		case Viewport_FRONT: break;
-		case Viewport_BACK:
-			glRotatef(180, 0, 1, 0);
-			break;
-		case Viewport_TOP: 
-			glRotatef(90, 1, 0, 0);
-			break;
-		case Viewport_BOTTOM: 
-			glRotatef(-90, 1, 0, 0);
-			break;
-		case Viewport_LEFT:
-			glRotatef(90, 0, 1, 0);
-			break;
-		case Viewport_RIGHT:
-			glRotatef(-90, 0, 1, 0);
-			break;
-		case Viewport_ROTATABLE:
-			glRotatef(rotation.x, 1, 0, 0);
-			glRotatef(rotation.y, 0, 1, 0);
-			break;
-	}
-	
-	
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-}
-*/
