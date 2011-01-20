@@ -23,8 +23,6 @@ public:
 	
 	// custom stuff
 	void drawFace(vector<ofPoint> &points);
-	ofImage img;
-	//ofLight light;
 	
 	// inherited methods
 	void setup();

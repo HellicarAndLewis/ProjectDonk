@@ -9,7 +9,7 @@
 
 
 #include "testApp.h"
-ofFbo test;
+
 
 
 void testApp::setup() {
@@ -18,21 +18,18 @@ void testApp::setup() {
 	ofSetFrameRate(60.f);
 	
 	ofBackground(0, 0, 0);
-	img.loadImage("of.jpg");
-	 
-	//glEnable(GL_LIGHT0);
- 
-	ofSoundStreamSetup(0, 1, this, 44100, 256, 1);
+	
 	
 	bubbles.setup(1000, 1000);
-	test.setup(1280, 720);
-
+	
+	
+	ofSoundStreamSetup(0, 1, this, 44100, 256, 1);
 }
 
 void testApp::update() {
 	bubbles.update();
 	if(volume>0.7) {
-		bubbles.spawn(ofVec2f(ofGetWidth()/2, ofGetHeight()));
+		bubbles.spawn(ofVec2f(bubbles.getWidth()/2, bubbles.getHeight()/2));
 	}
 }
 

@@ -45,10 +45,25 @@ public:
 				}
 			}
 		}
+		// check if bubbles have disappeared off the edge
+		// (This doesn't work perfectly.)
+		for(int i = 0; i < bubbles.size(); i++) {
+			if(bubbles[i].pos.x+bubbles[i].radius<0
+			   ||
+			   bubbles[i].pos.y+bubbles[i].radius<0
+			   ||
+			   bubbles[i].pos.x-bubbles[i].radius>getWidth()
+			   ||
+			   bubbles[i].pos.y-bubbles[i].radius>getHeight()) {
+				
+				bubbles.erase(bubbles.begin()+i);
+				i--;
+			}
+		}
 	}
 	
 	void draw() {
-//		ofClear(0, 0, 0, 0);
+		//ofClear(100, 0, 0, 255);
 		glDisable(GL_DEPTH_TEST);
 		for(int i = 0; i < bubbles.size(); i++) bubbles[i].draw();
 	}

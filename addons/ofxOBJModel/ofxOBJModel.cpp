@@ -13,6 +13,8 @@
 #ifndef FLT_MAX
 	#include <float.h>
 #endif
+// makes the code look nicer.
+#define FOR_EACH_POINT_IN_MESH for(int i = 0; i < faces.size(); i++) for(int j = 0; j < faces[i]->points.size(); j++)
 
 #pragma mark string utils
 std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {
@@ -112,7 +114,30 @@ bool ofxOBJModel::load(string path) {
 		
 		
 		myfile.close();
-		
+//#define NORMALIZE_TEXCOORDS 
+#ifdef NORMALIZE_TEXCOORDS
+			ofPoint pmin(FLT_MAX, FLT_MAX);
+			ofPoint pmax(FLT_MIN, FLT_MIN);
+			for(int i = 0; i < texCoords.size(); i++) {
+				if(texCoords[i].x<pmin.x) pmin.x = texCoords[i].x;
+				if(texCoords[i].y<pmin.y) pmin.y = texCoords[i].y;
+				
+				if(texCoords[i].x>pmax.x) pmax.x = texCoords[i].x;
+				if(texCoords[i].y>pmax.y) pmax.y = texCoords[i].y;
+			}
+			
+			for(int k = 0; k < meshes.size(); k++) 
+			for(int i = 0; i < meshes[k]->faces.size(); i++) 
+				for(int j = 0; j < meshes[k]->faces[i]->texCoords.size(); j++) {
+					ofPoint p = meshes[k]->faces[i]->texCoords[j];
+					
+					p.x = ofMap(p.x, pmin.x, pmax.x, 0, 1);
+					p.y = ofMap(p.y, pmin.y, pmax.y, 0, 1);
+					
+					meshes[k]->faces[i]->texCoords[j] = p;
+
+				}
+#endif
 		printf("Successfully loaded %s\n-----\nVertices: %d\nMeshes: %d\nNormals: %d\nTexCoords: %d\n", path.c_str(), points.size(), meshes.size(), normals.size(), texCoords.size());
 		
 		return true;
@@ -283,8 +308,7 @@ void ObjMesh::draw(bool drawSolid) {
 		faces[i]->draw(drawSolid);
 	}
 }
-// makes the code look nicer.
-#define FOR_EACH_POINT_IN_MESH for(int i = 0; i < faces.size(); i++) for(int j = 0; j < faces[i]->points.size(); j++)
+
 
 void ObjMesh::getBounds(ofPoint *minPoint, ofPoint *maxPoint) {
 	minPoint->x = minPoint->y = minPoint->z = FLT_MAX;

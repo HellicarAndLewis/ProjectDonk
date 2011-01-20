@@ -19,9 +19,9 @@ public:
 			init();
 		}
 		brightness = ofRandom(0.5, 1.0);
-		radius = ofRandom(10, 50);
-		vel = ofVec2f(0.f, -1);
-		seed = ofRandom(0.001, 0.002);
+		radius = radiusBase = ofRandom(10, 50);
+		vel = ofVec2f(0.f, ofRandom(-1, 1));
+		seed = ofRandom(0.4, 1.3);
 	}
 	float seed;
 	void update() {
@@ -30,7 +30,7 @@ public:
 					  ofRandom(-0.2, 0.2),
 					  0
 		);
-
+		radius = radiusBase + (radiusBase *0.4)*sin(seed+ofGetElapsedTimef()*seed);
 	}
 	void draw() {
 		ofFill();
@@ -42,6 +42,7 @@ public:
 	
 	
 	float radius;
+	float radiusBase;
 	ofVec2f pos;
 	ofVec2f vel;
 	
