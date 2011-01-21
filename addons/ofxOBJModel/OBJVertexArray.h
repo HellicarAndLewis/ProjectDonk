@@ -120,7 +120,7 @@ public:
 				}
 			}
 			
-			printf("Successfully loaded %s\n-----\nVertices: %d\nIndices: %d\n", path.c_str(), (int)points.size(), (int)indices.size());
+			ofLog(OF_LOG_NOTICE, "Successfully loaded %s\n-----\nVertices: %d\nIndices: %d\n", path.c_str(), (int)points.size(), (int)indices.size());
 			
 			if(bCalculateFlatNormals) {
 				calculateFlatNormals();
@@ -128,7 +128,7 @@ public:
 			//calculateSmoothNormals();
 			return true;
 		} else {
-			printf("Couldn't find the OBJ file %s\n", path.c_str());
+			ofLog(OF_LOG_ERROR, "Couldn't find the OBJ file %s\n", path.c_str());
 			return false;
 		}
 	}
@@ -329,7 +329,7 @@ public:
 	ofPoint parseVertex(string line) {
 		ofPoint p;
 		if(line.find("v ")!=0 && line.find("vn ")!=0) {
-			printf("Error, line does not have vertex info in it: \"%s\"\n", line.c_str());
+			ofLog(OF_LOG_ERROR, "Error, line does not have vertex info in it: \"%s\"\n", line.c_str());
 			return p;
 		}
 		if(line.find("v ")==0) {
@@ -340,7 +340,7 @@ public:
 		
 		vector<string> elements = ofSplitString(line, " ");
 		if(elements.size()!=3) {
-			printf("Error line does not have 3 coordinates: \"%s\"\n", line.c_str());
+			ofLog(OF_LOG_ERROR, "Error line does not have 3 coordinates: \"%s\"\n", line.c_str());
 			return p;
 		}
 		

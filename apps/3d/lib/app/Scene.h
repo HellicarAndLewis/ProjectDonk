@@ -13,6 +13,8 @@ public:
 	/** Loads the scene from XML */
 	Scene();
 	
+	/** Disconnects the kinects */
+	~Scene();
 	/**
 	 * Returns the model of the scene
 	 */

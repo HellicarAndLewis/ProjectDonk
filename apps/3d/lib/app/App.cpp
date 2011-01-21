@@ -11,6 +11,7 @@
 #include "GLHelpers.h"
 
 App::App() {
+	ofSetLogLevel(OF_LOG_NOTICE);
 	scene = new Scene();
 	viewports = new ViewportGui(scene);
 	sceneGui = new SceneGui(scene);
@@ -30,6 +31,7 @@ App::App() {
 
 	viewports->enable();
 	sceneGui->enable();
+	
 }
 
 void App::drawAllProjectors() {

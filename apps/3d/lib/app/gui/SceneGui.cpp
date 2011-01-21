@@ -33,8 +33,12 @@ SceneGui::SceneGui(Scene *scene): Enableable() {
 	for(int i = 0; i < scene->kinects.size(); i++) {
 		gui.addPage(scene->kinects[i]->name);
 		gui.addToggle("enabled", scene->kinects[i]->enabled);
-		gui.addPanner("z", scene->kinects[i]->pos.z, -10, 10);
-		gui.addSlider2D("position", scene->kinects[i]->pos, -10, 10, -10, 10);
+		
+		gui.addSlider2D("xy position", scene->kinects[i]->pos, -10, 10, -10, 10);
+		gui.addPanner("z position", scene->kinects[i]->pos.z, -10, 10);
+		gui.addSlider2D("xy rotation", scene->kinects[i]->rot, -180, 180, -180, 180);
+		gui.addPanner("z rotation", scene->kinects[i]->rot.z, -180, 180);
+		
 	}
 	gui.setPage(0);
 	

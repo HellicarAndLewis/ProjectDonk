@@ -23,6 +23,11 @@ Scene::Scene() {
 	
 	for(int i = 0; i < numKinects; i++) {
 		kinects.push_back(new Kinect("kinect " + ofToString(i+1)));
+		if(!kinects.back()->open()) {
+			ofLog(OF_LOG_ERROR, "Failed to open %s\n", kinects.back()->name.c_str());
+		} else {
+			ofLog(OF_LOG_NOTICE, "Successfully %s\n", kinects.back()->name.c_str());
+		}
 	}
 	
 	for(int i = 0; i < numProjectors; i++) {
@@ -30,11 +35,17 @@ Scene::Scene() {
 		if(usingFirstScreenForGuiOnly) offset++;
 		projectors.push_back(new Projector("proj " + ofToString(i+1), projectorWidth*(i+offset), 0, projectorWidth, projectorHeight));
 
-		printf("projector %d is (%f %f %f %f)\n", i, projectors.back()->x, projectors.back()->y, projectors.back()->width, projectors.back()->height);
+		ofLog(OF_LOG_NOTICE, "projector %d is (%f %f %f %f)\n", i, projectors.back()->x, projectors.back()->y, projectors.back()->width, projectors.back()->height);
 	}
 	model = new Model();
 }
 
+
+Scene::~Scene() {
+	for(int i = 0; i < kinects.size(); i++) {
+		kinects[i]->close();
+	}
+}
 Model *Scene::getModel() {
 	return model;
 }

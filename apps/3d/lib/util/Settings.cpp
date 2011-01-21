@@ -13,7 +13,7 @@ void Settings::load(string path) {
 	data.clear();
 	ofxXmlSettings xml;
 	if(!xml.loadFile(xmlFilePath)) {
-		printf("Can't load xml from %s\n", xmlFilePath.c_str());
+		ofLog(OF_LOG_WARNING, "Can't load xml from %s\n", xmlFilePath.c_str());
 	}
 	
 	xml.pushTag("properties");
@@ -35,7 +35,7 @@ void Settings::load(string path) {
 bool Settings::save(string path) {
 	if(path!="") xmlFilePath = path;
 	if(xmlFilePath=="") {
-		printf("Error, no xml file specified\n");
+		ofLog(OF_LOG_ERROR, "Error, no xml file specified\n");
 		return false;
 	}
 	
@@ -53,7 +53,7 @@ bool Settings::save(string path) {
 		i++;
 	}
 	xml.saveFile(xmlFilePath);
-	printf("Saved to %s\n", xmlFilePath.c_str());
+	ofLog(OF_LOG_NOTICE, "Saved to %s\n", xmlFilePath.c_str());
 	return true;
 }
 

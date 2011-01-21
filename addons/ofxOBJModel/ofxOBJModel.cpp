@@ -138,11 +138,11 @@ bool ofxOBJModel::load(string path) {
 
 				}
 #endif
-		printf("Successfully loaded %s\n-----\nVertices: %d\nMeshes: %d\nNormals: %d\nTexCoords: %d\n", path.c_str(), points.size(), meshes.size(), normals.size(), texCoords.size());
+		ofLog(OF_LOG_NOTICE, "Successfully loaded %s\n-----\nVertices: %d\nMeshes: %d\nNormals: %d\nTexCoords: %d\n", path.c_str(), points.size(), meshes.size(), normals.size(), texCoords.size());
 		
 		return true;
 	} else {
-		printf("Couldn't find the OBJ file %s\n", path.c_str());
+		ofLog(OF_LOG_ERROR, "Couldn't find the OBJ file %s\n", path.c_str());
 		return false;
 	}
 }
@@ -186,7 +186,7 @@ bool ofxOBJModel::save(string file) {
 		myfile.close();
 		return true;
 	} else {
-		printf("Could not write to file\n");
+		ofLog(OF_LOG_ERROR, "Could not write to file\n");
 		return false;
 	}
 	
@@ -199,7 +199,7 @@ ofPoint ofxOBJModel::parseCoords(string line) {
 	line = line.substr(line.find(" ")+1);
 	vector<string> elements = split(line, ' ');
 	if(elements.size()<2) {
-		printf("Error line does not have at least 2 coordinates: \"%s\"\n", line.c_str());
+		ofLog(OF_LOG_ERROR, "Error line does not have at least 2 coordinates: \"%s\"\n", line.c_str());
 		return p;
 	}
 	p.x = atof(elements[0].c_str());
@@ -218,14 +218,14 @@ ofPoint ofxOBJModel::parseCoords(string line) {
 ofPoint ofxOBJModel::parseVertex(string line) {
 	ofPoint p;
 	if(line.find("v ")!=0) {
-		printf("Warning, line does not have vertex info in it: \"%s\"\n", line.c_str());
+		ofLog(OF_LOG_ERROR, "Warning, line does not have vertex info in it: \"%s\"\n", line.c_str());
 		return p;
 	}
 	line = line.substr(2);
 	
 	vector<string> elements = split(line, ' ');
 	if(elements.size()!=3) {
-		printf("Error line does not have 3 coordinates: \"%s\"\n", line.c_str());
+		ofLog(OF_LOG_ERROR, "Error line does not have 3 coordinates: \"%s\"\n", line.c_str());
 		return p;
 	}
 	
@@ -280,7 +280,7 @@ ObjMesh *ofxOBJModel::getMesh(string name) {
 			return meshes[i];
 		}
 	}
-	printf("\n--------\nWarning Warning!!!! No mesh named '%s', the program will probably crash.\nPlease update the OBJ file in cinema 4d to have a mesh called '%s'\n", name.c_str(), name.c_str());
+	ofLog(OF_LOG_WARNING, "\n--------\nWarning Warning!!!! No mesh named '%s', the program will probably crash.\nPlease update the OBJ file in cinema 4d to have a mesh called '%s'\n", name.c_str(), name.c_str());
 	return NULL;
 }
 
