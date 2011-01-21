@@ -21,16 +21,17 @@
 		EA1593BB12D6198100F34EF3 /* ColorUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA1593B012D6198100F34EF3 /* ColorUtils.cpp */; };
 		EA1593BC12D6198100F34EF3 /* StringUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA1593B312D6198100F34EF3 /* StringUtils.cpp */; };
 		EA350AA512E4951200F93F15 /* ofxXmlGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA350AA312E4951200F93F15 /* ofxXmlGui.cpp */; };
-		EA849FF912E73BC30086CBFE /* App.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA849FDD12E73BC30086CBFE /* App.cpp */; };
-		EA849FFA12E73BC30086CBFE /* SceneGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA849FE012E73BC30086CBFE /* SceneGui.cpp */; };
-		EA849FFB12E73BC30086CBFE /* ViewportGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA849FE412E73BC30086CBFE /* ViewportGui.cpp */; };
-		EA849FFC12E73BC30086CBFE /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA849FE712E73BC30086CBFE /* Model.cpp */; };
-		EA849FFD12E73BC30086CBFE /* Projector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA849FE912E73BC30086CBFE /* Projector.cpp */; };
-		EA849FFE12E73BC30086CBFE /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA849FEB12E73BC30086CBFE /* Scene.cpp */; };
-		EA849FFF12E73BC30086CBFE /* OrthoViewport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA849FEE12E73BC30086CBFE /* OrthoViewport.cpp */; };
-		EA84A00012E73BC30086CBFE /* Viewport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA849FF012E73BC30086CBFE /* Viewport.cpp */; };
-		EA84A00112E73BC30086CBFE /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA849FF312E73BC30086CBFE /* main.cpp */; };
-		EA84A00212E73BC30086CBFE /* Settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA849FF712E73BC30086CBFE /* Settings.cpp */; };
+		EAB6F52712E9ED0B0025041E /* App.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6F50712E9ED0B0025041E /* App.cpp */; };
+		EAB6F52812E9ED0B0025041E /* SceneGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6F50B12E9ED0B0025041E /* SceneGui.cpp */; };
+		EAB6F52912E9ED0B0025041E /* ViewportGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6F50E12E9ED0B0025041E /* ViewportGui.cpp */; };
+		EAB6F52A12E9ED0B0025041E /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6F51112E9ED0B0025041E /* Model.cpp */; };
+		EAB6F52B12E9ED0B0025041E /* Projector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6F51312E9ED0B0025041E /* Projector.cpp */; };
+		EAB6F52C12E9ED0B0025041E /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6F51512E9ED0B0025041E /* Scene.cpp */; };
+		EAB6F52D12E9ED0B0025041E /* OrthoViewport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6F51812E9ED0B0025041E /* OrthoViewport.cpp */; };
+		EAB6F52E12E9ED0B0025041E /* Viewport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6F51A12E9ED0B0025041E /* Viewport.cpp */; };
+		EAB6F52F12E9ED0B0025041E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6F51D12E9ED0B0025041E /* main.cpp */; };
+		EAB6F53012E9ED0B0025041E /* ProjectedRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6F52012E9ED0B0025041E /* ProjectedRect.cpp */; };
+		EAB6F53112E9ED0B0025041E /* Settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6F52512E9ED0B0025041E /* Settings.cpp */; };
 		EAC12C1A12E6F94F0071CE8E /* testApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAC12C1812E6F94F0071CE8E /* testApp.cpp */; };
 		EAF9774F12E45B8D0009DBBE /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF9774212E45B8D0009DBBE /* GLUT.framework */; };
 		EAF9775012E45B8D0009DBBE /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF9774312E45B8D0009DBBE /* AppKit.framework */; };
@@ -145,30 +146,33 @@
 		EA3509F612E48FD300F93F15 /* GuiTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiTitle.h; sourceTree = "<group>"; };
 		EA350AA312E4951200F93F15 /* ofxXmlGui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxXmlGui.cpp; sourceTree = "<group>"; };
 		EA350AA412E4951200F93F15 /* ofxXmlGui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxXmlGui.h; sourceTree = "<group>"; };
-		EA849FDD12E73BC30086CBFE /* App.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = App.cpp; sourceTree = "<group>"; };
-		EA849FDE12E73BC30086CBFE /* App.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = App.h; sourceTree = "<group>"; };
-		EA849FE012E73BC30086CBFE /* SceneGui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneGui.cpp; sourceTree = "<group>"; };
-		EA849FE112E73BC30086CBFE /* SceneGui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneGui.h; sourceTree = "<group>"; };
-		EA849FE212E73BC30086CBFE /* Enableable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enableable.h; sourceTree = "<group>"; };
-		EA849FE412E73BC30086CBFE /* ViewportGui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ViewportGui.cpp; sourceTree = "<group>"; };
-		EA849FE512E73BC30086CBFE /* ViewportGui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewportGui.h; sourceTree = "<group>"; };
-		EA849FE612E73BC30086CBFE /* Kinect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Kinect.h; sourceTree = "<group>"; };
-		EA849FE712E73BC30086CBFE /* Model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Model.cpp; sourceTree = "<group>"; };
-		EA849FE812E73BC30086CBFE /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
-		EA849FE912E73BC30086CBFE /* Projector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Projector.cpp; sourceTree = "<group>"; };
-		EA849FEA12E73BC30086CBFE /* Projector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Projector.h; sourceTree = "<group>"; };
-		EA849FEB12E73BC30086CBFE /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
-		EA849FEC12E73BC30086CBFE /* Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scene.h; sourceTree = "<group>"; };
-		EA849FEE12E73BC30086CBFE /* OrthoViewport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OrthoViewport.cpp; sourceTree = "<group>"; };
-		EA849FEF12E73BC30086CBFE /* OrthoViewport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrthoViewport.h; sourceTree = "<group>"; };
-		EA849FF012E73BC30086CBFE /* Viewport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Viewport.cpp; sourceTree = "<group>"; };
-		EA849FF112E73BC30086CBFE /* Viewport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Viewport.h; sourceTree = "<group>"; };
-		EA849FF212E73BC30086CBFE /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
-		EA849FF312E73BC30086CBFE /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		EA849FF412E73BC30086CBFE /* Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scene.h; sourceTree = "<group>"; };
-		EA849FF612E73BC30086CBFE /* GLHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLHelpers.h; sourceTree = "<group>"; };
-		EA849FF712E73BC30086CBFE /* Settings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Settings.cpp; sourceTree = "<group>"; };
-		EA849FF812E73BC30086CBFE /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
+		EAB6F50712E9ED0B0025041E /* App.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = App.cpp; sourceTree = "<group>"; };
+		EAB6F50812E9ED0B0025041E /* App.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = App.h; sourceTree = "<group>"; };
+		EAB6F50A12E9ED0B0025041E /* Enableable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enableable.h; sourceTree = "<group>"; };
+		EAB6F50B12E9ED0B0025041E /* SceneGui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneGui.cpp; sourceTree = "<group>"; };
+		EAB6F50C12E9ED0B0025041E /* SceneGui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneGui.h; sourceTree = "<group>"; };
+		EAB6F50E12E9ED0B0025041E /* ViewportGui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ViewportGui.cpp; sourceTree = "<group>"; };
+		EAB6F50F12E9ED0B0025041E /* ViewportGui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewportGui.h; sourceTree = "<group>"; };
+		EAB6F51012E9ED0B0025041E /* Kinect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Kinect.h; sourceTree = "<group>"; };
+		EAB6F51112E9ED0B0025041E /* Model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Model.cpp; sourceTree = "<group>"; };
+		EAB6F51212E9ED0B0025041E /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
+		EAB6F51312E9ED0B0025041E /* Projector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Projector.cpp; sourceTree = "<group>"; };
+		EAB6F51412E9ED0B0025041E /* Projector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Projector.h; sourceTree = "<group>"; };
+		EAB6F51512E9ED0B0025041E /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
+		EAB6F51612E9ED0B0025041E /* Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scene.h; sourceTree = "<group>"; };
+		EAB6F51812E9ED0B0025041E /* OrthoViewport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OrthoViewport.cpp; sourceTree = "<group>"; };
+		EAB6F51912E9ED0B0025041E /* OrthoViewport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrthoViewport.h; sourceTree = "<group>"; };
+		EAB6F51A12E9ED0B0025041E /* Viewport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Viewport.cpp; sourceTree = "<group>"; };
+		EAB6F51B12E9ED0B0025041E /* Viewport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Viewport.h; sourceTree = "<group>"; };
+		EAB6F51C12E9ED0B0025041E /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
+		EAB6F51D12E9ED0B0025041E /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		EAB6F51F12E9ED0B0025041E /* Plane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plane.h; sourceTree = "<group>"; };
+		EAB6F52012E9ED0B0025041E /* ProjectedRect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProjectedRect.cpp; sourceTree = "<group>"; };
+		EAB6F52112E9ED0B0025041E /* ProjectedRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectedRect.h; sourceTree = "<group>"; };
+		EAB6F52212E9ED0B0025041E /* Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scene.h; sourceTree = "<group>"; };
+		EAB6F52412E9ED0B0025041E /* GLHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLHelpers.h; sourceTree = "<group>"; };
+		EAB6F52512E9ED0B0025041E /* Settings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Settings.cpp; sourceTree = "<group>"; };
+		EAB6F52612E9ED0B0025041E /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
 		EAC12C1812E6F94F0071CE8E /* testApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = testApp.cpp; sourceTree = "<group>"; };
 		EAC12C1912E6F94F0071CE8E /* testApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testApp.h; sourceTree = "<group>"; };
 		EAF9774212E45B8D0009DBBE /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = SOURCE_ROOT; };
@@ -226,6 +230,7 @@
 			children = (
 				E4B69B5B0A3A1756003C02F2 /* emptyExampleDebug.app */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
+				EAB6F50512E9ED0B0025041E /* lib */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
 				E4C2422310CC54B6004149E2 /* openFrameworks */,
 				BB4B014C10F69532006C3DED /* addons */,
@@ -236,7 +241,6 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				EA849FDB12E73BC30086CBFE /* lib */,
 				EAC12C1812E6F94F0071CE8E /* testApp.cpp */,
 				EAC12C1912E6F94F0071CE8E /* testApp.h */,
 			);
@@ -426,74 +430,85 @@
 			path = util;
 			sourceTree = "<group>";
 		};
-		EA849FDB12E73BC30086CBFE /* lib */ = {
+		EAB6F50512E9ED0B0025041E /* lib */ = {
 			isa = PBXGroup;
 			children = (
-				EA849FDC12E73BC30086CBFE /* app */,
-				EA849FF212E73BC30086CBFE /* constants.h */,
-				EA849FF312E73BC30086CBFE /* main.cpp */,
-				EA849FF412E73BC30086CBFE /* Scene.h */,
-				EA849FF512E73BC30086CBFE /* util */,
+				EAB6F50612E9ED0B0025041E /* app */,
+				EAB6F51C12E9ED0B0025041E /* constants.h */,
+				EAB6F51D12E9ED0B0025041E /* main.cpp */,
+				EAB6F51E12E9ED0B0025041E /* projection */,
+				EAB6F52212E9ED0B0025041E /* Scene.h */,
+				EAB6F52312E9ED0B0025041E /* util */,
 			);
 			name = lib;
 			path = ../lib;
 			sourceTree = SOURCE_ROOT;
 		};
-		EA849FDC12E73BC30086CBFE /* app */ = {
+		EAB6F50612E9ED0B0025041E /* app */ = {
 			isa = PBXGroup;
 			children = (
-				EA849FDD12E73BC30086CBFE /* App.cpp */,
-				EA849FDE12E73BC30086CBFE /* App.h */,
-				EA849FDF12E73BC30086CBFE /* gui */,
-				EA849FE612E73BC30086CBFE /* Kinect.h */,
-				EA849FE712E73BC30086CBFE /* Model.cpp */,
-				EA849FE812E73BC30086CBFE /* Model.h */,
-				EA849FE912E73BC30086CBFE /* Projector.cpp */,
-				EA849FEA12E73BC30086CBFE /* Projector.h */,
-				EA849FEB12E73BC30086CBFE /* Scene.cpp */,
-				EA849FEC12E73BC30086CBFE /* Scene.h */,
-				EA849FED12E73BC30086CBFE /* viewport */,
+				EAB6F50712E9ED0B0025041E /* App.cpp */,
+				EAB6F50812E9ED0B0025041E /* App.h */,
+				EAB6F50912E9ED0B0025041E /* gui */,
+				EAB6F51012E9ED0B0025041E /* Kinect.h */,
+				EAB6F51112E9ED0B0025041E /* Model.cpp */,
+				EAB6F51212E9ED0B0025041E /* Model.h */,
+				EAB6F51312E9ED0B0025041E /* Projector.cpp */,
+				EAB6F51412E9ED0B0025041E /* Projector.h */,
+				EAB6F51512E9ED0B0025041E /* Scene.cpp */,
+				EAB6F51612E9ED0B0025041E /* Scene.h */,
+				EAB6F51712E9ED0B0025041E /* viewport */,
 			);
 			path = app;
 			sourceTree = "<group>";
 		};
-		EA849FDF12E73BC30086CBFE /* gui */ = {
+		EAB6F50912E9ED0B0025041E /* gui */ = {
 			isa = PBXGroup;
 			children = (
-				EA849FE012E73BC30086CBFE /* SceneGui.cpp */,
-				EA849FE112E73BC30086CBFE /* SceneGui.h */,
-				EA849FE212E73BC30086CBFE /* Enableable.h */,
-				EA849FE312E73BC30086CBFE /* viewport */,
+				EAB6F50A12E9ED0B0025041E /* Enableable.h */,
+				EAB6F50B12E9ED0B0025041E /* SceneGui.cpp */,
+				EAB6F50C12E9ED0B0025041E /* SceneGui.h */,
+				EAB6F50D12E9ED0B0025041E /* viewport */,
 			);
 			path = gui;
 			sourceTree = "<group>";
 		};
-		EA849FE312E73BC30086CBFE /* viewport */ = {
+		EAB6F50D12E9ED0B0025041E /* viewport */ = {
 			isa = PBXGroup;
 			children = (
-				EA849FE412E73BC30086CBFE /* ViewportGui.cpp */,
-				EA849FE512E73BC30086CBFE /* ViewportGui.h */,
+				EAB6F50E12E9ED0B0025041E /* ViewportGui.cpp */,
+				EAB6F50F12E9ED0B0025041E /* ViewportGui.h */,
 			);
 			path = viewport;
 			sourceTree = "<group>";
 		};
-		EA849FED12E73BC30086CBFE /* viewport */ = {
+		EAB6F51712E9ED0B0025041E /* viewport */ = {
 			isa = PBXGroup;
 			children = (
-				EA849FEE12E73BC30086CBFE /* OrthoViewport.cpp */,
-				EA849FEF12E73BC30086CBFE /* OrthoViewport.h */,
-				EA849FF012E73BC30086CBFE /* Viewport.cpp */,
-				EA849FF112E73BC30086CBFE /* Viewport.h */,
+				EAB6F51812E9ED0B0025041E /* OrthoViewport.cpp */,
+				EAB6F51912E9ED0B0025041E /* OrthoViewport.h */,
+				EAB6F51A12E9ED0B0025041E /* Viewport.cpp */,
+				EAB6F51B12E9ED0B0025041E /* Viewport.h */,
 			);
 			path = viewport;
 			sourceTree = "<group>";
 		};
-		EA849FF512E73BC30086CBFE /* util */ = {
+		EAB6F51E12E9ED0B0025041E /* projection */ = {
 			isa = PBXGroup;
 			children = (
-				EA849FF612E73BC30086CBFE /* GLHelpers.h */,
-				EA849FF712E73BC30086CBFE /* Settings.cpp */,
-				EA849FF812E73BC30086CBFE /* Settings.h */,
+				EAB6F51F12E9ED0B0025041E /* Plane.h */,
+				EAB6F52012E9ED0B0025041E /* ProjectedRect.cpp */,
+				EAB6F52112E9ED0B0025041E /* ProjectedRect.h */,
+			);
+			path = projection;
+			sourceTree = "<group>";
+		};
+		EAB6F52312E9ED0B0025041E /* util */ = {
+			isa = PBXGroup;
+			children = (
+				EAB6F52412E9ED0B0025041E /* GLHelpers.h */,
+				EAB6F52512E9ED0B0025041E /* Settings.cpp */,
+				EAB6F52612E9ED0B0025041E /* Settings.h */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -630,16 +645,17 @@
 				EA1593BC12D6198100F34EF3 /* StringUtils.cpp in Sources */,
 				EA350AA512E4951200F93F15 /* ofxXmlGui.cpp in Sources */,
 				EAC12C1A12E6F94F0071CE8E /* testApp.cpp in Sources */,
-				EA849FF912E73BC30086CBFE /* App.cpp in Sources */,
-				EA849FFA12E73BC30086CBFE /* SceneGui.cpp in Sources */,
-				EA849FFB12E73BC30086CBFE /* ViewportGui.cpp in Sources */,
-				EA849FFC12E73BC30086CBFE /* Model.cpp in Sources */,
-				EA849FFD12E73BC30086CBFE /* Projector.cpp in Sources */,
-				EA849FFE12E73BC30086CBFE /* Scene.cpp in Sources */,
-				EA849FFF12E73BC30086CBFE /* OrthoViewport.cpp in Sources */,
-				EA84A00012E73BC30086CBFE /* Viewport.cpp in Sources */,
-				EA84A00112E73BC30086CBFE /* main.cpp in Sources */,
-				EA84A00212E73BC30086CBFE /* Settings.cpp in Sources */,
+				EAB6F52712E9ED0B0025041E /* App.cpp in Sources */,
+				EAB6F52812E9ED0B0025041E /* SceneGui.cpp in Sources */,
+				EAB6F52912E9ED0B0025041E /* ViewportGui.cpp in Sources */,
+				EAB6F52A12E9ED0B0025041E /* Model.cpp in Sources */,
+				EAB6F52B12E9ED0B0025041E /* Projector.cpp in Sources */,
+				EAB6F52C12E9ED0B0025041E /* Scene.cpp in Sources */,
+				EAB6F52D12E9ED0B0025041E /* OrthoViewport.cpp in Sources */,
+				EAB6F52E12E9ED0B0025041E /* Viewport.cpp in Sources */,
+				EAB6F52F12E9ED0B0025041E /* main.cpp in Sources */,
+				EAB6F53012E9ED0B0025041E /* ProjectedRect.cpp in Sources */,
+				EAB6F53112E9ED0B0025041E /* Settings.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

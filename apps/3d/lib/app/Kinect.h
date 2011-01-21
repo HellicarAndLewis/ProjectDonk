@@ -2,6 +2,7 @@
 
 #pragma once
 #include "ofMain.h"
+#include "ofxKinect.h"
 
 /**
  * \brief Wrapper for a kinect device and its position in the real world.
@@ -41,4 +42,6 @@ public:
 	
 	bool enabled;
 	string name;
+private:
+	ofxKinect kinect;
 };
