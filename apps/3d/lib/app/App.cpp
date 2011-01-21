@@ -49,20 +49,24 @@ void App::_draw(ofEventArgs &e) {
 	drawAllProjectors();
 	if(guiEnabled) {
 		ScopedGLCapability depth(GL_DEPTH_TEST, false);
-		ofViewport();
+		glViewport(0, 0, ofGetWidth(), ofGetHeight());
+//		ofViewport();
 		ofSetupScreen();
 		viewports->draw();
-		ofViewport();
+//		ofViewport();
+		glViewport(0, 0, ofGetWidth(), ofGetHeight());
 		ofSetupScreen();
 		sceneGui->draw();
 		
 	}
 }
+ofPoint lastMouse;
 void App::_mousePressed(ofMouseEventArgs &e) {
 	if(guiEnabled) {
 		viewports->mousePressed(e.x, e.y, e.button);
 		sceneGui->mousePressed(e.x, e.y, e.button);
 	}
+	lastMouse = ofPoint(e.x, e.y);
 }
 void App::_mouseMoved(ofMouseEventArgs &e) {
 	if(guiEnabled) {
@@ -70,11 +74,16 @@ void App::_mouseMoved(ofMouseEventArgs &e) {
 		sceneGui->mouseMoved(e.x, e.y);
 	}
 }
+
 void App::_mouseDragged(ofMouseEventArgs &e) {
+	ofPoint currMouse = ofPoint(e.x, e.y);
 	if(guiEnabled) {
 		viewports->mouseDragged(e.x, e.y, e.button);
 		sceneGui->mouseDragged(e.x, e.y, e.button);
+	} else {
 	}
+	
+	lastMouse = currMouse;
 }
 void App::_mouseReleased(ofMouseEventArgs &e) {
 	if(guiEnabled) {

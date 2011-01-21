@@ -312,7 +312,7 @@ void ofFbo::createAndAttachTexture(GLenum attachmentPoint) {
 void ofFbo::begin() {
 	bind();
 	ofPushView();
-	ofViewport(0, 0, getWidth(), getHeight());
+	glViewport(0, 0, getWidth(), getHeight());
 	ofSetupScreenPerspective(getWidth(), getHeight(), false);
 }
 

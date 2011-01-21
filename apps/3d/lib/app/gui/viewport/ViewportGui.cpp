@@ -40,7 +40,8 @@ ViewportGui::~ViewportGui() {
 void ViewportGui::draw() {
 	if(!enabled) return;
 	ofSetupScreen();
-	ofViewport();
+	//ofViewport();
+	glViewport(0, 0, ofGetWidth(), ofGetHeight());
 	for(int i = 0; i < viewports.size(); i++) {
 		ofFill();
 		ofSetHexColor(OFXXMLGUI_DEFAULT_BG_COLOR);
