@@ -22,7 +22,6 @@ public:
 	void mouseReleased(float x, float y, int button);
 	void mouseDragged(float x, float y, int button);
 	void mouseMoved(float x, float y);
-	
 	void draw();
 	
 private:

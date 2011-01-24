@@ -18,7 +18,7 @@ public:
 		enabled = false;
 	}
 	bool getEnabled() { return enabled; }
-	void setEnabled(bool enabled) { this->enabled = enabled; }
+	virtual void setEnabled(bool enabled) { this->enabled = enabled; }
 	
 	void enable()  { setEnabled(true); }
 	void disable() { setEnabled(false); }

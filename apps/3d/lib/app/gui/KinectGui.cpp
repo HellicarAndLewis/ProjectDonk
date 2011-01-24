@@ -13,15 +13,21 @@ KinectGui::KinectGui(Scene *scene) {
 	this->scene = scene;
 	setKinects(scene->kinects);
 	currKinectIndex = 0;
-	kinectSelector.setup(10, 10, 150);
+	kinectSelector.setup(10, 10, 250);
 	vector<string> kinectNameList;
+
+	//kinectSelector.addTitle("Kinect Calibrator");
+
 	for(int i = 0; i < kinects.size(); i++) {
-		kinectNameList.push_back(kinects[i]->name);
+		kinectSelector.addPage(kinects[i]->name);
+		kinectSelector.addSlider("near clip", kinects[i]->nearClip, 0, 255);
+		kinectSelector.addSlider("far clip", kinects[i]->farClip, 0, 255);
+		kinectSelector.addToggle("flip x", kinects[i]->flipX);
+		kinectSelector.addToggle("flip y", kinects[i]->flipY);
+		
 	}
-	kinectSelector.addTitle("Kinect Selector");
-	kinectSelector.addList("", currKinectIndex, kinectNameList);
 	
-	
+	kinectSelector.enableAutoSave("kinects.xml");
 	// we want events to come through
 	// from the app, not through the oF events mechanism.
 	kinectSelector.disable();
@@ -55,6 +61,7 @@ void KinectGui::setKinects(vector<Kinect*> &kinects) {
 	}
 }
 
+
 void KinectGui::draw() {
 	if(!enabled) return;
 	kinectSelector.draw();
@@ -81,5 +88,6 @@ void KinectGui::draw() {
 	rect.y += 10;
 	rect.width -= 20;
 	rect.height -= 20;
+	kinects[currKinectIndex]->drawCalibration(rect);
 	
 }

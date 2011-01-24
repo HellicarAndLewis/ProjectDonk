@@ -31,7 +31,9 @@ void testApp::drawView() {
 	scene->getModel()->draw(false);
 }
 
-
+void testApp::blobMoved(int blobId, ofPoint centroid) {
+	
+}
 
 
 void testApp::keyPressed  (int key) {

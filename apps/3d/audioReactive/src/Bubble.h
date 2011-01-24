@@ -14,7 +14,7 @@ public:
 	ofColor color;
 	float brightness;
 	Bubble() {
-		color.setHsb(ofRandom(110, 150), 50, 255, 255);
+		color.setHsb(ofRandom(0, 360), 100, 255, 255);
 		if(!inited) {
 			init();
 		}
@@ -33,11 +33,12 @@ public:
 		radius = radiusBase + (radiusBase *0.4)*sin(seed+ofGetElapsedTimef()*seed);
 	}
 	void draw() {
+//		printf("Bubble\n");
 		ofFill();
-		ofSetColor(color.r, color.g, color.b, 40*brightness);
-		ofCircle(pos.x, pos.y, radius);
 		ofSetColor(color);
-		img.draw(pos.x, pos.y, radius*2, radius*2);
+		ofCircle(pos.x, pos.y, radius);
+//		ofSetColor(color);
+//		img.draw(pos.x, pos.y, radius*2, radius*2);
 	}
 	
 	

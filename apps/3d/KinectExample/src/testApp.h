@@ -16,7 +16,7 @@
  * you don't use to draw to the screen, but to any FBO's which might be needed
  * by drawView() - so you don't have to draw them for each camera.
  */
-class testApp: public App {
+class testApp: public App, public BlobListener {
 public:
 	
 	
@@ -36,4 +36,6 @@ public:
 	void mousePressed(int x, int y, int button);
 	void mouseReleased(int x, int y, int button);
 	void windowResized(int w, int h);
+	
+	void blobMoved(int blobId, ofPoint centroid);
 };

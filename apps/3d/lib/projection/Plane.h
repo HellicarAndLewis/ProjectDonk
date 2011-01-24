@@ -29,21 +29,21 @@ public:
 		
 		
 		// calculate non-normalized coefficients of the plane equation.
-		A = p1.y * (p2.z - p3.z) + p2.y * (p3.z - p1.z) + p3.y * (p1.z - p2.z);
-		B = p1.z * (p2.x - p3.x) + p2.z * (p3.x - p1.x) + p3.z * (p1.x - p2.x);
-		C = p1.x * (p2.y - p3.y) + p2.x * (p3.y - p1.y) + p3.x * (p1.y - p2.y);
-		D = -(p1.x * (p2.y * p3.z - p3.y * p2.z) + p2.x * (p3.y * p1.z - p1.y * p3.z) + p3.x * (p1.y * p2.z - p2.y * p1.z));
+		a = p1.y * (p2.z - p3.z) + p2.y * (p3.z - p1.z) + p3.y * (p1.z - p2.z);
+		b = p1.z * (p2.x - p3.x) + p2.z * (p3.x - p1.x) + p3.z * (p1.x - p2.x);
+		c = p1.x * (p2.y - p3.y) + p2.x * (p3.y - p1.y) + p3.x * (p1.y - p2.y);
+		d = -(p1.x * (p2.y * p3.z - p3.y * p2.z) + p2.x * (p3.y * p1.z - p1.y * p3.z) + p3.x * (p1.y * p2.z - p2.y * p1.z));
 		
 		// calculate normalized version
-		float coeff = 1.f/sqrt(A*A + B*B + C*C);
-		A *= coeff;
-		B *= coeff;
-		C *= coeff;
-		D *= coeff;
+		float coeff = 1.f/sqrt(a*a + b*b + c*c);
+		a *= coeff;
+		b *= coeff;
+		c *= coeff;
+		d *= coeff;
 	}
 	
 	Plane() {
-		A = B = C = D = 0.5;
+		a = b = c = d = 0.5;
 	}
 	
 	/**
@@ -56,17 +56,17 @@ public:
 	void solve(ofPoint &p, int which) {
 		if(which==PLANE_X) {
 			// x  = - (By + Cz + D)/A
-			p.x = -(B*p.y + C*p.z + D)/A;
+			p.x = -(b*p.y + c*p.z + d)/a;
 		} else if(which==PLANE_Y) {
 			// y = -(Ax + Cz + D)/B
-			p.y = -(A*p.x + C*p.z + D)/B;
+			p.y = -(a*p.x + c*p.z + d)/b;
 		} else if(which==PLANE_Z) {
 			// z = - (Ax + By + D)/C
-			p.z = -(A*p.x + B*p.y + D)/C;
+			p.z = -(a*p.x + b*p.y + d)/c;
 		}
 	}
 	ofVec3f getNormal() {
-		return ofVec3f(A, B, C);
+		return ofVec3f(a, b, c);
 	}
 	
 	
@@ -75,7 +75,7 @@ public:
 	
 	
 	float distanceToPoint(ofVec3f p) {
-		return A*p.x + B*p.y + C*p.z + D;
+		return a*p.x + b*p.y + c*p.z + d;
 	}
 	
 	/**
@@ -102,10 +102,10 @@ public:
 	}
 
 private:
-	float A; // x-coefficient
-	float B; // y-coefficient
-	float C; // z-coefficient
-	float D; // constant
+	float a; // x-coefficient
+	float b; // y-coefficient
+	float c; // z-coefficient
+	float d; // constant
 	
 	void drawQuad(ofPoint *p) {
 		glEnableClientState(GL_VERTEX_ARRAY);

@@ -1,0 +1,6 @@
+<values>
+    <value controlId="near clip" value="213.562500000"></value>
+    <value controlId="far clip" value="241.187500000"></value>
+    <value controlId="flip x" value="true"></value>
+    <value controlId="flip y" value="false"></value>
+</values>
