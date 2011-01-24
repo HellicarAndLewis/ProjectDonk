@@ -20,7 +20,7 @@ Kinect::Kinect(string name): ofNode() {
 	kinectColours = NULL;
 	nearClip = 0;
 	farClip = 255;
-	calibrationImage = NULL;
+	thresholdedPixels = NULL;
 	flipX = false;
 	flipY = false;
 }
@@ -40,12 +40,16 @@ bool Kinect::open() {
 	}
 	running = kinect.open();
 	if(running) {
-		int numPx = kinect.getWidth()*kinect.getHeight();
-		calibrationImage = new unsigned char[numPx];
+		int numPx			= kinect.getWidth()*kinect.getHeight();
+		
+		thresholdedPixels	= new unsigned char[numPx];
+		depths				= new unsigned char[numPx];
+		
 		thresholded.allocate(kinect.getWidth(), kinect.getHeight());
-		numKinectCoords = kinect.getWidth()*kinect.getHeight()/(KINECT_RESOLUTION*KINECT_RESOLUTION);
-		kinectCoords = new ofVec3f[numKinectCoords];
-		kinectColours = new ofVec3f[numKinectCoords];
+		numKinectCoords		= kinect.getWidth()*kinect.getHeight()/(KINECT_RESOLUTION*KINECT_RESOLUTION);
+		
+		kinectCoords		= new ofVec3f[numKinectCoords];
+		kinectColours		= new ofVec3f[numKinectCoords];
 
 	}
 	return running;
@@ -85,12 +89,12 @@ void Kinect::update() {
 void Kinect::doVision() {
 	// get depth pixels
 	int numPx = kinect.getWidth()*kinect.getHeight();
-	memcpy(calibrationImage, kinect.getDepthPixels(), numPx);
+	memcpy(depths, kinect.getDepthPixels(), numPx);
 	
 	doThreshold();
 	
 	// load into a cvImage
-	thresholded.setFromPixels(calibrationImage, kinect.getWidth(), kinect.getHeight());
+	thresholded.setFromPixels(thresholdedPixels, kinect.getWidth(), kinect.getHeight());
 	
 	// flip as required
 	if(flipX || flipY) thresholded.mirror(flipY, flipX);
@@ -150,10 +154,10 @@ void Kinect::doThreshold() {
 	}
 	for(int i = 0; i < numPx; i++) {
 		// clamp and normalize
-		if(calibrationImage[i]>minValue && calibrationImage[i]<maxValue) {
-			calibrationImage[i] = 255;
+		if(depths[i]>minValue && depths[i]<maxValue) {
+			thresholdedPixels[i] = 255;
 		} else {
-			calibrationImage[i] = 0;
+			thresholdedPixels[i] = 0;
 		}
 	}
 }
@@ -205,12 +209,9 @@ float Kinect::getHeight() {
 	return kinect.getHeight();
 }
 void Kinect::drawCalibration(ofRectangle rect) {
-	if(calibrationImage!=NULL) {
+	if(thresholdedPixels!=NULL) {
 		kinect.draw(rect.x, rect.y, rect.width/2, rect.height/2);
 		thresholded.draw(rect.x+rect.width/2, rect.y, rect.width/2, rect.height/2);
 		contourFinder.draw(rect.x+rect.width/2, rect.y, rect.width/2, rect.height/2);
-//		calibrationTexture.loadData(calibrationImage, kinect.getWidth(), kinect.getHeight(), GL_LUMINANCE);
-	
-//		calibrationTexture.draw(rect);
 	}
 }

@@ -100,7 +100,7 @@ private:
 	
 	BlobTracker blobTracker;
 	
-	unsigned char *calibrationImage;
+	unsigned char *thresholdedPixels;
 	unsigned char *depths;
 	
 	ofxCvGrayscaleImage thresholded;
