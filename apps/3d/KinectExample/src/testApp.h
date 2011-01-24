@@ -8,6 +8,7 @@
  */
 #pragma once
 #include "App.h"
+#include "Bubbles2.h"
 
 /**
  * Just like the regular testApp, but it implements App instead of ofBaseApp.
@@ -26,7 +27,7 @@ public:
 	void setup();
 	void update();
 
-	
+	void render();
 	void drawView();
 	
 	void keyPressed  (int key);
@@ -37,5 +38,9 @@ public:
 	void mouseReleased(int x, int y, int button);
 	void windowResized(int w, int h);
 	
+	// blob methods
 	void blobMoved(int blobId, ofPoint centroid);
+	
+	// demo specific
+	Bubbles2 bubbles;
 };

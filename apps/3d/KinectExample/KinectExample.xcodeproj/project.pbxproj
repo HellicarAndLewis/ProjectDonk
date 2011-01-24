@@ -106,6 +106,7 @@
 		EAB6FCB112EDBAE60025041E /* ProjectedRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6FC9D12EDBAE60025041E /* ProjectedRect.cpp */; };
 		EAB6FCB212EDBAE60025041E /* Settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6FCA212EDBAE60025041E /* Settings.cpp */; };
 		EAB6FCC712EDBBDE0025041E /* ofxCvKalman.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6FCC512EDBBDE0025041E /* ofxCvKalman.cpp */; };
+		EAB6FF5112EDC64E0025041E /* Bubble2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6FF4E12EDC64E0025041E /* Bubble2.cpp */; };
 		EAC12C1A12E6F94F0071CE8E /* testApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAC12C1812E6F94F0071CE8E /* testApp.cpp */; };
 		EAF9774F12E45B8D0009DBBE /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF9774212E45B8D0009DBBE /* GLUT.framework */; };
 		EAF9775012E45B8D0009DBBE /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF9774312E45B8D0009DBBE /* AppKit.framework */; };
@@ -414,6 +415,10 @@
 		EAB6FCB312EDBB960025041E /* BlobListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlobListener.h; sourceTree = "<group>"; };
 		EAB6FCC512EDBBDE0025041E /* ofxCvKalman.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxCvKalman.cpp; sourceTree = "<group>"; };
 		EAB6FCC612EDBBDE0025041E /* ofxCvKalman.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxCvKalman.h; sourceTree = "<group>"; };
+		EAB6FF4E12EDC64E0025041E /* Bubble2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bubble2.cpp; sourceTree = "<group>"; };
+		EAB6FF4F12EDC64E0025041E /* Bubble2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bubble2.h; sourceTree = "<group>"; };
+		EAB6FF5012EDC64E0025041E /* Bubbles2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bubbles2.h; sourceTree = "<group>"; };
+		EAB6FF5D12EDC7490025041E /* general.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = general.xml; path = bin/data/settings/general.xml; sourceTree = "<group>"; };
 		EAC12C1812E6F94F0071CE8E /* testApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = testApp.cpp; sourceTree = "<group>"; };
 		EAC12C1912E6F94F0071CE8E /* testApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testApp.h; sourceTree = "<group>"; };
 		EAF9774212E45B8D0009DBBE /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = SOURCE_ROOT; };
@@ -528,6 +533,7 @@
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
+				EAB6FF5D12EDC7490025041E /* general.xml */,
 				E4B69B5B0A3A1756003C02F2 /* KinectExampleDebug.app */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				EAB6FC7D12EDBAE60025041E /* lib */,
@@ -541,6 +547,9 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				EAB6FF4E12EDC64E0025041E /* Bubble2.cpp */,
+				EAB6FF4F12EDC64E0025041E /* Bubble2.h */,
+				EAB6FF5012EDC64E0025041E /* Bubbles2.h */,
 				EAC12C1812E6F94F0071CE8E /* testApp.cpp */,
 				EAC12C1912E6F94F0071CE8E /* testApp.h */,
 			);
@@ -1437,6 +1446,7 @@
 				EAB6FCB112EDBAE60025041E /* ProjectedRect.cpp in Sources */,
 				EAB6FCB212EDBAE60025041E /* Settings.cpp in Sources */,
 				EAB6FCC712EDBBDE0025041E /* ofxCvKalman.cpp in Sources */,
+				EAB6FF5112EDC64E0025041E /* Bubble2.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

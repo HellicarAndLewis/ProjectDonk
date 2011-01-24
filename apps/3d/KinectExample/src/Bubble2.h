@@ -9,21 +9,28 @@
 #pragma once
 
 #include "ofMain.h"
-class Bubble {
+#define BUBBLE2_MAX_AGE 2
+
+class Bubble2 {
 public: 
 	ofColor color;
 	float brightness;
-	Bubble() {
+	float birthday;
+	Bubble2() {
+		birthday = ofGetElapsedTimef();
 		color.setHsb(ofRandom(0, 360), 190, 255, 255);
 		if(!inited) {
 			init();
 		}
 		brightness = ofRandom(0.5, 1.0);
-		radius = radiusBase = ofRandom(10, 50);
-		vel = ofVec2f(0.f, ofRandom(-1, 1));
+		radius = radiusBase = ofRandom(5, 10);
+		vel = ofVec2f(ofRandom(-1, 1), ofRandom(-1, 1));
 		seed = ofRandom(0.4, 1.3);
 	}
 	float seed;
+	bool isAlive() {
+		return ofGetElapsedTimef() - birthday<BUBBLE2_MAX_AGE;
+	}
 	void update() {
 		pos += vel;
 		vel += ofVec2f(
@@ -35,7 +42,7 @@ public:
 	void draw() {
 //		printf("Bubble\n");
 		ofFill();
-		ofSetColor(color);
+		ofSetColor(color.r, color.g, color.b, ofMap(ofGetElapsedTimef() - birthday, 0, BUBBLE2_MAX_AGE, 255, 0, true));
 		ofCircle(pos.x, pos.y, radius);
 //		ofSetColor(color);
 //		img.draw(pos.x, pos.y, radius*2, radius*2);

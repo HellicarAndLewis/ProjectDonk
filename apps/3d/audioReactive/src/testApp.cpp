@@ -43,28 +43,6 @@ void testApp::drawView() {
 }
 
 
-void testApp::drawFace(vector<ofPoint> &points) {
-	
-	ProjectedRect *tex = &bubbles;
-	tex->bind();
-	if(points.size()==4) {
-		glBegin(GL_QUADS);
-	} else {
-		glBegin(GL_TRIANGLE_FAN);
-	}
-	for(int i = 0; i < points.size(); i++) {
-		if(i==0) glTexCoord2f(0, 0);
-		else if(i==1) glTexCoord2f(tex->getWidth(), 0);
-		else if(i==2) glTexCoord2f(tex->getWidth(), tex->getHeight());
-		else glTexCoord2f(0, tex->getHeight());
-		
-		glVertex3f(points[i].x, points[i].y, points[i].z);
-	}
-	glEnd();
-	
-	tex->unbind();
-}
-
 void testApp::audioReceived(float *input, int bufferSize, int numChannels) {
 	float max = volume;
 	for(int i = 0; i < bufferSize*numChannels; i++) {
