@@ -8,21 +8,18 @@ public:
 		listeners.push_back(listener);
 	}
 	
-	void update(ofxCvContourFinder &contourFinder) {
+	void update(vector<ofVec3f> &blobs) {
 		
-		// we need width+height for normalizing
-		dims = ofPoint(contourFinder.getWidth(), contourFinder.getHeight());
 		
-		for(int i = 0; i < contourFinder.nBlobs; i++) {
-			notifyBlobMoved(0, contourFinder.blobs[i]);
+		for(int i = 0; i < blobs.size(); i++) {
+			notifyBlobMoved(0, blobs[i]);
 		}
 	}
 private:
-	void notifyBlobMoved(int blobId, ofxCvBlob &blob) {
+	void notifyBlobMoved(int blobId, ofVec3f &blob) {
 		for(int i = 0; i < listeners.size(); i++) {
-			listeners[i]->blobMoved(blobId, blob.centroid/dims);
+			listeners[i]->blobMoved(blobId, blob);
 		}
 	}
 	vector<BlobListener*> listeners;
-	ofPoint dims;
 };

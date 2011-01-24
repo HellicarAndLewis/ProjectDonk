@@ -76,37 +76,85 @@ void Kinect::update() {
 		
 
 
-		// get depth pixels
-		int numPx = kinect.getWidth()*kinect.getHeight();
-		memcpy(calibrationImage, kinect.getDepthPixels(), numPx);
+		doVision();
 		
 		
-		unsigned char minValue = nearClip;
-		unsigned char maxValue = farClip;
-		if(nearClip>farClip) {
-			minValue = farClip;
-			maxValue = nearClip;
-		} else if(minValue==maxValue) {
-			minValue = maxValue - 1;
+	}
+}
+
+void Kinect::doVision() {
+	// get depth pixels
+	int numPx = kinect.getWidth()*kinect.getHeight();
+	memcpy(calibrationImage, kinect.getDepthPixels(), numPx);
+	
+	doThreshold();
+	
+	// load into a cvImage
+	thresholded.setFromPixels(calibrationImage, kinect.getWidth(), kinect.getHeight());
+	
+	// flip as required
+	if(flipX || flipY) thresholded.mirror(flipY, flipX);
+	
+	// find contours
+	contourFinder.findContours( thresholded,
+							   100, getWidth()*getHeight()/4,
+							   5, false);
+	
+
+	vector<ofVec3f> blobs;
+	for(int i = 0; i < contourFinder.nBlobs; i++) {
+		blobs.push_back(
+				ofVec3f(find3DBlobCentre(contourFinder.blobs[i]))
+		);
+		
+	}
+	
+	// this is when the notifictations will fire.
+	blobTracker.update(blobs);
+}
+
+// this looks for the minimum depth in a blob
+// and then calls that the centre (more useful than
+// the statistical centre of the blob.
+ofVec3f Kinect::find3DBlobCentre(ofxCvBlob &blob) {
+	
+	return blob.centroid/ofVec3f(getWidth(), getHeight());
+	/*
+	ofRectangle rect = blob.boundingRect;
+
+	// now look at every pixel in the blob and find the max/min
+	float max = FLT_MIN;
+	float min = FLT_MAX;
+	
+	for(int y = rect.y; y < rect.y+rect.height; y++) {
+		int yOffset = y*width;
+		for(int x = rect.x; x < rect.x+rect.width; x++) {
+			
+			float value = depths[x + yOffset];
+			if(max<value) max = value;
+			if(min>value && value!=0) min = value;
 		}
-		for(int i = 0; i < numPx; i++) {
-			// clamp and normalize
-			if(calibrationImage[i]>minValue && calibrationImage[i]<maxValue) {
-				calibrationImage[i] = 255;
-			} else {
-				calibrationImage[i] = 0;
-			}
+	}
+	return 0;*/
+}
+
+void Kinect::doThreshold() {
+	int numPx = kinect.getWidth()*kinect.getHeight();
+	unsigned char minValue = nearClip;
+	unsigned char maxValue = farClip;
+	if(nearClip>farClip) {
+		minValue = farClip;
+		maxValue = nearClip;
+	} else if(minValue==maxValue) {
+		minValue = maxValue - 1;
+	}
+	for(int i = 0; i < numPx; i++) {
+		// clamp and normalize
+		if(calibrationImage[i]>minValue && calibrationImage[i]<maxValue) {
+			calibrationImage[i] = 255;
+		} else {
+			calibrationImage[i] = 0;
 		}
-		thresholded.setFromPixels(calibrationImage, kinect.getWidth(), kinect.getHeight());
-		if(flipX || flipY) thresholded.mirror(flipY, flipX);
-		
-		contourFinder.findContours( thresholded,
-					 100, getWidth()*getHeight()/4,
-								   5, false);
-		// this is when the notifictations will fire.
-		blobTracker.update(contourFinder);
-		
-		
 	}
 }
 

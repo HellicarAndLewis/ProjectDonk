@@ -20,7 +20,7 @@ void testApp::setup() {
 	ofBackground(0, 0, 0);
 	
 	
-	bubbles.setup(1000, 1000);
+	bubbles.setup(500, 1000);
 	
 	
 	ofSoundStreamSetup(0, 1, this, 44100, 256, 1);
@@ -40,6 +40,9 @@ void testApp::render() {
 
 void testApp::drawView() {
 	bubbles.drawOnModel(scene->getModel());
+	ofSetHexColor(0xFFFFFF);
+	scene->getModel()->draw(false);
+	ofFill();
 }
 
 

@@ -86,9 +86,22 @@ public:
 
 private:
 	
+
+	// computes the vision for the frame
+	void doVision();
+	
+	// thresholds the image (called by doVision())
+	void doThreshold();
+	
+	// this looks for the minimum depth in a blob
+	// and then calls that the centre (more useful than
+	// the statistical centre of the blob.
+	ofVec3f find3DBlobCentre(ofxCvBlob &blob);
+	
 	BlobTracker blobTracker;
 	
 	unsigned char *calibrationImage;
+	unsigned char *depths;
 	
 	ofxCvGrayscaleImage thresholded;
 	ofxCvContourFinder  contourFinder;
