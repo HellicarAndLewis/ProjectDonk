@@ -41,6 +41,8 @@
 		EAB6F5F412E9EE000025041E /* ofxKinectCalibration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6F5E812E9EE000025041E /* ofxKinectCalibration.cpp */; };
 		EAB6F5F512E9EE000025041E /* ofxKinectPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6F5EA12E9EE000025041E /* ofxKinectPlayer.cpp */; };
 		EAB6F5F612E9EE000025041E /* ofxKinectRecorder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6F5EC12E9EE000025041E /* ofxKinectRecorder.cpp */; };
+		EAB6F86612ED98C50025041E /* KinectGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6F86512ED98C50025041E /* KinectGui.cpp */; };
+		EAB6F92812EDA1500025041E /* Kinect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6F92712EDA1500025041E /* Kinect.cpp */; };
 		EAC12C1A12E6F94F0071CE8E /* testApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAC12C1812E6F94F0071CE8E /* testApp.cpp */; };
 		EAF9774F12E45B8D0009DBBE /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF9774212E45B8D0009DBBE /* GLUT.framework */; };
 		EAF9775012E45B8D0009DBBE /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF9774312E45B8D0009DBBE /* AppKit.framework */; };
@@ -202,6 +204,9 @@
 		EAB6F5EB12E9EE000025041E /* ofxKinectPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxKinectPlayer.h; sourceTree = "<group>"; };
 		EAB6F5EC12E9EE000025041E /* ofxKinectRecorder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxKinectRecorder.cpp; sourceTree = "<group>"; };
 		EAB6F5ED12E9EE000025041E /* ofxKinectRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxKinectRecorder.h; sourceTree = "<group>"; };
+		EAB6F86412ED98200025041E /* KinectGui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KinectGui.h; sourceTree = "<group>"; };
+		EAB6F86512ED98C50025041E /* KinectGui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KinectGui.cpp; sourceTree = "<group>"; };
+		EAB6F92712EDA1500025041E /* Kinect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Kinect.cpp; sourceTree = "<group>"; };
 		EAC12C1812E6F94F0071CE8E /* testApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = testApp.cpp; sourceTree = "<group>"; };
 		EAC12C1912E6F94F0071CE8E /* testApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testApp.h; sourceTree = "<group>"; };
 		EAF9774212E45B8D0009DBBE /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = SOURCE_ROOT; };
@@ -482,6 +487,7 @@
 				EAB6F5A112E9EDD70025041E /* App.h */,
 				EAB6F5A212E9EDD70025041E /* gui */,
 				EAB6F5A912E9EDD70025041E /* Kinect.h */,
+				EAB6F92712EDA1500025041E /* Kinect.cpp */,
 				EAB6F5AA12E9EDD70025041E /* Model.cpp */,
 				EAB6F5AB12E9EDD70025041E /* Model.h */,
 				EAB6F5AC12E9EDD70025041E /* Projector.cpp */,
@@ -500,6 +506,8 @@
 				EAB6F5A412E9EDD70025041E /* SceneGui.cpp */,
 				EAB6F5A512E9EDD70025041E /* SceneGui.h */,
 				EAB6F5A612E9EDD70025041E /* viewport */,
+				EAB6F86412ED98200025041E /* KinectGui.h */,
+				EAB6F86512ED98C50025041E /* KinectGui.cpp */,
 			);
 			path = gui;
 			sourceTree = "<group>";
@@ -787,6 +795,8 @@
 				EAB6F5F412E9EE000025041E /* ofxKinectCalibration.cpp in Sources */,
 				EAB6F5F512E9EE000025041E /* ofxKinectPlayer.cpp in Sources */,
 				EAB6F5F612E9EE000025041E /* ofxKinectRecorder.cpp in Sources */,
+				EAB6F86612ED98C50025041E /* KinectGui.cpp in Sources */,
+				EAB6F92812EDA1500025041E /* Kinect.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

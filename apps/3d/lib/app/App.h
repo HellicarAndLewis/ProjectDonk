@@ -3,6 +3,8 @@
 #include "Scene.h"
 #include "SceneGui.h"
 #include "ViewportGui.h"
+#include "KinectGui.h"
+
 /**
  * \brief Basic app that you inherit from for your app
  */
@@ -48,6 +50,7 @@ private:
 	bool guiEnabled;
 	ViewportGui *viewports;
 	SceneGui *sceneGui;
+	KinectGui *kinectGui;
 	void drawAllProjectors();
 };
 
