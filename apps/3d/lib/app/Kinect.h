@@ -86,7 +86,6 @@ public:
 
 private:
 	
-
 	// computes the vision for the frame
 	void doVision();
 	

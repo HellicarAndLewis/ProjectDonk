@@ -121,7 +121,8 @@ void Kinect::doVision() {
 // and then calls that the centre (more useful than
 // the statistical centre of the blob.
 ofVec3f Kinect::find3DBlobCentre(ofxCvBlob &blob) {
-	
+	// TODO: this just takes the centre for now, would be nice
+	//       to look at the closest point in the blob to the kinect.
 	return blob.centroid/ofVec3f(getWidth(), getHeight());
 	/*
 	ofRectangle rect = blob.boundingRect;

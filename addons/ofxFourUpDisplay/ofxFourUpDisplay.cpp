@@ -90,27 +90,11 @@ void ofxFourUpDisplay::draw(ofEventArgs &e) {
 	for(int i = 0; i < viewports.size(); i++) {
 		// position the viewport in opengl space.
 		viewports[i]->begin();
-		/*
-		// draw each projector in the scene where it's supposed to be
-		for(int j = 0; j < scene->projectors.size(); j++) {
-			if(scene->projectors[j]->enabled) {
-				scene->projectors[j]->draw();
-			}
-		}
-
-		for(int j = 0; j < scene->kinects.size(); j++) {
-			if(scene->kinects[j]->enabled) {
-				scene->kinects[j]->draw();
-			}
-		}*/
 		
 		for(int i = 0; i < scene->getNumNodes(); i++) {
 			scene->getNode(i).draw();
 		}
 		
-		// draw the actual model
-		//glColor3f(1, 1, 1);
-		//scene->getModel()->draw(false);
 		viewports[i]->end();
 	}
 }
@@ -149,7 +133,7 @@ void ofxFourUpDisplay::setCentre(float x, float y) {
 	centre = ofPoint(viewports[3]->x, viewports[3]->y);
 	
 }
-void ofxFourUpDisplay::mouseMoved(ofMouseEventArgs &m) {//float x, float y) {
+void ofxFourUpDisplay::mouseMoved(ofMouseEventArgs &m) {
 	if(!enabled) return;
 	if(ofDist(m.x, m.y, centre.x, centre.y)<10) {
 		overCentre = true;
@@ -158,7 +142,7 @@ void ofxFourUpDisplay::mouseMoved(ofMouseEventArgs &m) {//float x, float y) {
 	}
 }
 
-void ofxFourUpDisplay::mousePressed(ofMouseEventArgs &m) {//float x, float y, int button) {
+void ofxFourUpDisplay::mousePressed(ofMouseEventArgs &m) {
 	if(!enabled) return;
 	prevMouse = ofPoint(m.x, m.y);
 	if(ofDist(m.x, m.y, centre.x, centre.y)<10) {
@@ -176,7 +160,7 @@ void ofxFourUpDisplay::mousePressed(ofMouseEventArgs &m) {//float x, float y, in
 	
 }
 
-void ofxFourUpDisplay::mouseDragged(ofMouseEventArgs &m) {//float x, float y, int button) {
+void ofxFourUpDisplay::mouseDragged(ofMouseEventArgs &m) {
 	if(!enabled) return;
 	ofPoint currMouse = ofPoint(m.x, m.y);
 	if(movingCentre) {
@@ -191,7 +175,7 @@ void ofxFourUpDisplay::mouseDragged(ofMouseEventArgs &m) {//float x, float y, in
 	prevMouse = currMouse;
 	
 }
-void ofxFourUpDisplay::mouseReleased(ofMouseEventArgs &m) {//float x, float y, int button) {
+void ofxFourUpDisplay::mouseReleased(ofMouseEventArgs &m) {
 	if(!enabled) return;
 	prevViewport = NULL;
 	movingCentre = false;	

@@ -4,19 +4,23 @@
  *
  *  Created by Marek Bereza on 05/01/2011.
  *
+ *  TODO:
+ *   - Make an example
+ *   - get rid of Viewport/OrthoViewport when oF 007 has settled down a bit.
+ *
  */
 #pragma once
 #include "OrthoViewport.h"
 #include "ofScene3d.h"
 
 /**
- * \brief This provides a 4-up view of a given Model.
+ * \brief This provides a 4-up view of a given ofScene3d.
  *  Through mouse events, it lets you manipulate the views.
  *  Left mouse button moves or rotates the view, right mouse
  *  button zooms.
  * 
  */
-class ofxFourUpDisplay: public ofRectangle {
+class ofxFourUpDisplay {
 public:
 	ofxFourUpDisplay(ofScene3d *scene, ofRectangle rect = ofRectangle(0, 0, ofGetWidth(), ofGetHeight()));
 	~ofxFourUpDisplay();
@@ -36,6 +40,11 @@ public:
 	void setEnabled(bool enabled);
 	
 private:
+	
+	float width;
+	float height;
+	float x;
+	float y;
 	
 	bool enabled;
 	
