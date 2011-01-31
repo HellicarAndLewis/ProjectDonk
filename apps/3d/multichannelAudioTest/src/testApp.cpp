@@ -40,9 +40,6 @@ void testApp::draw(){
 
 //--------------------------------------------------------------
 void testApp::audioReceived 	(float * input, int bufferSize, int nChannels){	
-
-
-	
 	for(int channel = 0; channel < nChannels; channel++) {
 		for(int i = 0; i < bufferSize; i++) {
 

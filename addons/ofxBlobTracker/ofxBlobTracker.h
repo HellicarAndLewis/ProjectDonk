@@ -31,7 +31,7 @@ public:
 /**
  * This is the actual blob tracker.
  */
-class ofxBlobTracker {
+class ofxBlobTracker: public ofBaseDraws {
 public:
 	
 	ofxBlobTracker();
@@ -41,7 +41,17 @@ public:
 
 	// output: add yourself as a listener
 	void addListener(ofxBlobListener *listener);
+	
+	
+	void setVerbose(bool bVerbose = true);
+	// ofBaseDraws stuff
+	void draw(float x,float y);
+	void draw(float x,float y,float w, float h);
+	float getWidth();
+	float getHeight();
+	
 private:
+	bool bVerbose;
 	vector<ofxBlobListener*> listeners;
 	
 	enum ofxBlobEventType { ofxBlobTracker_entered, ofxBlobTracker_moved, ofxBlobTracker_exited };

@@ -6,7 +6,7 @@
 #include "Plane.h"
 #include "constants.h"
 #include "ofxOpenCv.h"
-#include "BlobTracker.h"
+#include "ofxBlobTracker.h"
 
 // the downsample factor for drawing the vertex arrays.
 #define KINECT_RESOLUTION 2
@@ -40,7 +40,7 @@ public:
 	void customDraw();
 	
 	
-	void addListener(BlobListener *listener);
+	void addListener(ofxBlobListener *listener);
 	
 	
 	/** dimensions of kinect output */
@@ -98,7 +98,7 @@ private:
 	// the statistical centre of the blob.
 	ofVec3f find3DBlobCentre(ofxCvBlob &blob);
 	
-	BlobTracker blobTracker;
+	ofxBlobTracker blobTracker;
 	
 	unsigned char *thresholdedPixels;
 	unsigned char *depths;

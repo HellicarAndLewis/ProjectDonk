@@ -414,8 +414,6 @@
 		EAB6FCA112EDBAE60025041E /* GLHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLHelpers.h; sourceTree = "<group>"; };
 		EAB6FCA212EDBAE60025041E /* Settings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Settings.cpp; sourceTree = "<group>"; };
 		EAB6FCA312EDBAE60025041E /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
-		EAB6FCA512EDBAE60025041E /* BlobTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlobTracker.h; sourceTree = "<group>"; };
-		EAB6FCB312EDBB960025041E /* BlobListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlobListener.h; sourceTree = "<group>"; };
 		EAB6FCC512EDBBDE0025041E /* ofxCvKalman.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxCvKalman.cpp; sourceTree = "<group>"; };
 		EAB6FCC612EDBBDE0025041E /* ofxCvKalman.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxCvKalman.h; sourceTree = "<group>"; };
 		EAB6FF4E12EDC64E0025041E /* Bubble2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bubble2.cpp; sourceTree = "<group>"; };
@@ -1202,7 +1200,6 @@
 				EAB6FC9B12EDBAE60025041E /* projection */,
 				EAB6FC9F12EDBAE60025041E /* Scene.h */,
 				EAB6FCA012EDBAE60025041E /* util */,
-				EAB6FCA412EDBAE60025041E /* vision */,
 			);
 			name = lib;
 			path = ../lib;
@@ -1278,15 +1275,6 @@
 				EAB6FCA312EDBAE60025041E /* Settings.h */,
 			);
 			path = util;
-			sourceTree = "<group>";
-		};
-		EAB6FCA412EDBAE60025041E /* vision */ = {
-			isa = PBXGroup;
-			children = (
-				EAB6FCB312EDBB960025041E /* BlobListener.h */,
-				EAB6FCA512EDBAE60025041E /* BlobTracker.h */,
-			);
-			path = vision;
 			sourceTree = "<group>";
 		};
 		EAB6FCC412EDBBDE0025041E /* ofxCvKalman */ = {

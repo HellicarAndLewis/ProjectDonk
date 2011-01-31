@@ -22,10 +22,11 @@ Kinect::Kinect(string name): ofNode() {
 	thresholdedPixels = NULL;
 	flipX = false;
 	flipY = false;
+	//blobTracker.setVerbose();
 }
 
 
-void Kinect::addListener(BlobListener *listener) {
+void Kinect::addListener(ofxBlobListener *listener) {
 	blobTracker.addListener(listener);
 }
 
@@ -113,7 +114,7 @@ void Kinect::doVision() {
 	}
 	
 	// this is when the notifictations will fire.
-	blobTracker.update(blobs);
+	blobTracker.track(blobs);
 }
 
 // this looks for the minimum depth in a blob
@@ -212,5 +213,6 @@ void Kinect::drawCalibration(ofRectangle rect) {
 		kinect.draw(rect.x, rect.y, rect.width/2, rect.height/2);
 		thresholded.draw(rect.x+rect.width/2, rect.y, rect.width/2, rect.height/2);
 		contourFinder.draw(rect.x+rect.width/2, rect.y, rect.width/2, rect.height/2);
+		blobTracker.draw(rect.x+rect.width/2, rect.y, rect.width/2, rect.height/2);
 	}
 }

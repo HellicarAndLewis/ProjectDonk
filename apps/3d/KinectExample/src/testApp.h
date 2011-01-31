@@ -16,7 +16,7 @@
  * you don't use to draw to the screen, but to any FBO's which might be needed
  * by drawView() - so you don't have to draw them for each camera.
  */
-class testApp: public App, public BlobListener {
+class testApp: public App, public ofxBlobListener {
 public:
 	
 	

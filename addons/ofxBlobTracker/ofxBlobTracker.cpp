@@ -12,6 +12,7 @@ ofxBlobTracker::ofxBlobTracker() {
 	for (int i=0;i<NUM_KALMAN_POINTS;i++) {
 		tuioPointSmoothed[i] = NULL;
 	}
+	bVerbose = false;
 }
 
 void ofxBlobTracker::addListener(ofxBlobListener *listener) {
@@ -147,4 +148,49 @@ void ofxBlobTracker::notifyAllListeners(float x, float y, int id, ofxBlobEventTy
 				break;
 		}
 	}
+	if(bVerbose) {
+		string t = "";
+		switch(type) {
+			case ofxBlobTracker_entered: t = "entered"; break;
+			case ofxBlobTracker_moved: t = "moved"; break;
+			case ofxBlobTracker_exited: t = "exited"; break;
+		}
+		printf("[ofxBlobTracker: ] blob %d %s, (%f.2, %f.2)\n", id, t.c_str(), x, y);
+	}
+}
+
+void ofxBlobTracker::draw(float x,float y) {
+	draw(x, y, getWidth(), getHeight());
+}
+
+void ofxBlobTracker::draw(float x,float y,float w, float h) {
+	// stroked rect
+	ofSetHexColor(0xFFFFFF);
+	
+	ofNoFill();
+	ofRect(x, y, w, h);
+	
+	glPushMatrix();
+	glTranslatef(x, y, 0);
+	ofSetColor(0,150, 0);
+	for(int i = 0; i < lastBlobs.size(); i++) {
+		ofCircle(lastBlobs[i]->x*w, lastBlobs[i]->y*h, 5);
+		ofDrawBitmapString("id: "+ofToString(lastBlobs[i]->id), lastBlobs[i]->x*w, lastBlobs[i]->y*h);
+	}
+	
+	glPopMatrix();
+	
+}
+
+float ofxBlobTracker::getWidth() {
+	return 320;
+}
+
+float ofxBlobTracker::getHeight() {
+	return 240;
+}
+
+
+void ofxBlobTracker::setVerbose(bool bVerbose) {
+	this->bVerbose = bVerbose;
 }
