@@ -14,10 +14,14 @@
 /**
  * \brief Represents the physical surfaces to project onto in the scene
  */
-class Model: public ofxOBJModel { //: public ofNode {
+class Model: public ofNode { //: public ofNode {
 public:
 	ofxOBJModel model;
 	Model() {
-		load(settings.get("model file", "scene.obj"));
+		model.load(settings.get("model file", "scene.obj"));
+	}
+	void customDraw() {
+		ofSetColor(255, 255, 255);
+		model.draw(false);
 	}
 };

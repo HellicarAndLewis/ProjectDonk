@@ -2,7 +2,7 @@
 #include "ofMain.h"
 #include "Scene.h"
 #include "SceneGui.h"
-#include "ViewportGui.h"
+#include "ofxFourUpDisplay.h"
 #include "KinectGui.h"
 
 /**
@@ -48,7 +48,7 @@ protected:
 	
 private:
 	bool guiEnabled;
-	ViewportGui *viewports;
+	ofxFourUpDisplay *viewports;
 	SceneGui *sceneGui;
 	KinectGui *kinectGui;
 	void drawAllProjectors();

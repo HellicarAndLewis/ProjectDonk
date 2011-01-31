@@ -22,6 +22,9 @@
 		EA1593BB12D6198100F34EF3 /* ColorUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA1593B012D6198100F34EF3 /* ColorUtils.cpp */; };
 		EA1593BC12D6198100F34EF3 /* StringUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA1593B312D6198100F34EF3 /* StringUtils.cpp */; };
 		EA350AA512E4951200F93F15 /* ofxXmlGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA350AA312E4951200F93F15 /* ofxXmlGui.cpp */; };
+		EA5F2E4012F723B800354A07 /* OrthoViewport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA5F2E3A12F723B800354A07 /* OrthoViewport.cpp */; };
+		EA5F2E4112F723B800354A07 /* Viewport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA5F2E3C12F723B800354A07 /* Viewport.cpp */; };
+		EA5F2E4212F723B800354A07 /* ofxFourUpDisplay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA5F2E3E12F723B800354A07 /* ofxFourUpDisplay.cpp */; };
 		EAB6F5EE12E9EE000025041E /* cameras.c in Sources */ = {isa = PBXBuildFile; fileRef = EAB6F5D412E9EE000025041E /* cameras.c */; };
 		EAB6F5EF12E9EE000025041E /* core.c in Sources */ = {isa = PBXBuildFile; fileRef = EAB6F5D512E9EE000025041E /* core.c */; };
 		EAB6F5F012E9EE000025041E /* tilt.c in Sources */ = {isa = PBXBuildFile; fileRef = EAB6F5DA12E9EE000025041E /* tilt.c */; };
@@ -96,13 +99,10 @@
 		EAB6FCA612EDBAE60025041E /* App.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6FC7F12EDBAE60025041E /* App.cpp */; };
 		EAB6FCA712EDBAE60025041E /* KinectGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6FC8512EDBAE60025041E /* KinectGui.cpp */; };
 		EAB6FCA812EDBAE60025041E /* SceneGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6FC8712EDBAE60025041E /* SceneGui.cpp */; };
-		EAB6FCA912EDBAE60025041E /* ViewportGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6FC8A12EDBAE60025041E /* ViewportGui.cpp */; };
 		EAB6FCAA12EDBAE60025041E /* Kinect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6FC8C12EDBAE60025041E /* Kinect.cpp */; };
 		EAB6FCAB12EDBAE60025041E /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6FC8E12EDBAE60025041E /* Model.cpp */; };
 		EAB6FCAC12EDBAE60025041E /* Projector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6FC9012EDBAE60025041E /* Projector.cpp */; };
 		EAB6FCAD12EDBAE60025041E /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6FC9212EDBAE60025041E /* Scene.cpp */; };
-		EAB6FCAE12EDBAE60025041E /* OrthoViewport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6FC9512EDBAE60025041E /* OrthoViewport.cpp */; };
-		EAB6FCAF12EDBAE60025041E /* Viewport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6FC9712EDBAE60025041E /* Viewport.cpp */; };
 		EAB6FCB012EDBAE60025041E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6FC9A12EDBAE60025041E /* main.cpp */; };
 		EAB6FCB112EDBAE60025041E /* ProjectedRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6FC9D12EDBAE60025041E /* ProjectedRect.cpp */; };
 		EAB6FCB212EDBAE60025041E /* Settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6FCA212EDBAE60025041E /* Settings.cpp */; };
@@ -224,6 +224,12 @@
 		EA3509F612E48FD300F93F15 /* GuiTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiTitle.h; sourceTree = "<group>"; };
 		EA350AA312E4951200F93F15 /* ofxXmlGui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxXmlGui.cpp; sourceTree = "<group>"; };
 		EA350AA412E4951200F93F15 /* ofxXmlGui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxXmlGui.h; sourceTree = "<group>"; };
+		EA5F2E3A12F723B800354A07 /* OrthoViewport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OrthoViewport.cpp; sourceTree = "<group>"; };
+		EA5F2E3B12F723B800354A07 /* OrthoViewport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrthoViewport.h; sourceTree = "<group>"; };
+		EA5F2E3C12F723B800354A07 /* Viewport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Viewport.cpp; sourceTree = "<group>"; };
+		EA5F2E3D12F723B800354A07 /* Viewport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Viewport.h; sourceTree = "<group>"; };
+		EA5F2E3E12F723B800354A07 /* ofxFourUpDisplay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxFourUpDisplay.cpp; sourceTree = "<group>"; };
+		EA5F2E3F12F723B800354A07 /* ofxFourUpDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxFourUpDisplay.h; sourceTree = "<group>"; };
 		EAB6F5D412E9EE000025041E /* cameras.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cameras.c; sourceTree = "<group>"; };
 		EAB6F5D512E9EE000025041E /* core.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = core.c; sourceTree = "<group>"; };
 		EAB6F5D612E9EE000025041E /* freenect_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = freenect_internal.h; sourceTree = "<group>"; };
@@ -391,8 +397,6 @@
 		EAB6FC8612EDBAE60025041E /* KinectGui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KinectGui.h; sourceTree = "<group>"; };
 		EAB6FC8712EDBAE60025041E /* SceneGui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneGui.cpp; sourceTree = "<group>"; };
 		EAB6FC8812EDBAE60025041E /* SceneGui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneGui.h; sourceTree = "<group>"; };
-		EAB6FC8A12EDBAE60025041E /* ViewportGui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ViewportGui.cpp; sourceTree = "<group>"; };
-		EAB6FC8B12EDBAE60025041E /* ViewportGui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewportGui.h; sourceTree = "<group>"; };
 		EAB6FC8C12EDBAE60025041E /* Kinect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Kinect.cpp; sourceTree = "<group>"; };
 		EAB6FC8D12EDBAE60025041E /* Kinect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Kinect.h; sourceTree = "<group>"; };
 		EAB6FC8E12EDBAE60025041E /* Model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Model.cpp; sourceTree = "<group>"; };
@@ -401,10 +405,6 @@
 		EAB6FC9112EDBAE60025041E /* Projector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Projector.h; sourceTree = "<group>"; };
 		EAB6FC9212EDBAE60025041E /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
 		EAB6FC9312EDBAE60025041E /* Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scene.h; sourceTree = "<group>"; };
-		EAB6FC9512EDBAE60025041E /* OrthoViewport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OrthoViewport.cpp; sourceTree = "<group>"; };
-		EAB6FC9612EDBAE60025041E /* OrthoViewport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrthoViewport.h; sourceTree = "<group>"; };
-		EAB6FC9712EDBAE60025041E /* Viewport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Viewport.cpp; sourceTree = "<group>"; };
-		EAB6FC9812EDBAE60025041E /* Viewport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Viewport.h; sourceTree = "<group>"; };
 		EAB6FC9912EDBAE60025041E /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
 		EAB6FC9A12EDBAE60025041E /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		EAB6FC9C12EDBAE60025041E /* Plane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plane.h; sourceTree = "<group>"; };
@@ -521,6 +521,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				EA5F2E3812F723B800354A07 /* ofxFourUpDisplay */,
 				EA1070BD12F709EC00DC662C /* ofxBlobTracker */,
 				EAB6FCC412EDBBDE0025041E /* ofxCvKalman */,
 				EAB6FAA812EDAA440025041E /* ofxOpenCv */,
@@ -749,6 +750,28 @@
 				EA1593B412D6198100F34EF3 /* StringUtils.h */,
 			);
 			path = util;
+			sourceTree = "<group>";
+		};
+		EA5F2E3812F723B800354A07 /* ofxFourUpDisplay */ = {
+			isa = PBXGroup;
+			children = (
+				EA5F2E3912F723B800354A07 /* viewport */,
+				EA5F2E3E12F723B800354A07 /* ofxFourUpDisplay.cpp */,
+				EA5F2E3F12F723B800354A07 /* ofxFourUpDisplay.h */,
+			);
+			name = ofxFourUpDisplay;
+			path = ../../../addons/ofxFourUpDisplay;
+			sourceTree = SOURCE_ROOT;
+		};
+		EA5F2E3912F723B800354A07 /* viewport */ = {
+			isa = PBXGroup;
+			children = (
+				EA5F2E3A12F723B800354A07 /* OrthoViewport.cpp */,
+				EA5F2E3B12F723B800354A07 /* OrthoViewport.h */,
+				EA5F2E3C12F723B800354A07 /* Viewport.cpp */,
+				EA5F2E3D12F723B800354A07 /* Viewport.h */,
+			);
+			path = viewport;
 			sourceTree = "<group>";
 		};
 		EAB6F5D112E9EE000025041E /* ofxKinect */ = {
@@ -1219,7 +1242,6 @@
 				EAB6FC9112EDBAE60025041E /* Projector.h */,
 				EAB6FC9212EDBAE60025041E /* Scene.cpp */,
 				EAB6FC9312EDBAE60025041E /* Scene.h */,
-				EAB6FC9412EDBAE60025041E /* viewport */,
 			);
 			path = app;
 			sourceTree = "<group>";
@@ -1240,19 +1262,6 @@
 		EAB6FC8912EDBAE60025041E /* viewport */ = {
 			isa = PBXGroup;
 			children = (
-				EAB6FC8A12EDBAE60025041E /* ViewportGui.cpp */,
-				EAB6FC8B12EDBAE60025041E /* ViewportGui.h */,
-			);
-			path = viewport;
-			sourceTree = "<group>";
-		};
-		EAB6FC9412EDBAE60025041E /* viewport */ = {
-			isa = PBXGroup;
-			children = (
-				EAB6FC9512EDBAE60025041E /* OrthoViewport.cpp */,
-				EAB6FC9612EDBAE60025041E /* OrthoViewport.h */,
-				EAB6FC9712EDBAE60025041E /* Viewport.cpp */,
-				EAB6FC9812EDBAE60025041E /* Viewport.h */,
 			);
 			path = viewport;
 			sourceTree = "<group>";
@@ -1437,19 +1446,19 @@
 				EAB6FCA612EDBAE60025041E /* App.cpp in Sources */,
 				EAB6FCA712EDBAE60025041E /* KinectGui.cpp in Sources */,
 				EAB6FCA812EDBAE60025041E /* SceneGui.cpp in Sources */,
-				EAB6FCA912EDBAE60025041E /* ViewportGui.cpp in Sources */,
 				EAB6FCAA12EDBAE60025041E /* Kinect.cpp in Sources */,
 				EAB6FCAB12EDBAE60025041E /* Model.cpp in Sources */,
 				EAB6FCAC12EDBAE60025041E /* Projector.cpp in Sources */,
 				EAB6FCAD12EDBAE60025041E /* Scene.cpp in Sources */,
-				EAB6FCAE12EDBAE60025041E /* OrthoViewport.cpp in Sources */,
-				EAB6FCAF12EDBAE60025041E /* Viewport.cpp in Sources */,
 				EAB6FCB012EDBAE60025041E /* main.cpp in Sources */,
 				EAB6FCB112EDBAE60025041E /* ProjectedRect.cpp in Sources */,
 				EAB6FCB212EDBAE60025041E /* Settings.cpp in Sources */,
 				EAB6FCC712EDBBDE0025041E /* ofxCvKalman.cpp in Sources */,
 				EAB6FF5112EDC64E0025041E /* Bubble2.cpp in Sources */,
 				EA1070C012F709EC00DC662C /* ofxBlobTracker.cpp in Sources */,
+				EA5F2E4012F723B800354A07 /* OrthoViewport.cpp in Sources */,
+				EA5F2E4112F723B800354A07 /* Viewport.cpp in Sources */,
+				EA5F2E4212F723B800354A07 /* ofxFourUpDisplay.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

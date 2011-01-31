@@ -1,14 +1,13 @@
 /*
- *  ViewportGui.h
+ *  ofxFourUpDisplay.h
  *  emptyExample
  *
  *  Created by Marek Bereza on 05/01/2011.
  *
  */
 #pragma once
-#include "Scene.h"
 #include "OrthoViewport.h"
-#include "Enableable.h"
+#include "ofScene3d.h"
 
 /**
  * \brief This provides a 4-up view of a given Model.
@@ -17,27 +16,31 @@
  *  button zooms.
  * 
  */
-class ViewportGui: public ofRectangle, public Enableable {
+class ofxFourUpDisplay: public ofRectangle {
 public:
-	ViewportGui(Scene *scene);
-	~ViewportGui();
+	ofxFourUpDisplay(ofScene3d *scene, ofRectangle rect = ofRectangle(0, 0, ofGetWidth(), ofGetHeight()));
+	~ofxFourUpDisplay();
 	
 	/** Draws all 4 viewports */
-	void draw();
+	void draw(ofEventArgs &e);
 	
 	
 	/** mouse events */
-	void mouseMoved(float x, float y);
-	void mousePressed(float x, float y, int button);
-	void mouseDragged(float x, float y, int button);
-	void mouseReleased(float x, float y, int button);
+	void mouseMoved(ofMouseEventArgs &m);//float x, float y);
+	void mousePressed(ofMouseEventArgs &m);//float x, float y, int button);
+	void mouseDragged(ofMouseEventArgs &m);//float x, float y, int button);
+	void mouseReleased(ofMouseEventArgs &m);//float x, float y, int button);
 	
 	
-	
+	void toggle();
+	void setEnabled(bool enabled);
 	
 private:
+	
+	bool enabled;
+	
 	/** The model the viewport gui is looking at */
-	Scene *scene;
+	ofScene3d *scene;
 	
 	/** Sets the centre of the 4-up display */
 	void setCentre(float x, float y);

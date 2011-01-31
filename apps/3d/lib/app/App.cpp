@@ -11,8 +11,12 @@
 
 App::App() {
 	ofSetLogLevel(OF_LOG_NOTICE);
+
 	scene		= new Scene();
-	viewports	= new ViewportGui(scene);
+	float x = GUI_PADDING*2 + CAMERA_GUI_WIDTH;
+	viewports	= new ofxFourUpDisplay(scene, ofRectangle(x, GUI_PADDING, 
+														  settings.getInt("projector width") - x - GUI_PADDING,
+														  ofGetHeight() - GUI_PADDING*2));
 	sceneGui	= new SceneGui(scene);
 	kinectGui	= new KinectGui(scene);
 	ofAddListener(ofEvents.mousePressed, this, &App::_mousePressed);
@@ -28,9 +32,9 @@ App::App() {
 		guiEnabled = true;
 	}
 
-	viewports->enable();
-	sceneGui->enable();
-	kinectGui->disable();
+	viewports->setEnabled(true);
+	sceneGui->setEnabled(true);
+	kinectGui->setEnabled(true);
 	
 }
 
@@ -53,7 +57,6 @@ void App::_draw(ofEventArgs &e) {
 		ScopedGLCapability depth(GL_DEPTH_TEST, false);
 		glViewport(0, 0, ofGetWidth(), ofGetHeight());
 		ofSetupScreen();
-		viewports->draw();
 		glViewport(0, 0, ofGetWidth(), ofGetHeight());
 		ofSetupScreen();
 		sceneGui->draw();
@@ -64,7 +67,7 @@ void App::_draw(ofEventArgs &e) {
 ofPoint lastMouse;
 void App::_mousePressed(ofMouseEventArgs &e) {
 	if(guiEnabled) {
-		viewports->mousePressed(e.x, e.y, e.button);
+		//viewports->mousePressed(e.x, e.y, e.button);
 		sceneGui->mousePressed(e.x, e.y, e.button);
 		kinectGui->mousePressed(e.x, e.y, e.button);
 	}
@@ -72,7 +75,7 @@ void App::_mousePressed(ofMouseEventArgs &e) {
 }
 void App::_mouseMoved(ofMouseEventArgs &e) {
 	if(guiEnabled) {
-		viewports->mouseMoved(e.x, e.y);
+		//viewports->mouseMoved(e.x, e.y);
 		sceneGui->mouseMoved(e.x, e.y);
 		kinectGui->mouseMoved(e.x, e.y);
 	}
@@ -81,7 +84,7 @@ void App::_mouseMoved(ofMouseEventArgs &e) {
 void App::_mouseDragged(ofMouseEventArgs &e) {
 	ofPoint currMouse = ofPoint(e.x, e.y);
 	if(guiEnabled) {
-		viewports->mouseDragged(e.x, e.y, e.button);
+		//viewports->mouseDragged(e.x, e.y, e.button);
 		sceneGui->mouseDragged(e.x, e.y, e.button);
 		kinectGui->mouseDragged(e.x, e.y, e.button);
 	} else {
@@ -91,7 +94,7 @@ void App::_mouseDragged(ofMouseEventArgs &e) {
 }
 void App::_mouseReleased(ofMouseEventArgs &e) {
 	if(guiEnabled) {
-		viewports->mouseReleased(e.x, e.y, e.button);
+		//viewports->mouseReleased(e.x, e.y, e.button);
 		sceneGui->mouseReleased(e.x, e.y, e.button);
 		kinectGui->mouseReleased(e.x, e.y, e.button);
 	}

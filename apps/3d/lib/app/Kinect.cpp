@@ -22,7 +22,7 @@ Kinect::Kinect(string name): ofNode() {
 	thresholdedPixels = NULL;
 	flipX = false;
 	flipY = false;
-	//blobTracker.setVerbose();
+	//	blobTracker.setVerbose();
 }
 
 

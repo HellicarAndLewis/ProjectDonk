@@ -1,24 +1,21 @@
 /*
- *  ViewportGui.cpp
+ *  ofxFourUpDisplay.cpp
  *  emptyExample
  *
  *  Created by Marek Bereza on 06/01/2011.
  *
  */
 
-#include "ViewportGui.h"
-#include "Settings.h"
+#include "ofxFourUpDisplay.h"
 
-// this is just to get the default background color
-#include "ofxXmlGui.h"
-
-ViewportGui::ViewportGui(Scene *scene): Enableable() {
+ofxFourUpDisplay::ofxFourUpDisplay(ofScene3d *scene, ofRectangle rect) {
 	this->scene = scene;
-	x = GUI_PADDING*2 + CAMERA_GUI_WIDTH;
-	y = GUI_PADDING;
-	width = settings.getInt("projector width") - x - GUI_PADDING;
-	height = ofGetHeight() - GUI_PADDING*2;
+	
 	movingCentre = false;
+	x = rect.x;
+	y = rect.y;
+	width = rect.width;
+	height = rect.height;
 	
 	// create 4 viewports
 	viewports.push_back(new OrthoViewport(x, y, width/2, height/2, Viewport_ROTATABLE));
@@ -30,20 +27,52 @@ ViewportGui::ViewportGui(Scene *scene): Enableable() {
 	
 	prevViewport = NULL;
 	overCentre = false;
+	enabled = false;
 }
-ViewportGui::~ViewportGui() {
+ofxFourUpDisplay::~ofxFourUpDisplay() {
 	for(int i = 0; i < viewports.size(); i++) {
 		delete viewports[i];
 	}
 }
-void ViewportGui::draw() {
+
+
+void ofxFourUpDisplay::toggle() {
+	setEnabled(!enabled);
+}
+
+void ofxFourUpDisplay::setEnabled(bool enabled) {
+	if(this->enabled!=enabled) {
+		this->enabled = enabled;
+		if(this->enabled) {
+		
+			ofAddListener(ofEvents.mousePressed, this, &ofxFourUpDisplay::mousePressed);
+			ofAddListener(ofEvents.mouseMoved, this, &ofxFourUpDisplay::mouseMoved);
+			ofAddListener(ofEvents.mouseDragged, this, &ofxFourUpDisplay::mouseDragged);
+			ofAddListener(ofEvents.mouseReleased, this, &ofxFourUpDisplay::mouseReleased);
+			ofAddListener(ofEvents.draw, this, &ofxFourUpDisplay::draw);
+			
+		} else {
+			ofRemoveListener(ofEvents.mousePressed, this, &ofxFourUpDisplay::mousePressed);
+			ofRemoveListener(ofEvents.mouseMoved, this, &ofxFourUpDisplay::mouseMoved);
+			ofRemoveListener(ofEvents.mouseDragged, this, &ofxFourUpDisplay::mouseDragged);
+			ofRemoveListener(ofEvents.mouseReleased, this, &ofxFourUpDisplay::mouseReleased);
+			ofRemoveListener(ofEvents.draw, this, &ofxFourUpDisplay::draw);
+		}
+	}
+	
+	
+	
+}
+
+
+void ofxFourUpDisplay::draw(ofEventArgs &e) {
 	if(!enabled) return;
 	ofSetupScreen();
 	//ofViewport();
 	glViewport(0, 0, ofGetWidth(), ofGetHeight());
 	for(int i = 0; i < viewports.size(); i++) {
 		ofFill();
-		ofSetHexColor(OFXXMLGUI_DEFAULT_BG_COLOR);
+		ofSetHexColor(0x1E2832);
 		ofRect(*viewports[i]);
 		ofNoFill();
 		ofSetColor(255, 255, 255);
@@ -61,7 +90,7 @@ void ViewportGui::draw() {
 	for(int i = 0; i < viewports.size(); i++) {
 		// position the viewport in opengl space.
 		viewports[i]->begin();
-		
+		/*
 		// draw each projector in the scene where it's supposed to be
 		for(int j = 0; j < scene->projectors.size(); j++) {
 			if(scene->projectors[j]->enabled) {
@@ -73,10 +102,15 @@ void ViewportGui::draw() {
 			if(scene->kinects[j]->enabled) {
 				scene->kinects[j]->draw();
 			}
+		}*/
+		
+		for(int i = 0; i < scene->getNumNodes(); i++) {
+			scene->getNode(i).draw();
 		}
+		
 		// draw the actual model
-		glColor3f(1, 1, 1);
-		scene->getModel()->draw(false);
+		//glColor3f(1, 1, 1);
+		//scene->getModel()->draw(false);
 		viewports[i]->end();
 	}
 }
@@ -85,11 +119,11 @@ void ViewportGui::draw() {
 
 
 
-bool ViewportGui::inRect(ofPoint point, ofRectangle &rect) {
+bool ofxFourUpDisplay::inRect(ofPoint point, ofRectangle &rect) {
 	return point.x>=rect.x && point.y>=rect.y && point.x<=rect.x+rect.width && point.y<=rect.y+rect.height;
 }
 
-void ViewportGui::setCentre(float x, float y) {
+void ofxFourUpDisplay::setCentre(float x, float y) {
 	
 	// resize all the viewports
 	
@@ -115,19 +149,19 @@ void ViewportGui::setCentre(float x, float y) {
 	centre = ofPoint(viewports[3]->x, viewports[3]->y);
 	
 }
-void ViewportGui::mouseMoved(float x, float y) {
+void ofxFourUpDisplay::mouseMoved(ofMouseEventArgs &m) {//float x, float y) {
 	if(!enabled) return;
-	if(ofDist(x, y, centre.x, centre.y)<10) {
+	if(ofDist(m.x, m.y, centre.x, centre.y)<10) {
 		overCentre = true;
 	} else {
 		overCentre = false;
 	}
 }
 
-void ViewportGui::mousePressed(float x, float y, int button) {
+void ofxFourUpDisplay::mousePressed(ofMouseEventArgs &m) {//float x, float y, int button) {
 	if(!enabled) return;
-	prevMouse = ofPoint(x, y);
-	if(ofDist(x, y, centre.x, centre.y)<10) {
+	prevMouse = ofPoint(m.x, m.y);
+	if(ofDist(m.x, m.y, centre.x, centre.y)<10) {
 		movingCentre = true;
 		return;
 	}
@@ -142,22 +176,22 @@ void ViewportGui::mousePressed(float x, float y, int button) {
 	
 }
 
-void ViewportGui::mouseDragged(float x, float y, int button) {
+void ofxFourUpDisplay::mouseDragged(ofMouseEventArgs &m) {//float x, float y, int button) {
 	if(!enabled) return;
-	ofPoint currMouse = ofPoint(x, y);
+	ofPoint currMouse = ofPoint(m.x, m.y);
 	if(movingCentre) {
-		setCentre(x, y);
+		setCentre(m.x, m.y);
 		return;
 	}
 	
 	if(prevViewport!=NULL) {
 		ofPoint delta = currMouse - prevMouse;
-		prevViewport->mouse (delta, button);
+		prevViewport->mouse (delta, m.button);
 	}
 	prevMouse = currMouse;
 	
 }
-void ViewportGui::mouseReleased(float x, float y, int button) {
+void ofxFourUpDisplay::mouseReleased(ofMouseEventArgs &m) {//float x, float y, int button) {
 	if(!enabled) return;
 	prevViewport = NULL;
 	movingCentre = false;	
