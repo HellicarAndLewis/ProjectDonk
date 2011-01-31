@@ -3,7 +3,6 @@
  *  audioReactive
  *
  *  Created by Marek Bereza on 21/01/2011.
- *  Copyright 2011 Marek Bereza. All rights reserved.
  *
  */
 

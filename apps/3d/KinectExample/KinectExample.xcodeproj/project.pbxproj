@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		E4C2422B10CC554B004149E2 /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2421E10CC549C004149E2 /* openFrameworksDebug.a */; };
 		E4C2443910CC7693004149E2 /* openFrameworks-Info.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */; };
+		EA1070C012F709EC00DC662C /* ofxBlobTracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA1070BE12F709EC00DC662C /* ofxBlobTracker.cpp */; };
 		EA158F0112D5D16500F34EF3 /* ofxOBJModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA158EFF12D5D16500F34EF3 /* ofxOBJModel.cpp */; };
 		EA15912012D6037B00F34EF3 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA15911912D6037B00F34EF3 /* tinyxml.cpp */; };
 		EA15912112D6037B00F34EF3 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA15911B12D6037B00F34EF3 /* tinyxmlerror.cpp */; };
@@ -166,6 +167,8 @@
 		E4B69B5B0A3A1756003C02F2 /* KinectExampleDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KinectExampleDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = "openFrameworks-Info.plist"; sourceTree = "<group>"; };
 		E4C2421610CC549C004149E2 /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
+		EA1070BE12F709EC00DC662C /* ofxBlobTracker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBlobTracker.cpp; sourceTree = "<group>"; };
+		EA1070BF12F709EC00DC662C /* ofxBlobTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBlobTracker.h; sourceTree = "<group>"; };
 		EA158EFE12D5D16500F34EF3 /* OBJVertexArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBJVertexArray.h; sourceTree = "<group>"; };
 		EA158EFF12D5D16500F34EF3 /* ofxOBJModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxOBJModel.cpp; sourceTree = "<group>"; };
 		EA158F0012D5D16500F34EF3 /* ofxOBJModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxOBJModel.h; sourceTree = "<group>"; };
@@ -520,6 +523,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				EA1070BD12F709EC00DC662C /* ofxBlobTracker */,
 				EAB6FCC412EDBBDE0025041E /* ofxCvKalman */,
 				EAB6FAA812EDAA440025041E /* ofxOpenCv */,
 				EAB6F5D112E9EE000025041E /* ofxKinect */,
@@ -571,6 +575,16 @@
 			);
 			name = openFrameworks;
 			sourceTree = "<group>";
+		};
+		EA1070BD12F709EC00DC662C /* ofxBlobTracker */ = {
+			isa = PBXGroup;
+			children = (
+				EA1070BE12F709EC00DC662C /* ofxBlobTracker.cpp */,
+				EA1070BF12F709EC00DC662C /* ofxBlobTracker.h */,
+			);
+			name = ofxBlobTracker;
+			path = ../../../addons/ofxBlobTracker;
+			sourceTree = SOURCE_ROOT;
 		};
 		EA158EFD12D5D16500F34EF3 /* ofxOBJModel */ = {
 			isa = PBXGroup;
@@ -1336,6 +1350,7 @@
 			isa = PBXProject;
 			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "KinectExample" */;
 			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				English,
@@ -1446,6 +1461,7 @@
 				EAB6FCB212EDBAE60025041E /* Settings.cpp in Sources */,
 				EAB6FCC712EDBBDE0025041E /* ofxCvKalman.cpp in Sources */,
 				EAB6FF5112EDC64E0025041E /* Bubble2.cpp in Sources */,
+				EA1070C012F709EC00DC662C /* ofxBlobTracker.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
