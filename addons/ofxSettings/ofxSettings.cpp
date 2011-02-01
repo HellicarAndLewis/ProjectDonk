@@ -1,14 +1,13 @@
 
 
 
-#include "Settings.h"
-using namespace util;
-Settings settings;
+#include "ofxSettings.h"
+ofxSettings settings;
 
 /**
  * Loads the file.
  */
-void Settings::load(string path) {
+void ofxSettings::load(string path) {
 	xmlFilePath = path;
 	data.clear();
 	ofxXmlSettings xml;
@@ -32,7 +31,7 @@ void Settings::load(string path) {
  * Saves the file. If you don't pass a parameter, it'll try to 
  * save it to the last place it was loaded from.
  */
-bool Settings::save(string path) {
+bool ofxSettings::save(string path) {
 	if(path!="") xmlFilePath = path;
 	if(xmlFilePath=="") {
 		ofLog(OF_LOG_ERROR, "Error, no xml file specified\n");
@@ -58,14 +57,14 @@ bool Settings::save(string path) {
 }
 
 
-void Settings::set(string key, string value) {
+void ofxSettings::set(string key, string value) {
 	data[key] = value;
 	save();
 }
 
 
 
-string Settings::get(string key, string defaultValue) {
+string ofxSettings::get(string key, string defaultValue) {
 	if(!loaded) load(SETTINGS_FILE);
 	if(data.find(key)==data.end()) {
 		set(key, defaultValue);
@@ -75,23 +74,23 @@ string Settings::get(string key, string defaultValue) {
 }
 
 
-void Settings::set(string key, int value) {
+void ofxSettings::set(string key, int value) {
 	set(key, ofToString(value));
 }
 
-void Settings::set(string key, float value) {
+void ofxSettings::set(string key, float value) {
 	set(key, ofToString(value));
 }
 
-int Settings::getInt(string key, int defaultValue) {
+int ofxSettings::getInt(string key, int defaultValue) {
 	return ofToInt(get(key, ofToString(defaultValue)));
 }
 
-float Settings::getFloat(string key, float defaultValue) {
+float ofxSettings::getFloat(string key, float defaultValue) {
 	return ofToFloat(get(key, ofToString(defaultValue)));
 }
 
-bool Settings::getBool(string key, bool defaultValue) {
+bool ofxSettings::getBool(string key, bool defaultValue) {
 	string val = get(key, defaultValue?"true":"false");
 	return val=="true" || val=="yes" || val=="1" || val=="TRUE" || val=="YES";
 }

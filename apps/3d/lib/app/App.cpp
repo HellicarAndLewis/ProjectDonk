@@ -6,7 +6,7 @@
  *
  */
 #include "App.h"
-#include "Settings.h"
+#include "ofxSettings.h"
 #include "GLHelpers.h"
 
 using namespace util;
@@ -21,6 +21,7 @@ App::App() {
 														  ofGetHeight() - GUI_PADDING*2));
 	sceneGui	= new SceneGui(scene);
 	kinectGui	= new KinectGui(scene);
+	
 	ofAddListener(ofEvents.mousePressed, this, &App::_mousePressed);
 	ofAddListener(ofEvents.mouseMoved, this, &App::_mouseMoved);
 	ofAddListener(ofEvents.mouseDragged, this, &App::_mouseDragged);

@@ -5,7 +5,7 @@
 #include "ofMain.h"
 #include "ofAppGlutWindow.h"
 #include "testApp.h"
-#include "Settings.h"
+#include "ofxSettings.h"
 
 float WIDTH = 1024;
 float HEIGHT = 768;

@@ -2,9 +2,8 @@
 #include "ofMain.h"
 #include "ofxXmlSettings.h"
 #include "constants.h"
-namespace util {
 /**
- *  \brief Provides a persistent settings interface for stuff not in the GUI.
+ *  \brief Provides a persistent settings interface for stuff
  *
  *  It's basically a hashmap that saves itself every time you set a value.
  *  Also, if you ever try to get a value, you can optionally provide a default so
@@ -21,7 +20,7 @@ namespace util {
  *
  *  The file format is xml, so easy on the eye when editing.
  */
-class Settings {
+class ofxSettings {
 public:
 	
 	
@@ -68,5 +67,5 @@ private:
 
 	
 
-};
-extern util::Settings settings;
+
+extern ofxSettings settings;

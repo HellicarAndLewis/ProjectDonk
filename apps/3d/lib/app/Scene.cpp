@@ -7,7 +7,7 @@
  */
 
 #include "Scene.h"
-#include "Settings.h"
+#include "ofxSettings.h"
 
 Scene::Scene() {
 	

@@ -9,7 +9,7 @@
 #pragma once
 #include "ofxOBJModel.h"
 #include "ofMain.h"
-#include "Settings.h"
+#include "ofxSettings.h"
 
 /**
  * \brief Represents the physical surfaces to project onto in the scene
