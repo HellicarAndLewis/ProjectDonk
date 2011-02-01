@@ -11,10 +11,11 @@
 #include "Model.h"
 
 // define this and it replaces the FBO with a test image.
-#define TEST_IMAGE
+//#define TEST_IMAGE
 
 /**
- * This is a texture that will wrap itself onto a 3d model.
+ * \brief This is a texture that will wrap itself onto a 3d model.
+ *
  * You subclass it, then implement draw() which fills the FBO
  * when render() is called by your app, and then feed drawOnModel() 
  * with the model you want to draw it onto.

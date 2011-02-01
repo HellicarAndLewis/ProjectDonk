@@ -2,7 +2,7 @@
 #include "ofMain.h"
 #include "ofxXmlSettings.h"
 #include "constants.h"
-
+namespace util {
 /**
  *  \brief Provides a persistent settings interface for stuff not in the GUI.
  *
@@ -66,4 +66,7 @@ private:
 	
 };
 
-extern Settings settings;
+	
+
+};
+extern util::Settings settings;

@@ -13,6 +13,9 @@
 #include "Scene.h"
 #include "ofxXmlGui.h"
 
+/**
+ * \brief Gui for configuring/calibrating kinects.
+ */
 class KinectGui: public Enableable {
 public:
 	

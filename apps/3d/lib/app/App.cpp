@@ -9,6 +9,8 @@
 #include "Settings.h"
 #include "GLHelpers.h"
 
+using namespace util;
+
 App::App() {
 	ofSetLogLevel(OF_LOG_NOTICE);
 

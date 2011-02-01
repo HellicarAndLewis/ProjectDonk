@@ -9,7 +9,9 @@
 #include "Scene.h"
 #include "Enableable.h"
 
-
+/**
+ * \brief The gui for arranging cameras and kinects.
+ */
 class SceneGui: public Enableable {
 public:
 	SceneGui(Scene *scene);

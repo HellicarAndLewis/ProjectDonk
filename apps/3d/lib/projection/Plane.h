@@ -11,7 +11,7 @@
 #define PLANE_Z 2
 
 /**
- * Represents a plane in 3d space.
+ * \brief Represents a plane in 3d space, and helps with slicing images out of a kinect.
  * Uses the equation Ax + By + Cz + D = 0
  *
  * Lots of help from Mr Bourke: http://local.wasp.uwa.edu.au/~pbourke/geometry/planeeq/

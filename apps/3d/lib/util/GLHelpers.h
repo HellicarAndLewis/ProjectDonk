@@ -8,9 +8,10 @@
 
 #pragma once
 #include "ofMain.h"
-
+namespace util {
+	
 /**
- * This calls glEnable/disable while the object is in scope, 
+ * \brief This calls glEnable/disable while the object is in scope, 
  * and then returns openGL to its previous state when the destructor is called.
  * 
  * e.g. 
@@ -47,4 +48,5 @@ public:
 			else glDisable(glCapability);
 		}
 	}
+};
 };

@@ -9,7 +9,7 @@
 #pragma once
 
 /**
- * Interface for elements you can enable and disable
+ * \brief simple interface for elements you can enable and disable
  */
 class Enableable {
 public:
