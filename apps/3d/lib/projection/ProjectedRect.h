@@ -11,7 +11,7 @@
 #include "Model.h"
 
 // define this and it replaces the FBO with a test image.
-//#define TEST_IMAGE
+#define TEST_IMAGE
 
 /**
  * This is a texture that will wrap itself onto a 3d model.

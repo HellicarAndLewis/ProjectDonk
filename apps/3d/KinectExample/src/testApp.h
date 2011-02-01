@@ -38,7 +38,7 @@ public:
 	void windowResized(int w, int h);
 	
 	// blob methods
-	void blobMoved(int blobId, ofPoint centroid);
+	void blobMoved(ofVec3f centroid, int blobId);
 	
 	// demo specific
 	Bubbles2 bubbles;

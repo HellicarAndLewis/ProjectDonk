@@ -1,5 +1,5 @@
 <properties>
-    <property key="model file" value="1wall.obj"></property>
+    <property key="model file" value="test.obj"></property>
     <property key="num kinects" value="1"></property>
     <property key="num projectors" value="1"></property>
     <property key="projector height" value="768"></property>

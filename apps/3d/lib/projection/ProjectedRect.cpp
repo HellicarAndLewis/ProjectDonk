@@ -15,7 +15,7 @@ void ProjectedRect::setup(float width, float height) {
 	this->height = height;
 	fbo.setup(width, height, GL_RGB);
 #ifdef TEST_IMAGE
-	testImage.loadImage("UV.jpeg");
+	testImage.loadImage("global/img/UV.jpeg");
 	this->width = testImage.getWidth();
 	this->height = testImage.getHeight();
 #endif		
@@ -49,7 +49,6 @@ void ProjectedRect::render() {
 	
 	fbo.begin();
 	//ofSetupScreen();
-	ofClear(1, 1, 0, 0.5);
 	this->draw();
 	fbo.end();
 }
@@ -67,7 +66,7 @@ void ProjectedRect::drawOnModel(Model *model) {
 	// draw the model (assuming it also draws normalized texCoords
 	bind();
 	glColor3f(1, 1, 1);
-	model->draw();
+	model->drawModel();
 	unbind();
 	
 	// reset the texture matrix

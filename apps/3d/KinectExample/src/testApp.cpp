@@ -16,7 +16,7 @@ void testApp::setup() {
 	ofSetVerticalSync(true);
 	ofSetFrameRate(60.f);
 	ofBackground(0, 0, 0);
-	bubbles.setup(1024,768);
+	bubbles.setup(1024,1024);
 	for(int i = 0; i < scene->kinects.size(); i++) {
 		scene->kinects[i]->addListener(this);
 	}
@@ -36,13 +36,11 @@ void testApp::render() {
 void testApp::drawView() {
 
 	glColor3f(1, 1, 1);
-	
 	// setting the parameter to false just draws a wireframe
 	bubbles.drawOnModel(scene->getModel());
-	
 }
 
-void testApp::blobMoved(int blobId, ofPoint centroid) {
+void testApp::blobMoved(ofVec3f centroid, int blobId) {
 	bubbles.spawn(ofVec2f(centroid.x*bubbles.getWidth(),centroid.y*bubbles.getHeight()));
 }
 

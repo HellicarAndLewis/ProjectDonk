@@ -60,8 +60,9 @@ void OrthoViewport::mouse(ofPoint delta, int button) {
 		this->name = getName();
 	} else {
 		if(button==0) {
-			translation.x += delta.x/scale;
-			translation.y -= delta.y/scale;
+			float aspect = width/height;
+			translation.x += delta.x/scale/2;
+			translation.y -= delta.y*aspect/scale/2;
 
 		} else {
 			

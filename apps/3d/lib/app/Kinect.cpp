@@ -182,7 +182,7 @@ void Kinect::createVertexArrays() {
 void Kinect::customDraw() {
 	
 	// this will only generate vertex arrays once per frame!
-	if(!hasCreatedVertexArrays) {
+	if(!hasCreatedVertexArrays && running) {
 		createVertexArrays();
 		hasCreatedVertexArrays = true;
 	}

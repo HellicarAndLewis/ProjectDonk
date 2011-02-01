@@ -96,20 +96,20 @@ void ofxBlobTracker::track(vector<ofVec3f> &blobs) {
 
 			ofxBlob *b = newBlob(blobs[i]);
 			updateKalman(b->id, b);
-			notifyAllListeners(b->x, b->y, b->id, ofxBlobTracker_entered);
+			notifyAllListeners(*b, b->id, ofxBlobTracker_entered);
 			
 		// updated blob
 		} else {
 			blob = updateKalman(blob->id, blob);
 			updateBlob(blob->id, &blobs[i]);
-			notifyAllListeners(blob->x, blob->y, blob->id, ofxBlobTracker_moved);
+			notifyAllListeners(*blob, blob->id, ofxBlobTracker_moved);
 		}
 	}
 	// dead blob
 	// delete any untouched blobs
 	for(int i = 0; i < lastBlobs.size(); i++) {
 		if(lastBlobs[i]->touched==false) {
-			notifyAllListeners(lastBlobs[i]->x, lastBlobs[i]->y, lastBlobs[i]->id, ofxBlobTracker_exited);
+			notifyAllListeners(*lastBlobs[i], lastBlobs[i]->id, ofxBlobTracker_exited);
 			delete lastBlobs[i];
 			lastBlobs.erase(lastBlobs.begin()+i);
 			i--;
@@ -134,17 +134,17 @@ ofxBlob *ofxBlobTracker::getClosestBlob(ofVec3f &blob) {
 	return lastBlobs[minI];
 }
 
-void ofxBlobTracker::notifyAllListeners(float x, float y, int id, ofxBlobEventType type) {
+void ofxBlobTracker::notifyAllListeners(ofVec3f pos, int id, ofxBlobEventType type) {
 	for(int i = 0; i < listeners.size(); i++) {
 		switch(type) {
 			case ofxBlobTracker_entered:
-				listeners[i]->blobEntered(x, y, id);
+				listeners[i]->blobEntered(pos, id);
 				break;
 			case ofxBlobTracker_moved:
-				listeners[i]->blobMoved(x, y, id);
+				listeners[i]->blobMoved(pos, id);
 				break;
 			case ofxBlobTracker_exited:
-				listeners[i]->blobExited(x, y, id);
+				listeners[i]->blobExited(pos, id);
 				break;
 		}
 	}
@@ -155,7 +155,7 @@ void ofxBlobTracker::notifyAllListeners(float x, float y, int id, ofxBlobEventTy
 			case ofxBlobTracker_moved: t = "moved"; break;
 			case ofxBlobTracker_exited: t = "exited"; break;
 		}
-		printf("[ofxBlobTracker: ] blob %d %s, (%f.2, %f.2)\n", id, t.c_str(), x, y);
+		printf("[ofxBlobTracker: ] blob %d %s, (%f.2, %f.2)\n", id, t.c_str(), pos.x, pos.y);
 	}
 }
 

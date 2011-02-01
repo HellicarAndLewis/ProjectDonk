@@ -17,11 +17,17 @@
 class Model: public ofNode { //: public ofNode {
 public:
 	ofxOBJModel model;
+	
 	Model() {
 		model.load(settings.get("model file", "scene.obj"));
 	}
+	
 	void customDraw() {
-		ofSetColor(255, 255, 255);
+		glColor3f(1,1,1);
 		model.draw(false);
+	}
+	void drawModel() {
+		glColor3f(1,1,1);
+		model.draw(true);
 	}
 };

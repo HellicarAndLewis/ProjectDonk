@@ -15,9 +15,9 @@
  */
 class ofxBlobListener {
 public:
-	virtual void blobEntered(float x, float y, int blobId) {}
-	virtual void blobMoved(float x, float y, int blobId) {}
-	virtual void blobExited(float x, float y, int blobId) {}
+	virtual void blobEntered(ofVec3f pos, int blobId) {}
+	virtual void blobMoved(ofVec3f pos, int blobId) {}
+	virtual void blobExited(ofVec3f pos, int blobId) {}
 	
 };
 #define NUM_KALMAN_POINTS 32
@@ -55,7 +55,7 @@ private:
 	vector<ofxBlobListener*> listeners;
 	
 	enum ofxBlobEventType { ofxBlobTracker_entered, ofxBlobTracker_moved, ofxBlobTracker_exited };
-	void notifyAllListeners(float x, float y, int id, ofxBlobEventType type);
+	void notifyAllListeners(ofVec3f pos, int id, ofxBlobEventType type);
 	
 	vector<ofxBlob*> lastBlobs;
 	

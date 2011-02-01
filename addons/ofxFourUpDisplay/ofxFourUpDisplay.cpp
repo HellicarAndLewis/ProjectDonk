@@ -110,8 +110,8 @@ bool ofxFourUpDisplay::inRect(ofPoint point, ofRectangle &rect) {
 void ofxFourUpDisplay::setCentre(float x, float y) {
 	
 	// resize all the viewports
-	
-	if(!inRect(ofPoint(x, y), *this)) return;
+	ofRectangle r = ofRectangle(this->x, this->y, this->width, this->height);
+	if(!inRect(ofPoint(x, y), r)) return;
 	
 	viewports[0]->width = x - this->x;
 	viewports[0]->height = y - this->y;

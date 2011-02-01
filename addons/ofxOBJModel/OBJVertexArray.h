@@ -3,7 +3,9 @@
  *  Blob
  *
  *  Created by Marek Bereza on 09/08/2010.
- *  Copyright 2010 Marek Bereza. All rights reserved.
+ *
+ * This isn't used in ofxOBJModel, but I've kept it because it has
+ * some useful normal generation code that might be needed elsewhere.
  *
  */
 #include <map>
@@ -11,32 +13,7 @@
 class OBJVertexArray {
 public:
 	
-	
-	bool replaceAll( const string &original, string
-					&finalString, const string & sourceString, const string & targetString )
-	{
-		finalString = original;
-		int len = sourceString.size();
-		bool changesMade=false;
 		
-		int pos=0;
-		while( pos != -1)
-		{
-			pos = finalString.find( sourceString, pos );
-			
-			if ( pos != -1 )
-			{
-				finalString.erase( pos, len );
-				if (targetString.size() > 0 )
-					finalString.insert( pos, targetString );
-				changesMade=true;
-			}
-			
-		}
-		return changesMade;
-	}
-
-	
 	/**
 	 * If bCalculateFlatNormals is set to true, then this
 	 * class also calculates normals per triangle and

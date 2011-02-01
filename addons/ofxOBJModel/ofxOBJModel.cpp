@@ -35,6 +35,8 @@ std::vector<std::string> split(const std::string &s, char delim) {
 
 #pragma mark ofxOBJModel
 bool ofxOBJModel::load(string path) {
+	bHasNormals = false;
+	bHasTexCoords = false;
 	filePath = path;
 	path = ofToDataPath(path, true);
 	
@@ -80,8 +82,10 @@ bool ofxOBJModel::load(string path) {
 			} else if(line.find("v ")==0) { // new vertex
 				points.push_back(parseCoords(line));
 			} else if(line.find("vn ")==0) {
+				bHasNormals = true;
 				normals.push_back(parseCoords(line));
 			} else if(line.find("vt ")==0) {
+				bHasTexCoords = true;
 				texCoords.push_back(parseCoords(line));
 			} else if(line.find("f ")==0) { // face definition
 				
@@ -138,6 +142,7 @@ bool ofxOBJModel::load(string path) {
 
 				}
 #endif
+		loadVbo();
 		ofLog(OF_LOG_NOTICE, "Successfully loaded %s\n-----\nVertices: %d\nMeshes: %d\nNormals: %d\nTexCoords: %d\n", path.c_str(), points.size(), meshes.size(), normals.size(), texCoords.size());
 		
 		return true;
@@ -147,6 +152,87 @@ bool ofxOBJModel::load(string path) {
 	}
 }
 
+bool ofxOBJModel::hasNormals() {
+	return bHasNormals;
+}
+
+bool ofxOBJModel::hasTexCoords() {
+	return bHasTexCoords;
+}
+
+void ofxOBJModel::loadVbo() {
+	int count = 0;
+	for(int i = 0; i < meshes.size(); i++) {
+		for(int j = 0; j < meshes[i]->faces.size(); j++) {
+			
+			int pointCount = meshes[i]->faces[j]->points.size();
+			
+			if(pointCount==3) {
+				count += 3;
+			} else {
+				// if the poly has more than 3 sides, 
+				// we're gonna do a triangle fan.
+				// 4 points goes to 6 points
+				// 5 points goes to 9 points
+				// 6 points goes to 12 points
+				count += (pointCount - 2)*3;
+			}
+			
+		}
+	}
+	ofVec3f *coords = new ofVec3f[count];
+	ofVec3f *normals = NULL;
+	ofVec2f *texCoords = NULL;
+	if(hasNormals()) normals = new ofVec3f[count];
+	if(hasTexCoords()) texCoords = new ofVec2f[count];
+	int pos = 0; 
+	for(int i = 0; i < meshes.size(); i++) {
+		for(int j = 0; j < meshes[i]->faces.size(); j++) {
+			
+			int pointCount = meshes[i]->faces[j]->points.size();
+			if(pointCount==3) {
+				for(int k = 0; k < pointCount; k++) {
+					coords[pos] = meshes[i]->faces[j]->points[k];
+				
+					if(normals!=NULL) {
+						normals[pos] = meshes[i]->faces[j]->normals[k];
+					}
+					if(texCoords!=NULL) {
+						texCoords[pos] = meshes[i]->faces[j]->texCoords[k];
+					}
+					
+					pos++;
+				}
+			} else {
+				// triangle fan
+				int triCount = pointCount - 2;
+				for(int tri = 0; tri < triCount; tri++) {
+					for(int p = 0; p < 3; p++) {
+						coords[pos] = meshes[i]->faces[j]->points[tri+p];
+						
+						if(normals!=NULL) {
+							normals[pos] = meshes[i]->faces[j]->normals[tri+p];
+						}
+						if(texCoords!=NULL) {
+							texCoords[pos] = meshes[i]->faces[j]->texCoords[tri+p];
+						}
+						pos++;
+					}
+				}
+			}
+		}
+	}
+	vbo.clear();
+	
+	vbo.setVertexData(coords, count, GL_STATIC_DRAW_ARB);
+	if(normals!=NULL) vbo.setNormalData(normals, count, GL_STATIC_DRAW_ARB);
+	if(texCoords!=NULL) vbo.setTexCoordData(texCoords, count, GL_STATIC_DRAW_ARB);
+	
+	delete [] coords;
+	if(normals!=NULL) delete [] normals;
+	if(texCoords!=NULL) delete [] texCoords;
+	vboCoordCount = count;
+}
 	
 bool ofxOBJModel::save(string file) {
 	if(file=="") {
@@ -237,10 +323,17 @@ ofPoint ofxOBJModel::parseVertex(string line) {
 	
 }
 
+ofVbo *ofxOBJModel::getVbo() {
+	return &vbo;
+}
 
 void ofxOBJModel::draw(bool drawSolid) {
-	for(int i = 0; i < meshes.size(); i++) {
-		meshes[i]->draw(drawSolid);
+	if(drawSolid) {
+		vbo.draw(GL_TRIANGLES, 0, vboCoordCount);
+	} else {
+		for(int i = 0; i < meshes.size(); i++) {
+			meshes[i]->draw(drawSolid);
+		}
 	}
 }
 

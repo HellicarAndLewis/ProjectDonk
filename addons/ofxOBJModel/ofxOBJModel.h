@@ -22,14 +22,14 @@
 #pragma once
 
 #include "ofMain.h"
-
+#include "ofVbo.h"
 
 
 class ObjFace {
 public:
-	vector<ofPoint> points;
-	vector<ofPoint> normals;
-	vector<ofPoint> texCoords;
+	vector<ofVec3f> points;
+	vector<ofVec3f> normals;
+	vector<ofVec2f> texCoords;
 	
 	void draw(bool drawSolid = true);
 	
@@ -141,10 +141,16 @@ public:
 	void draw(bool drawSolid = true);
 	
 	
-
+	ofVbo *getVbo();
 	
+	bool hasNormals();
+	
+	bool hasTexCoords();
 	
 private:
+	
+	bool bHasTexCoords;
+	bool bHasNormals;
 	/**
 	 * Takes a line from the obj file beginning with a "v " and 
 	 * turns it into an ofPoint.
@@ -153,6 +159,9 @@ private:
 	
 	ofPoint parseCoords(string line);
 	string filePath;
+	ofVbo vbo;
+	void loadVbo();
+	int vboCoordCount;
 };
 
 
