@@ -9,20 +9,21 @@ void testApp::setup(){
 	planarKinect.set(20, 20, 320, 240);
 	planarKinect.setup();
 	ofSetFrameRate(30);
+	ofBackground(0,0,0);
+	
 }
 
 
 //--------------------------------------------------------------
 void testApp::update(){
 	
-	ofBackground(100,100,100);
 	
 	kinect.update();
 	
 
 
 	planarKinect.update(kinect.getDepthPixels());
-
+	
 
 }
 
@@ -30,21 +31,23 @@ void testApp::update(){
 void testApp::draw(){
 	ofSetHexColor(0xffffff);
 	planarKinect.draw();
+
+	ofEnableAlphaBlending();
+	ofSetColor(0, 0, 255, 140);
+	for(int i = 0; i < planarKinect.blobs.size(); i++) {
+		
+		ofCircle(planarKinect.blobs[i].x*ofGetWidth(),
+				 planarKinect.blobs[i].y*ofGetHeight(),
+				 50
+				 );
+	}
 }
 
 
 //--------------------------------------------------------------
 void testApp::keyPressed  (int key){ 
 	
-	// in fullscreen mode, on a pc at least, the 
-	// first time video settings the come up
-	// they come up *under* the fullscreen window
-	// use alt-tab to navigate to the settings
-	// window. we are working on a fix for this...
-	
-	if (key == 's' || key == 'S'){
-		vidGrabber.videoSettings();
-	}
+	planarKinect.keyPressed(key);
 	
 	
 }

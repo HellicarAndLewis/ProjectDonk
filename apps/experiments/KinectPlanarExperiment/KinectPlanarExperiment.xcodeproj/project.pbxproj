@@ -24,6 +24,10 @@
 		E4C2424910CC5A17004149E2 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424610CC5A17004149E2 /* IOKit.framework */; };
 		E4C2426610CC5A78004149E2 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2425F10CC5A78004149E2 /* GLUT.framework */; };
 		E4C2426B10CC5AA6004149E2 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E4C2425F10CC5A78004149E2 /* GLUT.framework */; };
+		EAB36F3B12FC84400009DBB5 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB36F3412FC84400009DBB5 /* tinyxml.cpp */; };
+		EAB36F3C12FC84400009DBB5 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB36F3612FC84400009DBB5 /* tinyxmlerror.cpp */; };
+		EAB36F3D12FC84400009DBB5 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB36F3712FC84400009DBB5 /* tinyxmlparser.cpp */; };
+		EAB36F3E12FC84400009DBB5 /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB36F3912FC84400009DBB5 /* ofxXmlSettings.cpp */; };
 		EAC6885012FC51B20035589C /* cameras.c in Sources */ = {isa = PBXBuildFile; fileRef = EAC6883612FC51B10035589C /* cameras.c */; };
 		EAC6885112FC51B20035589C /* core.c in Sources */ = {isa = PBXBuildFile; fileRef = EAC6883712FC51B10035589C /* core.c */; };
 		EAC6885212FC51B20035589C /* tilt.c in Sources */ = {isa = PBXBuildFile; fileRef = EAC6883C12FC51B10035589C /* tilt.c */; };
@@ -33,6 +37,7 @@
 		EAC6885612FC51B20035589C /* ofxKinectCalibration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAC6884A12FC51B20035589C /* ofxKinectCalibration.cpp */; };
 		EAC6885712FC51B20035589C /* ofxKinectPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAC6884C12FC51B20035589C /* ofxKinectPlayer.cpp */; };
 		EAC6885812FC51B20035589C /* ofxKinectRecorder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAC6884E12FC51B20035589C /* ofxKinectRecorder.cpp */; };
+		EAC688D512FC68CB0035589C /* ofxPlanarKinect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAC688D412FC68CB0035589C /* ofxPlanarKinect.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +90,13 @@
 		E4C2424510CC5A17004149E2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		E4C2424610CC5A17004149E2 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
 		E4C2425F10CC5A78004149E2 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = SOURCE_ROOT; };
+		EAB36F3212FC84400009DBB5 /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = install.xml; sourceTree = "<group>"; };
+		EAB36F3412FC84400009DBB5 /* tinyxml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxml.cpp; sourceTree = "<group>"; };
+		EAB36F3512FC84400009DBB5 /* tinyxml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinyxml.h; sourceTree = "<group>"; };
+		EAB36F3612FC84400009DBB5 /* tinyxmlerror.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlerror.cpp; sourceTree = "<group>"; };
+		EAB36F3712FC84400009DBB5 /* tinyxmlparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlparser.cpp; sourceTree = "<group>"; };
+		EAB36F3912FC84400009DBB5 /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxXmlSettings.cpp; sourceTree = "<group>"; };
+		EAB36F3A12FC84400009DBB5 /* ofxXmlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxXmlSettings.h; sourceTree = "<group>"; };
 		EAC6874C12FC36350035589C /* ofxPlanarKinect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxPlanarKinect.h; sourceTree = "<group>"; };
 		EAC6883612FC51B10035589C /* cameras.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cameras.c; sourceTree = "<group>"; };
 		EAC6883712FC51B10035589C /* core.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = core.c; sourceTree = "<group>"; };
@@ -106,6 +118,8 @@
 		EAC6884D12FC51B20035589C /* ofxKinectPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxKinectPlayer.h; sourceTree = "<group>"; };
 		EAC6884E12FC51B20035589C /* ofxKinectRecorder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxKinectRecorder.cpp; sourceTree = "<group>"; };
 		EAC6884F12FC51B20035589C /* ofxKinectRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxKinectRecorder.h; sourceTree = "<group>"; };
+		EAC688BC12FC668E0035589C /* ofxPlanarKinectWarper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxPlanarKinectWarper.h; sourceTree = "<group>"; };
+		EAC688D412FC68CB0035589C /* ofxPlanarKinect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxPlanarKinect.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +151,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				EAB36F3112FC84400009DBB5 /* ofxXmlSettings */,
 				EAC6883312FC51B10035589C /* ofxKinect */,
 				EAC6874B12FC36350035589C /* ofxPlanarKinect */,
 			);
@@ -201,9 +216,42 @@
 			name = openFrameworks;
 			sourceTree = "<group>";
 		};
+		EAB36F3112FC84400009DBB5 /* ofxXmlSettings */ = {
+			isa = PBXGroup;
+			children = (
+				EAB36F3212FC84400009DBB5 /* install.xml */,
+				EAB36F3312FC84400009DBB5 /* libs */,
+				EAB36F3812FC84400009DBB5 /* src */,
+			);
+			name = ofxXmlSettings;
+			path = ../../../addons/ofxXmlSettings;
+			sourceTree = SOURCE_ROOT;
+		};
+		EAB36F3312FC84400009DBB5 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				EAB36F3412FC84400009DBB5 /* tinyxml.cpp */,
+				EAB36F3512FC84400009DBB5 /* tinyxml.h */,
+				EAB36F3612FC84400009DBB5 /* tinyxmlerror.cpp */,
+				EAB36F3712FC84400009DBB5 /* tinyxmlparser.cpp */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+		EAB36F3812FC84400009DBB5 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				EAB36F3912FC84400009DBB5 /* ofxXmlSettings.cpp */,
+				EAB36F3A12FC84400009DBB5 /* ofxXmlSettings.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		EAC6874B12FC36350035589C /* ofxPlanarKinect */ = {
 			isa = PBXGroup;
 			children = (
+				EAC688D412FC68CB0035589C /* ofxPlanarKinect.cpp */,
+				EAC688BC12FC668E0035589C /* ofxPlanarKinectWarper.h */,
 				EAC6874C12FC36350035589C /* ofxPlanarKinect.h */,
 			);
 			name = ofxPlanarKinect;
@@ -396,6 +444,11 @@
 				EAC6885612FC51B20035589C /* ofxKinectCalibration.cpp in Sources */,
 				EAC6885712FC51B20035589C /* ofxKinectPlayer.cpp in Sources */,
 				EAC6885812FC51B20035589C /* ofxKinectRecorder.cpp in Sources */,
+				EAC688D512FC68CB0035589C /* ofxPlanarKinect.cpp in Sources */,
+				EAB36F3B12FC84400009DBB5 /* tinyxml.cpp in Sources */,
+				EAB36F3C12FC84400009DBB5 /* tinyxmlerror.cpp in Sources */,
+				EAB36F3D12FC84400009DBB5 /* tinyxmlparser.cpp in Sources */,
+				EAB36F3E12FC84400009DBB5 /* ofxXmlSettings.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

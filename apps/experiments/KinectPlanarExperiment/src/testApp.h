@@ -22,11 +22,6 @@ public:
 	
 	ofxKinect			kinect;
 	ofxPlanarKinect		planarKinect; 
-	ofVideoGrabber 		vidGrabber;
-	unsigned char * 	videoInverted;
-	ofTexture			videoTexture;
-	int 				camWidth;
-	int 				camHeight;
 };
 
 #endif	
