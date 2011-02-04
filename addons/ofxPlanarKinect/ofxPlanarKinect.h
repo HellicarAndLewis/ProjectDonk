@@ -8,12 +8,15 @@
  *
  */
 
+// downsample factor of depth graph
+#define ofxPlanarKinect_depthGraphResolution 2
 
 class ofxPlanarKinect: public ofRectangle, public ofBaseDraws {
 
 public:
 	ofxPlanarKinect() {
 		pixels = NULL;
+		depthGraph = NULL;
 		mouseIsDown = false;
 		width = 640;
 		height = 480;
@@ -22,6 +25,9 @@ public:
 	~ofxPlanarKinect() {
 		if(pixels!=NULL) {
 			delete [] pixels;
+		}
+		if(depthGraph!=NULL) {
+			delete [] depthGraph;
 		}
 		
 	}
@@ -33,6 +39,8 @@ public:
 		sliceImg.allocate(dims.x, 1, GL_LUMINANCE);
 		numPixels = dims.x*dims.y;
 		pixels = new unsigned char[numPixels];
+		numDepthGraphPoints = dims.x/ofxPlanarKinect_depthGraphResolution;
+		depthGraph = new ofVec2f[numDepthGraphPoints];
 		
 	}
 	
@@ -50,7 +58,18 @@ public:
 		slice = this->pixels + offset;
 
 		camImg.loadData(this->pixels, dims.x, dims.y, GL_LUMINANCE);
+		
+		preprocessSlice();
+		
 		sliceImg.loadData(slice, dims.x, 1, GL_LUMINANCE);
+		
+		// calculate the depth graph points
+		int pos = 0;
+		float scale = 1*width/dims.x;
+		for(int i = 0; i < dims.x; i+=ofxPlanarKinect_depthGraphResolution) {
+			depthGraph[pos] = ofVec2f(x + i*scale, y+slice[i]);
+			pos++;
+		}
 	}
 	
 	
@@ -63,6 +82,17 @@ public:
 	}
 	
 	
+	
+	
+	
+	
+	float getHeight() {
+		return height;
+	}
+	float getWidth() {
+		return width;
+	}
+	
 	void draw(float x,float y,float w, float h) {
 		this->x = x;
 		this->y = y;
@@ -72,7 +102,7 @@ public:
 		ofSetHexColor(0xFFFFFF);
 		if(mouseIsDown) {
 			camImg.draw(x,y,width,height);
-		
+			
 			ofSetHexColor(0xFF0000);
 			ofNoFill();
 			ofRect(x, y + (sliceY-1)*height/dims.y, width, 3);
@@ -82,16 +112,11 @@ public:
 			sliceImg.draw(x,y,width,height);
 			ofSetHexColor(0xFF0000);
 			ofDrawBitmapString("Click mouse to choose a slice", x+3,y+14);
+			glBegin(GL_LINE_STRIP);
+			for(int i = 0 ; i < numDepthGraphPoints; i++)
+				glVertex2f(depthGraph[i].x, depthGraph[i].y);
+			glEnd();
 		}
-	}
-	
-	
-	
-	float getHeight() {
-		return height;
-	}
-	float getWidth() {
-		return width;
 	}
 	
 	
@@ -114,6 +139,31 @@ public:
 	
 private:
 	
+	
+	void preprocessSlice() {
+		// start with at least the first pixel being a lowpass filtered value of all the pixels that are not 0
+		if(slice[0]==0) {
+			float val = 0;
+			for(int i = 1; i < dims.x; i++) {
+				if(slice[i]!=0) {
+					if(val==0) {
+						val = slice[i];
+					} else {
+						val = val*0.92 + ((float)slice[i])*0.08;
+					}
+				}
+			}
+			slice[0] = val;
+			if(val>255) printf("First slice pixel too big! %f\n", val);
+		}
+		
+		// flood fill any black out with previous pixels
+		for(int i = 1; i < dims.x; i++) {
+			if(slice[i]==0) slice[i] = slice[i-1];
+		}
+		
+		
+	}
 	/** current frame (this gets dynamically allocated and copied to every frame */
 	unsigned char *pixels;
 	
@@ -122,6 +172,11 @@ private:
 	
 	/** This is which row of pixels we slice from */
 	int sliceY;
+
+	/** This is the graph that gets drawn to the screen */
+	ofVec2f *depthGraph;
+	int numDepthGraphPoints;	
+	
 	int numPixels;
 	ofTexture camImg;
 	ofTexture sliceImg;
