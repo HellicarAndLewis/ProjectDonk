@@ -1,6 +1,5 @@
 /*
  *  ofxBlobTracker.h
- *  ofxBlobTrackerExample
  *
  *  This is largely taken from https://code.google.com/p/tuiokinect/
  * 
@@ -11,7 +10,7 @@
 #include "ofxCvKalman.h"
 #pragma once
 /**
- * Implement this class to listen for blobs.
+ * \brief Implement this class to listen for blobs.
  */
 class ofxBlobListener {
 public:
@@ -29,7 +28,11 @@ public:
 };
 
 /**
- * This is the actual blob tracker.
+ * \brief Track any kind of blob.
+ *
+ * Add yourself as a listener (using the ofxBlobListener interface.
+ * then every update, send the points you suspect to be blobs with the 
+ * track() method and wait for the callbacks to come!
  */
 class ofxBlobTracker: public ofBaseDraws {
 public:
@@ -39,6 +42,9 @@ public:
 	// input: give the blob tracker the coordinates of your blobs
 	void track(vector<ofVec3f> &blobs);
 
+	// can give it 2d blobs too.
+	void track(vector<ofVec2f> &blobs);
+	
 	// output: add yourself as a listener
 	void addListener(ofxBlobListener *listener);
 	

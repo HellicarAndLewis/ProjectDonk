@@ -86,6 +86,13 @@ void ofxBlobTracker::untouchLastBlobs() {
 	}
 }
 
+void ofxBlobTracker::track(vector<ofVec2f> &blobs) {
+	vector<ofVec3f> poop;
+	for(int i = 0; i < blobs.size(); i++) {
+		poop.push_back(ofVec3f(blobs[i].x, blobs[i].y, 0));
+	}
+	track(poop);
+}
 void ofxBlobTracker::track(vector<ofVec3f> &blobs) {
 	untouchLastBlobs();
 	for(int i = 0; i < blobs.size(); i++) {

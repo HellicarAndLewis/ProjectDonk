@@ -3,8 +3,9 @@
 #include "ofxKinect.h"
 #include "ofxPlanarKinect.h"
 #include "ofMain.h"
+#include "ofxBlobTracker.h"
 
-class testApp : public ofBaseApp{
+class testApp : public ofBaseApp, public ofxBlobListener {
 	
 public:
 	
@@ -20,8 +21,17 @@ public:
 	void mouseReleased(int x, int y, int button);
 	void windowResized(int w, int h);
 	
+	void blobEntered(ofVec3f pos, int blobId);
+	void blobMoved(ofVec3f pos, int blobId);
+	void blobExited(ofVec3f pos, int blobId);
+	
 	ofxKinect			kinect;
 	ofxPlanarKinect		planarKinect; 
+	ofxBlobTracker		blobTracker;
+	bool clearFbo;
+	ofFbo fbo;
+	map<int,ofVec3f> blobs;
+	vector<pair<ofVec3f,ofVec3f> > lines;
 };
 
 #endif	
