@@ -1,7 +1,9 @@
 <values>
     <value controlId="enabled" value="true"></value>
-    <value controlId="xy position" value="0.000000000,0.000000000"></value>
+    <value controlId="xy position" value="-0.315789223,1.000000000"></value>
     <value controlId="z position" value="0.000000000"></value>
-    <value controlId="xy rotation" value="62.526321411,176.399993896"></value>
+    <value controlId="xy rotation" value="0.000000000,0.000000000"></value>
     <value controlId="z rotation" value="0.000000000"></value>
+    <value controlId="scale" value="1.008421183"></value>
+    <value controlId="z offset" value="0.000000000"></value>
 </values>

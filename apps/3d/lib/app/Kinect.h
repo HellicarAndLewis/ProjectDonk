@@ -57,6 +57,8 @@ public:
 	ofVec3f pos;
 	ofVec3f rot;
 	
+	
+	
 	void applyTransformation() {
 		resetTransform();
 		setPosition(pos);
@@ -69,6 +71,9 @@ public:
 	bool enabled;
 	
 	string name;
+	
+	float scale;
+	float zOffset;
 	
 	// this is for calibration
 	float nearClip;
@@ -84,6 +89,8 @@ public:
 	void drawCalibration(ofRectangle rect = ofRectangle(0, 0, WIDTH, HEIGHT));
 	
 
+	void mouseReleased(float x, float y, int button);
+	
 private:
 	
 	// computes the vision for the frame
@@ -117,7 +124,7 @@ private:
 	
 	
 	// vertex arrays are only for debug at present.
-	
+	int vertexArraySize;
 	// for drawing vertex arrays
 	ofVec3f *kinectCoords;
 	ofVec3f *kinectColours;
@@ -128,4 +135,9 @@ private:
 	// once per frame
 	bool hasCreatedVertexArrays;
 	void createVertexArrays();
+
+	ofVec3f planeCoords[3];
+	
+	// this is where the mouse interaction is happening
+	ofRectangle depthRect;
 };

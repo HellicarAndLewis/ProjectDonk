@@ -88,6 +88,8 @@ void ofxFourUpDisplay::draw(ofEventArgs &e) {
 	ofFill();
 	
 	for(int i = 0; i < viewports.size(); i++) {
+		// ignore any really small viewports
+		if(viewports[i]->width<5 || viewports[i]->height<5) continue;
 		// position the viewport in opengl space.
 		viewports[i]->begin();
 		

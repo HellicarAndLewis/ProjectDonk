@@ -42,6 +42,7 @@ void KinectGui::mousePressed(float x, float y, int button) {
 void KinectGui::mouseReleased(float x, float y, int button) {
 	if(!enabled) return;
 	kinectSelector.touchUp(x, y, button);
+	kinects[currKinectIndex]->mouseReleased(x, y, button);
 }
 void KinectGui::mouseDragged(float x, float y, int button) {
 	if(!enabled) return;

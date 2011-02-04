@@ -22,7 +22,14 @@ Kinect::Kinect(string name): ofNode() {
 	thresholdedPixels = NULL;
 	flipX = false;
 	flipY = false;
+	scale = 1;
+	zOffset = 0;
 	//	blobTracker.setVerbose();
+	vertexArraySize = 0;
+	planeCoords[0] = ofVec3f(0,0,3);
+	planeCoords[1] = ofVec3f(1,0,3);
+	planeCoords[2] = ofVec3f(1,1,3);
+	
 }
 
 
@@ -67,6 +74,8 @@ void Kinect::close() {
 }
 
 void Kinect::update() {
+	
+	plane.setFrom3Points(planeCoords[0], planeCoords[1], planeCoords[2]);
 	
 	// do the ofNode stuff
 	applyTransformation();
@@ -167,16 +176,34 @@ void Kinect::createVertexArrays() {
 	float *depths = kinect.getDistancePixels();
 	unsigned char *colours = kinect.getCalibratedRGBPixels();
 	
+	int p = 0;
 	int w = kinect.getWidth();
 	// copy the pixels into the vertex arrays
+	float minZ = FLT_MAX;
+	float maxZ = FLT_MIN;
 	for(int i = 0; i < w; i+=KINECT_RESOLUTION) {
 		for(int j = 0; j < kinect.getHeight(); j+=KINECT_RESOLUTION) {
 			int index = w*j + i;
-			int resIndex = w*j/(KINECT_RESOLUTION*KINECT_RESOLUTION) + i/KINECT_RESOLUTION;
-			kinectCoords[resIndex] = ofVec3f(i*0.02, j*0.02, depths[index]*0.02);
-			kinectColours[resIndex] = ofVec3f((float)colours[index*3+0]/255.f, (float)colours[index*3+1]/255.f, (float)colours[index*3+2]/255.f);
+			int resIndex = p;
+	
+			// skip any 0'z
+			if(depths[index]>0) {
+				p++;
+				
+				// centimetres to metres, hence *0.01
+				kinectCoords[resIndex] = ofVec3f(i*0.01*scale, j*0.01*scale, depths[index]*0.01*scale+zOffset);
+				kinectColours[resIndex] = ofVec3f((float)colours[index*3+0]/255.f, (float)colours[index*3+1]/255.f, (float)colours[index*3+2]/255.f);
+				if(depths[index]>maxZ) maxZ = depths[index];
+				if(depths[index]<minZ) minZ = depths[index];
+				
+				// do plane thing here.
+				float dist = plane.distanceToPoint(kinectCoords[resIndex]);
+				if(dist<0) kinectColours[resIndex] = ofVec3f(1, 0, 1);
+			}
 		}
 	}
+//	printf("Min %f     Max %f\n", minZ, maxZ);
+	vertexArraySize = p;
 }
 
 void Kinect::customDraw() {
@@ -187,18 +214,70 @@ void Kinect::customDraw() {
 		hasCreatedVertexArrays = true;
 	}
 	ofSetHexColor(0x00FF00);
+
 	ofBox(0, 0, 0, 0.2);
+	glBegin(GL_LINES);
+	
+	
+	float h = 2;
+	float w = h*getWidth()/getHeight();
+	
+	w *= 0.4;
+	h *= 0.4;
+	
+	float z = 1;
+	glVertex3f(0, 0, 0);
+	glVertex3f(-w, -h, z);
+	
+	glVertex3f(-w, -h, z);
+	glVertex3f(-w, h, z);
+	
+	glVertex3f(-w, h, z);
+	glVertex3f(0, 0, 0);
+	
+	
+	
+	glVertex3f(0, 0, 0);
+	glVertex3f(w, h, z);
+	
+	glVertex3f(w, h, z);
+	glVertex3f(w, -h, z);
+	
+	glVertex3f(w, -h, z);
+	glVertex3f(0, 0, 0);
+	
+	glVertex3f(w, -h, z);
+	glVertex3f(-w, -h, z);
+	
+	glVertex3f(-w, h, z);
+	glVertex3f(w, h, z);
+	
+	
+	
+	glEnd();
+	
 	
 	if(kinectCoords==NULL) return;
 	
-	
+	glPushMatrix();
+	glTranslatef(-getWidth()*0.01*scale/2, -getHeight()*0.01*scale/2, 0);
 	glColorPointer(3, GL_FLOAT, 0, kinectColours);
 	glVertexPointer(3, GL_FLOAT, 0, kinectCoords);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_COLOR_ARRAY);
-	glDrawArrays(GL_POINTS, 0, numKinectCoords);
+	glDrawArrays(GL_POINTS, 0, vertexArraySize);
 	glDisableClientState(GL_VERTEX_ARRAY); 
 	glDisableClientState(GL_COLOR_ARRAY);
+	
+	
+	glColor3f(0, 1, 1);
+	glBegin(GL_TRIANGLES);
+	for(int i = 0; i < 3; i++) {
+		glVertex3f(planeCoords[i].x, planeCoords[i].y, planeCoords[i].z);
+	}
+	glEnd();
+	
+	glPopMatrix();
 }
 
 
@@ -211,9 +290,43 @@ float Kinect::getHeight() {
 }
 void Kinect::drawCalibration(ofRectangle rect) {
 	if(thresholdedPixels!=NULL) {
+		depthRect = ofRectangle(rect.x, rect.y+rect.height/2, rect.width/2, rect.height/2);
 		kinect.draw(rect.x, rect.y, rect.width/2, rect.height/2);
+		kinect.drawDepth(depthRect);
 		thresholded.draw(rect.x+rect.width/2, rect.y, rect.width/2, rect.height/2);
 		contourFinder.draw(rect.x+rect.width/2, rect.y, rect.width/2, rect.height/2);
 		blobTracker.draw(rect.x+rect.width/2, rect.y, rect.width/2, rect.height/2);
+	}
+}
+int planePointIndex = 0;
+void Kinect::mouseReleased(float x, float y, int button) {
+	if(depthRect.inside(ofPoint(x, y))) {
+
+		// convert the point in the gui to a point in the kinect.
+		ofPoint p(x,y);
+		p.x -= depthRect.x;
+		p.y -= depthRect.y;
+		p.x *= getWidth()/depthRect.width;
+		p.y *= getHeight()/depthRect.height;
+		
+		// find the z
+		float z = kinect.getDistanceAt(p)*0.01*scale + zOffset;
+		
+		// this is one of the coordinates that should be 
+		ofVec3f planePoint = ofVec3f(p.x*0.01*scale, p.y*0.01*scale, z);
+		planeCoords[planePointIndex] = planePoint;
+		planePointIndex++;
+		if(planePointIndex>=3) planePointIndex = 0;
+		printf("Plane points:\n\t%f, %f, %f\n\t%f, %f, %f\n\t%f, %f, %f\n", 
+			   planeCoords[0].x,
+			   planeCoords[0].y,
+			   planeCoords[0].z,
+			   planeCoords[1].x,
+			   planeCoords[1].y,
+			   planeCoords[1].z,
+			   planeCoords[2].x,
+			   planeCoords[2].y,
+			   planeCoords[2].z
+		);
 	}
 }
