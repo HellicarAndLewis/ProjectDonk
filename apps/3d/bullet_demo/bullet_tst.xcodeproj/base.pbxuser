@@ -2,9 +2,16 @@
 {
 	4B9F3D4C12F58FB0008C3BAF /* btBoxShape.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1172, 520}}";
-			sepNavSelRange = "{1141, 0}";
-			sepNavVisRange = "{0, 1224}";
+			sepNavIntBoundsRect = "{{0, 0}, {1172, 533}}";
+			sepNavSelRange = "{1079, 27}";
+			sepNavVisRange = "{202, 1113}";
+		};
+	};
+	4B9F3D4D12F58FB0008C3BAF /* btBoxShape.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1172, 3744}}";
+			sepNavSelRange = "{1790, 54}";
+			sepNavVisRange = "{1442, 729}";
 		};
 	};
 	4B9F3D5312F58FB0008C3BAF /* btCollisionShape.cpp */ = {
@@ -23,9 +30,9 @@
 	};
 	4B9F3D5512F58FB0008C3BAF /* btCompoundShape.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {761, 3549}}";
-			sepNavSelRange = "{1053, 61}";
-			sepNavVisRange = "{6439, 1299}";
+			sepNavIntBoundsRect = "{{0, 0}, {885, 3354}}";
+			sepNavSelRange = "{1983, 20}";
+			sepNavVisRange = "{0, 2170}";
 		};
 	};
 	4B9F3D5612F58FB0008C3BAF /* btCompoundShape.h */ = {
@@ -37,9 +44,9 @@
 	};
 	4B9F3D5E12F58FB0008C3BAF /* btConvexInternalShape.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1172, 1989}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1172, 1950}}";
 			sepNavSelRange = "{2328, 0}";
-			sepNavVisRange = "{1993, 491}";
+			sepNavVisRange = "{1994, 490}";
 		};
 	};
 	4B9F3D6112F58FB0008C3BAF /* btConvexShape.cpp */ = {
@@ -109,6 +116,24 @@
 		isa = PBXCodeSenseManager;
 		indexTemplatePath = "";
 	};
+	4BC40F5612FDCE360010B772 /* testApp.cpp:153 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = EAC12C1812E6F94F0071CE8E /* testApp.cpp */;
+		functionName = "testApp::createContainingBubble(ofVec3f origin, ofVec2f size)";
+		hitCount = 1;
+		ignoreCount = 0;
+		lineNumber = 153;
+		location = bulletTestDebug;
+		modificationTime = 318626118.76817;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
 	E4B69B4C0A3A1720003C02F2 /* Project object */ = {
 		activeBuildConfigurationName = Debug;
 		activeExecutable = 4BBDB7E012F5895000148548 /* bulletTest */;
@@ -117,14 +142,15 @@
 			E4B69B5A0A3A1756003C02F2 /* bulletTest */,
 		);
 		breakpoints = (
+			4BC40F5612FDCE360010B772 /* testApp.cpp:153 */,
 		);
 		codeSenseManager = 4BBDB7ED12F5895900148548 /* Code sense */;
 		executables = (
 			4BBDB7E012F5895000148548 /* bulletTest */,
 		);
 		perUserDictionary = {
-			PBXPerProjectTemplateStateSaveDate = 318619399;
-			PBXWorkspaceStateSaveDate = 318619399;
+			PBXPerProjectTemplateStateSaveDate = 318620897;
+			PBXWorkspaceStateSaveDate = 318620897;
 		};
 		sourceControlManager = 4BBDB7EC12F5895900148548 /* Source Control */;
 		userBuildSettings = {
@@ -138,16 +164,16 @@
 	};
 	EAC12C1812E6F94F0071CE8E /* testApp.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {761, 2509}}";
-			sepNavSelRange = "{3720, 0}";
-			sepNavVisRange = "{3451, 1423}";
+			sepNavIntBoundsRect = "{{0, 0}, {1172, 2912}}";
+			sepNavSelRange = "{2188, 0}";
+			sepNavVisRange = "{1638, 702}";
 		};
 	};
 	EAC12C1912E6F94F0071CE8E /* testApp.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1164, 761}}";
-			sepNavSelRange = "{550, 10}";
-			sepNavVisRange = "{0, 1108}";
+			sepNavIntBoundsRect = "{{0, 0}, {885, 761}}";
+			sepNavSelRange = "{576, 14}";
+			sepNavVisRange = "{0, 1140}";
 		};
 	};
 }

@@ -63,26 +63,34 @@ void testApp::windowResized(int w, int h){
 
 void testApp::drawBullet()
 {
-	int numObjects = m_dynamicsWorld->getNumCollisionObjects();
+	/*int numObjects = m_dynamicsWorld->getNumCollisionObjects();
 	for (int i=0;i<numObjects;i++)
 	{
 		btCollisionObject* colObj = m_dynamicsWorld->getCollisionObjectArray()[i];
 		btRigidBody* body = btRigidBody::upcast(colObj);
 		const btVector3 pos = body->getCenterOfMassPosition();
 		ofCircle(pos.getX(), pos.getY(), 20);
-	}
+	} */
 	
-	int numContainedObjects = containing->getNumChildShapes();
+	
+	const btVector3 pos = containingBody->getCenterOfMassPosition();
+	ofCircle(pos.getX(), pos.getY(), 20);
+	
+	/*int numContainedObjects = containing->getNumChildShapes();
 	for (int i=0;i<numContainedObjects;i++)
 	{
 		btCollisionShape* colObj = containing->getChildShape(i);
-		btVector3* center = new btVector3(0.f, 0.f, 0.f );
-		float radius;
-		colObj->getBoundingSphere(*center, radius);
-		std::cout << center->getX() << " " << center->getY() << " " << center->getZ() << std::endl;
-		ofCircle(center->getX(), center->getY(), 10);
-		delete center;
-	}
+		//btVector3* center = new btVector3(0.f, 0.f, 0.f );
+		//float radius;
+		//colObj->getBoundingSphere(*center, radius);
+		btTransform t;
+		t.setIdentity();
+		btVector3 min, max;
+		colObj->getAabb (t, min, max); 
+		std::cout << t.getOrigin().getX() << " " << t.getOrigin().getY() << " " << t.getOrigin().getZ() << std::endl;
+		//ofCircle(center->getX(), center->getY(), 10);
+		//delete center;
+	}*/
 	
 }
 
@@ -108,6 +116,7 @@ void testApp::initBullet()
 	
 	btConstraintSolver* constraintSolver = new btSequentialImpulseConstraintSolver();
 	m_dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher,broadphase,constraintSolver,collisionConfiguration);
+	m_dynamicsWorld->setGravity(btVector3(0, 9, 0));
 	
 }
 
@@ -150,8 +159,9 @@ btCompoundShape* testApp::createContainingBubble(ofVec3f origin, ofVec2f size)
 	for(int i = 0; i < numObjectsInBubble; i++)
 	{
 		btCollisionShape* shape = new btBoxShape( btSize );
-		btTransform shapePos = btTransform::getIdentity();
-		btVector3 bOrigin( 400, 400 + (i * 100),
+		btTransform shapePos;
+		shapePos.setIdentity();
+		btVector3 bOrigin( 40, 40 + (i * 10),
 					//origin.x + (sin(angle) * size.x), 
 					//origin.y + (cos(angle) * size.y), 
 					1.f
@@ -164,18 +174,30 @@ btCompoundShape* testApp::createContainingBubble(ofVec3f origin, ofVec2f size)
 	
 	btTransform t;
 	t.setIdentity();
-	//t.setOrigin(ofVec3fToBtVec(origin));
-	t.setOrigin(btVector3(100, 100, 0));
+	t.setOrigin(btVector3(100, 100, 0)); //t.setOrigin(ofVec3fToBtVec(origin));
 	
 	btDefaultMotionState* motionstate = new btDefaultMotionState(t);
 	btVector3 localInertia(0,0,0);
 	btRigidBody::btRigidBodyConstructionInfo cInfo(1.0f, motionstate, csh, localInertia);
 	//cInfo.m_startWorldTransform = t;
-	btRigidBody* body = new btRigidBody(cInfo);
+	containingBody = new btRigidBody(cInfo);
+	
+	//body->translate(btVector3(100, 100, 0));	
+	m_dynamicsWorld->addRigidBody(containingBody);
 	
 	csh->recalculateLocalAabb();
+	for(int i = 0; i < numObjectsInBubble; i++)
+	{
+		btTransform shapePos;
+		shapePos.setIdentity();
+		btVector3 bOrigin( 40, 40 + (i * 10),
+						  //origin.x + (sin(angle) * size.x), 
+						  //origin.y + (cos(angle) * size.y), 
+						  1.f
+						  );
+		csh->updateChildTransform(i, shapePos);
+	}
 	
-	m_dynamicsWorld->addRigidBody(body);
 	
 	return csh;
 }

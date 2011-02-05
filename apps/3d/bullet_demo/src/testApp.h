@@ -26,6 +26,8 @@ class testApp : public ofBaseApp{
 	
 	// just for testing
 	btCompoundShape* containing;
+	btRigidBody* containingBody;
+	
 	
 	///this is the most important class
 	btDynamicsWorld*		m_dynamicsWorld;
