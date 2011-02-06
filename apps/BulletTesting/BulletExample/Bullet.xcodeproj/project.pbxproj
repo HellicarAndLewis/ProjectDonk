@@ -667,7 +667,6 @@
 				5FF557CA12FE4B3F00D0893C /* BulletDynamics */,
 				5FF557FF12FE4B3F00D0893C /* BulletMultiThreaded */,
 				5FF5585A12FE4B3F00D0893C /* BulletSoftBody */,
-				5FF5586B12FE4B3F00D0893C /* ibmsdk */,
 				5FF5586C12FE4B3F00D0893C /* LinearMath */,
 				5FF5588712FE4B3F00D0893C /* MiniCL */,
 			);
@@ -1189,13 +1188,6 @@
 			path = BulletSoftBody;
 			sourceTree = "<group>";
 		};
-		5FF5586B12FE4B3F00D0893C /* ibmsdk */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ibmsdk;
-			sourceTree = "<group>";
-		};
 		5FF5586C12FE4B3F00D0893C /* LinearMath */ = {
 			isa = PBXGroup;
 			children = (
@@ -1595,7 +1587,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_VALUE = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
-				HEADER_SEARCH_PATHS = "src/lib/bullet/**";
+				HEADER_SEARCH_PATHS = "../addon/ofxBullet/lib/bullet/**";
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
 					"-lpthread",
@@ -1686,7 +1678,7 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/src/lib/bullet/OpenGL/Release\"";
 				PREBINDING = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)Universal";
-				USER_HEADER_SEARCH_PATHS = "src/lib/bullet/**";
+				USER_HEADER_SEARCH_PATHS = "../addon/ofxBullet/lib/bullet/**";
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
 			};
@@ -1711,7 +1703,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_VALUE = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
-				HEADER_SEARCH_PATHS = "src/lib/bullet/**";
+				HEADER_SEARCH_PATHS = "../addon/ofxBullet/lib/bullet/**";
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
 					"-lpthread",
@@ -1742,7 +1734,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_VALUE = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
-				HEADER_SEARCH_PATHS = "src/lib/bullet/**";
+				HEADER_SEARCH_PATHS = "../addon/ofxBullet/lib/bullet/**";
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
 					"-lpthread",
@@ -1866,7 +1858,7 @@
 				OTHER_LDFLAGS_QUOTED_FOR_TARGET_9 = "\"../../../libs/glew/lib/osx/glew.a\"";
 				PREBINDING = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)Debug";
-				USER_HEADER_SEARCH_PATHS = "src/lib/bullet/**";
+				USER_HEADER_SEARCH_PATHS = "../addon/ofxBullet/lib/bullet/**";
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
 			};
@@ -1953,7 +1945,7 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/src/lib/bullet/OpenGL/Release\"";
 				PREBINDING = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "src/lib/bullet/**";
+				USER_HEADER_SEARCH_PATHS = "../addon/ofxBullet/lib/bullet/**";
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
 			};
