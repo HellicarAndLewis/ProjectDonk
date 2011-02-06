@@ -6,9 +6,22 @@
 #include "btBulletCollisionCommon.h"
 #include "btBulletDynamicsCommon.h"
 
+#define BIT(x) (1<<(x))
+
 class testApp : public ofBaseApp{
 
+	
+	
+	
 	public:
+	
+	
+	int COL_NOTHING;
+	int COL_SPHERE;
+	
+	int innerCollidesWith;
+	int outerCollidesWith;
+	
 	
 	void setup();
 	void update();
@@ -26,7 +39,10 @@ class testApp : public ofBaseApp{
 	
 	// just for testing
 	btCompoundShape* containing;
-	btRigidBody* containingBody;
+	//btRigidBody* containingBody;
+	
+	vector<btRigidBody*> containingBubble;
+	vector<btRigidBody*> containedBubble;
 	
 	
 	///this is the most important class
@@ -36,10 +52,10 @@ class testApp : public ofBaseApp{
 	void drawBullet();
 	
 	// this will create a containing bubble
-	btCompoundShape* createContainingBubble(ofVec3f origin, ofVec2f size);
+	void createContainingBubble(ofVec3f origin, ofVec2f size);
 	
 	// this creates a child bubble
-	btSphereShape* createContainedBubble(ofVec3f origin, float radius, btCompoundShape* parent);
+	btSphereShape* createContainedBubble(ofVec3f origin, float radius);
 	
 	ofVec4f btVecToOfVec4f( btVector4 bv );
 	ofVec3f btVecToOfVec3f( btVector3 bv );

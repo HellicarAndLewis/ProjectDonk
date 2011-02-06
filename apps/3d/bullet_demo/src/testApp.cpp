@@ -2,14 +2,29 @@
 
 //--------------------------------------------------------------
 void testApp::setup(){
+	
+	
+	COL_NOTHING = 1;
+	COL_SPHERE = BIT(1);
+	
+	innerCollidesWith = COL_NOTHING;
+	outerCollidesWith = COL_SPHERE;
 
 	initBullet();
-	ofVec3f origin(500, 500, 0);
-	ofVec2f size(300, 300);
-	containing = createContainingBubble(origin, size);
-	origin.x += 100;
-	origin.y += 100;
-	createContainedBubble(origin, 20, containing);
+	ofVec3f origin(500, 500, 250);
+	ofVec2f size(200, 200);
+	createContainingBubble(origin, size);
+	origin.x += 50;
+	origin.y += 50;
+	origin.z = 250;
+	createContainedBubble(origin, 10.f);
+	
+	origin.x -= 50;
+	origin.y -= 50;
+	origin.z = 250;
+	createContainedBubble(origin, 10.f);
+	
+	ofEnableAlphaBlending();
 }
 
 //--------------------------------------------------------------
@@ -38,7 +53,20 @@ void testApp::keyReleased(int key){
 
 //--------------------------------------------------------------
 void testApp::mouseMoved(int x, int y ){
-
+	vector<btRigidBody*>::iterator it = containedBubble.begin();
+	while(it!=containedBubble.end())
+	{
+		
+		btVector3 center = (*it)->getCenterOfMassPosition();
+		
+		btScalar yd = (float(y) - center.getY()) * 0.1;
+		btScalar xd = (float(x) - center.getX()) * 0.1;
+		
+		cout << center.getY() << " " << center.getX() << " " << x << " " << y << " " << yd << " " << xd << endl;
+		
+		(*it)->applyImpulse(btVector3(xd, yd, 0), center);
+		++it;
+	}
 }
 
 //--------------------------------------------------------------
@@ -48,6 +76,7 @@ void testApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
+	
 
 }
 
@@ -63,34 +92,26 @@ void testApp::windowResized(int w, int h){
 
 void testApp::drawBullet()
 {
-	/*int numObjects = m_dynamicsWorld->getNumCollisionObjects();
-	for (int i=0;i<numObjects;i++)
+	
+	vector<btRigidBody*>::iterator it;
+	
+	ofSetColor(255, 0, 255, 255);
+	it = containedBubble.begin();
+	while( it != containedBubble.end())
 	{
-		btCollisionObject* colObj = m_dynamicsWorld->getCollisionObjectArray()[i];
-		btRigidBody* body = btRigidBody::upcast(colObj);
-		const btVector3 pos = body->getCenterOfMassPosition();
-		ofCircle(pos.getX(), pos.getY(), 20);
-	} */
+		const btVector3 pos = (*it)->getCenterOfMassPosition();
+		ofCircle(pos.getX(), pos.getY(), 50 - pos.getZ()/10); // totally faking 3d
+		++it;
+	}
 	
-	
-	const btVector3 pos = containingBody->getCenterOfMassPosition();
-	ofCircle(pos.getX(), pos.getY(), 20);
-	
-	/*int numContainedObjects = containing->getNumChildShapes();
-	for (int i=0;i<numContainedObjects;i++)
+	ofSetColor(0, 0, 255, 51);
+	it = containingBubble.begin();
+	while( it != containingBubble.end())
 	{
-		btCollisionShape* colObj = containing->getChildShape(i);
-		//btVector3* center = new btVector3(0.f, 0.f, 0.f );
-		//float radius;
-		//colObj->getBoundingSphere(*center, radius);
-		btTransform t;
-		t.setIdentity();
-		btVector3 min, max;
-		colObj->getAabb (t, min, max); 
-		std::cout << t.getOrigin().getX() << " " << t.getOrigin().getY() << " " << t.getOrigin().getZ() << std::endl;
-		//ofCircle(center->getX(), center->getY(), 10);
-		//delete center;
-	}*/
+		const btVector3 pos = (*it)->getCenterOfMassPosition();
+		ofCircle(pos.getX(), pos.getY(), 50 - pos.getZ()/10); // totally faking 3d
+		++it;
+	}
 	
 }
 
@@ -99,10 +120,23 @@ void testApp::updateBullet()
 	
 	if (m_dynamicsWorld)
 	{
+		//step the simulation
+		m_dynamicsWorld->stepSimulation( ofGetElapsedTimeMillis() / 100.f );
+		
 		//btVector3	worldBoundsMin,worldBoundsMax;
 		//getDynamicsWorld()->getBroadphase()->getBroadphaseAabb(worldBoundsMin,worldBoundsMax);
-		//step the simulation
-		m_dynamicsWorld->stepSimulation( ofGetElapsedTimeMillis() / 1000.f );
+		
+		btCollisionObjectArray arr = m_dynamicsWorld->getCollisionObjectArray();
+		for(int i = 0; i<arr.size(); i++)
+		{
+			btRigidBody* body = btRigidBody::upcast(arr[i]); 
+			btCollisionShape* shape = body->getCollisionShape();
+			if(shape->getShapeType() == 8)
+			{
+				//body->applyImpulse(btVector3(btScalar(0.01), btScalar(0.01), 0), body->getCenterOfMassPosition());
+				//cout << body->getCenterOfMassPosition().getX() << " " << body->getCenterOfMassPosition().getY()<< " " << body->getCenterOfMassPosition().getZ() << endl; 
+			}
+		}
 	}
 }
 
@@ -113,14 +147,14 @@ void testApp::initBullet()
 	
 	btCollisionDispatcher* dispatcher = new btCollisionDispatcher(collisionConfiguration);
 	btBroadphaseInterface* broadphase = new btSimpleBroadphase();
-	
 	btConstraintSolver* constraintSolver = new btSequentialImpulseConstraintSolver();
+	
 	m_dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher,broadphase,constraintSolver,collisionConfiguration);
-	m_dynamicsWorld->setGravity(btVector3(0, 9, 0));
+	m_dynamicsWorld->setGravity(btVector3(0, 0, 0));
 	
 }
 
-btSphereShape* testApp::createContainedBubble(ofVec3f origin, float radius, btCompoundShape* parent)
+btSphereShape* testApp::createContainedBubble(ofVec3f origin, float radius)
 {
 	
 	btSphereShape* shape = new btSphereShape(radius);
@@ -130,76 +164,68 @@ btSphereShape* testApp::createContainedBubble(ofVec3f origin, float radius, btCo
 	
 	btDefaultMotionState* motionstate = new btDefaultMotionState(t);
 	btVector3 localInertia(0,0,0);
+
+	shape->calculateLocalInertia(1.f,localInertia);
+	
 	btRigidBody::btRigidBodyConstructionInfo cInfo(1.0f, motionstate, shape, localInertia);
 	btRigidBody* body = new btRigidBody(cInfo);
 	
+	// inner bubbles have downwards gravity
+	//body->setGravity(btVector3(0, 1, 0));
+	
+	// will need to get these working so that sphere parts can cl
+	//body->setCollisionFlags(COL_SPHERE);
+	
+	
+	containedBubble.push_back(body);
+	body->activate(true);
 	m_dynamicsWorld->addRigidBody(body);
+	body->activate(true);
 	return shape;
 	
 }
 
 
 // Creates a compound shape
-btCompoundShape* testApp::createContainingBubble(ofVec3f origin, ofVec2f size)
+void testApp::createContainingBubble(ofVec3f origin, ofVec2f size)
 {	
 	
 	btVector3 btSize;
 	btSize.setX( 1.f );
 	btSize.setY( 1.f );
 	btSize.setZ( 1.f );
-
-	btCompoundShape* csh = new btCompoundShape();
 	
-	float angle = 0.f;
-	float angleAdd = TWO_PI / ( size.x / 10.f );
-	int numObjectsInBubble = size.x / 10;
+	btCollisionShape* shape = new btBoxShape( btSize );
 	
-	// add all shapes to define bounds
-	// actually these don't seem to update the compoundshape
-	for(int i = 0; i < numObjectsInBubble; i++)
-	{
-		btCollisionShape* shape = new btBoxShape( btSize );
-		btTransform shapePos;
-		shapePos.setIdentity();
-		btVector3 bOrigin( 40, 40 + (i * 10),
-					//origin.x + (sin(angle) * size.x), 
-					//origin.y + (cos(angle) * size.y), 
-					1.f
-					);
-		shapePos.setOrigin(bOrigin);
-		
-		csh->addChildShape(shapePos, shape);
-		angle += angleAdd;
-	}
-	
-	btTransform t;
-	t.setIdentity();
-	t.setOrigin(btVector3(100, 100, 0)); //t.setOrigin(ofVec3fToBtVec(origin));
-	
-	btDefaultMotionState* motionstate = new btDefaultMotionState(t);
 	btVector3 localInertia(0,0,0);
-	btRigidBody::btRigidBodyConstructionInfo cInfo(1.0f, motionstate, csh, localInertia);
-	//cInfo.m_startWorldTransform = t;
-	containingBody = new btRigidBody(cInfo);
+	//shape->calculateLocalInertia(1.f,localInertia);
 	
-	//body->translate(btVector3(100, 100, 0));	
-	m_dynamicsWorld->addRigidBody(containingBody);
+	// create the sphere:
 	
-	csh->recalculateLocalAabb();
-	for(int i = 0; i < numObjectsInBubble; i++)
-	{
-		btTransform shapePos;
-		shapePos.setIdentity();
-		btVector3 bOrigin( 40, 40 + (i * 10),
-						  //origin.x + (sin(angle) * size.x), 
-						  //origin.y + (cos(angle) * size.y), 
-						  1.f
-						  );
-		csh->updateChildTransform(i, shapePos);
+	for (int i = 1; i < 16; i++){
+		for (int j = 0; j < 16; j++){
+			
+			btScalar cx = origin.x + cos(i) * sin(j)*size.x ;
+			btScalar cy = origin.y + cos(j)*size.x;
+			btScalar cz = origin.z + sin(i) * sin(j) * size.x; 
+			cout << cx << " " << cy << " " << cz << endl;
+			btTransform t;
+			t.setIdentity();
+			t.setOrigin(btVector3(cx, cy, cz));
+			
+			btDefaultMotionState* motionstate = new btDefaultMotionState(t);
+			btRigidBody::btRigidBodyConstructionInfo cInfo(1.0f, motionstate, shape, localInertia);
+			btRigidBody* spherePart = new btRigidBody(cInfo);
+			
+			// containing bubbles have upwards gravity
+			//spherePart->setCollisionFlags(COL_NOTHING);
+			
+			containingBubble.push_back(spherePart);
+			m_dynamicsWorld->addRigidBody(spherePart);
+			spherePart->activate(true);
+			
+		}
 	}
-	
-	
-	return csh;
 }
 
 btVector4 testApp::ofVec4fToBtVec( ofVec4f ov ) {
