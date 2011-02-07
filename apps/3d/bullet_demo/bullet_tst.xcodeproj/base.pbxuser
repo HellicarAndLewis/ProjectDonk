@@ -1,42 +1,38 @@
 // !$*UTF8*$!
 {
-	4B9F3B6B12F58B44008C3BAF /* btSubSimplexConvexCast.h */ = {
-		isa = PBXFileReference;
-		fileEncoding = 4;
-		lastKnownFileType = sourcecode.c.h;
-		name = btSubSimplexConvexCast.h;
-		path = /Users/base/c_languages/openframeworks/coke_energy/ProjectDonk/apps/3d/bullet_demo/src/lib/bullet/BulletCollision/NarrowPhaseCollision/btSubSimplexConvexCast.h;
-		sourceTree = "<absolute>";
+	4B9F3D2B12F58FB0008C3BAF /* btCollisionObject.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {439, 819}}";
-			sepNavSelRange = "{1081, 0}";
-			sepNavVisRange = "{950, 317}";
+			sepNavIntBoundsRect = "{{0, 0}, {1009, 910}}";
+			sepNavSelRange = "{1713, 18}";
+			sepNavVisRange = "{0, 2035}";
 		};
 	};
-	4B9F3CE712F58EEF008C3BAF /* XCBuildMessageTextBookmark */ = {
-		isa = PBXTextBookmark;
-		comments = "Forward declaration of 'const struct btConvexShape'";
-		fRef = 4B9F3B6B12F58B44008C3BAF /* btSubSimplexConvexCast.h */;
-		fallbackIsa = XCBuildMessageTextBookmark;
-		rLen = 1;
-		rLoc = 21;
-		rType = 1;
+	4B9F3D2C12F58FB0008C3BAF /* btCollisionObject.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1009, 5070}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 2417}";
+		};
 	};
-	4B9F3CE812F58EEF008C3BAF /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 4B9F3B6B12F58B44008C3BAF /* btSubSimplexConvexCast.h */;
-		name = "btSubSimplexConvexCast.h: 22";
-		rLen = 0;
-		rLoc = 1081;
-		rType = 0;
-		vrLen = 317;
-		vrLoc = 950;
+	4B9F3D4C12F58FB0008C3BAF /* btBoxShape.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1172, 533}}";
+			sepNavSelRange = "{1079, 27}";
+			sepNavVisRange = "{202, 1113}";
+		};
+	};
+	4B9F3D4D12F58FB0008C3BAF /* btBoxShape.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1172, 3744}}";
+			sepNavSelRange = "{1790, 54}";
+			sepNavVisRange = "{1442, 729}";
+		};
 	};
 	4B9F3D5312F58FB0008C3BAF /* btCollisionShape.cpp */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1172, 1352}}";
-			sepNavSelRange = "{1372, 0}";
-			sepNavVisRange = "{1111, 581}";
+			sepNavSelRange = "{1468, 0}";
+			sepNavVisRange = "{1436, 760}";
 		};
 	};
 	4B9F3D5412F58FB0008C3BAF /* btCollisionShape.h */ = {
@@ -46,11 +42,25 @@
 			sepNavVisRange = "{0, 2351}";
 		};
 	};
+	4B9F3D5512F58FB0008C3BAF /* btCompoundShape.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {885, 3354}}";
+			sepNavSelRange = "{1983, 20}";
+			sepNavVisRange = "{0, 2170}";
+		};
+	};
+	4B9F3D5612F58FB0008C3BAF /* btCompoundShape.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {761, 2275}}";
+			sepNavSelRange = "{2322, 69}";
+			sepNavVisRange = "{1293, 1902}";
+		};
+	};
 	4B9F3D5E12F58FB0008C3BAF /* btConvexInternalShape.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1164, 2002}}";
-			sepNavSelRange = "{1210, 13}";
-			sepNavVisRange = "{491, 1612}";
+			sepNavIntBoundsRect = "{{0, 0}, {1172, 1950}}";
+			sepNavSelRange = "{2328, 0}";
+			sepNavVisRange = "{1994, 490}";
 		};
 	};
 	4B9F3D6112F58FB0008C3BAF /* btConvexShape.cpp */ = {
@@ -67,127 +77,47 @@
 			sepNavVisRange = "{0, 2366}";
 		};
 	};
-	4B9F3E0412F58FB0008C3BAF /* btRigidBody.h */ = {
+	4B9F3E0012F58FB0008C3BAF /* btDiscreteDynamicsWorld.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1164, 5720}}";
-			sepNavSelRange = "{4212, 21}";
-			sepNavVisRange = "{3322, 2551}";
+			sepNavIntBoundsRect = "{{0, 0}, {1009, 19253}}";
+			sepNavSelRange = "{12502, 62}";
+			sepNavVisRange = "{12362, 1377}";
 		};
 	};
-	4B9F3F6812F5B35D008C3BAF /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = EAC12C1912E6F94F0071CE8E /* testApp.h */;
-		name = "testApp.h: 31";
-		rLen = 15;
-		rLoc = 602;
-		rType = 0;
-		vrLen = 413;
-		vrLoc = 639;
+	4B9F3E0112F58FB0008C3BAF /* btDiscreteDynamicsWorld.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {813, 2457}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1887}";
+		};
 	};
-	4B9F3F6912F5B35D008C3BAF /* XCBuildMessageTextBookmark */ = {
-		isa = PBXTextBookmark;
-		comments = "Expected `;' before 'm_dynamicsWorld'";
-		fRef = EAC12C1812E6F94F0071CE8E /* testApp.cpp */;
-		fallbackIsa = XCBuildMessageTextBookmark;
-		rLen = 1;
-		rLoc = 127;
-		rType = 1;
+	4B9F3E0312F58FB0008C3BAF /* btRigidBody.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1172, 4043}}";
+			sepNavSelRange = "{7588, 0}";
+			sepNavVisRange = "{7273, 504}";
+		};
 	};
-	4B9F3F6A12F5B35D008C3BAF /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = EAC12C1812E6F94F0071CE8E /* testApp.cpp */;
-		name = "testApp.cpp: 79";
-		rLen = 0;
-		rLoc = 3442;
-		rType = 0;
-		vrLen = 341;
-		vrLoc = 1927;
+	4B9F3E0412F58FB0008C3BAF /* btRigidBody.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1009, 6864}}";
+			sepNavSelRange = "{9877, 72}";
+			sepNavVisRange = "{9220, 1609}";
+		};
 	};
-	4B9F3F7712F5BE07008C3BAF /* XCBuildMessageTextBookmark */ = {
-		isa = PBXTextBookmark;
-		comments = "No matching function for call to 'btDynamicsWorld::addRigidBody(btCompoundShape*&)'";
-		fRef = EAC12C1812E6F94F0071CE8E /* testApp.cpp */;
-		fallbackIsa = XCBuildMessageTextBookmark;
-		rLen = 1;
-		rLoc = 208;
-		rType = 1;
+	4B9F3E9B12F58FB0008C3BAF /* btScalar.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1009, 6123}}";
+			sepNavSelRange = "{4581, 29}";
+			sepNavVisRange = "{2867, 1340}";
+		};
 	};
-	4B9F3F7812F5BE07008C3BAF /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = EAC12C1812E6F94F0071CE8E /* testApp.cpp */;
-		name = "testApp.cpp: 158";
-		rLen = 0;
-		rLoc = 5813;
-		rType = 0;
-		vrLen = 153;
-		vrLoc = 4204;
-	};
-	4B9F3FA012F5D5BC008C3BAF /* XCBuildMessageTextBookmark */ = {
-		isa = PBXTextBookmark;
-		comments = "Conversion from 'const btVector3' to non-scalar type 'btTransform' requested";
-		fRef = EAC12C1812E6F94F0071CE8E /* testApp.cpp */;
-		fallbackIsa = XCBuildMessageTextBookmark;
-		rLen = 1;
-		rLoc = 70;
-		rType = 1;
-	};
-	4B9F3FA112F5D5BC008C3BAF /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = EAC12C1812E6F94F0071CE8E /* testApp.cpp */;
-		name = "testApp.cpp: 82";
-		rLen = 0;
-		rLoc = 2231;
-		rType = 0;
-		vrLen = 1067;
-		vrLoc = 1543;
-	};
-	4B9F3FE612F5E457008C3BAF /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = EAC12C1812E6F94F0071CE8E /* testApp.cpp */;
-		name = "testApp.cpp: 94";
-		rLen = 0;
-		rLoc = 2231;
-		rType = 0;
-		vrLen = 854;
-		vrLoc = 1903;
-	};
-	4B9F3FE712F5E477008C3BAF /* testApp.cpp:75 */ = {
-		isa = PBXFileBreakpoint;
-		actions = (
-		);
-		breakpointStyle = 0;
-		continueAfterActions = 0;
-		countType = 0;
-		delayBeforeContinue = 0;
-		fileReference = EAC12C1812E6F94F0071CE8E /* testApp.cpp */;
-		functionName = "testApp::drawBullet()";
-		hitCount = 1;
-		ignoreCount = 0;
-		lineNumber = 75;
-		location = bulletTestDebug;
-		modificationTime = 318104780.197898;
-		originalNumberOfMultipleMatches = 1;
-		state = 1;
-	};
-	4B9F3FEC12F5E4A8008C3BAF /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = EAC12C1812E6F94F0071CE8E /* testApp.cpp */;
-		name = "testApp.cpp: 94";
-		rLen = 0;
-		rLoc = 2231;
-		rType = 0;
-		vrLen = 854;
-		vrLoc = 1903;
-	};
-	4B9F3FF012F5E509008C3BAF /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = EAC12C1812E6F94F0071CE8E /* testApp.cpp */;
-		name = "testApp.cpp: 94";
-		rLen = 0;
-		rLoc = 2231;
-		rType = 0;
-		vrLen = 854;
-		vrLoc = 1903;
+	4B9F3E9F12F58FB0008C3BAF /* btVector3.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1172, 7826}}";
+			sepNavSelRange = "{11141, 0}";
+			sepNavVisRange = "{5022, 1091}";
+		};
 	};
 	4BBDB7E012F5895000148548 /* bulletTest */ = {
 		isa = PBXExecutable;
@@ -243,29 +173,14 @@
 			E4B69B5A0A3A1756003C02F2 /* bulletTest */,
 		);
 		breakpoints = (
-			4B9F3FE712F5E477008C3BAF /* testApp.cpp:75 */,
 		);
 		codeSenseManager = 4BBDB7ED12F5895900148548 /* Code sense */;
 		executables = (
 			4BBDB7E012F5895000148548 /* bulletTest */,
 		);
 		perUserDictionary = {
-			PBXPerProjectTemplateStateSaveDate = 318081814;
-			PBXWorkspaceStateSaveDate = 318081814;
-		};
-		perUserProjectItems = {
-			4B9F3CE712F58EEF008C3BAF /* XCBuildMessageTextBookmark */ = 4B9F3CE712F58EEF008C3BAF /* XCBuildMessageTextBookmark */;
-			4B9F3CE812F58EEF008C3BAF /* PBXTextBookmark */ = 4B9F3CE812F58EEF008C3BAF /* PBXTextBookmark */;
-			4B9F3F6812F5B35D008C3BAF /* PBXTextBookmark */ = 4B9F3F6812F5B35D008C3BAF /* PBXTextBookmark */;
-			4B9F3F6912F5B35D008C3BAF /* XCBuildMessageTextBookmark */ = 4B9F3F6912F5B35D008C3BAF /* XCBuildMessageTextBookmark */;
-			4B9F3F6A12F5B35D008C3BAF /* PBXTextBookmark */ = 4B9F3F6A12F5B35D008C3BAF /* PBXTextBookmark */;
-			4B9F3F7712F5BE07008C3BAF /* XCBuildMessageTextBookmark */ = 4B9F3F7712F5BE07008C3BAF /* XCBuildMessageTextBookmark */;
-			4B9F3F7812F5BE07008C3BAF /* PBXTextBookmark */ = 4B9F3F7812F5BE07008C3BAF /* PBXTextBookmark */;
-			4B9F3FA012F5D5BC008C3BAF /* XCBuildMessageTextBookmark */ = 4B9F3FA012F5D5BC008C3BAF /* XCBuildMessageTextBookmark */;
-			4B9F3FA112F5D5BC008C3BAF /* PBXTextBookmark */ = 4B9F3FA112F5D5BC008C3BAF /* PBXTextBookmark */;
-			4B9F3FE612F5E457008C3BAF /* PBXTextBookmark */ = 4B9F3FE612F5E457008C3BAF /* PBXTextBookmark */;
-			4B9F3FEC12F5E4A8008C3BAF /* PBXTextBookmark */ = 4B9F3FEC12F5E4A8008C3BAF /* PBXTextBookmark */;
-			4B9F3FF012F5E509008C3BAF /* PBXTextBookmark */ = 4B9F3FF012F5E509008C3BAF /* PBXTextBookmark */;
+			PBXPerProjectTemplateStateSaveDate = 318736556;
+			PBXWorkspaceStateSaveDate = 318736556;
 		};
 		sourceControlManager = 4BBDB7EC12F5895900148548 /* Source Control */;
 		userBuildSettings = {
@@ -279,16 +194,16 @@
 	};
 	EAC12C1812E6F94F0071CE8E /* testApp.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1164, 2951}}";
-			sepNavSelRange = "{4597, 0}";
-			sepNavVisRange = "{859, 1506}";
+			sepNavIntBoundsRect = "{{0, 0}, {1009, 3263}}";
+			sepNavSelRange = "{4716, 12}";
+			sepNavVisRange = "{4230, 1651}";
 		};
 	};
 	EAC12C1912E6F94F0071CE8E /* testApp.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1164, 761}}";
-			sepNavSelRange = "{550, 10}";
-			sepNavVisRange = "{0, 1108}";
+			sepNavIntBoundsRect = "{{0, 0}, {1009, 897}}";
+			sepNavSelRange = "{759, 20}";
+			sepNavVisRange = "{0, 1126}";
 		};
 	};
 }
