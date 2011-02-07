@@ -20,6 +20,7 @@ ofxPlanarKinect::ofxPlanarKinect() {
 	width = 640;
 	height = 480;
 	threshold = 128;
+	deviceId = 0;
 	// clockwise from top left
 	outputQuad[0] = ofVec2f(0,0);
 	outputQuad[1] = ofVec2f(1,0);
@@ -280,6 +281,7 @@ void ofxPlanarKinect::saveSettings() {
 	xml.addAttribute("settings", "y3", inputQuad[3].y, 0);
 	xml.addAttribute("settings", "threshold", threshold, 0);
 	xml.addAttribute("settings", "sliceY", sliceY, 0);
+	xml.addAttribute("settings", "deviceId", deviceId, 0);
 	xml.saveFile("planarKinectSettings.xml");
 }
 
@@ -297,7 +299,7 @@ void ofxPlanarKinect::loadSettings() {
 		inputQuad[3].y = xml.getAttribute("settings", "y3", inputQuad[3].y);
 		threshold      = xml.getAttribute("settings", "threshold", threshold);
 		sliceY		   = xml.getAttribute("settings", "sliceY", sliceY);
-		
+		deviceId	   = xml.getAttribute("settings", "deviceId", deviceId);
 		ofLog(OF_LOG_NOTICE, "Loaded planar kinect settings beautifully\n");
 	} else {
 		ofLog(OF_LOG_ERROR, "Could not load planar kinect settings. Maybe this is a first run?\n");

@@ -40,6 +40,7 @@ public:
 	void saveSettings();
 	void loadSettings();
 	
+	int deviceId;
 private:
 	
 	/** uncalibrated blobs */

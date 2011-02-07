@@ -4,6 +4,7 @@
 #include "ofxPlanarKinect.h"
 #include "ofMain.h"
 #include "ofxBlobTracker.h"
+#include "ofxTuioServer.h"
 
 class testApp : public ofBaseApp, public ofxBlobListener {
 	
@@ -28,9 +29,10 @@ public:
 	ofxKinect			kinect;
 	ofxPlanarKinect		planarKinect; 
 	ofxBlobTracker		blobTracker;
+	ofxTuioServer		tuioServer;
 	bool clearFbo;
 	ofFbo fbo;
-	map<int,ofVec3f> blobs;
+	map<int,TuioCursor*> blobs;
 	vector<pair<ofVec3f,ofVec3f> > lines;
 };
 
