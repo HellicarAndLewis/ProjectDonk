@@ -11,9 +11,10 @@ void testApp::setup(){
 	outerCollidesWith = COL_SPHERE;
 
 	initBullet();
-	ofVec3f origin(500, 500, 250);
-	ofVec2f size(200, 200);
+	ofVec3f origin(350, 400, 100);
+	ofVec2f size(300, 300);
 	createContainingBubble(origin, size);
+	
 	origin.x += 50;
 	origin.y += 50;
 	origin.z = 250;
@@ -21,6 +22,21 @@ void testApp::setup(){
 	
 	origin.x -= 50;
 	origin.y -= 50;
+	origin.z = 250;
+	createContainedBubble(origin, 10.f);
+	
+	origin.x -= 50;
+	origin.y -= 50;
+	origin.z = 250;
+	createContainedBubble(origin, 10.f);
+	
+	origin.x -= 100;
+	origin.y += 50;
+	origin.z = 250;
+	createContainedBubble(origin, 10.f);
+	
+	origin.x -= 50;
+	origin.y += 100;
 	origin.z = 250;
 	createContainedBubble(origin, 10.f);
 	
@@ -76,7 +92,6 @@ void testApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
-	
 
 }
 
@@ -100,7 +115,7 @@ void testApp::drawBullet()
 	while( it != containedBubble.end())
 	{
 		const btVector3 pos = (*it)->getCenterOfMassPosition();
-		ofCircle(pos.getX(), pos.getY(), 50 - pos.getZ()/10); // totally faking 3d
+		ofCircle(pos.getX(), pos.getY(), (50 - pos.getZ())/50); // totally faking 3d
 		++it;
 	}
 	
@@ -109,7 +124,9 @@ void testApp::drawBullet()
 	while( it != containingBubble.end())
 	{
 		const btVector3 pos = (*it)->getCenterOfMassPosition();
-		ofCircle(pos.getX(), pos.getY(), 50 - pos.getZ()/10); // totally faking 3d
+		ofCircle(pos.getX(), pos.getY(), (50 - pos.getZ())/50); // totally faking 3d
+		//btTransform t = it->getWorldTransform();
+		//btQuaternion q = t.getRotation();
 		++it;
 	}
 	
@@ -121,7 +138,7 @@ void testApp::updateBullet()
 	if (m_dynamicsWorld)
 	{
 		//step the simulation
-		m_dynamicsWorld->stepSimulation( ofGetElapsedTimeMillis() / 100.f );
+		m_dynamicsWorld->stepSimulation( ofGetElapsedTimeMillis() / 100000.f );
 		
 		//btVector3	worldBoundsMin,worldBoundsMax;
 		//getDynamicsWorld()->getBroadphase()->getBroadphaseAabb(worldBoundsMin,worldBoundsMax);
@@ -133,7 +150,7 @@ void testApp::updateBullet()
 			btCollisionShape* shape = body->getCollisionShape();
 			if(shape->getShapeType() == 8)
 			{
-				//body->applyImpulse(btVector3(btScalar(0.01), btScalar(0.01), 0), body->getCenterOfMassPosition());
+				body->applyImpulse(btVector3(0.f, btScalar(1), 0), body->getCenterOfMassPosition());
 				//cout << body->getCenterOfMassPosition().getX() << " " << body->getCenterOfMassPosition().getY()<< " " << body->getCenterOfMassPosition().getZ() << endl; 
 			}
 		}
@@ -163,11 +180,11 @@ btSphereShape* testApp::createContainedBubble(ofVec3f origin, float radius)
 	//shape->setWorldTransform(t);
 	
 	btDefaultMotionState* motionstate = new btDefaultMotionState(t);
-	btVector3 localInertia(0,0,0);
+	btVector3 localInertia(0, 0, 0);
 
-	shape->calculateLocalInertia(1.f,localInertia);
+	shape->calculateLocalInertia(1.f, localInertia);
 	
-	btRigidBody::btRigidBodyConstructionInfo cInfo(1.0f, motionstate, shape, localInertia);
+	btRigidBody::btRigidBodyConstructionInfo cInfo(1.f, motionstate, shape, localInertia);
 	btRigidBody* body = new btRigidBody(cInfo);
 	
 	// inner bubbles have downwards gravity
@@ -191,38 +208,42 @@ void testApp::createContainingBubble(ofVec3f origin, ofVec2f size)
 {	
 	
 	btVector3 btSize;
-	btSize.setX( 1.f );
+	btSize.setX( 30.f );
 	btSize.setY( 1.f );
-	btSize.setZ( 1.f );
+	btSize.setZ( 30.f );
 	
 	btCollisionShape* shape = new btBoxShape( btSize );
 	
-	btVector3 localInertia(0,0,0);
+	btVector3 localInertia( 0, 0, 0 );
 	//shape->calculateLocalInertia(1.f,localInertia);
 	
 	// create the sphere:
-	
-	for (int i = 1; i < 16; i++){
-		for (int j = 0; j < 16; j++){
+	for (int i = 1; i < 24; i++){
+		for (int j = 0; j < 24; j++){
 			
-			btScalar cx = origin.x + cos(i) * sin(j)*size.x ;
-			btScalar cy = origin.y + cos(j)*size.x;
-			btScalar cz = origin.z + sin(i) * sin(j) * size.x; 
-			cout << cx << " " << cy << " " << cz << endl;
+			btScalar cx = origin.x + (cos(i) * sin(j)*size.x );
+			btScalar cy = origin.y + (cos(j)*size.x);
+			btScalar cz = origin.z + (sin(i) * sin(j) * size.x);
+			
+			//btQuaternion quat;
+			//quat.setRotation(btVector3(cx + 15, 0, cz+15), cy);
+			
 			btTransform t;
 			t.setIdentity();
 			t.setOrigin(btVector3(cx, cy, cz));
+			//t.setRotation(quat);
 			
 			btDefaultMotionState* motionstate = new btDefaultMotionState(t);
-			btRigidBody::btRigidBodyConstructionInfo cInfo(1.0f, motionstate, shape, localInertia);
+			btRigidBody::btRigidBodyConstructionInfo cInfo(0.f, motionstate, shape, localInertia);
 			btRigidBody* spherePart = new btRigidBody(cInfo);
 			
 			// containing bubbles have upwards gravity
 			//spherePart->setCollisionFlags(COL_NOTHING);
 			
 			containingBubble.push_back(spherePart);
+			//spherePart->activate(true);
 			m_dynamicsWorld->addRigidBody(spherePart);
-			spherePart->activate(true);
+			//spherePart->activate(true);
 			
 		}
 	}

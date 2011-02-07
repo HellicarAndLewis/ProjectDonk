@@ -79,9 +79,9 @@
 	};
 	4B9F3E0012F58FB0008C3BAF /* btDiscreteDynamicsWorld.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {813, 19266}}";
-			sepNavSelRange = "{13249, 87}";
-			sepNavVisRange = "{12362, 1375}";
+			sepNavIntBoundsRect = "{{0, 0}, {1009, 19253}}";
+			sepNavSelRange = "{12502, 62}";
+			sepNavVisRange = "{12362, 1377}";
 		};
 	};
 	4B9F3E0112F58FB0008C3BAF /* btDiscreteDynamicsWorld.h */ = {
@@ -100,9 +100,9 @@
 	};
 	4B9F3E0412F58FB0008C3BAF /* btRigidBody.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1172, 6461}}";
-			sepNavSelRange = "{9796, 0}";
-			sepNavVisRange = "{9616, 778}";
+			sepNavIntBoundsRect = "{{0, 0}, {1009, 6864}}";
+			sepNavSelRange = "{9877, 72}";
+			sepNavVisRange = "{9220, 1609}";
 		};
 	};
 	4B9F3E9B12F58FB0008C3BAF /* btScalar.h */ = {
@@ -179,8 +179,8 @@
 			4BBDB7E012F5895000148548 /* bulletTest */,
 		);
 		perUserDictionary = {
-			PBXPerProjectTemplateStateSaveDate = 318712102;
-			PBXWorkspaceStateSaveDate = 318712102;
+			PBXPerProjectTemplateStateSaveDate = 318736556;
+			PBXWorkspaceStateSaveDate = 318736556;
 		};
 		sourceControlManager = 4BBDB7EC12F5895900148548 /* Source Control */;
 		userBuildSettings = {
@@ -194,9 +194,9 @@
 	};
 	EAC12C1812E6F94F0071CE8E /* testApp.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1172, 3211}}";
-			sepNavSelRange = "{1547, 0}";
-			sepNavVisRange = "{1204, 593}";
+			sepNavIntBoundsRect = "{{0, 0}, {1009, 3263}}";
+			sepNavSelRange = "{4716, 12}";
+			sepNavVisRange = "{4230, 1651}";
 		};
 	};
 	EAC12C1912E6F94F0071CE8E /* testApp.h */ = {
