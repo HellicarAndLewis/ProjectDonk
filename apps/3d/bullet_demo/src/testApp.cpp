@@ -209,7 +209,7 @@ void testApp::createContainingBubble(ofVec3f origin, ofVec2f size)
 	
 	btVector3 btSize;
 	btSize.setX( 30.f );
-	btSize.setY( 1.f );
+	btSize.setY( 30.f );
 	btSize.setZ( 30.f );
 	
 	btCollisionShape* shape = new btBoxShape( btSize );
