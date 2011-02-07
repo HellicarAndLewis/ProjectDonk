@@ -232,17 +232,7 @@ void testApp::createContainingBubble(ofVec3f origin, ofVec2f size)
 			float theta = acos(dist.dot(up));
 			btVector3 cross = up.cross(dist);
 			cross.normalize();
-			
-			btQuaternion quat(cross, theta);			
-			/*Vector3 dist = ballBlue.Position - ballRed.Position; 
-			 dist.Normalize(); 
-			 
-			 //Get angle to arbitrary vector and compute the rotation axis 
-			 float theta = (float)Math.Acos(Vector3.Dot(dist, Vector3.Up)); 
-			 Vector3 cross = Vector3.Cross(Vector3.Up, dist); 
-			 cross.Normalize(); 
-			 
-			 Quaternion rotation = Quaternion.CreateFromAxisAngle(cross, theta);*/
+			btQuaternion quat(cross, theta);
 			
 			btTransform t;
 			t.setIdentity();
@@ -250,7 +240,7 @@ void testApp::createContainingBubble(ofVec3f origin, ofVec2f size)
 			t.setRotation(quat);
 			
 			btDefaultMotionState* motionstate = new btDefaultMotionState(t);
-			btRigidBody::btRigidBodyConstructionInfo cInfo(0.f, motionstate, shape, localInertia);
+			btRigidBody::btRigidBodyConstructionInfo cInfo(1.f, motionstate, shape, localInertia);
 			btRigidBody* spherePart = new btRigidBody(cInfo);
 			
 			// containing bubbles have upwards gravity
