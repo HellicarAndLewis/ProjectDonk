@@ -8,6 +8,12 @@
 
 #define BIT(x) (1<<(x))
 
+struct callback : public btOverlapFilterCallback
+{
+	// return true when pairs need collision
+	bool	needBroadphaseCollision(btBroadphaseProxy* proxy0,btBroadphaseProxy* proxy1) const;
+};
+
 class testApp : public ofBaseApp{
 
 	
