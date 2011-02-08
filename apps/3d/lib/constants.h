@@ -6,7 +6,6 @@
  *
  */
 
-#define SETTINGS_FILE "settings/general.xml"
 
 extern float WIDTH;
 extern float HEIGHT;

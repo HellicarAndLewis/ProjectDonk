@@ -4,6 +4,10 @@
 #include "ofxSettings.h"
 ofxSettings settings;
 
+ofxSettings::ofxSettings() {
+	// default value for settings.
+	xmlFilePath = "settings.xml";
+}
 /**
  * Loads the file.
  */
@@ -65,7 +69,7 @@ void ofxSettings::set(string key, string value) {
 
 
 string ofxSettings::get(string key, string defaultValue) {
-	if(!loaded) load(SETTINGS_FILE);
+	if(!loaded) load(xmlFilePath);
 	if(data.find(key)==data.end()) {
 		set(key, defaultValue);
 		return defaultValue;

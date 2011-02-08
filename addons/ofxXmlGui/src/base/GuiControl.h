@@ -133,6 +133,27 @@ public:
 	// you can use this method to provide a resources handler.
 	void setResources(GuiResources *res);
 	
+	
+	// layout stuff
+	
+	// resize and position, returns this
+	GuiControl *size(float w, float h);
+	GuiControl *position(float x, float y);
+	
+	// this positions this gui control underneath the 
+	// one that's specified in the parameter.
+	// (and returns itself)
+	GuiControl *under(GuiControl *rel, float padding = 5);
+	
+	// this positions this control under the param
+	// but aligned to the right.
+	// (and returns itself)
+	GuiControl *underRight(GuiControl *rel, float padding = 5);
+	
+	
+	// position to the right
+	GuiControl *right(GuiControl *rel, float padding = 5);
+	
 ///////////////////////////////////////////////////////////////////////////////////////////////
 //		MEANT TO BE PRIVATE, THESE THINGS BELOW
 ///////////////////////////////////////////////////////////////////////////////////////////////	

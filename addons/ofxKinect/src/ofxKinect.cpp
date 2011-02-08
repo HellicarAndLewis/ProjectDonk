@@ -94,7 +94,7 @@ bool ofxKinect::isFrameNew(){
 }
 
 //--------------------------------------------------------------------
-bool ofxKinect::open(){
+bool ofxKinect::open(int deviceId){
 	if(!bGrabberInited){
 		ofLog(OF_LOG_WARNING, "ofxKinect: Cannot open, init not called");
 		return false;
@@ -113,7 +113,7 @@ bool ofxKinect::open(){
 		return false;
 	}
 
-	if (freenect_open_device(kinectContext, &kinectDevice, 0) < 0) {
+	if (freenect_open_device(kinectContext, &kinectDevice, deviceId) < 0) {
 		ofLog(OF_LOG_ERROR, "ofxKinect: Could not open device");
 		return false;
 	}

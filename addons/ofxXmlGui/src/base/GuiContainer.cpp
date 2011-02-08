@@ -221,6 +221,7 @@ GuiControl *GuiContainer::add(string _type, string _name, string _controlId) {
 
 
 void GuiContainer::addListener(GuiListener *_listener) {
+	
 	GuiListener ** nl = new GuiListener*[numListeners+1];
 	for(int i = 0; i < numListeners; i++) {
 		nl[i] = listeners[i];
@@ -230,6 +231,7 @@ void GuiContainer::addListener(GuiListener *_listener) {
 	numListeners++;
 	delete listeners;
 	listeners = nl;
+	printf("Listener %x\n", _listener);
 	
 	for(int i = 0; i < controls.size(); i++) {
 		controls[i]->listeners = listeners;

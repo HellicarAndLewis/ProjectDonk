@@ -1,0 +1,138 @@
+#N canvas 550 354 483 459 10;
+#X declare -lib mrpeach;
+#X obj 174 84 adc~ 1 2 3 4 5 6;
+#N canvas 396 239 582 661 osc 1;
+#X msg 62 278 disconnect;
+#X obj 38 380 udpsend;
+#X obj 211 383 packOSC;
+#X obj 180 436 import mrpeach;
+#X obj 10 35 loadbang;
+#X msg 10 61 connect localhost 12345;
+#X obj 246 236 inlet;
+#X obj 263 257 inlet;
+#X obj 281 277 inlet;
+#X obj 298 297 inlet;
+#X obj 316 317 inlet;
+#X obj 211 166 inlet;
+#X obj 211 338 pack f f f f f f f;
+#X msg 211 361 send /audio \$2 \$3 \$4 \$5 \$6 \$7;
+#X msg 211 192 1;
+#X obj 228 216 inlet;
+#X text 209 130 Bang first input when all the other inputs have been
+set with adc values;
+#X text 155 60 <-- this is where you change the network settings;
+#X obj 505 64 inlet;
+#X obj 29 422 outlet;
+#X obj 59 103 r reconnect;
+#X connect 0 0 1 0;
+#X connect 1 0 19 0;
+#X connect 2 0 1 0;
+#X connect 4 0 5 0;
+#X connect 5 0 1 0;
+#X connect 6 0 12 2;
+#X connect 7 0 12 3;
+#X connect 8 0 12 4;
+#X connect 9 0 12 5;
+#X connect 10 0 12 6;
+#X connect 11 0 14 0;
+#X connect 12 0 13 0;
+#X connect 13 0 2 0;
+#X connect 14 0 12 0;
+#X connect 15 0 12 1;
+#X connect 18 0 5 0;
+#X connect 20 0 5 0;
+#X restore 202 354 pd osc;
+#X obj 329 310 delay 1;
+#X obj -2 8 hsl 128 15 1 50 0 0 empty empty How_many_times_a_second_to_sample
+-2 -8 0 10 -261234 -1 -1 7516 1;
+#N canvas 0 22 450 300 timer 0;
+#X obj 130 132 metro 100;
+#X obj 130 106 expr 1000/$f1;
+#X obj 142 67 inlet;
+#X obj 216 92 delay 1;
+#X obj 156 205 outlet;
+#X floatatom 236 176 5 0 0 0 - - -;
+#X connect 0 0 4 0;
+#X connect 1 0 0 1;
+#X connect 1 0 5 0;
+#X connect 2 0 1 0;
+#X connect 2 0 3 0;
+#X connect 3 0 0 0;
+#X restore -5 50 pd timer;
+#X obj -5 71 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X floatatom -5 29 5 0 0 0 - - -;
+#X obj 94 133 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -204786
+-1 -1 149 1;
+#X obj -5 90 s tick;
+#X obj 94 109 snapper;
+#X obj 153 133 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -204786
+-1 -1 149 1;
+#X obj 329 284 r tick;
+#X obj 212 133 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -204786
+-1 -1 0 1;
+#X obj 271 133 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -204786
+-1 -1 0 1;
+#X obj 330 133 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -204786
+-1 -1 0 1;
+#X obj 389 133 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -204786
+-1 -1 0 1;
+#X obj 96 53 hsl 50 15 0 1 0 0 empty empty empty -2 -8 0 10 -203904
+-1 -1 0 1;
+#X obj 155 53 hsl 50 15 0 1 0 0 empty empty empty -2 -8 0 10 -203904
+-1 -1 0 1;
+#X obj 215 53 hsl 50 15 0 1 0 0 empty empty empty -2 -8 0 10 -203904
+-1 -1 0 1;
+#X obj 275 53 hsl 50 15 0 1 0 0 empty empty empty -2 -8 0 10 -203904
+-1 -1 0 1;
+#X obj 334 53 hsl 50 15 0 1 0 0 empty empty empty -2 -8 0 10 -203904
+-1 -1 0 1;
+#X obj 394 53 hsl 50 15 0 1 0 0 empty empty empty -2 -8 0 10 -203904
+-1 -1 0 1;
+#X text 89 33 individual channel gain;
+#X obj 153 109 snapper;
+#X obj 212 109 snapper;
+#X obj 271 109 snapper;
+#X obj 330 109 snapper;
+#X obj 389 109 snapper;
+#X obj -5 -48 loadbang;
+#X msg -5 -25 30;
+#X obj 281 -9 bng 15 250 50 0 empty empty RECONNECT_OSC 17 7 0 10 -258113
+-258113 -1;
+#X obj 203 381 tgl 15 0 empty empty connected 20 7 0 8 -24198 -241291
+-1 0 1;
+#X obj 280 12 s reconnect;
+#X connect 0 0 9 0;
+#X connect 0 1 23 0;
+#X connect 0 2 24 0;
+#X connect 0 3 25 0;
+#X connect 0 4 26 0;
+#X connect 0 5 27 0;
+#X connect 1 0 31 0;
+#X connect 2 0 1 0;
+#X connect 3 0 6 0;
+#X connect 4 0 5 0;
+#X connect 5 0 8 0;
+#X connect 6 0 4 0;
+#X connect 7 0 1 1;
+#X connect 9 0 7 0;
+#X connect 10 0 1 2;
+#X connect 11 0 2 0;
+#X connect 12 0 1 3;
+#X connect 13 0 1 4;
+#X connect 14 0 1 5;
+#X connect 15 0 1 6;
+#X connect 16 0 9 1;
+#X connect 17 0 23 1;
+#X connect 18 0 24 1;
+#X connect 19 0 25 1;
+#X connect 20 0 26 1;
+#X connect 21 0 27 1;
+#X connect 23 0 10 0;
+#X connect 24 0 12 0;
+#X connect 25 0 13 0;
+#X connect 26 0 14 0;
+#X connect 27 0 15 0;
+#X connect 28 0 29 0;
+#X connect 29 0 3 0;
+#X connect 30 0 32 0;
