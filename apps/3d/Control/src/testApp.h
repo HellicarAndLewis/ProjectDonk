@@ -4,14 +4,8 @@
 
 #include "ofMain.h"
 #include "ofxJSON.h"
-#include "ofxNetwork.h"
+#include "ofxOsc.h"
 
-
-/**
- 
-	implementation of non-blocking JSON loading from URLs and parsed out into OSC calls.
- 
- */
 class testApp : public ofBaseApp{
 
 public:
@@ -35,13 +29,8 @@ public:
 	/**
 		another JSON instance just for the app settings
 	 */
-	ofxJSON settings;
-	
-	/**
-		my ofxNetwork instance
-	 */
-	ofxTCPClient tcpClient;
-	
+	ofxJSON json_settings;
+		
 	/**
 		last time a server pull was done (in seconds)
 	 */
@@ -58,42 +47,32 @@ public:
 	ofTrueTypeFont font;
 
 	/**
-		resolves a domain name to an IP address
-	 */
-	string getIpFromDomain(string name);
-
-	/**
 		logs to window console
 	 */
 	void log(string s);
-
-	/**
-		manages the HTTP protocol (separates header chunk from data chunk)
-	 */
-	void parseReceivedBytes(string incoming);
-	
-	/**
-		whether or not the connection is waiting for header to finish
-	 */
-	bool http_header_mode;
-	
-	/**
-		catching the returned "web page"
-	 */
-	string http_data_buffer;
-	
-	/**
-		whether or not we expect the socket to be open
-	 */
-	bool http_expect_connected;
-	
-	/**
-		parse the JSON into commands in preparation for OSC broadcasting
-	 */
-	void parseJSON(string &data);
+	void log(int n);
 	
 	double polling_delay;
 	
+	/**
+		category names for each json URL
+	 */
+	vector<string> source_names;
+	
+	/**
+		osc object for sending osc messages
+	 */
+	ofxOscSender oscOut;
+	
+	/**
+		osc port
+	 */
+	unsigned long osc_port;
+	
+	/**
+		osc destination IP addresses
+	 */
+	vector<string> osc_destinations;
 };
 
 #endif
