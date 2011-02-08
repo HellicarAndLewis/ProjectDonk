@@ -32,6 +32,8 @@
 		EA8D6E3C13016904002DE381 /* ColorUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA8D6E3113016904002DE381 /* ColorUtils.cpp */; };
 		EA8D6E3D13016904002DE381 /* StringUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA8D6E3413016904002DE381 /* StringUtils.cpp */; };
 		EA8D6E41130169D3002DE381 /* ofxSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA8D6E3F130169D3002DE381 /* ofxSettings.cpp */; };
+		EA8D705F1301B174002DE381 /* ofxPlanarKinectVision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA8D705E1301B174002DE381 /* ofxPlanarKinectVision.cpp */; };
+		EA8D706C1301B263002DE381 /* ofxPlanarKinectGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA8D706B1301B263002DE381 /* ofxPlanarKinectGui.cpp */; };
 		EAB36F3B12FC84400009DBB5 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB36F3412FC84400009DBB5 /* tinyxml.cpp */; };
 		EAB36F3C12FC84400009DBB5 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB36F3612FC84400009DBB5 /* tinyxmlerror.cpp */; };
 		EAB36F3D12FC84400009DBB5 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB36F3712FC84400009DBB5 /* tinyxmlparser.cpp */; };
@@ -223,6 +225,9 @@
 		EA8D6E3613016904002DE381 /* work in progress.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "work in progress.zip"; sourceTree = "<group>"; };
 		EA8D6E3F130169D3002DE381 /* ofxSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxSettings.cpp; sourceTree = "<group>"; };
 		EA8D6E40130169D3002DE381 /* ofxSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxSettings.h; sourceTree = "<group>"; };
+		EA8D6F3813019ED1002DE381 /* GuiDrawable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiDrawable.h; sourceTree = "<group>"; };
+		EA8D705E1301B174002DE381 /* ofxPlanarKinectVision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxPlanarKinectVision.cpp; sourceTree = "<group>"; };
+		EA8D706B1301B263002DE381 /* ofxPlanarKinectGui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxPlanarKinectGui.cpp; sourceTree = "<group>"; };
 		EAB36F3212FC84400009DBB5 /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = install.xml; sourceTree = "<group>"; };
 		EAB36F3412FC84400009DBB5 /* tinyxml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxml.cpp; sourceTree = "<group>"; };
 		EAB36F3512FC84400009DBB5 /* tinyxml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinyxml.h; sourceTree = "<group>"; };
@@ -682,6 +687,7 @@
 				EA8D6E2313016904002DE381 /* GuiToggle.h */,
 				EA8D6E2413016904002DE381 /* GuiVU.h */,
 				EA8D6E2513016904002DE381 /* GuiZoomSlider.h */,
+				EA8D6F3813019ED1002DE381 /* GuiDrawable.h */,
 			);
 			path = basic;
 			sourceTree = "<group>";
@@ -1288,7 +1294,9 @@
 		EAC6874B12FC36350035589C /* ofxPlanarKinect */ = {
 			isa = PBXGroup;
 			children = (
+				EA8D706B1301B263002DE381 /* ofxPlanarKinectGui.cpp */,
 				EAC688D412FC68CB0035589C /* ofxPlanarKinect.cpp */,
+				EA8D705E1301B174002DE381 /* ofxPlanarKinectVision.cpp */,
 				EAC688BC12FC668E0035589C /* ofxPlanarKinectWarper.h */,
 				EAC6874C12FC36350035589C /* ofxPlanarKinect.h */,
 			);
@@ -1514,6 +1522,8 @@
 				EA8D6E3C13016904002DE381 /* ColorUtils.cpp in Sources */,
 				EA8D6E3D13016904002DE381 /* StringUtils.cpp in Sources */,
 				EA8D6E41130169D3002DE381 /* ofxSettings.cpp in Sources */,
+				EA8D705F1301B174002DE381 /* ofxPlanarKinectVision.cpp in Sources */,
+				EA8D706C1301B263002DE381 /* ofxPlanarKinectGui.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

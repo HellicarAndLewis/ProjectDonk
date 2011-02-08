@@ -6,7 +6,7 @@
 #include "ofxBlobTracker.h"
 #include "ofxTuioServer.h"
 #include "ofxXmlGui.h"
-class testApp : public ofBaseApp, public ofxBlobListener {
+class testApp : public ofBaseApp, public ofxBlobListener, public GuiListener {
 	
 public:
 	
@@ -27,6 +27,9 @@ public:
 	void blobMoved(ofVec3f pos, int blobId);
 	void blobExited(ofVec3f pos, int blobId);
 	
+	// for gui
+	void controlChanged(GuiControl *control);
+	
 	/** the actual kinect device */
 	ofxKinect			kinect;
 	
@@ -45,6 +48,8 @@ public:
 	
 	string tuioHost;
 	int tuioPort;
+	
+	void setupGui();
 };
 
 #endif	

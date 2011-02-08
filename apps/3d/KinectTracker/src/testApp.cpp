@@ -14,8 +14,38 @@ void testApp::setup(){
 	blobTracker.addListener(this);
 	tuioServer.start((char*)tuioHost.c_str(), tuioPort);
 	tuioServer.setVerbose(true);
+	
+	
+	setupGui();
 }
 
+void testApp::setupGui() {
+	gui.setup(0, 0);
+	gui.size(ofGetWidth(), ofGetHeight());
+	gui.setLayoutType(LAYOUT_ABSOLUTE);
+	GuiControl *k = gui.addDrawable("kinect", planarKinect);
+	k->set(10, 10, 320, 240);
+	
+	k = gui.addSegmentedControl("Mode", planarKinect.guiMode, "Draw Threshold|Select Slice")->under(k, 10)->size(320,20);	
+	
+	k = gui.addTitle("Corner calibration")->under(k);
+	// put 1 under kinect
+	GuiControl *c = gui.addButton("1")->under(k)->size(20, 20);
+	
+	// put 4 under 1
+	c =	gui.addButton("4")->under(c)->size(20, 20);
+
+	
+	
+	// put 2 and 3 under and to the right of kinect
+	c = gui.addButton("2")->size(20, 20)->right(gui.getControlById("1"));
+	gui.addButton("3")->size(20, 20)->under(c);
+	
+	//printf("This : %x\n", this);
+	//gui.addListener(this);
+	gui.enable();
+	
+}
 
 
 //--------------------------------------------------------------
@@ -30,24 +60,24 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
-	ofSetHexColor(0xffffff);
-	planarKinect.draw();
-
-	string msg = "";
-	msg += "Sending tuio to "+tuioHost+":"+ofToString(tuioPort) + "\n";
-	msg += "Press 'h' for instructions";
-	ofDrawBitmapString(msg, 20, ofGetHeight()-35);
+	
 }
 
 
 //--------------------------------------------------------------
 void testApp::keyPressed  (int key){ 
-	
-	planarKinect.keyPressed(key);
 	if(key=='h') {
 		system((string("open ")+ofToDataPath("instructions.gif", true)).c_str());
 	}
-	
+	if(key=='1') {
+		planarKinect.calibrateCorner(TOP_LEFT_CORNER);
+	} else if(key=='2') {
+		planarKinect.calibrateCorner(TOP_RIGHT_CORNER);
+	} else if(key=='3') {
+		planarKinect.calibrateCorner(BOTTOM_RIGHT_CORNER);
+	} else if(key=='4') {
+		planarKinect.calibrateCorner(BOTTOM_LEFT_CORNER);
+	}
 }
 
 
@@ -95,4 +125,16 @@ void testApp::blobMoved(ofVec3f pos, int blobId) {
 void testApp::blobExited(ofVec3f pos, int blobId) {
 	tuioServer.removeCursor(blobs[blobId]);
 	blobs.erase(blobId);
+}
+
+void testApp::controlChanged(GuiControl *control) {
+	if(control->controlId=="1") {
+		planarKinect.calibrateCorner(TOP_LEFT_CORNER);
+	} else if(control->controlId=="2") {
+		planarKinect.calibrateCorner(TOP_RIGHT_CORNER);
+	} else if(control->controlId=="3") {
+		planarKinect.calibrateCorner(BOTTOM_RIGHT_CORNER);
+	} else if(control->controlId=="4") {
+		planarKinect.calibrateCorner(BOTTOM_LEFT_CORNER);
+	}
 }
