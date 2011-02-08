@@ -1,13 +1,10 @@
 #include "testApp.h"
 
-string tuioHost = "localhost";
-int tuioPort = 3333;
 //--------------------------------------------------------------
 void testApp::setup(){
-	clearFbo = true;
-	fbo.setup(ofGetWidth(), ofGetHeight(), GL_RGBA);
 
-
+	tuioHost = "localhost";
+	tuioPort = 3333;
 	planarKinect.set(20, 20, 320, 240);
 	planarKinect.setup();
 	kinect.init();
@@ -36,23 +33,6 @@ void testApp::draw(){
 	ofSetHexColor(0xffffff);
 	planarKinect.draw();
 
-
-	
-	fbo.begin();
-	if(clearFbo) {
-		ofClear(0,0,0,0);
-		clearFbo = false;
-	}
-	ofSetColor(0, 0, 255, 255);
-	ofVec3f d = ofVec3f(ofGetWidth(), ofGetHeight());
-	for(int i = 0; i < lines.size(); i++) {
-		ofLine(lines[i].first*d, lines[i].second*d);
-	}
-	lines.clear();
-	fbo.end();
-	fbo.draw(0,0);
-
-	ofSetHexColor(0xFFFFFF);
 	string msg = "";
 	msg += "Sending tuio to "+tuioHost+":"+ofToString(tuioPort) + "\n";
 	msg += "Press 'h' for instructions";
@@ -64,9 +44,7 @@ void testApp::draw(){
 void testApp::keyPressed  (int key){ 
 	
 	planarKinect.keyPressed(key);
-	if(key==' ') {
-		clearFbo = true;
-	} else if(key=='h') {
+	if(key=='h') {
 		system((string("open ")+ofToDataPath("instructions.gif", true)).c_str());
 	}
 	
@@ -111,13 +89,9 @@ void testApp::blobEntered(ofVec3f pos, int blobId) {
 	blobs[blobId] = tuioServer.addCursor(pos.x*ofGetWidth(), pos.y*ofGetHeight());
 }
 void testApp::blobMoved(ofVec3f pos, int blobId) {
-	
-	/*lines.push_back(make_pair(pos, 
-							  ofVec3f(blobs[blobId]->getPosition().getX(), blobs[blobId]->getPosition().getY())
-							  ));*/
-	
 	tuioServer.updateCursor(blobs[blobId], pos.x*ofGetWidth(), pos.y*ofGetHeight());
 }
+
 void testApp::blobExited(ofVec3f pos, int blobId) {
 	tuioServer.removeCursor(blobs[blobId]);
 	blobs.erase(blobId);

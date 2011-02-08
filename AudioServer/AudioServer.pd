@@ -1,0 +1,121 @@
+#N canvas 579 46 546 438 10;
+#X declare -lib mrpeach;
+#X obj 253 129 adc~ 1 2 3 4 5 6;
+#N canvas 0 22 582 661 osc 0;
+#X msg 62 278 disconnect;
+#X obj 38 380 udpsend;
+#X obj 211 383 packOSC;
+#X obj 17 411 import mrpeach;
+#X obj 10 35 loadbang;
+#X msg 10 61 connect localhost 12345;
+#X obj 246 236 inlet;
+#X obj 263 257 inlet;
+#X obj 281 277 inlet;
+#X obj 298 297 inlet;
+#X obj 316 317 inlet;
+#X obj 211 166 inlet;
+#X obj 211 338 pack f f f f f f f;
+#X msg 211 361 send /audio \$2 \$3 \$4 \$5 \$6 \$7;
+#X msg 211 192 1;
+#X obj 228 216 inlet;
+#X text 209 130 Bang first input when all the other inputs have been
+set with adc values;
+#X text 155 60 <-- this is where you change the network settings;
+#X connect 0 0 1 0;
+#X connect 2 0 1 0;
+#X connect 4 0 5 0;
+#X connect 5 0 1 0;
+#X connect 6 0 12 2;
+#X connect 7 0 12 3;
+#X connect 8 0 12 4;
+#X connect 9 0 12 5;
+#X connect 10 0 12 6;
+#X connect 11 0 14 0;
+#X connect 12 0 13 0;
+#X connect 13 0 2 0;
+#X connect 14 0 12 0;
+#X connect 15 0 12 1;
+#X restore 281 399 pd osc;
+#X obj 408 355 delay 1;
+#X obj 17 23 hsl 128 15 1 50 0 0 empty empty How_many_times_a_second_to_sample
+-2 -8 0 10 -261234 -1 -1 8000 1;
+#N canvas 0 22 450 300 timer 1;
+#X obj 130 132 metro 100;
+#X obj 130 106 expr 1000/$f1;
+#X obj 142 67 inlet;
+#X obj 216 92 delay 1;
+#X obj 156 205 outlet;
+#X floatatom 236 176 5 0 0 0 - - -;
+#X connect 0 0 4 0;
+#X connect 1 0 0 1;
+#X connect 1 0 5 0;
+#X connect 2 0 1 0;
+#X connect 2 0 3 0;
+#X connect 3 0 0 0;
+#X restore 14 65 pd timer;
+#X obj 14 86 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X floatatom 14 44 5 0 0 0 - - -;
+#X obj 173 178 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -204786
+-1 -1 477 1;
+#X obj 14 105 s tick;
+#X obj 173 154 snapper;
+#X obj 232 178 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -204786
+-1 -1 235 1;
+#X obj 408 329 r tick;
+#X obj 291 178 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -204786
+-1 -1 0 1;
+#X obj 350 178 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -204786
+-1 -1 0 1;
+#X obj 409 178 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -204786
+-1 -1 0 1;
+#X obj 468 178 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -204786
+-1 -1 0 1;
+#X obj 175 98 hsl 50 15 0 1 0 0 empty empty empty -2 -8 0 10 -203904
+-1 -1 1500 1;
+#X obj 234 98 hsl 50 15 0 1 0 0 empty empty empty -2 -8 0 10 -203904
+-1 -1 0 1;
+#X obj 294 98 hsl 50 15 0 1 0 0 empty empty empty -2 -8 0 10 -203904
+-1 -1 0 1;
+#X obj 354 98 hsl 50 15 0 1 0 0 empty empty empty -2 -8 0 10 -203904
+-1 -1 0 1;
+#X obj 413 98 hsl 50 15 0 1 0 0 empty empty empty -2 -8 0 10 -203904
+-1 -1 0 1;
+#X obj 473 98 hsl 50 15 0 1 0 0 empty empty empty -2 -8 0 10 -203904
+-1 -1 0 1;
+#X text 168 78 individual channel gain;
+#X obj 232 154 snapper;
+#X obj 291 154 snapper;
+#X obj 350 154 snapper;
+#X obj 409 154 snapper;
+#X obj 468 154 snapper;
+#X connect 0 0 9 0;
+#X connect 0 1 23 0;
+#X connect 0 2 24 0;
+#X connect 0 3 25 0;
+#X connect 0 4 26 0;
+#X connect 0 5 27 0;
+#X connect 2 0 1 0;
+#X connect 3 0 6 0;
+#X connect 4 0 5 0;
+#X connect 5 0 8 0;
+#X connect 6 0 4 0;
+#X connect 7 0 1 1;
+#X connect 9 0 7 0;
+#X connect 10 0 1 2;
+#X connect 11 0 2 0;
+#X connect 12 0 1 3;
+#X connect 13 0 1 4;
+#X connect 14 0 1 5;
+#X connect 15 0 1 6;
+#X connect 16 0 9 1;
+#X connect 17 0 23 1;
+#X connect 18 0 24 1;
+#X connect 19 0 25 1;
+#X connect 20 0 26 1;
+#X connect 21 0 27 1;
+#X connect 23 0 10 0;
+#X connect 24 0 12 0;
+#X connect 25 0 13 0;
+#X connect 26 0 14 0;
+#X connect 27 0 15 0;

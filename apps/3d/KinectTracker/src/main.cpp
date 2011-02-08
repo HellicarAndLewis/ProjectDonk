@@ -1,10 +1,14 @@
 #include "ofMain.h"
 #include "testApp.h"
 #include "ofAppGlutWindow.h"
+#include "ofxSettings.h"
 
 //========================================================================
 int main( ){
-
+	
+	ofSetDataPathRoot("../../../data/");
+	settings.load("KinectTrackerSettings.xml");
+	
     ofAppGlutWindow window;
 	ofSetupOpenGL(&window, 400,400, OF_WINDOW);			// <-------- setup the GL context
 
