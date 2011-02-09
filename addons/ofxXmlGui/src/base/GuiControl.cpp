@@ -225,8 +225,7 @@ bool GuiControl::_touchDown(int _x, int _y, int touchId){
 		
 		if(listeners!=NULL) {
 			for(int i = 0; i < numListeners; i++) {
-//				listeners[i]->controlChanged(this);
-				printf("%x\n", listeners[i]);
+				listeners[i]->controlChanged(this);
 			}
 			//GuiControl * l = (GuiControl*) listener;
 			//printf("%s\n",	l->name.c_str());

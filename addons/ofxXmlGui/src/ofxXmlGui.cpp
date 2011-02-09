@@ -290,6 +290,7 @@ void ofxXmlGui::disable() {
 
 void ofxXmlGui::setup(float _x, float _y, float size) {
 	
+	name = "ofxXmlGui";
 	pageChooser = NULL;
 	
 	setLayoutType(LAYOUT_ABSOLUTE);
@@ -300,7 +301,7 @@ void ofxXmlGui::setup(float _x, float _y, float size) {
 	this->controlSize = size - paddingX*2;
 	
 	currPage = createPage("default");
-	addListener(this);
+	addListener((GuiListener*)this);
 	
 	xmlFile = "";
 	saving = false;
@@ -326,6 +327,8 @@ void ofxXmlGui::controlChanged(GuiControl *ctrl) {
 		currPage->hide();
 		currPage = pages[ival(ctrl->value)];
 		currPage->show();
+	} else {
+		printf("%s\n", ctrl->controlId.c_str());
 	}
 }
 

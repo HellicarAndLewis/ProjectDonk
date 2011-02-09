@@ -11,5 +11,4 @@ class GuiControl;
 class GuiListener {
 public:
 	virtual void controlChanged(GuiControl *control) = 0;
-	
 };

@@ -20,6 +20,9 @@ void testApp::setup(){
 }
 
 void testApp::setupGui() {
+	
+	// this sets up and lays out the gui.
+	
 	gui.setup(0, 0);
 	gui.size(ofGetWidth(), ofGetHeight());
 	gui.setLayoutType(LAYOUT_ABSOLUTE);
@@ -41,8 +44,7 @@ void testApp::setupGui() {
 	c = gui.addButton("2")->size(20, 20)->right(gui.getControlById("1"));
 	gui.addButton("3")->size(20, 20)->under(c);
 	
-	//printf("This : %x\n", this);
-	//gui.addListener(this);
+	gui.addListener((GuiListener*)this);
 	gui.enable();
 	
 }
