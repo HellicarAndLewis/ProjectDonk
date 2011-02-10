@@ -1,24 +1,26 @@
 #include "testApp.h"
-
+#include "ofxSettings.h"
 //--------------------------------------------------------------
 void testApp::setup(){
-
-	ofSetFrameRate(30);
-	ofBackground(0,0,0);
-	
-	
 	tuioHost = "localhost";
 	tuioPort = 3333;
+	ofSetFrameRate(30);
+	ofBackground(0,0,0);
+
+	
 	planarKinect.setup();
 	kinect.init();
 	kinect.open(planarKinect.deviceId);
 
 	blobTracker.addListener(this);
+	
+	setupGui();
+	
 	tuioServer.start((char*)tuioHost.c_str(), tuioPort);
 	tuioServer.setVerbose(true);
 	
 	
-	setupGui();
+	
 }
 
 void testApp::setupGui() {
@@ -60,9 +62,13 @@ void testApp::setupGui() {
 
 	c = gui.addTitle("TUIO Output")->size(320, 20)->under(gui.getControlById("4"));
 	c = gui.addDrawable("blobs", blobTracker)->under(c)->size(320, 240);
-	gui.addSlider("smoothness", blobTracker.smoothing, 0, 0.99)->under(c, 10);
-	
+	c = gui.addSlider("smoothness", blobTracker.smoothing, 0, 0.99)->under(c, 10);
+	c = gui.addTextField("TUIO Host", tuioHost)->under(c, 10)->size(70, 20);
+	c = gui.addIntField("Port", tuioPort)->right(c)->size(40, 20);
+	c = gui.addButton("Reconnect")->right(c)->size(70, 20);
+	gui.enableAutoSave("trackerSettings.xml");
 	gui.addListener((GuiListener*)this);
+	
 	gui.enable();
 	
 }
@@ -163,5 +169,8 @@ void testApp::controlChanged(GuiControl *control) {
 		planarKinect.moveThreshold(-1);
 	} else if(control->controlId=="Capture Background") {
 		planarKinect.captureThreshold();
+	} else if(control->controlId=="Reconnect") {
+		tuioServer.start((char*)tuioHost.c_str(), tuioPort);
 	}
 }
+

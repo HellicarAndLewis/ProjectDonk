@@ -31,6 +31,8 @@ public:
 	// for gui
 	void controlChanged(GuiControl *control);
 	
+	
+	
 	/** the actual kinect device */
 	ofxKinect			kinect;
 	
