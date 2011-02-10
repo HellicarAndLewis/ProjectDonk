@@ -22,36 +22,42 @@ void testApp::setup(){
 	
 	if(!json_settings.loadFromFile("settings.json.txt")){
 		string msg = "FATAL ERROR: failed to load JSON settings file: data/settings.json.txt";
-		log(msg);
+		log(msg,1);
 		cout << msg << endl;
 		_exit(1);
 	}
 	
 	polling_delay = json_settings["polling_delay_time_in_seconds"].asDouble();
 	source_names = json_settings["sources"].getMemberNames();
-	osc_port = json_settings["osc_remote_port"].asInt();
-	for(int i=0;i<json_settings["osc_destinations"].size();i++){
-		osc_destinations.push_back(json_settings["osc_destinations"][i].asString());
+	rendermachine_osc_port = json_settings["rendermachine"]["osc_port"].asInt();
+	rendermachine_ip = json_settings["rendermachine"]["ip"].asString();
+	http_get_timeout = json_settings["http_get_timeout"].asInt();
+	
+	for(int i=0;i<source_names.size();i++){
+		loaders.push_back(new AsyncHttpLoader());
+		loaders.back()->timeout = http_get_timeout;
 	}
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
 
-	//is it time to call the server again?
-	if(ofGetElapsedTimef() - lastConnectTime > polling_delay || lastConnectTime == 0){
-		
-		//do consecutive blocking calls
-		try{
-			for(int i=0;i<source_names.size();i++){
-				if(!json.loadFromUrl(json_settings["sources"][source_names[i]].asString())){
-					log("Error retreiving json from server. json.loadFromUrl() returned false.");
+	for(int i=0;i<loaders.size();i++){
+		if(loaders[i]->done){
+			if(!loaders[i]->errorString.empty()){
+				log(loaders[i]->errorString,1);
+			}else{
+				int status = loaders[i]->response.getStatus();
+				if(status!=200){
+					char statString[256];
+					sprintf(statString,"Server returned error %i",status);
+					log(statString,1);
 				}else{
+					json.parse(loaders[i]->data);
+					
 					for(int j=0;j<json.size();j++){
 						Json::Value bubble = json[j];
-						int rndDst = ofRandom(osc_destinations.size());
-						
-						oscOut.setup(osc_destinations[rndDst],osc_port);
+						oscOut.setup(rendermachine_ip,rendermachine_osc_port);
 						ofxOscMessage m;
 						m.setAddress("/control/bubble/new");
 						m.addStringArg("id");
@@ -64,15 +70,28 @@ void testApp::update(){
 						m.addStringArg(bubble["profile_image_url"].asString());
 						m.addStringArg("media_text_url");
 						m.addStringArg(bubble["media_text_url"].asString());
-						oscOut.sendMessage(m);
-						
-						log(source_names[i] + string(" > ") + bubble["id"].asString() + string(" > ") + osc_destinations[rndDst]);
+						oscOut.sendMessage(m);				
+						log(source_names[i] + string(" > ") + bubble["id"].asString(),0);
 					}
 				}
 			}
-		}catch(logic_error err){
-			log("Error calling remote server -- network down?");
+			
+			loaders[i]->reset();
 		}
+	}
+	
+	//is it time to call the server again?
+	if(ofGetElapsedTimef() - lastConnectTime > polling_delay || lastConnectTime == 0){
+		
+		//do consecutive blocking calls
+		try{
+			for(int i=0;i<source_names.size();i++){
+				loaders[i]->get(json_settings["sources"][source_names[i]].asString());
+			}
+		}catch(logic_error err){
+			log("Error calling remote server -- network down?",1);
+		}
+		
 		lastConnectTime = ofGetElapsedTimef();
 	}
 	
@@ -83,7 +102,15 @@ void testApp::draw(){
 	ofBackground(0,0,0);
 	ofColor(255,255,255);
 	glPushMatrix();
-	font.drawString(console,0,6);
+	for(int i=0;i<console.size();i++){
+		if(console_colors[i]==0){
+			ofSetColor(128,255,128);
+		}else{
+			ofSetColor(255,128,128);
+		}
+		font.drawString(console[i],0,6);
+		glTranslatef(0,8,0);
+	}
 	glPopMatrix();
 }
 
@@ -124,27 +151,24 @@ void testApp::windowResized(int w, int h){
 }
 
 //--------------------------------------------------------------
-void testApp::log(int n){
+void testApp::log(int n,int color=0){
 	char s[256];
 	sprintf(s,"%i",n);
-	log(s);
+	log(s,color);
 }
 //--------------------------------------------------------------
-void testApp::log(string s){
-	console += ofGetTimestampString();
-	console += " ";
-	console += s + '\n';
+void testApp::log(string s,int color=0){
+	string displayLine = ofGetTimestampString();
+	displayLine += " ";
+	displayLine += s + '\n';
+	
+	console.push_back(displayLine);
+	console_colors.push_back(color);
 	
 	//erase old stuff
-	string::iterator it = console.begin();
-	int count = 0;
-	for(;it!=console.end();it++){
-		if(*it=='\n')count++;
-	}
 	int lineCount = (ofGetHeight()-6) / 8;
-	int eraseCount = 0;
-	while(eraseCount < count-lineCount){
-		if(console[0]=='\n')eraseCount++;
-		console.erase(0,1);
+	while(console.size() > lineCount){
+		console.pop_front();
+		console_colors.pop_front();
 	}
 }

@@ -12,6 +12,7 @@
 		814B60761300CDF40003229E /* ofxOscMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 814B60691300CDF40003229E /* ofxOscMessage.cpp */; };
 		814B60771300CDF40003229E /* ofxOscReceiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 814B606B1300CDF40003229E /* ofxOscReceiver.cpp */; };
 		814B60781300CDF40003229E /* ofxOscSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 814B606D1300CDF40003229E /* ofxOscSender.cpp */; };
+		81ED08E11303707F003081E9 /* AsyncHttpLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81ED08E01303707F003081E9 /* AsyncHttpLoader.cpp */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
 		E45BE97C0E8CC7DD009D7055 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */; };
 		E45BE97D0E8CC7DD009D7055 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9730E8CC7DD009D7055 /* AudioToolbox.framework */; };
@@ -90,6 +91,8 @@
 		814B606C1300CDF40003229E /* ofxOscReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxOscReceiver.h; sourceTree = "<group>"; };
 		814B606D1300CDF40003229E /* ofxOscSender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxOscSender.cpp; sourceTree = "<group>"; };
 		814B606E1300CDF40003229E /* ofxOscSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxOscSender.h; sourceTree = "<group>"; };
+		81ED08DF1303707F003081E9 /* AsyncHttpLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncHttpLoader.h; sourceTree = "<group>"; };
+		81ED08E01303707F003081E9 /* AsyncHttpLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AsyncHttpLoader.cpp; sourceTree = "<group>"; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
 		E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
 		E45BE9730E8CC7DD009D7055 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
@@ -300,6 +303,8 @@
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
+				81ED08DF1303707F003081E9 /* AsyncHttpLoader.h */,
+				81ED08E01303707F003081E9 /* AsyncHttpLoader.cpp */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -466,6 +471,7 @@
 				814B60761300CDF40003229E /* ofxOscMessage.cpp in Sources */,
 				814B60771300CDF40003229E /* ofxOscReceiver.cpp in Sources */,
 				814B60781300CDF40003229E /* ofxOscSender.cpp in Sources */,
+				81ED08E11303707F003081E9 /* AsyncHttpLoader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,6 +6,12 @@
 #include "ofxJSON.h"
 #include "ofxOsc.h"
 
+#include "AsyncHttpLoader.h"
+
+/**
+	asyncronous http gets to 4 urls, receiving JSON
+	and sending it all to the render machine.
+ */
 class testApp : public ofBaseApp{
 
 public:
@@ -37,9 +43,13 @@ public:
 	float lastConnectTime;
 	
 	/**
-		window console buffer
+	 window console buffer
 	 */
-	string console;
+	deque<string> console;
+	/**
+		console line colors
+	 */
+	deque<int> console_colors;
 	
 	/**
 		font for console rendering
@@ -49,8 +59,8 @@ public:
 	/**
 		logs to window console
 	 */
-	void log(string s);
-	void log(int n);
+	void log(string s,int color);
+	void log(int n,int color);
 	
 	double polling_delay;
 	
@@ -65,14 +75,23 @@ public:
 	ofxOscSender oscOut;
 	
 	/**
-		osc port
+		rendermachine osc port
 	 */
-	unsigned long osc_port;
+	unsigned long rendermachine_osc_port;
 	
 	/**
-		osc destination IP addresses
+		rendermachine IP address
 	 */
-	vector<string> osc_destinations;
+	string rendermachine_ip;
+	
+	/**
+		must be a pointer since it passes itself to a thread func
+	 */
+	vector<AsyncHttpLoader*> loaders;
+	/**
+		http get timeout in seconds
+	 */
+	int http_get_timeout;
 };
 
 #endif
