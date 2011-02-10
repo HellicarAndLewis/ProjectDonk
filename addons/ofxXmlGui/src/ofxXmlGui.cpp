@@ -327,8 +327,6 @@ void ofxXmlGui::controlChanged(GuiControl *ctrl) {
 		currPage->hide();
 		currPage = pages[ival(ctrl->value)];
 		currPage->show();
-	} else {
-		printf("%s\n", ctrl->controlId.c_str());
 	}
 }
 

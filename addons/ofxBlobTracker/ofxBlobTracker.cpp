@@ -9,7 +9,7 @@
 #include "ofxBlobTracker.h"
 
 ofxBlobTracker::ofxBlobTracker() {
-	for (int i=0;i<NUM_KALMAN_POINTS;i++) {
+	for (int i=0;i<MAX_NUM_BLOBS*2;i++) {
 		tuioPointSmoothed[i] = NULL;
 	}
 	bVerbose = false;
@@ -21,7 +21,7 @@ void ofxBlobTracker::addListener(ofxBlobListener *listener) {
 
 
 ofxBlob *ofxBlobTracker::updateKalman(int id, ofxBlob *blob) {
-	if (id>=NUM_KALMAN_POINTS/2) return NULL;
+	if (id>=MAX_NUM_BLOBS) return NULL;
 	if(tuioPointSmoothed[id*2] == NULL) {
 		tuioPointSmoothed[id*2] = new ofxCvKalman(blob->x);
 		tuioPointSmoothed[id*2+1] = new ofxCvKalman(blob->y);
@@ -34,7 +34,7 @@ ofxBlob *ofxBlobTracker::updateKalman(int id, ofxBlob *blob) {
 }
 
 void ofxBlobTracker::clearKalman(int id) {
-	if (id>=NUM_KALMAN_POINTS/2) return;
+	if (id>=MAX_NUM_BLOBS) return;
 	if(tuioPointSmoothed[id*2]) {
 		delete tuioPointSmoothed[id*2];
 		tuioPointSmoothed[id*2] = NULL;
@@ -45,7 +45,7 @@ void ofxBlobTracker::clearKalman(int id) {
 
 
 int ofxBlobTracker::getNextAvailableBlobId() {
-	for(int id = 0; id < NUM_KALMAN_POINTS/2; id++) {
+	for(int id = 0; id < MAX_NUM_BLOBS; id++) {
 		bool foundId = false;
 		for(int i = 0; i < lastBlobs.size(); i++) {
 			if(lastBlobs[i]->id==id) {
@@ -88,7 +88,7 @@ void ofxBlobTracker::untouchLastBlobs() {
 
 void ofxBlobTracker::track(vector<ofVec2f> &blobs) {
 	vector<ofVec3f> poop;
-	for(int i = 0; i < blobs.size(); i++) {
+	for(int i = 0; i < blobs.size() && i < MAX_NUM_BLOBS; i++) {
 		poop.push_back(ofVec3f(blobs[i].x, blobs[i].y, 0));
 	}
 	track(poop);

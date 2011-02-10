@@ -42,17 +42,17 @@ void ofxPlanarKinect::findBlobs() {
 	
 	for(int i = 0; i < kinectWidth; i++) {
 		// loop until we find a blob
-		while(i<kinectWidth && slice[i]<threshold) {
+		while(i<kinectWidth-1 && slice[i]<threshold[i]) {
 			i++;
 		}
 		
 		// consume the blob
-		if(slice[i]>=threshold) {
+		if(slice[i]>=threshold[i]) {
 			int blobStart = i;
 			// find the end point (and also the depth)
 			float maxDepth = slice[i];
 			int blobCentre = 0;
-			while(i<kinectWidth && slice[i]>threshold) {
+			while(i<kinectWidth-1 && slice[i]>threshold[i]) {
 				if(slice[i]>maxDepth) {
 					maxDepth = slice[i];
 					blobCentre = i;
@@ -73,6 +73,7 @@ void ofxPlanarKinect::findBlobs() {
 
 
 void ofxPlanarKinect::calibrateBlobs() {
+	
 	blobs.clear();
 	
 	// first step is to set up the warper matrix. You do this by giving the coordinates

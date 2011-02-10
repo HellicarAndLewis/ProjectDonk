@@ -14,12 +14,21 @@
 #include "ofxPlanarKinect.h"
 
 ofxPlanarKinect::ofxPlanarKinect() {
+	
+	// should really pass the kinect in here
+	kinectWidth = 640;
+	kinectHeight = 480;
+	
+	lastMouse = ofVec2f(-1, -1);
 	pixels = NULL;
 	depthGraph = NULL;
 	mouseIsDown = false;
 	width = 640;
 	height = 480;
-	threshold = 128;
+	threshold = new float[(int)kinectWidth];
+	for(int i = 0; i < kinectWidth; i++) {
+		threshold[i] = 128;
+	}
 	deviceId = 0;
 	guiMode = SLICE_SELECTION;
 	
@@ -42,9 +51,7 @@ ofxPlanarKinect::~ofxPlanarKinect() {
 
 void ofxPlanarKinect::setup() {
 
-	// should really pass the kinect in here
-	kinectWidth = 640;
-	kinectHeight = 480;
+
 	
 	// this is the default position of where we take the row of pixels from.
 	sliceY = kinectHeight/2;
@@ -97,6 +104,17 @@ void ofxPlanarKinect::update(unsigned char *pixels) {
 	}
 }
 
+void ofxPlanarKinect::moveThreshold(float increment) {
+	for(int i = 0; i < kinectWidth; i++) {
+		threshold[i] = ofClamp(threshold[i]+increment, 0, 255);
+	}
+}
+
+void ofxPlanarKinect::captureThreshold() {
+	for(int i = 0; i < kinectWidth; i++) {
+		threshold[i] = ofClamp(slice[i]+15, 0, 255);
+	}
+}
 
 
 void ofxPlanarKinect::calibrateCorner(int whichCorner) {	
@@ -124,7 +142,11 @@ void ofxPlanarKinect::saveSettings() {
 	xml.addAttribute("settings", "y2", inputQuad[2].y, 0);
 	xml.addAttribute("settings", "x3", inputQuad[3].x, 0);
 	xml.addAttribute("settings", "y3", inputQuad[3].y, 0);
-	xml.addAttribute("settings", "threshold", threshold, 0);
+	
+	for(int i = 0; i < kinectWidth; i++) {
+		xml.addAttribute("settings", "threshold"+ofToString(i), threshold[i], 0);
+	}
+	
 	xml.addAttribute("settings", "sliceY", sliceY, 0);
 	xml.addAttribute("settings", "deviceId", deviceId, 0);
 	xml.saveFile("planarKinectSettings.xml");
@@ -142,7 +164,12 @@ void ofxPlanarKinect::loadSettings() {
 		inputQuad[2].y = xml.getAttribute("settings", "y2", inputQuad[2].y);
 		inputQuad[3].x = xml.getAttribute("settings", "x3", inputQuad[3].x);
 		inputQuad[3].y = xml.getAttribute("settings", "y3", inputQuad[3].y);
-		threshold      = xml.getAttribute("settings", "threshold", threshold);
+
+		
+		for(int i = 0; i < kinectWidth; i++) {
+			threshold[i] = xml.getAttribute("settings", "threshold"+ofToString(i), threshold[i]);
+//			printf("threshold %d = %f\n", i, threshold[i]);
+		}
 		sliceY		   = xml.getAttribute("settings", "sliceY", sliceY);
 		deviceId	   = xml.getAttribute("settings", "deviceId", deviceId);
 		ofLog(OF_LOG_NOTICE, "Loaded planar kinect settings beautifully\n");

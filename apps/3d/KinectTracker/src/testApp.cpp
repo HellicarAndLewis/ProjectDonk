@@ -3,14 +3,16 @@
 //--------------------------------------------------------------
 void testApp::setup(){
 
+	ofSetFrameRate(30);
+	ofBackground(0,0,0);
+	
+	
 	tuioHost = "localhost";
 	tuioPort = 3333;
-	planarKinect.set(20, 20, 320, 240);
 	planarKinect.setup();
 	kinect.init();
 	kinect.open(planarKinect.deviceId);
-	ofSetFrameRate(30);
-	ofBackground(0,0,0);
+
 	blobTracker.addListener(this);
 	tuioServer.start((char*)tuioHost.c_str(), tuioPort);
 	tuioServer.setVerbose(true);
@@ -31,18 +33,28 @@ void testApp::setupGui() {
 	
 	k = gui.addSegmentedControl("Mode", planarKinect.guiMode, "Draw Threshold|Select Slice")->under(k, 10)->size(320,20);	
 	
+	
+	// put 1   2
+	//     4   3
+	// buttons to calibrate corners.
 	k = gui.addTitle("Corner calibration")->under(k);
+	
 	// put 1 under kinect
 	GuiControl *c = gui.addButton("1")->under(k)->size(20, 20);
 	
 	// put 4 under 1
 	c =	gui.addButton("4")->under(c)->size(20, 20);
-
-	
 	
 	// put 2 and 3 under and to the right of kinect
 	c = gui.addButton("2")->size(20, 20)->right(gui.getControlById("1"));
 	gui.addButton("3")->size(20, 20)->under(c);
+	
+	
+	// do threshold controls.
+	c = gui.addTitle("Threshold Controls")->right(gui.getControlById("kinect"));
+	c = gui.addButton("Capture Background")->under(c);
+	gui.addButton("down")->size(30, 20)->under(c);
+	gui.addButton("up")->size(30, 20)->underRight(c);
 	
 	gui.addListener((GuiListener*)this);
 	gui.enable();
@@ -56,8 +68,10 @@ void testApp::update(){
 	kinect.update();
 
 	planarKinect.update(kinect.getDepthPixels());
-	blobTracker.track(planarKinect.blobs);
+	//blobTracker.track(planarKinect.blobs);
 	tuioServer.run();
+	
+	ofSetWindowTitle("KinectTracker - "+ofToString(ofGetWidth()) + "x"+ofToString(ofGetHeight()));
 }
 
 //--------------------------------------------------------------
@@ -138,5 +152,11 @@ void testApp::controlChanged(GuiControl *control) {
 		planarKinect.calibrateCorner(BOTTOM_RIGHT_CORNER);
 	} else if(control->controlId=="4") {
 		planarKinect.calibrateCorner(BOTTOM_LEFT_CORNER);
+	} else if(control->controlId=="up") {
+		planarKinect.moveThreshold(1);
+	} else if(control->controlId=="down") {
+		planarKinect.moveThreshold(-1);
+	} else if(control->controlId=="Capture Background") {
+		planarKinect.captureThreshold();
 	}
 }

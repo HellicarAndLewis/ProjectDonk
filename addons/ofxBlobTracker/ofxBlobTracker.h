@@ -19,8 +19,8 @@ public:
 	virtual void blobExited(ofVec3f pos, int blobId) {}
 	
 };
-#define NUM_KALMAN_POINTS 32
-
+//#define NUM_KALMAN_POINTS 32
+#define MAX_NUM_BLOBS 32
 class ofxBlob: public ofVec3f {
 public:
 	int id;
@@ -46,6 +46,7 @@ public:
 	void track(vector<ofVec2f> &blobs);
 	
 	// output: add yourself as a listener
+	// note, it truncates the list to the first MAX_NUM_BLOBS values
 	void addListener(ofxBlobListener *listener);
 	
 	
@@ -65,7 +66,7 @@ private:
 	
 	vector<ofxBlob*> lastBlobs;
 	
-	ofxCvKalman *tuioPointSmoothed[NUM_KALMAN_POINTS];
+	ofxCvKalman *tuioPointSmoothed[MAX_NUM_BLOBS*2];
 	ofxBlob *getClosestBlob(ofVec3f &blob);
 	void clearKalman(int id);
 	ofxBlob *updateKalman(int id, ofxBlob *blob);

@@ -10,8 +10,8 @@
 
 #include "ofMain.h"
 #include "ofxPlanarKinectWarper.h"
-#define SLICE_SELECTION 0
-#define THRESHOLD_SETTING 1
+#define SLICE_SELECTION 1
+#define THRESHOLD_SETTING 0
 
 #define TOP_LEFT_CORNER 0
 #define TOP_RIGHT_CORNER 1
@@ -54,6 +54,12 @@ public:
 	// call this when you're making a blob in a particular corner
 	void calibrateCorner(int whichCorner);
 	
+	
+	void moveThreshold(float increment);
+	
+	void captureThreshold();
+	
+	
 private:
 	
 	/** uncalibrated blobs */
@@ -83,8 +89,8 @@ private:
 	ofVec2f *depthGraph;
 	int numDepthGraphPoints;
 	
-	/** depth threshold at which to stop ignoring points */
-	float threshold;
+	/** depth threshold at which to stop ignoring points - there's a threshold for each x-position*/
+	float *threshold;
 	
 	/** texture for the whole camera view */
 	ofTexture camImg;
@@ -98,7 +104,7 @@ private:
 	/** if the mouse is being pressed */
 	bool mouseIsDown;
 
-
+	ofVec2f lastMouse;
 	ofxPlanarKinectWarper warper;
 
 };
