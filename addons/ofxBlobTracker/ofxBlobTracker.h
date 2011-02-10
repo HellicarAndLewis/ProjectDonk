@@ -8,6 +8,8 @@
  */
 #include "ofMain.h"
 #include "ofxCvKalman.h"
+#include "ofxBlobSmoother.h"
+
 #pragma once
 /**
  * \brief Implement this class to listen for blobs.
@@ -57,6 +59,8 @@ public:
 	float getWidth();
 	float getHeight();
 	
+	float smoothing;
+	
 private:
 	bool bVerbose;
 	vector<ofxBlobListener*> listeners;
@@ -65,6 +69,7 @@ private:
 	void notifyAllListeners(ofVec3f pos, int id, ofxBlobEventType type);
 	
 	vector<ofxBlob*> lastBlobs;
+	map<int,ofVec3f> smoothedBlobs;
 	
 	ofxCvKalman *tuioPointSmoothed[MAX_NUM_BLOBS*2];
 	ofxBlob *getClosestBlob(ofVec3f &blob);
@@ -76,4 +81,5 @@ private:
 
 	void untouchLastBlobs();
 	int getNextAvailableBlobId();
+	ofxBlobSmoother blobSmoother;
 };

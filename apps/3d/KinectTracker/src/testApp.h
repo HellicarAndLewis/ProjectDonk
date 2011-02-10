@@ -6,6 +6,7 @@
 #include "ofxBlobTracker.h"
 #include "ofxTuioServer.h"
 #include "ofxXmlGui.h"
+
 class testApp : public ofBaseApp, public ofxBlobListener, public GuiListener {
 	
 public:
