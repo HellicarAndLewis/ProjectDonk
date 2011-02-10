@@ -15,7 +15,7 @@ void testApp::setup() {
 	
 	
 	bullet.init();
-	bullet.createGround();
+	bullet.createGround(333);
 	bullet.world->setGravity(btVector3(0, -10, 0));
 	
 }
@@ -59,20 +59,26 @@ void testApp::update() {
 //--------------------------------------------------------------
 void testApp::draw() {
 	
-	glPushMatrix();
-	//glTranslatef(ofGetWidth()/2, (ofGetHeight()/2), 0);
-	glTranslatef(ofGetWidth()/2, (ofGetHeight()/2)+100, 40);
-	ofRotateX(ofGetMouseY());
-	ofRotateY(ofGetMouseX());
-	
-	
 	light.setPosition(ofVec3f(0, 20, 0));
 	light.enable();
 	light.draw();
 	
+	
+	glPushMatrix();
+	//glTranslatef(ofGetWidth()/2, (ofGetHeight()/2), 0);
+	glTranslatef(ofGetWidth()/2, (ofGetHeight()/2)+100, 40);
+	glScalef(SCALE, SCALE, SCALE);
+	ofRotateX(ofGetMouseY());
+	ofRotateY(ofGetMouseX());
+	
+	
+
 	//ofDrawAxis(200);
 	
 	bullet.draw();
+	
+	ofSetColor(255, 255, 255);
+	bullet.drawFloor();
 	
 	glPopMatrix();
 	
