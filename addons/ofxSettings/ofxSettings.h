@@ -1,7 +1,6 @@
 #pragma once
 #include "ofMain.h"
 #include "ofxXmlSettings.h"
-#include "constants.h"
 /**
  *  \brief Provides a persistent settings interface for stuff
  *
@@ -23,6 +22,7 @@
 class ofxSettings {
 public:
 	
+	ofxSettings();
 	
 	// set a value
 	void set(string key, string value);	
@@ -44,6 +44,10 @@ public:
 	bool getBool(string key, bool defaultValue = false);
 	
 
+	/**
+	 * Loads the file.
+	 */
+	void load(string path);	
 	
 private:
 	string xmlFilePath;
@@ -53,10 +57,6 @@ private:
 	// have we tried to load yet?
 	bool loaded;
 	
-	/**
-	 * Loads the file.
-	 */
-	void load(string path);	
 	/**
 	 * Saves the file. If you don't pass a parameter, it'll try to 
 	 * save it to the last place it was loaded from.

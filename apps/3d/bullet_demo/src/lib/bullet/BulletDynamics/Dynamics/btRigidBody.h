@@ -267,8 +267,7 @@ public:
 		m_linearSleepingThreshold = linear;
 		m_angularSleepingThreshold = angular;
 	}
-
-	void	applyTorque(const btVector3& torque)
+		void	applyTorque(const btVector3& torque)
 	{
 		m_totalTorque += torque*m_angularFactor;
 	}

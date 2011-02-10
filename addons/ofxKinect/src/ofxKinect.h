@@ -24,7 +24,7 @@ class ofxKinect : public ofxBase3DVideo, protected ofThread {
 		bool isFrameNew();
         
 		/// open the connection and start grabbing images
-		bool open();
+		bool open(int deviceId = 0);
         
 		/// close the connection and stop grabbing images
 		void close();

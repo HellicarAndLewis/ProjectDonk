@@ -14,7 +14,7 @@ bool  useMSAA = false;
 //========================================================================
 int main( ){
 	ofSetDataPathRoot("../../../data/");
-
+	settings.load("settings/general.xml");
 	
 	// the width of the app is set by how many projectors we have and if we are using one screen
 	// soley for the gui. The gui screen is as wide as the projectors.

@@ -16,73 +16,84 @@ void testApp::setup(){
 	 */
 	
 	ofSetWindowTitle("Donk Control");
-	tcpClient.setVerbose(true);
 	lastConnectTime = 0;
 	font.loadFont("uni05_54.ttf", 6);
 	font.setLineHeight(8);
 	
-	http_header_mode = true;
-	http_expect_connected = false;
-	
-	if(!settings.loadFromFile("settings.json.txt")){
+	if(!json_settings.loadFromFile("settings.json.txt")){
 		string msg = "FATAL ERROR: failed to load JSON settings file: data/settings.json.txt";
-		log(msg);
+		log(msg,1);
 		cout << msg << endl;
 		_exit(1);
 	}
 	
-	polling_delay = settings["polling_delay_time_in_seconds"].asDouble();
-
+	polling_delay = json_settings["polling_delay_time_in_seconds"].asDouble();
+	source_names = json_settings["sources"].getMemberNames();
+	rendermachine_osc_port = json_settings["rendermachine"]["osc_port"].asInt();
+	rendermachine_ip = json_settings["rendermachine"]["ip"].asString();
+	http_get_timeout = json_settings["http_get_timeout"].asInt();
+	
+	for(int i=0;i<source_names.size();i++){
+		loaders.push_back(new AsyncHttpLoader());
+		loaders.back()->timeout = http_get_timeout;
+	}
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
-		
-	if(tcpClient.isConnected()){
-		string rcv = tcpClient.receiveRaw();
-		if(tcpClient.getNumReceivedBytes() > 0){
-			parseReceivedBytes(rcv);
-		}
-	}else{
-		//is the connection freshly closed?
-		if(http_expect_connected){
-			//web page is done loading now.
-			http_expect_connected = false;
-			parseJSON(http_data_buffer);
-		}
-		
-		
-		//is it time to call the server again?
-		if(ofGetElapsedTimef() - lastConnectTime > polling_delay || lastConnectTime == 0){
-	
-			int server_port = settings["server_port"].asInt();
 
-			http_header_mode = true;//go back to waiting for header chunk
-			http_data_buffer.clear(); //reset data buffer
-			
-			// not connected, but waited long enough,
-			// or it's the first time, so calling right away
-			
-			string ip = getIpFromDomain(settings["server"].asString());
-			if(ip==""){
-				log("Domain resolution failed. Network may be down.");
+	for(int i=0;i<loaders.size();i++){
+		if(loaders[i]->done){
+			if(!loaders[i]->errorString.empty()){
+				log(loaders[i]->errorString,1);
 			}else{
-				if(!tcpClient.setup(ip, server_port, false)){
-					log("failed to setup TCP client");
-				}else if(!tcpClient.sendRaw(string("GET ") + settings["path_buzz"].asString() + string(" HTTP 1.0\n\n"))){
-					log("failed to send HTTP GET to web server");
-					tcpClient.close();
+				int status = loaders[i]->response.getStatus();
+				if(status!=200){
+					char statString[256];
+					sprintf(statString,"Server returned error %i",status);
+					log(statString,1);
 				}else{
-					log("calling server");
-					http_expect_connected = true;
+					json.parse(loaders[i]->data);
+					
+					for(int j=0;j<json.size();j++){
+						Json::Value bubble = json[j];
+						oscOut.setup(rendermachine_ip,rendermachine_osc_port);
+						ofxOscMessage m;
+						m.setAddress("/control/bubble/new");
+						m.addStringArg("id");
+						m.addStringArg(bubble["id"].asString());
+						m.addStringArg("timestamp");
+						m.addIntArg(bubble["timestamp"].asInt());
+						m.addStringArg("intent");
+						m.addStringArg(bubble["intent"].asString());
+						m.addStringArg("profile_image_url");
+						m.addStringArg(bubble["profile_image_url"].asString());
+						m.addStringArg("media_text_url");
+						m.addStringArg(bubble["media_text_url"].asString());
+						oscOut.sendMessage(m);				
+						log(source_names[i] + string(" > ") + bubble["id"].asString(),0);
+					}
 				}
-			
 			}
 			
-			lastConnectTime = ofGetElapsedTimef();
+			loaders[i]->reset();
 		}
 	}
 	
+	//is it time to call the server again?
+	if(ofGetElapsedTimef() - lastConnectTime > polling_delay || lastConnectTime == 0){
+		
+		//do consecutive blocking calls
+		try{
+			for(int i=0;i<source_names.size();i++){
+				loaders[i]->get(json_settings["sources"][source_names[i]].asString());
+			}
+		}catch(logic_error err){
+			log("Error calling remote server -- network down?",1);
+		}
+		
+		lastConnectTime = ofGetElapsedTimef();
+	}
 	
 }
 
@@ -91,7 +102,15 @@ void testApp::draw(){
 	ofBackground(0,0,0);
 	ofColor(255,255,255);
 	glPushMatrix();
-	font.drawString(console,0,6);
+	for(int i=0;i<console.size();i++){
+		if(console_colors[i]==0){
+			ofSetColor(128,255,128);
+		}else{
+			ofSetColor(255,128,128);
+		}
+		font.drawString(console[i],0,6);
+		glTranslatef(0,8,0);
+	}
 	glPopMatrix();
 }
 
@@ -132,70 +151,24 @@ void testApp::windowResized(int w, int h){
 }
 
 //--------------------------------------------------------------
-
-string testApp::getIpFromDomain(string name){
-	hostent *h = gethostbyname(name.c_str());
-	if(h==NULL){
-		return string("");
-	}
-	char ipstr[18];
-	sprintf(ipstr,"%i.%i.%i.%i",
-			(unsigned char)h->h_addr_list[0][0],
-			(unsigned char)h->h_addr_list[0][1],
-			(unsigned char)h->h_addr_list[0][2],
-			(unsigned char)h->h_addr_list[0][3]);
-	return string(ipstr);
+void testApp::log(int n,int color=0){
+	char s[256];
+	sprintf(s,"%i",n);
+	log(s,color);
 }
-
 //--------------------------------------------------------------
-
-void testApp::log(string s){
-	console += ofGetTimestampString();
-	console += " ";
-	console += s + '\n';
+void testApp::log(string s,int color=0){
+	string displayLine = ofGetTimestampString();
+	displayLine += " ";
+	displayLine += s + '\n';
+	
+	console.push_back(displayLine);
+	console_colors.push_back(color);
 	
 	//erase old stuff
-	string::iterator it = console.begin();
-	int count = 0;
-	for(;it!=console.end();it++){
-		if(*it=='\n')count++;
-	}
 	int lineCount = (ofGetHeight()-6) / 8;
-	int eraseCount = 0;
-	while(eraseCount < count-lineCount){
-		if(console[0]=='\n')eraseCount++;
-		console.erase(0,1);
+	while(console.size() > lineCount){
+		console.pop_front();
+		console_colors.pop_front();
 	}
 }
-
-//--------------------------------------------------------------
-
-void testApp::parseReceivedBytes(string inBytes){
-	if(http_header_mode){
-		int nCount = 0;//consecutive line feed counter
-		string::iterator it = inBytes.begin();
-		for(;it!=inBytes.end();it++){
-			if(http_header_mode){
-				//just waiting for it to be over
-				if(*it=='\n'||*it=='\r'){
-					nCount++;
-					if(nCount==4){
-						http_header_mode = false;//start collecting the data from here	
-					}
-				}else nCount=0;
-			}else{
-				http_data_buffer += *it;
-			}
-		}
-	}else http_data_buffer += inBytes;//otherwise it's quite simple.
-}
-
-//--------------------------------------------------------------
-
-void testApp::parseJSON(string &data){
-	//json.parse(data);
-	//json.print();
-	cout << data << endl;
-}
-
-
