@@ -119,7 +119,16 @@ void ofxTuioClient::removeTuioObject(TuioObject *tobj) {
 
 void ofxTuioClient::addTuioCursor(TuioCursor *tcur) {
 	
-	ofNotifyEvent(cursorAdded, *tcur, this);
+	ofTouchEventArgs touch;
+	touch.x = tcur->getX();
+	touch.y = tcur->getY();
+	touch.xspeed = tcur->getXSpeed();
+	touch.yspeed = tcur->getYSpeed();
+	touch.id = tcur->getCursorID();
+	
+	
+	
+	ofNotifyEvent(ofEvents.touchDown, touch, this);
 	
 	if (bVerbose) 
 		std::cout << "add cur " << tcur->getCursorID() << " (" <<  tcur->getSessionID() << ") " << tcur->getX() << " " << tcur->getY() << std::endl;
@@ -128,7 +137,15 @@ void ofxTuioClient::addTuioCursor(TuioCursor *tcur) {
 
 void ofxTuioClient::updateTuioCursor(TuioCursor *tcur) {
 	
-	ofNotifyEvent(cursorUpdated, *tcur, this);
+	ofTouchEventArgs touch;
+	touch.x = tcur->getX();
+	touch.y = tcur->getY();
+	touch.xspeed = tcur->getXSpeed();
+	touch.yspeed = tcur->getYSpeed();
+	touch.id = tcur->getCursorID();
+	
+	
+	ofNotifyEvent(ofEvents.touchMoved, touch, this);
 	
 	if (bVerbose) 	
 		std::cout << "set cur " << tcur->getCursorID() << " (" <<  tcur->getSessionID() << ") " << tcur->getX() << " " << tcur->getY() 
@@ -137,7 +154,15 @@ void ofxTuioClient::updateTuioCursor(TuioCursor *tcur) {
 
 void ofxTuioClient::removeTuioCursor(TuioCursor *tcur) {
 	
-	ofNotifyEvent(cursorRemoved, *tcur, this);
+	ofTouchEventArgs touch;
+	touch.x = tcur->getX();
+	touch.y = tcur->getY();
+	touch.xspeed = tcur->getXSpeed();
+	touch.yspeed = tcur->getYSpeed();
+	touch.id = tcur->getCursorID();
+	
+	
+	ofNotifyEvent(ofEvents.touchUp, touch, this);
 	
 	if (bVerbose)
 		std::cout << "del cur " << tcur->getCursorID() << " (" <<  tcur->getSessionID() << ")" << std::endl;
