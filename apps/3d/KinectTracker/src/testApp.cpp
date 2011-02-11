@@ -66,6 +66,7 @@ void testApp::setupGui() {
 	c = gui.addTextField("TUIO Host", tuioHost)->under(c, 10)->size(70, 20);
 	c = gui.addIntField("Port", tuioPort)->right(c)->size(40, 20);
 	c = gui.addButton("Reconnect")->right(c)->size(70, 20);
+	c = gui.addButton("Help")->right(c, 69)->size(60, 20);
 	gui.enableAutoSave("trackerSettings.xml");
 	gui.addListener((GuiListener*)this);
 	
@@ -94,9 +95,6 @@ void testApp::draw(){
 
 //--------------------------------------------------------------
 void testApp::keyPressed  (int key){ 
-	if(key=='h') {
-		system((string("open ")+ofToDataPath("instructions.gif", true)).c_str());
-	}
 	if(key=='1') {
 		planarKinect.calibrateCorner(TOP_LEFT_CORNER);
 	} else if(key=='2') {
@@ -171,6 +169,8 @@ void testApp::controlChanged(GuiControl *control) {
 		planarKinect.captureThreshold();
 	} else if(control->controlId=="Reconnect") {
 		tuioServer.start((char*)tuioHost.c_str(), tuioPort);
+	} else if(control->controlId=="Help") {
+		system((string("open ")+ofToDataPath("instructions.pdf", true)).c_str());
 	}
 }
 

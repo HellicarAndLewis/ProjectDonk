@@ -1,0 +1,21 @@
+<values>
+    <value controlId="Kinect Input" value="0"></value>
+    <value controlId="kinect" value="0"></value>
+    <value controlId="Mode" value="0"></value>
+    <value controlId="Corner calibration" value="0"></value>
+    <value controlId="1" value="0"></value>
+    <value controlId="4" value="0"></value>
+    <value controlId="2" value="0"></value>
+    <value controlId="3" value="0"></value>
+    <value controlId="Threshold Controls" value="0"></value>
+    <value controlId="Capture Background" value="0"></value>
+    <value controlId="down" value="0"></value>
+    <value controlId="up" value="0"></value>
+    <value controlId="TUIO Output" value="0"></value>
+    <value controlId="blobs" value="0"></value>
+    <value controlId="smoothness" value="0.586928546"></value>
+    <value controlId="TUIO Host" value="localhost"></value>
+    <value controlId="Port" value="3333"></value>
+    <value controlId="Reconnect" value="0"></value>
+    <value controlId="Help" value="0"></value>
+</values>
