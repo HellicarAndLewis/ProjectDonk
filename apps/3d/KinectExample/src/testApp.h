@@ -16,7 +16,7 @@
  * you don't use to draw to the screen, but to any FBO's which might be needed
  * by drawView() - so you don't have to draw them for each camera.
  */
-class testApp: public App, public ofxBlobListener {
+class testApp: public App {
 public:
 	
 	
@@ -37,8 +37,6 @@ public:
 	void mouseReleased(int x, int y, int button);
 	void windowResized(int w, int h);
 	
-	// blob methods
-	void blobMoved(ofVec3f centroid, int blobId);
 	
 	// demo specific
 	Bubbles2 bubbles;

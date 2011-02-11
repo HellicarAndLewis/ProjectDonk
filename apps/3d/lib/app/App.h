@@ -3,7 +3,7 @@
 #include "Scene.h"
 #include "SceneGui.h"
 #include "ofxFourUpDisplay.h"
-#include "KinectGui.h"
+
 
 /**
  * \brief Basic app that you inherit from for your app
@@ -50,7 +50,6 @@ private:
 	bool guiEnabled;
 	ofxFourUpDisplay *viewports;
 	SceneGui *sceneGui;
-	KinectGui *kinectGui;
 	void drawAllProjectors();
 };
 

@@ -5,8 +5,7 @@
  *      Author: arturo
  */
 
-#ifndef OFXKINECTPLAYER_H_
-#define OFXKINECTPLAYER_H_
+#pragma once
 
 #include "ofMain.h"
 #include "ofxBase3DVideo.h"
@@ -61,4 +60,3 @@ private:
 	ofxKinectCalibration calibration;
 };
 
-#endif /* KINECTPLAYER_H_ */

@@ -37,10 +37,6 @@ SceneGui::SceneGui(Scene *scene): Enableable() {
 		gui.addPanner("z position", scene->kinects[i]->pos.z, -10, 10);
 		gui.addSlider2D("xy rotation", scene->kinects[i]->rot, -180, 180, -180, 180);
 		gui.addPanner("z rotation", scene->kinects[i]->rot.z, -180, 180);
-		gui.addSlider("scale", scene->kinects[i]->scale, 0.2, 5);
-		gui.addSlider("z offset", scene->kinects[i]->zOffset, 0, 3);
-		
-		
 	}
 	gui.setPage(0);
 	

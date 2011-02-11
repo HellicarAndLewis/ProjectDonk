@@ -1,0 +1,9 @@
+<values>
+    <value controlId="enabled" value="true"></value>
+    <value controlId="fov" value="76.736839294"></value>
+    <value controlId="xy position" value="-1.157895088,2.200000763"></value>
+    <value controlId="z position" value="8.105262756"></value>
+    <value controlId="xy rotation" value="104.210540771,-7.199996948"></value>
+    <value controlId="z rotation" value="-13.263153076"></value>
+    <value controlId="Rotate then position" value="true"></value>
+</values>

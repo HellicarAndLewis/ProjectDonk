@@ -7,13 +7,13 @@
 
 #include "ofxBase3DVideo.h"
 
-#include "ofThread.h"
+
 
 #include <libusb.h>
 #include "libfreenect.h"
 #include "ofxKinectCalibration.h"
 
-class ofxKinect : public ofxBase3DVideo, protected ofThread {
+class ofxKinect : public ofxBase3DVideo, protected ofThread{
 
 	public :
 
@@ -37,8 +37,11 @@ class ofxKinect : public ofxBase3DVideo, protected ofThread {
 		/// updates the pixel buffers and textures - make sure to call this to update to the latetst incoming frames
 		void update(); 
 		
-		/// clear resources
+		/// clear resources, do not call this while ofxKinect is running!
 		void clear();
+		
+		/// is the connection currently open?
+		bool isConnected();
 	
 		float getDistanceAt(int x, int y);
 		float getDistanceAt(const ofPoint & p);
@@ -83,8 +86,8 @@ class ofxKinect : public ofxBase3DVideo, protected ofThread {
 		/**
 			set the near value of the pixels in the greyscale depth image to white?
 			
-			bEnabled = true : pixels close to the camera are brighter
-			bEnabled = false: pixels closer to the camera are darker (default)
+			bEnabled = true : pixels close to the camera are brighter (default)
+			bEnabled = false: pixels closer to the camera are darker
 		**/
 		void enableDepthNearValueWhite(bool bEnabled=true);
 		bool isDepthNearValueWhite();
@@ -101,6 +104,8 @@ class ofxKinect : public ofxBase3DVideo, protected ofThread {
 		void 			drawDepth(float x, float y);
 		void			drawDepth(const ofPoint & point);
 		void			drawDepth(const ofRectangle & rect);
+		
+		ofxKinectCalibration& getCalibration();
 
 		const static int	width = 640;
 		const static int	height = 480;
@@ -109,7 +114,7 @@ class ofxKinect : public ofxBase3DVideo, protected ofThread {
 
 		bool					bUseTexture;
 		ofTexture				depthTex;			// the depth texture
-		ofTexture 				videoTex;				// the RGB texture
+		ofTexture 				videoTex;			// the RGB texture
 		bool 					bVerbose;
 		bool 					bGrabberInited;
 		
@@ -129,7 +134,7 @@ class ofxKinect : public ofxBase3DVideo, protected ofThread {
 		freenect_device * 	kinectDevice;	// kinect device handle
 		
 		unsigned short *	depthPixelsBack;	// depth back
-		unsigned char *		videoPixelsBack;		// rgb back
+		unsigned char *		videoPixelsBack;	// rgb back
 		
 		bool bNeedsUpdate;
 		bool bUpdateTex;

@@ -1,7 +1,7 @@
 <values>
     <value controlId="Kinect Input" value="0"></value>
     <value controlId="kinect" value="0"></value>
-    <value controlId="Mode" value="0"></value>
+    <value controlId="Mode" value="1"></value>
     <value controlId="Corner calibration" value="0"></value>
     <value controlId="1" value="0"></value>
     <value controlId="4" value="0"></value>
@@ -13,7 +13,7 @@
     <value controlId="up" value="0"></value>
     <value controlId="TUIO Output" value="0"></value>
     <value controlId="blobs" value="0"></value>
-    <value controlId="smoothness" value="0.586928546"></value>
+    <value controlId="smoothness" value="0.629357159"></value>
     <value controlId="TUIO Host" value="localhost"></value>
     <value controlId="Port" value="3333"></value>
     <value controlId="Reconnect" value="0"></value>
