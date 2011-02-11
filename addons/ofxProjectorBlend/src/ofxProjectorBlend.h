@@ -54,12 +54,22 @@
 #include "ofxSimpleGuiToo.h"
 #endif
 
+// not implemented yet!
+enum ofxProjectorBlendLayout {
+	ofxProjectorBlend_Horizontal = 1,
+	ofxProjectorBlend_Vertical = 2
+};
 
 class ofxProjectorBlend
 {
   public:
 	ofxProjectorBlend();
-	void setup(int resolutionWidth, int resolutionHeight, int pixelOverlap);
+	
+	
+	/**
+	 * Set resolutionWidth and height to the resolutions of each projector output.
+	 */
+	void setup(int resolutionWidth, int resolutionHeight, int pixelOverlap, ofxProjectorBlendLayout layout = ofxProjectorBlend_Horizontal);
 	void begin();
 	void end();
 	//void draw(float x, float y, float w, float h);
@@ -67,15 +77,9 @@ class ofxProjectorBlend
 	
 	float getCanvasWidth();
 	float getCanvasHeight();
-	
-	//useful function for setting a standby image that is blended across
-	void setStandbyImage(ofImage* standbyImage);
 
-	void fadeInStandby();
-	void fadeOutStandby();
 	
 	bool showBlend;
-	bool showStandBy;
 	
 	//variables that control the blend
 	float blendPower;
@@ -89,19 +93,19 @@ class ofxProjectorBlend
   protected:
 	
 	float fullTextureWidth;
+	float fullTextureHeight;
 	float singleChannelWidth;
-	float height;
+	float singleChannelHeight;
+
 	float pixelOverlap;
+	
+	ofxProjectorBlendLayout layout;
 	
 	ofShader* blendShader;
 	ofFbo* fullTexture;
-	ofFbo* leftChannel;
-	ofFbo* rightChannel;
+	ofFbo* channelOne;
+	ofFbo* channelTwo;
 	
-	bool fadePreviousStandby;
-	ofImage* standbyImage;	
-	ofImage* previousStandby;
-	float timeChanged;
 };
 
 #endif

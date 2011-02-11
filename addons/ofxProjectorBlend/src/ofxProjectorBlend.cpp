@@ -41,40 +41,54 @@
 
 #include "ofxProjectorBlend.h"
 
-#define FADE_TIME .5
 
 ofxProjectorBlend::ofxProjectorBlend()
 {
 	showBlend = true;
 	fullTexture = NULL;
-	leftChannel = NULL;
+	channelOne = NULL;
+	channelTwo = NULL;
 	blendShader = NULL;
 }
 
-void ofxProjectorBlend::setup(int resolutionWidth, int resolutionHeight, int _pixelOverlap)
+void ofxProjectorBlend::setup(int resolutionWidth, int resolutionHeight, int _pixelOverlap, ofxProjectorBlendLayout layout)
 {
-	height = resolutionHeight;	
+	this->layout = layout;
+	
 	pixelOverlap = _pixelOverlap;
+	
 	singleChannelWidth = resolutionWidth;
-	fullTextureWidth = resolutionWidth*2 - pixelOverlap;
+	singleChannelHeight = resolutionHeight;
+	
+	
+	if(layout==ofxProjectorBlend_Vertical) {
+		fullTextureWidth = singleChannelWidth;
+		fullTextureHeight = resolutionHeight*2 - pixelOverlap;
+	} else if(layout==ofxProjectorBlend_Horizontal) {
+		fullTextureWidth = resolutionWidth*2 - pixelOverlap;
+		fullTextureHeight = singleChannelHeight;
+	} else {
+		ofLog(OF_LOG_ERROR, "ofxProjectorBlend: You have used an invalid ofxProjectorBlendLayout in ofxProjectorBlend::setup()");
+	}
+	
+	
+	
 
+	
 	fullTexture = new ofFbo();
-	fullTexture->setup(fullTextureWidth, height, GL_RGB);
+	fullTexture->setup(fullTextureWidth, fullTextureHeight, GL_RGB);
 
-	leftChannel = new ofFbo();
-	rightChannel = new ofFbo();
-	leftChannel->setup(singleChannelWidth, height, GL_RGB);
-	rightChannel->setup(singleChannelWidth, height, GL_RGB);
+	channelOne = new ofFbo();
+	channelTwo = new ofFbo();
+	
+	channelOne->setup(singleChannelWidth, singleChannelHeight, GL_RGB);
+	channelTwo->setup(singleChannelWidth, singleChannelHeight, GL_RGB);
+	
+	
+	
 	
 	blendShader = new ofShader();
 	blendShader->setup("shader/SmoothEdgeBlend.vert","shader/SmoothEdgeBlend.frag", "");
-	
-	timeChanged = -FADE_TIME;
-	
-	showStandBy = false;
-	standbyImage = NULL;
-	previousStandby = NULL;
-	fadePreviousStandby = false;
 }
 
 void ofxProjectorBlend::begin()
@@ -83,19 +97,34 @@ void ofxProjectorBlend::begin()
 	ofPushStyle();
 }
 
-void ofxProjectorBlend::fadeInStandby()
+
+float ofxProjectorBlend::getCanvasWidth()
 {
-	fadePreviousStandby = showStandBy;	
-	showStandBy = true;
-	timeChanged = ofGetElapsedTimef();
+	return fullTextureWidth;
 }
 
-void ofxProjectorBlend::fadeOutStandby()
+float ofxProjectorBlend::getCanvasHeight()
 {
-	if(!showStandBy) return;
-	showStandBy = false;
-	timeChanged = ofGetElapsedTimef();	
+	return fullTextureHeight;
 }
+
+
+#ifdef USE_SIMPLE_GUI
+void ofxProjectorBlend::addGuiPage()
+{
+	gui.addPage("Projector Blend");
+	gui.addToggle("Show Blend", showBlend);
+	gui.addToggle("Show Standby", showStandBy);
+	
+	gui.addSlider("Blend Power", blendPower, 0.0, 4.0);
+	gui.addSlider("Gamma", gamma, 0.0, 4.0);
+	gui.addSlider("Luminance", luminance, 0.0, 4.0);
+	
+	gui.page("Projector Blend").setXMLName("../../../ProjectorBlendSettings.xml");
+}	
+
+#endif
+
 
 void ofxProjectorBlend::end()
 {
@@ -106,113 +135,25 @@ void ofxProjectorBlend::end()
 		ofEnableAlphaBlending();
 		ofSetRectMode(OF_RECTMODE_CORNER);
 
-
-		// currently ofFbo isn't an ofBaseDraws, so this is a temporary hack 
-		// to use void pointers and casting based on a boolean
-		void *toDraw;
-		void *fadeOut;
+		channelOne->begin();
+		fullTexture->draw(0,0, getCanvasWidth(), getCanvasHeight());
+		channelOne->end();
 		
-
-		bool toDrawIsImage = false;
-		bool fadeOutIsImage = false;
-		
-		
-		if(showStandBy){
-			toDraw = standbyImage;
-			toDrawIsImage = true;
-			if(fadePreviousStandby){
-				fadeOut = previousStandby;
-				fadeOutIsImage = true;
-			}
-			else {
-				fadeOut = fullTexture;
-				fadeOutIsImage = false;
-			}
+		if(layout==ofxProjectorBlend_Horizontal) {
+			channelTwo->begin();
+			fullTexture->draw(-singleChannelWidth+pixelOverlap, 0, getCanvasWidth(), getCanvasHeight());
+			channelTwo->end();
+		} else if(layout==ofxProjectorBlend_Vertical) {			
+			channelTwo->begin();
+			fullTexture->draw(0, -singleChannelHeight+pixelOverlap, getCanvasWidth(), getCanvasHeight());
+			channelTwo->end();
 		}
-		else {
-			toDraw = fullTexture;
-			toDrawIsImage = false;
-			fadeOut = standbyImage;
-			fadeOutIsImage = true;
-		}
-		
-		float fadePoint = ofMap(ofGetElapsedTimef()-timeChanged, 0, FADE_TIME, 0, 1.0, false);
-		leftChannel->begin();
-		if(fadePoint > 0.0 && fadePoint < 1.0){
-			
-			if(fadeOutIsImage) {
-				((ofImage*)fadeOut)->draw(0,0, getCanvasWidth(), getCanvasHeight());
-			} else {
-				((ofFbo*)fadeOut)->draw(0,0, getCanvasWidth(), getCanvasHeight());
-			}
-			
-			ofSetColor(255, 255, 255, fadePoint*255);
-			if(toDrawIsImage) {
-				((ofImage*)toDraw)->draw(0,0, getCanvasWidth(), getCanvasHeight());
-			} else {
-				((ofFbo*)toDraw)->draw(0,0, getCanvasWidth(), getCanvasHeight());
-			}
-			ofSetColor(255, 255, 255);
-		} else {
-			
-			if(toDrawIsImage) {
-				((ofImage*)toDraw)->draw(0,0, getCanvasWidth(), getCanvasHeight());
-			} else {
-				((ofFbo*)toDraw)->draw(0,0, getCanvasWidth(), getCanvasHeight());
-			}
-			
-		}
-
-		leftChannel->end();
-
-		rightChannel->begin();
-		if(fadePoint > 0.0 && fadePoint < 1.0){
-			
-			if(fadeOutIsImage) {
-				((ofImage*)fadeOut)->draw(-singleChannelWidth+pixelOverlap, 0, getCanvasWidth(), getCanvasHeight());
-			} else {
-				((ofFbo*)fadeOut)->draw(-singleChannelWidth+pixelOverlap, 0, getCanvasWidth(), getCanvasHeight());
-			}
-			
-			ofSetColor(255, 255, 255, fadePoint*255);
-			
-			if(toDrawIsImage) {
-				((ofImage*)toDraw)->draw(-singleChannelWidth+pixelOverlap, 0, getCanvasWidth(), getCanvasHeight());
-			} else {
-				((ofFbo*)toDraw)->draw(-singleChannelWidth+pixelOverlap, 0, getCanvasWidth(), getCanvasHeight());
-			}
-			ofSetColor(255, 255, 255);
-		}
-		else {
-			if(toDrawIsImage) {
-				((ofImage*)toDraw)->draw(-singleChannelWidth+pixelOverlap, 0, getCanvasWidth(), getCanvasHeight());
-			} else {
-				((ofFbo*)toDraw)->draw(-singleChannelWidth+pixelOverlap, 0, getCanvasWidth(), getCanvasHeight());
-			}
-		}
-		rightChannel->end();
 		
 	}ofPopStyle();
 }
 
 
 
-
-float ofxProjectorBlend::getCanvasWidth()
-{
-	return fullTextureWidth;
-}
-
-float ofxProjectorBlend::getCanvasHeight()
-{
-	return height;
-}
-
-void ofxProjectorBlend::setStandbyImage(ofImage* _standbyImage)
-{
-	previousStandby = standbyImage;
-	standbyImage = _standbyImage;
-}
 
 void ofxProjectorBlend::draw()
 {
@@ -221,7 +162,12 @@ void ofxProjectorBlend::draw()
 	
 	//center it within the OF canvas, maintaining aspect ratio
 	float ofAspect = 1.0*ofGetWidth()/ofGetHeight();  //16x9 would be 1.77777
-	float canvasAspect = singleChannelWidth*2/height;  //2560x960 2.6667
+	float canvasAspect = 0;
+	if(layout==ofxProjectorBlend_Vertical) {
+		canvasAspect = singleChannelWidth/(singleChannelHeight*2);
+	} else {
+		canvasAspect = singleChannelWidth*2/singleChannelHeight;  //2560x960 2.6667
+	}
 
 	//cout << "canvas aspect is " << canvasAspect << " of aspect is " << ofAspect << " OF: " << ofGetWidth() << "x" << ofGetHeight() << endl;
 	
@@ -249,12 +195,18 @@ void ofxProjectorBlend::draw()
 		
 		blendShader->setUniform1i("Tex0", 0);
 		blendShader->setUniform1f("width", singleChannelWidth);
-		blendShader->setUniform1f("height", height);
+		blendShader->setUniform1f("height", singleChannelHeight);
 		
-		blendShader->setUniform1f("OverlapLeft", 0.0f);
-		blendShader->setUniform1f("OverlapRight", pixelOverlap);
 		blendShader->setUniform1f("OverlapTop", 0.0f);
+		blendShader->setUniform1f("OverlapLeft", 0.0f);
 		blendShader->setUniform1f("OverlapBottom", 0.0f);
+		blendShader->setUniform1f("OverlapRight", 0.0f);	
+		
+		if(layout==ofxProjectorBlend_Horizontal) {
+			blendShader->setUniform1f("OverlapRight", pixelOverlap);	
+		} else {
+			blendShader->setUniform1f("OverlapTop", pixelOverlap);
+		}
 		
 		blendShader->setUniform1f("BlackOutLeft", 0.0f);
 		blendShader->setUniform1f("BlackOutRight", 0.0f);
@@ -268,12 +220,25 @@ void ofxProjectorBlend::draw()
 		
 		blendShader->setUniform4f("SolidEdgeColor", 0.0f, 0.0f, 0.0f, 1.0f);
 		
-		leftChannel->draw(x-w/4, y, w/2, h);
+		if(layout==ofxProjectorBlend_Horizontal) {
+			channelOne->draw(x-w/4, y, w/2, h);
+		} else {
+			channelOne->draw(x, y-h/4, w, h/2);
+		}
 		
-		blendShader->setUniform1f("OverlapLeft", pixelOverlap);
-		blendShader->setUniform1f("OverlapRight", 0.0f);
+		if(layout==ofxProjectorBlend_Horizontal) {
+			blendShader->setUniform1f("OverlapLeft", pixelOverlap);
+			blendShader->setUniform1f("OverlapRight", 0.0f);
+		} else {
+			blendShader->setUniform1f("OverlapTop", 0.0f);
+			blendShader->setUniform1f("OverlapBottom", pixelOverlap);
+		}
 		
-		rightChannel->draw(x+w/4, y, w/2, h);
+		if(layout==ofxProjectorBlend_Horizontal) {
+			channelTwo->draw(x+w/4, y, w/2, h);
+		} else {
+			channelTwo->draw(x, y+h/4, w, h/2);
+		}
 		
 		blendShader->end();
 	}
@@ -281,26 +246,10 @@ void ofxProjectorBlend::draw()
 		//calculate the real single channel width based on the height
 		w = -singleChannelWidth * ( h / getCanvasHeight());
 		float scaledPixelOverlap = pixelOverlap *  w / singleChannelWidth;
-		leftChannel->draw( x-w/2+scaledPixelOverlap/2, y, w, h);
-		rightChannel->draw(x+w/2-scaledPixelOverlap/2, y, w, h);
+		channelOne->draw( x-w/2+scaledPixelOverlap/2, y, w, h);
+		channelTwo->draw(x+w/2-scaledPixelOverlap/2, y, w, h);
 	}
 	
 	ofPopStyle();
 }
-
-#ifdef USE_SIMPLE_GUI
-void ofxProjectorBlend::addGuiPage()
-{
-	gui.addPage("Projector Blend");
-	gui.addToggle("Show Blend", showBlend);
-	gui.addToggle("Show Standby", showStandBy);
-	
-	gui.addSlider("Blend Power", blendPower, 0.0, 4.0);
-	gui.addSlider("Gamma", gamma, 0.0, 4.0);
-	gui.addSlider("Luminance", luminance, 0.0, 4.0);
-		
-	gui.page("Projector Blend").setXMLName("../../../ProjectorBlendSettings.xml");
-}	
-
-#endif
 
