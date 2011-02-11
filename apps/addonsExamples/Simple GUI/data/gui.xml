@@ -1,0 +1,44 @@
+<!-- ---------------------------------- TOGGLES ---------------------------------- -->
+<toggles>
+    <element>
+        <id>0</id>
+        <name>Random Amplitude</name>
+        <value>0</value>
+    </element>
+    <element>
+        <id>1</id>
+        <name>Draw Tail</name>
+        <value>0</value>
+    </element>
+</toggles>
+<!-- ---------------------------------- SLIDERS F ---------------------------------- -->
+<slidersF>
+    <element>
+        <id>2</id>
+        <name>Radius</name>
+        <value>14.000000</value>
+    </element>
+    <element>
+        <id>3</id>
+        <name>Amplitude</name>
+        <value>11.000000</value>
+    </element>
+</slidersF>
+<!-- ---------------------------------- SLIDERS I ---------------------------------- -->
+<slidersI>
+    <element>
+        <id>4</id>
+        <name>Red</name>
+        <value>255</value>
+    </element>
+    <element>
+        <id>5</id>
+        <name>Green</name>
+        <value>179</value>
+    </element>
+    <element>
+        <id>6</id>
+        <name>Blue</name>
+        <value>11</value>
+    </element>
+</slidersI>

@@ -1,7 +1,5 @@
 #include "testApp.h"
-
 #include <netdb.h>
-
 
 //--------------------------------------------------------------
 void testApp::setup(){
@@ -24,6 +22,7 @@ void testApp::setup(){
 		string msg = "FATAL ERROR: failed to load JSON settings file: data/settings.json.txt";
 		log(msg,1);
 		cout << msg << endl;
+		cerr << msg << endl;
 		_exit(1);
 	}
 	
@@ -32,11 +31,16 @@ void testApp::setup(){
 	rendermachine_osc_port = json_settings["rendermachine"]["osc_port"].asInt();
 	rendermachine_ip = json_settings["rendermachine"]["ip"].asString();
 	http_get_timeout = json_settings["http_get_timeout"].asInt();
-	
+	http_auth = json_settings["sources_auth"].asString();
+
+	controlbar.children.push_back(new ControlBar::Label("Mode:                  "));
 	for(int i=0;i<source_names.size();i++){
 		loaders.push_back(new AsyncHttpLoader());
 		loaders.back()->timeout = http_get_timeout;
+		controlbar.children.push_back(new ControlBar::Button(source_names[i]));
 	}
+	controlbar.doLayout();
+	
 }
 
 //--------------------------------------------------------------
@@ -55,24 +59,39 @@ void testApp::update(){
 				}else{
 					json.parse(loaders[i]->data);
 					
-					for(int j=0;j<json.size();j++){
-						Json::Value bubble = json[j];
+					for(int j=0;j<json["totalItems"].asInt();j++){
+						Json::Value bubble = json["items"][j];
+						
 						oscOut.setup(rendermachine_ip,rendermachine_osc_port);
 						ofxOscMessage m;
+						
 						m.setAddress("/control/bubble/new");
-						m.addStringArg("id");
-						m.addStringArg(bubble["id"].asString());
-						m.addStringArg("timestamp");
-						m.addIntArg(bubble["timestamp"].asInt());
-						m.addStringArg("intent");
-						m.addStringArg(bubble["intent"].asString());
-						m.addStringArg("profile_image_url");
-						m.addStringArg(bubble["profile_image_url"].asString());
-						m.addStringArg("media_text_url");
-						m.addStringArg(bubble["media_text_url"].asString());
+						m.addStringArg("queueID");
+						m.addStringArg(bubble["queueID"].asString());
+						m.addStringArg("profileImageURL");
+						m.addStringArg(bubble["profileImageURL"].asString());
+						m.addStringArg("userName");
+						m.addStringArg(bubble["userName"].asString());
+						m.addStringArg("text");
+						m.addStringArg(bubble["text"].asString());
+						
+						if(bubble["hasMedia"].asString()=="1"){
+							for(int k=0;k<bubble["media"].size();k++){
+								m.addStringArg("mediaID");
+								m.addStringArg(bubble["media"][k]["mediaID"].asString());
+								m.addStringArg("mediaThumbURL");
+								m.addStringArg(bubble["media"][k]["mediaThumbURL"].asString());
+								m.addStringArg("mediaURL");
+								m.addStringArg(bubble["media"][k]["mediaURL"].asString());
+							}
+						}
+						
 						oscOut.sendMessage(m);				
-						log(source_names[i] + string(" > ") + bubble["id"].asString(),0);
+						log(source_names[i] + string(" > ") +
+							bubble["queueID"].asString() + string(" > ") +
+							bubble["userName"].asString(),0);
 					}
+
 				}
 			}
 			
@@ -86,7 +105,7 @@ void testApp::update(){
 		//do consecutive blocking calls
 		try{
 			for(int i=0;i<source_names.size();i++){
-				loaders[i]->get(json_settings["sources"][source_names[i]].asString());
+				loaders[i]->get(json_settings["sources"][source_names[i]].asString(),http_auth);
 			}
 		}catch(logic_error err){
 			log("Error calling remote server -- network down?",1);
@@ -94,14 +113,32 @@ void testApp::update(){
 		
 		lastConnectTime = ofGetElapsedTimef();
 	}
+
 	
+	//resizing the console to fit the window
+	int lineCount = (ofGetHeight()-6-controlbar.rect.height) / 8;
+	while(console.size() > lineCount){
+		console.pop_front();
+		console_colors.pop_front();
+	}
+
+	controlbar.update(mouseX,mouseY);
+	while(ControlBar::Control::eventQueue.size()>0){
+		ControlBar::Event e = ControlBar::Control::eventQueue.front();
+		ControlBar::Control::eventQueue.pop_front();
+		if(e.what=="mouseDown" && e.obj->className=="Button"){
+				ControlBar::Button *b = (ControlBar::Button*)e.obj;
+				cout << b->text << endl;
+		}
+	}
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
 	ofBackground(0,0,0);
-	ofColor(255,255,255);
+	controlbar.draw();
 	glPushMatrix();
+	glTranslatef(0,controlbar.rect.height,0);
 	for(int i=0;i<console.size();i++){
 		if(console_colors[i]==0){
 			ofSetColor(128,255,128);
@@ -137,7 +174,7 @@ void testApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
-
+	controlbar.mouseDown();
 }
 
 //--------------------------------------------------------------
@@ -165,10 +202,4 @@ void testApp::log(string s,int color=0){
 	console.push_back(displayLine);
 	console_colors.push_back(color);
 	
-	//erase old stuff
-	int lineCount = (ofGetHeight()-6) / 8;
-	while(console.size() > lineCount){
-		console.pop_front();
-		console_colors.pop_front();
-	}
 }

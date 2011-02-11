@@ -269,8 +269,8 @@
 									<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 									<array>
 										<array>
-											<integer>7</integer>
-											<integer>4</integer>
+											<integer>6</integer>
+											<integer>3</integer>
 											<integer>0</integer>
 										</array>
 									</array>
@@ -438,8 +438,8 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>4B353A7D1301C229006091E4</string>
-				<string>4B353A7E1301C229006091E4</string>
+				<string>4B6902A913031E2B00216BD8</string>
+				<string>4B6902AA13031E2B00216BD8</string>
 				<string>1C9437FD063B20B00039CFAC</string>
 				<string>1C9437FE063B20B00039CFAC</string>
 				<string>1C9437FF063B20B00039CFAC</string>
@@ -476,17 +476,8 @@
 	<integer>0</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>4B353B1E1301D62E006091E4</string>
-		<string>4B353AAD1301CB2A006091E4</string>
-		<string>4B353AAE1301CB2A006091E4</string>
-		<string>1C530D54069F1CE1000CFCEE</string>
 		<string>1C530D52069F1CE1000CFCEE</string>
 		<string>/Users/base/c_languages/openframeworks/coke_energy/ProjectDonk/apps/3d/bullet_demo/bullet_tst.xcodeproj</string>
-		<string>4B353AAF1301CB2A006091E4</string>
-		<string>4B353B081301D50B006091E4</string>
-		<string>4B353B091301D50B006091E4</string>
-		<string>4B353A801301C229006091E4</string>
-		<string>1C530D5B069F1CE1000CFCEE</string>
 	</array>
 	<key>WindowString</key>
 	<string>845 202 595 676 0 0 1440 878 </string>
@@ -647,7 +638,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>testApp.cpp</string>
+								<string></string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -703,7 +694,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C530D52069F1CE1000CFCEE</string>
-				<string>4B353A7F1301C229006091E4</string>
+				<string>4B6902AB13031E2B00216BD8</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>

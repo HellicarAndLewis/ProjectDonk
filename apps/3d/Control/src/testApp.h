@@ -5,8 +5,8 @@
 #include "ofMain.h"
 #include "ofxJSON.h"
 #include "ofxOsc.h"
-
 #include "AsyncHttpLoader.h"
+#include "ControlBar.h"
 
 /**
 	asyncronous http gets to 4 urls, receiving JSON
@@ -25,8 +25,8 @@ public:
 	void mouseDragged(int x, int y, int button);
 	void mousePressed(int x, int y, int button);
 	void mouseReleased(int x, int y, int button);
-	void windowResized(int w, int h);
-
+	void windowResized(int w, int h);	
+	
 	/**
 		my JSON parser instance
 	 */
@@ -92,6 +92,14 @@ public:
 		http get timeout in seconds
 	 */
 	int http_get_timeout;
+	/**
+		username:password from settings file
+	 */
+	string http_auth;
+	/**
+		gui -- sorry, ofxSimpleGui has no buttons.
+	 */
+	ControlBar::Bar controlbar;
 };
 
 #endif
