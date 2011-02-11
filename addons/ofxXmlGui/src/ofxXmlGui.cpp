@@ -154,6 +154,22 @@ GuiSegmentedControl *ofxXmlGui::addSegmentedControl(string name, int &value, str
 }
 
 
+
+GuiTextField *ofxXmlGui::addTextField(string name, string &ptr) {
+	GuiTextField *tf = (GuiTextField*) currPage->add("textfield", name, name);
+	tf->value = &ptr;
+	tf->width = controlSize;
+	return tf;
+}
+
+GuiIntField *ofxXmlGui::addIntField(string name, int &ptr) {
+	GuiIntField *tf = (GuiIntField*) currPage->add("intfield", name, name);
+	tf->value = &ptr;
+	tf->width = controlSize;
+	return tf;
+}
+
+
 GuiList *ofxXmlGui::addList(string name, int &value, vector<string> &options) {
 	return addList(name, value, optionsToString(options));
 }
@@ -226,6 +242,17 @@ void ofxXmlGui::mouseReleased(ofMouseEventArgs &e) {
 }
 
 
+void ofxXmlGui::keyPressed(ofKeyEventArgs &e) {
+	GuiContainer::keyPressed((int)e.key);
+}
+void ofxXmlGui::keyReleased(ofKeyEventArgs &e) {
+//	this->keyReleased(e.key);
+}
+
+////////////////////////////////////////////////////////////////////////////
+// AUTO-SAVE
+////////////////////////////////////////////////////////////////////////////
+
 void ofxXmlGui::enableAutoSave(string file = "values.xml") {
 	if(pages.size()==0) {
 		currPage->enableAutoSave(file);
@@ -275,6 +302,8 @@ void ofxXmlGui::enable() {
 	ofAddListener(ofEvents.mouseDragged, this, &ofxXmlGui::mouseDragged);
 	ofAddListener(ofEvents.mouseReleased, this, &ofxXmlGui::mouseReleased);
 	ofAddListener(ofEvents.draw, this, &ofxXmlGui::__draw);
+	ofAddListener(ofEvents.keyPressed, this, &ofxXmlGui::keyPressed);
+	ofAddListener(ofEvents.keyReleased, this, &ofxXmlGui::keyReleased);
 	show();
 }
 
@@ -285,6 +314,8 @@ void ofxXmlGui::disable() {
 	ofRemoveListener(ofEvents.mouseDragged, this, &ofxXmlGui::mouseDragged);
 	ofRemoveListener(ofEvents.mouseReleased, this, &ofxXmlGui::mouseReleased);
 	ofRemoveListener(ofEvents.draw, this, &ofxXmlGui::__draw);
+	ofRemoveListener(ofEvents.keyPressed, this, &ofxXmlGui::keyPressed);
+	ofRemoveListener(ofEvents.keyReleased, this, &ofxXmlGui::keyReleased);
 	hide();
 }
 

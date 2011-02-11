@@ -1,24 +1,26 @@
 #include "testApp.h"
-
+#include "ofxSettings.h"
 //--------------------------------------------------------------
 void testApp::setup(){
-
-	ofSetFrameRate(30);
-	ofBackground(0,0,0);
-	
-	
 	tuioHost = "localhost";
 	tuioPort = 3333;
+	ofSetFrameRate(30);
+	ofBackground(0,0,0);
+
+	
 	planarKinect.setup();
 	kinect.init();
 	kinect.open(planarKinect.deviceId);
 
 	blobTracker.addListener(this);
+	
+	setupGui();
+	
 	tuioServer.start((char*)tuioHost.c_str(), tuioPort);
 	tuioServer.setVerbose(true);
 	
 	
-	setupGui();
+	
 }
 
 void testApp::setupGui() {
@@ -28,8 +30,9 @@ void testApp::setupGui() {
 	gui.setup(0, 0);
 	gui.size(ofGetWidth(), ofGetHeight());
 	gui.setLayoutType(LAYOUT_ABSOLUTE);
-	GuiControl *k = gui.addDrawable("kinect", planarKinect);
-	k->set(10, 10, 320, 240);
+	GuiControl *k = gui.addTitle("Kinect Input");
+	k->set(10, 10, 320, 20);
+	k = gui.addDrawable("kinect", planarKinect)->under(k)->size(320, 240);
 	
 	k = gui.addSegmentedControl("Mode", planarKinect.guiMode, "Draw Threshold|Select Slice")->under(k, 10)->size(320,20);	
 	
@@ -45,18 +48,27 @@ void testApp::setupGui() {
 	// put 4 under 1
 	c =	gui.addButton("4")->under(c)->size(20, 20);
 	
+	
 	// put 2 and 3 under and to the right of kinect
 	c = gui.addButton("2")->size(20, 20)->right(gui.getControlById("1"));
 	gui.addButton("3")->size(20, 20)->under(c);
 	
 	
 	// do threshold controls.
-	c = gui.addTitle("Threshold Controls")->right(gui.getControlById("kinect"));
+	c = gui.addTitle("Threshold Controls")->underRight(gui.getControlById("Mode"));
 	c = gui.addButton("Capture Background")->under(c);
 	gui.addButton("down")->size(30, 20)->under(c);
 	gui.addButton("up")->size(30, 20)->underRight(c);
-	
+
+	c = gui.addTitle("TUIO Output")->size(320, 20)->under(gui.getControlById("4"));
+	c = gui.addDrawable("blobs", blobTracker)->under(c)->size(320, 240);
+	c = gui.addSlider("smoothness", blobTracker.smoothing, 0, 0.99)->under(c, 10);
+	c = gui.addTextField("TUIO Host", tuioHost)->under(c, 10)->size(70, 20);
+	c = gui.addIntField("Port", tuioPort)->right(c)->size(40, 20);
+	c = gui.addButton("Reconnect")->right(c)->size(70, 20);
+	gui.enableAutoSave("trackerSettings.xml");
 	gui.addListener((GuiListener*)this);
+	
 	gui.enable();
 	
 }
@@ -68,7 +80,7 @@ void testApp::update(){
 	kinect.update();
 
 	planarKinect.update(kinect.getDepthPixels());
-	//blobTracker.track(planarKinect.blobs);
+	 blobTracker.track(planarKinect.blobs);
 	tuioServer.run();
 	
 	ofSetWindowTitle("KinectTracker - "+ofToString(ofGetWidth()) + "x"+ofToString(ofGetHeight()));
@@ -130,7 +142,6 @@ void testApp::windowResized(int w, int h){
 }
 
 void testApp::blobEntered(ofVec3f pos, int blobId) {
-	
 	// ofxTuioServer assumes you're giving screen coordinates, so multiply by ofGetWidth()/Height()
 	blobs[blobId] = tuioServer.addCursor(pos.x*ofGetWidth(), pos.y*ofGetHeight());
 }
@@ -158,5 +169,8 @@ void testApp::controlChanged(GuiControl *control) {
 		planarKinect.moveThreshold(-1);
 	} else if(control->controlId=="Capture Background") {
 		planarKinect.captureThreshold();
+	} else if(control->controlId=="Reconnect") {
+		tuioServer.start((char*)tuioHost.c_str(), tuioPort);
 	}
 }
+

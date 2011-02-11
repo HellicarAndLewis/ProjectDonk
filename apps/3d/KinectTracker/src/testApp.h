@@ -6,6 +6,7 @@
 #include "ofxBlobTracker.h"
 #include "ofxTuioServer.h"
 #include "ofxXmlGui.h"
+
 class testApp : public ofBaseApp, public ofxBlobListener, public GuiListener {
 	
 public:
@@ -29,6 +30,8 @@ public:
 	
 	// for gui
 	void controlChanged(GuiControl *control);
+	
+	
 	
 	/** the actual kinect device */
 	ofxKinect			kinect;

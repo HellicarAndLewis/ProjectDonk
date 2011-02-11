@@ -23,16 +23,19 @@
 #include "ofxTuioServer.h"
 
 ofxTuioServer::ofxTuioServer() {
-	
+	tuioServer = NULL;
 }
 
 //start Server (host, port);
 void  ofxTuioServer::start(char * host, int port){
 	verbose = false;
+	if(tuioServer!=NULL) delete tuioServer;
 	if ((strcmp(host,"default")==0) && (port==0)) tuioServer = new TuioServer();
 	else tuioServer = new TuioServer(host, port);
 	currentTime = TuioTime::getSessionTime();	
 }
+
+
 //add cursor, object
 TuioCursor * ofxTuioServer::addCursor(float _x, float _y){
 	return tuioServer->addTuioCursor(_x/ofGetWidth(), _y/ofGetHeight());
