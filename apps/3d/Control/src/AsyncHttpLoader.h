@@ -44,7 +44,7 @@ public:
 	/**
 	 trigger the server call
 	 */
-	void get(string s);
+	void get(string s,string userpass);
 	/**
 	 the return data. don't touch this
 	 unless done==true. the thread
@@ -95,6 +95,10 @@ public:
 		timeout seconds
 	 */
 	int timeout;
+	/**
+		username:password
+	 */
+	string authInfo;
 };
 
 
