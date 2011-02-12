@@ -1,21 +1,27 @@
 #include "testApp.h"
 
+
+bool	callback::needBroadphaseCollision(btBroadphaseProxy* proxy0, btBroadphaseProxy* proxy1) const
+{
+	
+	if( proxy0->m_collisionFilterGroup == 2 && proxy1->m_collisionFilterGroup == 2) {
+		return false;
+	}
+	
+	return true;
+}
+
 //--------------------------------------------------------------
 void testApp::setup(){
 	
 	
 	COL_NOTHING = 1;
-	COL_SPHERE = BIT(1);
+	COL_SPHERE = 2;
 	
-	innerCollidesWith = COL_NOTHING;
-	outerCollidesWith = COL_SPHERE;
-
 	initBullet();
 	ofVec3f origin(350, 400, 100);
 	ofVec2f size(300, 300);
 	createContainingBubble(origin, size);
-
-	
 	
 	origin.x += 50;
 	origin.y += 50;
@@ -29,7 +35,7 @@ void testApp::setup(){
 	
 	origin.x -= 50;
 	origin.y -= 50;
-	origin.z = 250;
+	origin.z = 350;
 	createContainedBubble(origin, 10.f);
 	
 	origin.x -= 100;
@@ -39,7 +45,7 @@ void testApp::setup(){
 	
 	origin.x -= 50;
 	origin.y += 100;
-	origin.z = 250;
+	origin.z = 200;
 	createContainedBubble(origin, 10.f);
 	
 	ofEnableAlphaBlending();
@@ -149,7 +155,8 @@ void testApp::updateBullet()
 			btCollisionShape* shape = body->getCollisionShape();
 			if(shape->getShapeType() == 8)
 			{
-				body->applyImpulse(btVector3(0.f, btScalar(1), 0), body->getCenterOfMassPosition());
+				//body->applyImpulse(btVector3(0.f, btScalar(0.5), 0), body->getCenterOfMassPosition());
+				body->applyGravity();
 			}
 		}
 	}
@@ -163,9 +170,13 @@ void testApp::initBullet()
 	btCollisionDispatcher* dispatcher = new btCollisionDispatcher(collisionConfiguration);
 	btBroadphaseInterface* broadphase = new btSimpleBroadphase();
 	btConstraintSolver* constraintSolver = new btSequentialImpulseConstraintSolver();
-	
+		
 	m_dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher,broadphase,constraintSolver,collisionConfiguration);
-	m_dynamicsWorld->setGravity(btVector3(0, 0, 0));
+	m_dynamicsWorld->setGravity(btVector3(0, 10, 0));
+	
+	btOverlapFilterCallback * filterCallback = new callback();
+	m_dynamicsWorld->getPairCache()->setOverlapFilterCallback(filterCallback);
+
 	
 }
 
@@ -173,12 +184,14 @@ btSphereShape* testApp::createContainedBubble(ofVec3f origin, float radius)
 {
 	
 	btSphereShape* shape = new btSphereShape(radius);
+	shape->setMargin(2);
+	
 	btTransform t;
 	t.setOrigin(ofVec3fToBtVec(origin));
 	//shape->setWorldTransform(t);
 	
 	btDefaultMotionState* motionstate = new btDefaultMotionState(t);
-	btVector3 localInertia(0, -2, 0);
+	btVector3 localInertia(0, 0.5, 0);
 
 	shape->calculateLocalInertia(1.f, localInertia);
 	
@@ -186,16 +199,11 @@ btSphereShape* testApp::createContainedBubble(ofVec3f origin, float radius)
 	btRigidBody* body = new btRigidBody(cInfo);
 	
 	// inner bubbles have downwards gravity
-	//body->setGravity(btVector3(0, 1, 0));
-	
 	// will need to get these working so that sphere parts can cl
 	//body->setCollisionFlags(COL_SPHERE);
 	
-	
 	containedBubble.push_back(body);
-	body->activate(true);
 	m_dynamicsWorld->addRigidBody(body);
-	body->activate(true);
 	return shape;
 	
 }
@@ -206,9 +214,9 @@ void testApp::createContainingBubble(ofVec3f origin, ofVec2f size)
 {	
 	
 	btVector3 btSize;
-	btSize.setX( 40.f );
+	btSize.setX( 50.f );
 	btSize.setY( 1.f );//btSize.setY( 30.f );
-	btSize.setZ( 40.f );
+	btSize.setZ( 50.f );
 	
 	btCollisionShape* shape = new btBoxShape( btSize );
 	
@@ -244,10 +252,9 @@ void testApp::createContainingBubble(ofVec3f origin, ofVec2f size)
 			btRigidBody* spherePart = new btRigidBody(cInfo);
 			
 			// containing bubbles have upwards gravity
-			//spherePart->setCollisionFlags(COL_NOTHING);
+			spherePart->setCollisionFlags(1);
 			
 			containingBubble.push_back(spherePart);
-			//spherePart->activate(true);
 			m_dynamicsWorld->addRigidBody(spherePart);
 			//spherePart->activate(true);
 			

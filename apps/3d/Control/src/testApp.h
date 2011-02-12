@@ -4,13 +4,13 @@
 
 #include "ofMain.h"
 #include "ofxJSON.h"
-#include "ofxNetwork.h"
-
+#include "ofxOsc.h"
+#include "AsyncHttpLoader.h"
+#include "ControlBar.h"
 
 /**
- 
-	implementation of non-blocking JSON loading from URLs and parsed out into OSC calls.
- 
+	asyncronous http gets to 4 urls, receiving JSON
+	and sending it all to the render machine.
  */
 class testApp : public ofBaseApp{
 
@@ -25,8 +25,8 @@ public:
 	void mouseDragged(int x, int y, int button);
 	void mousePressed(int x, int y, int button);
 	void mouseReleased(int x, int y, int button);
-	void windowResized(int w, int h);
-
+	void windowResized(int w, int h);	
+	
 	/**
 		my JSON parser instance
 	 */
@@ -35,22 +35,21 @@ public:
 	/**
 		another JSON instance just for the app settings
 	 */
-	ofxJSON settings;
-	
-	/**
-		my ofxNetwork instance
-	 */
-	ofxTCPClient tcpClient;
-	
+	ofxJSON json_settings;
+		
 	/**
 		last time a server pull was done (in seconds)
 	 */
 	float lastConnectTime;
 	
 	/**
-		window console buffer
+	 window console buffer
 	 */
-	string console;
+	deque<string> console;
+	/**
+		console line colors
+	 */
+	deque<int> console_colors;
 	
 	/**
 		font for console rendering
@@ -58,42 +57,54 @@ public:
 	ofTrueTypeFont font;
 
 	/**
-		resolves a domain name to an IP address
-	 */
-	string getIpFromDomain(string name);
-
-	/**
 		logs to window console
 	 */
-	void log(string s);
-
-	/**
-		manages the HTTP protocol (separates header chunk from data chunk)
-	 */
-	void parseReceivedBytes(string incoming);
-	
-	/**
-		whether or not the connection is waiting for header to finish
-	 */
-	bool http_header_mode;
-	
-	/**
-		catching the returned "web page"
-	 */
-	string http_data_buffer;
-	
-	/**
-		whether or not we expect the socket to be open
-	 */
-	bool http_expect_connected;
-	
-	/**
-		parse the JSON into commands in preparation for OSC broadcasting
-	 */
-	void parseJSON(string &data);
+	void log(string s,int color);
+	void log(int n,int color);
 	
 	double polling_delay;
 	
+	/**
+		category names for each json URL
+	 */
+	vector<string> source_names;
+	
+	/**
+		osc object for sending osc messages
+	 */
+	ofxOscSender oscOut;
+	
+	/**
+		rendermachine osc port
+	 */
+	unsigned long rendermachine_osc_port;
+	
+	/**
+		rendermachine IP address
+	 */
+	string rendermachine_ip;
+	
+	/**
+		must be a pointer since it passes itself to a thread func
+	 */
+	vector<AsyncHttpLoader*> loaders;
+	/**
+		http get timeout in seconds
+	 */
+	int http_get_timeout;
+	/**
+		username:password from settings file
+	 */
+	string http_auth;
+	/**
+		gui -- sorry, ofxSimpleGui has no buttons.
+	 */
+	ControlBar::Bar controlbar;
+	/**
+		current and upcoming modes
+		referring to ints
+	 */
+	int modes[2];
 };
 
 #endif

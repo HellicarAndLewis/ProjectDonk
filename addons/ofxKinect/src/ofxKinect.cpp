@@ -9,13 +9,13 @@ ofxKinect* thisKinect = NULL;
 //--------------------------------------------------------------------
 ofxKinect::ofxKinect()
 {
-	ofLog(OF_LOG_VERBOSE, "Creating ofxKinect.");
+	ofLog(OF_LOG_VERBOSE, "ofxKinect: Creating ofxKinect");
 
-	//TODO: reset the right ones of these on close
-	// common
 	bVerbose 				= false;
-	bGrabberInited 			= false;
 	bUseTexture				= true;
+	
+	// set defaults
+	bGrabberInited 			= false;
 	depthPixelsRaw			= NULL;
 	depthPixelsBack			= NULL;
 	videoPixels		  		= NULL;
@@ -94,31 +94,26 @@ bool ofxKinect::isFrameNew(){
 }
 
 //--------------------------------------------------------------------
-bool ofxKinect::open(){
+bool ofxKinect::open(int deviceId){
 	if(!bGrabberInited){
 		ofLog(OF_LOG_WARNING, "ofxKinect: Cannot open, init not called");
 		return false;
 	}
 
-	if (freenect_init(&kinectContext, NULL) < 0) {
-		ofLog(OF_LOG_ERROR, "ofxKinect: freenet_init failed");
-		return false;
-	}
-
 	int number_devices = freenect_num_devices(kinectContext);
-	ofLog(OF_LOG_VERBOSE, "ofxKinect: Number of Devices found: " + ofToString(number_devices));
-
 	if (number_devices < 1) {
 		ofLog(OF_LOG_ERROR, "ofxKinect: Did not find a device");
 		return false;
 	}
 
-	if (freenect_open_device(kinectContext, &kinectDevice, 0) < 0) {
+	if (freenect_open_device(kinectContext, &kinectDevice, deviceId) < 0) {
 		ofLog(OF_LOG_ERROR, "ofxKinect: Could not open device");
 		return false;
 	}
 
 	freenect_set_user(kinectDevice, this);
+	freenect_set_depth_callback(kinectDevice, &grabDepthFrame);
+	freenect_set_video_callback(kinectDevice, &grabRgbFrame);
 
 	startThread(true, false);	// blocking, not verbose
 
@@ -130,18 +125,21 @@ void ofxKinect::close(){
 	if(isThreadRunning()){
 		waitForThread(true);
 	}
+	
+	bNeedsUpdate	= false;
+	bUpdateTex		= false;
+}
 
-	//usleep(500000); // some time while thread is stopping ...
-
-	//libusb_exit(NULL);
+//---------------------------------------------------------------------------
+bool ofxKinect::isConnected(){
+	return isThreadRunning();
 }
 
 //We update the value here - but apply it in kinect thread.
 //--------------------------------------------------------------------
 bool ofxKinect::setCameraTiltAngle(float angleInDegrees){
 
-
-	if(!kinectContext){
+	if(!bGrabberInited){
 		return false;
 	}
 
@@ -153,6 +151,11 @@ bool ofxKinect::setCameraTiltAngle(float angleInDegrees){
 
 //--------------------------------------------------------------------
 bool ofxKinect::init(bool infrared, bool setUseTexture){
+	if(isConnected()){
+		ofLog(OF_LOG_WARNING, "ofxKinect: Do not call init while ofxKinect is running!");
+		return false;
+	}
+	
 	clear();
 
 	bInfrared = infrared;
@@ -179,16 +182,32 @@ bool ofxKinect::init(bool infrared, bool setUseTexture){
 		depthTex.allocate(width, height, GL_LUMINANCE);
 		videoTex.allocate(width, height, infrared?GL_LUMINANCE:GL_RGB);
 	}
+	
+	if (freenect_init(&kinectContext, NULL) < 0){
+		ofLog(OF_LOG_ERROR, "ofxKinect: freenet_init failed");
+		return false;
+	}
+	ofLog(OF_LOG_VERBOSE, "ofxKinect: Inited");
+
+	int number_devices = freenect_num_devices(kinectContext);
+	ofLog(OF_LOG_VERBOSE, "ofxKinect: Number of Devices found: " + ofToString(number_devices));
 
 	bGrabberInited = true;
-
-	ofLog(OF_LOG_VERBOSE, "ofxKinect: Inited");
 
 	return bGrabberInited;
 }
 
 //---------------------------------------------------------------------------
 void ofxKinect::clear(){
+	if(isConnected()){
+		ofLog(OF_LOG_WARNING, "ofxKinect: Do not call clear while ofxKinect is running!");
+		return;
+	}
+	
+	if(kinectContext != NULL){
+		freenect_shutdown(kinectContext);
+	}
+	
 	if(depthPixelsRaw != NULL){
 		delete[] depthPixelsRaw; depthPixelsRaw = NULL;
 		delete[] depthPixelsBack; depthPixelsBack = NULL;
@@ -200,13 +219,13 @@ void ofxKinect::clear(){
 	depthTex.clear();
 	videoTex.clear();
 	calibration.clear();
-
+	
 	bGrabberInited = false;
 }
 
 //----------------------------------------------------------
 void ofxKinect::update(){
-	if(!kinectContext){
+	if(!bGrabberInited){
 		return;
 	}
 
@@ -231,7 +250,7 @@ void ofxKinect::update(){
 
 	if(bUseTexture){
 		depthTex.loadData(calibration.getDepthPixels(), width, height, GL_LUMINANCE);
-		videoTex.loadData(videoPixelsBack, width, height, bInfrared?GL_LUMINANCE:GL_RGB);
+		videoTex.loadData(videoPixels, width, height, bInfrared?GL_LUMINANCE:GL_RGB);
 		bUpdateTex = false;
 	}
 }
@@ -255,11 +274,11 @@ ofVec3f ofxKinect::getWorldCoordinateFor(int x, int y) {
 
 //------------------------------------
 ofColor	ofxKinect::getColorAt(int x, int y) {
-	int index = (y * width + x) * 3;
+	int index = (y * width + x) * bytespp;
 	ofColor c;
-	c.r = videoPixels[index++];
-	c.g = videoPixels[index++];
-	c.b = videoPixels[index];
+	c.r = videoPixels[index + 0];
+	c.g = videoPixels[index + (bytespp-1)/2];
+	c.b = videoPixels[index + (bytespp-1)];
 	c.a = 255;
 
 	return c;
@@ -401,17 +420,14 @@ void ofxKinect::threadedFunction(){
 	freenect_set_led(kinectDevice, LED_GREEN);
 	freenect_set_video_format(kinectDevice, bInfrared?FREENECT_VIDEO_IR_8BIT:FREENECT_VIDEO_RGB);
 	freenect_set_depth_format(kinectDevice, FREENECT_DEPTH_11BIT);
-	freenect_set_depth_callback(kinectDevice, &grabDepthFrame);
-	freenect_set_video_callback(kinectDevice, &grabRgbFrame);
 	
 	ofLog(OF_LOG_VERBOSE, "ofxKinect: Connection opened");
 
 	freenect_start_depth(kinectDevice);
 	freenect_start_video(kinectDevice);
 	
-	while (isThreadRunning()) {
-		if( bTiltNeedsApplying ){
-
+	while(isThreadRunning()){
+		if(bTiltNeedsApplying){
 			freenect_set_tilt_degs(kinectDevice, targetTiltAngleDeg);
 			bTiltNeedsApplying = false;
 		}
@@ -429,16 +445,23 @@ void ofxKinect::threadedFunction(){
 
 //		printf("\r raw acceleration: %4d %4d %4d  mks acceleration: %4f %4f %4f", ax, ay, az, dx, dy, dz);
 	}
+	
+	// finish up a tilt on exit
+	if(bTiltNeedsApplying){
+		freenect_set_tilt_degs(kinectDevice, targetTiltAngleDeg);
+		bTiltNeedsApplying = false;
+	}
 
-//TODO: uncomment these when they are implemented in freenect	
-	freenect_set_tilt_degs(kinectDevice, 0);
-	freenect_update_tilt_state(kinectDevice);
 	freenect_stop_depth(kinectDevice);
 	freenect_stop_video(kinectDevice);
 	freenect_set_led(kinectDevice, LED_YELLOW);
 
 	freenect_close_device(kinectDevice);
-	freenect_shutdown(kinectContext);
 	
 	ofLog(OF_LOG_VERBOSE, "ofxKinect: Connection closed");
+}
+
+//---------------------------------------------------------------------------
+ofxKinectCalibration& ofxKinect::getCalibration() {
+	return calibration;
 }

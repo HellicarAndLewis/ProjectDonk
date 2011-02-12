@@ -17,9 +17,9 @@ void testApp::setup() {
 	ofSetFrameRate(60.f);
 	ofBackground(0, 0, 0);
 	bubbles.setup(1024,1024);
-	for(int i = 0; i < scene->kinects.size(); i++) {
+	/*for(int i = 0; i < scene->kinects.size(); i++) {
 		scene->kinects[i]->addListener(this);
-	}
+	}*/
 }
 
 void testApp::update() {
@@ -39,10 +39,10 @@ void testApp::drawView() {
 	// setting the parameter to false just draws a wireframe
 	bubbles.drawOnModel(scene->getModel());
 }
-
+/*
 void testApp::blobMoved(ofVec3f centroid, int blobId) {
 	bubbles.spawn(ofVec2f(centroid.x*bubbles.getWidth(),centroid.y*bubbles.getHeight()));
-}
+}*/
 
 
 void testApp::keyPressed  (int key) {

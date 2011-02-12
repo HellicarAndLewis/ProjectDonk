@@ -18,6 +18,10 @@
 #include "GuiPanner.h"
 #include "GuiTitle.h"
 #include "GuiSlider2D.h"
+#include "GuiDrawable.h"
+#include "GuiTextField.h"
+#include "GuiIntField.h"
+
 
 /**
  * This is a simple wrapper for the ofxXmlGui library. It lets you build up
@@ -40,6 +44,9 @@ public:
 	void prevPage();
 	
 	GuiTitle *addTitle(string label);
+	
+	/** add an ofBaseDraws to the gui */
+	GuiDrawable *addDrawable(string name, ofBaseDraws &drawable);
 	
 	/** Add a generic slider (for floats) */
 	GuiSlider	*addSlider(string name, float &ptr, float minValue, float maxValue);
@@ -76,6 +83,9 @@ public:
 	/** Adds a slider that centres around zero */
 	GuiSlider *addPanner(string name, float &ptr, float minValue = -1, float maxValue = 1);
 
+	GuiTextField *addTextField(string name, string &ptr);
+	
+	GuiIntField *addIntField(string name, int &ptr);
 
 	/** If you set an autosave file, ofxXmlGui will save the gui state every time it changes */
 	virtual void enableAutoSave(string file);	
@@ -111,7 +121,7 @@ public:
 	
 	
 private:
-	float size;
+	float controlSize;
 	string xmlFile;
 	bool saving;
 	vector<GuiContainer*> pages;
@@ -133,4 +143,6 @@ public:
 	void mouseDragged(ofMouseEventArgs &e);
 	void mouseReleased(ofMouseEventArgs &e);
 	void controlChanged(GuiControl *ctrl);
+	void keyPressed(ofKeyEventArgs &e);
+	void keyReleased(ofKeyEventArgs &e);
 };

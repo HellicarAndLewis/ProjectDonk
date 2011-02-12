@@ -9,10 +9,11 @@
 #include "ofxBlobTracker.h"
 
 ofxBlobTracker::ofxBlobTracker() {
-	for (int i=0;i<NUM_KALMAN_POINTS;i++) {
+	for (int i=0;i<MAX_NUM_BLOBS*2;i++) {
 		tuioPointSmoothed[i] = NULL;
 	}
 	bVerbose = false;
+	smoothing = 0;
 }
 
 void ofxBlobTracker::addListener(ofxBlobListener *listener) {
@@ -21,7 +22,7 @@ void ofxBlobTracker::addListener(ofxBlobListener *listener) {
 
 
 ofxBlob *ofxBlobTracker::updateKalman(int id, ofxBlob *blob) {
-	if (id>=NUM_KALMAN_POINTS/2) return NULL;
+	if (id>=MAX_NUM_BLOBS) return NULL;
 	if(tuioPointSmoothed[id*2] == NULL) {
 		tuioPointSmoothed[id*2] = new ofxCvKalman(blob->x);
 		tuioPointSmoothed[id*2+1] = new ofxCvKalman(blob->y);
@@ -34,7 +35,7 @@ ofxBlob *ofxBlobTracker::updateKalman(int id, ofxBlob *blob) {
 }
 
 void ofxBlobTracker::clearKalman(int id) {
-	if (id>=NUM_KALMAN_POINTS/2) return;
+	if (id>=MAX_NUM_BLOBS) return;
 	if(tuioPointSmoothed[id*2]) {
 		delete tuioPointSmoothed[id*2];
 		tuioPointSmoothed[id*2] = NULL;
@@ -45,7 +46,7 @@ void ofxBlobTracker::clearKalman(int id) {
 
 
 int ofxBlobTracker::getNextAvailableBlobId() {
-	for(int id = 0; id < NUM_KALMAN_POINTS/2; id++) {
+	for(int id = 0; id < MAX_NUM_BLOBS; id++) {
 		bool foundId = false;
 		for(int i = 0; i < lastBlobs.size(); i++) {
 			if(lastBlobs[i]->id==id) {
@@ -94,8 +95,15 @@ void ofxBlobTracker::track(vector<ofVec2f> &blobs) {
 	track(poop);
 }
 void ofxBlobTracker::track(vector<ofVec3f> &blobs) {
+	blobSmoother.setSmoothness(smoothing);
+	smoothedBlobs.clear();
 	untouchLastBlobs();
-	for(int i = 0; i < blobs.size(); i++) {
+	for(int i = 0; i < blobs.size() && i < MAX_NUM_BLOBS; i++) {
+		
+		// skip any NaN's (causes ofxTuioWrapper to run out of memory)
+		if(blobs[i].x!=blobs[i].x || blobs[i].y!=blobs[i].y) {
+			continue;
+		}
 		ofxBlob *blob = getClosestBlob(blobs[i]);
 		
 		// new blob!
@@ -142,9 +150,30 @@ ofxBlob *ofxBlobTracker::getClosestBlob(ofVec3f &blob) {
 }
 
 void ofxBlobTracker::notifyAllListeners(ofVec3f pos, int id, ofxBlobEventType type) {
+
+	// pass blob through smoother first
+	switch(type) {
+		case ofxBlobTracker_entered:	blobSmoother.blobEntered(pos, id);	break;
+		case ofxBlobTracker_moved:		blobSmoother.blobMoved(pos, id);	break;
+		case ofxBlobTracker_exited:		blobSmoother.blobExited(id);		break;
+	}
+	
+	// add blob to local smoothed blob list
+	switch(type) {
+		case ofxBlobTracker_entered:
+		case ofxBlobTracker_moved:		
+			smoothedBlobs[id] = pos;	
+			break;
+		case ofxBlobTracker_exited:		
+			smoothedBlobs.erase(id);	
+			break;
+	}
+	
+	// then send to listeners
 	for(int i = 0; i < listeners.size(); i++) {
 		switch(type) {
 			case ofxBlobTracker_entered:
+
 				listeners[i]->blobEntered(pos, id);
 				break;
 			case ofxBlobTracker_moved:
@@ -155,6 +184,8 @@ void ofxBlobTracker::notifyAllListeners(ofVec3f pos, int id, ofxBlobEventType ty
 				break;
 		}
 	}
+	
+	
 	if(bVerbose) {
 		string t = "";
 		switch(type) {
@@ -172,6 +203,9 @@ void ofxBlobTracker::draw(float x,float y) {
 
 void ofxBlobTracker::draw(float x,float y,float w, float h) {
 	// stroked rect
+	ofEnableAlphaBlending();
+	ofSetColor(0, 0, 0, 70);
+	ofRect(x, y, w, h);
 	ofSetHexColor(0xFFFFFF);
 	
 	ofNoFill();
@@ -180,12 +214,16 @@ void ofxBlobTracker::draw(float x,float y,float w, float h) {
 	glPushMatrix();
 	glTranslatef(x, y, 0);
 	ofSetColor(0,150, 0);
-	for(int i = 0; i < lastBlobs.size(); i++) {
-		ofCircle(lastBlobs[i]->x*w, lastBlobs[i]->y*h, 5);
-		ofDrawBitmapString("id: "+ofToString(lastBlobs[i]->id), lastBlobs[i]->x*w, lastBlobs[i]->y*h);
+	
+	map<int,ofVec3f>::iterator it;
+	for(it = smoothedBlobs.begin(); it!=smoothedBlobs.end(); it++) {
+		ofCircle((*it).second.x*w, (*it).second.y*h, 5);
+		ofDrawBitmapString("id: "+ofToString((*it).first), (*it).second.x*w, (*it).second.y*h);
 	}
+
 	
 	glPopMatrix();
+	ofFill();
 	
 }
 

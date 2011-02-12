@@ -10,6 +10,14 @@
 
 #include "ofMain.h"
 #include "ofxPlanarKinectWarper.h"
+#define SLICE_SELECTION 1
+#define THRESHOLD_SETTING 0
+
+#define TOP_LEFT_CORNER 0
+#define TOP_RIGHT_CORNER 1
+#define BOTTOM_RIGHT_CORNER 2
+#define BOTTOM_LEFT_CORNER 3
+
 class ofxPlanarKinect: public ofRectangle, public ofBaseDraws {
 
 public:
@@ -32,13 +40,25 @@ public:
 	void mouseReleased(float x, float y, int button);
 	void mouseDragged(float x, float y, int button);	
 	
-	void keyPressed(int key);
-	
 	/** calibrated blobs */
 	vector<ofVec2f> blobs;
 	
 	void saveSettings();
 	void loadSettings();
+	
+	int deviceId;
+	
+	// can either be SLICE_SELECTION or THRESHOLD_SETTING
+	int guiMode;
+	
+	// call this when you're making a blob in a particular corner
+	void calibrateCorner(int whichCorner);
+	
+	
+	void moveThreshold(float increment);
+	
+	void captureThreshold();
+	
 	
 private:
 	
@@ -47,6 +67,8 @@ private:
 	
 	ofVec2f inputQuad[4];
 	ofVec2f outputQuad[4];
+	
+	/** machine vision */
 	void preprocessSlice();
 	void findBlobs();
 	void calibrateBlobs();
@@ -67,10 +89,8 @@ private:
 	ofVec2f *depthGraph;
 	int numDepthGraphPoints;
 	
-	/** depth threshold at which to stop ignoring points */
-	float threshold;
-	
-	
+	/** depth threshold at which to stop ignoring points - there's a threshold for each x-position*/
+	float *threshold;
 	
 	/** texture for the whole camera view */
 	ofTexture camImg;
@@ -79,14 +99,12 @@ private:
 	ofTexture sliceImg;
 	
 	/** dimensions of the kinect camera */
-	ofVec2f dims;
-	
+	float kinectWidth;
+	float kinectHeight;
 	/** if the mouse is being pressed */
 	bool mouseIsDown;
-	
-	/** the last mouse button that was pressed */
-	int lastButton;
 
+	ofVec2f lastMouse;
 	ofxPlanarKinectWarper warper;
 
 };

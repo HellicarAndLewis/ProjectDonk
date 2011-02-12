@@ -5,8 +5,7 @@
  *      Author: arturo
  */
 
-#ifndef OFXKINECTCALIBRATION_H_
-#define OFXKINECTCALIBRATION_H_
+#pragma once
 
 #include "ofMain.h"
 #include "ofVectorMath.h"
@@ -23,8 +22,8 @@ public:
 	/**
 		set the near value of the pixels in the greyscale depth image to white?
 
-		bEnabled = true : pixels close to the camera are brighter
-		bEnabled = false: pixels closer to the camera are darker (default)
+		bEnabled = true : pixels close to the camera are brighter (default)
+		bEnabled = false: pixels closer to the camera are darker
 	**/
 	void enableDepthNearValueWhite(bool bEnabled=true);
 	bool isDepthNearValueWhite();
@@ -70,14 +69,6 @@ private:
 	static float cx_rgb;
 	static float cy_rgb;
 	
-	// these are for converting centimeters to/from raw values
-	// using equation from http://openkinect.org/wiki/Imaging_Information
-	static const float
-	k1 = 0.1236,
-	k2 = 2842.5,
-	k3 = 1.1863,
-	k4 = 0.0370;
-	
 	static float nearClipping, farClipping;
 	
 	static float rawToCentimeters(unsigned short raw);
@@ -91,5 +82,3 @@ private:
 
 	int					bytespp;
 };
-
-#endif /* OFXKINECTCALIBRATION_H_ */

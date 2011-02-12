@@ -1,7 +1,5 @@
 #include "testApp.h"
-
 #include <netdb.h>
-
 
 //--------------------------------------------------------------
 void testApp::setup(){
@@ -16,82 +14,188 @@ void testApp::setup(){
 	 */
 	
 	ofSetWindowTitle("Donk Control");
-	tcpClient.setVerbose(true);
 	lastConnectTime = 0;
 	font.loadFont("uni05_54.ttf", 6);
 	font.setLineHeight(8);
 	
-	http_header_mode = true;
-	http_expect_connected = false;
-	
-	if(!settings.loadFromFile("settings.json.txt")){
+	if(!json_settings.loadFromFile("settings.json.txt")){
 		string msg = "FATAL ERROR: failed to load JSON settings file: data/settings.json.txt";
-		log(msg);
+		log(msg,1);
 		cout << msg << endl;
+		cerr << msg << endl;
 		_exit(1);
 	}
 	
-	polling_delay = settings["polling_delay_time_in_seconds"].asDouble();
+	polling_delay = json_settings["polling_delay_time_in_seconds"].asDouble();
+	source_names = json_settings["sources"].getMemberNames();
+	rendermachine_osc_port = json_settings["rendermachine"]["osc_port"].asInt();
+	rendermachine_ip = json_settings["rendermachine"]["ip"].asString();
+	http_get_timeout = json_settings["http_get_timeout"].asInt();
+	http_auth = json_settings["sources_auth"].asString();
+
+	controlbar.children.push_back(new ControlBar::Label("Mode:                  "));
+	controlbar.children.push_back(new ControlBar::Button("Swap"));
+	controlbar.children.push_back(new ControlBar::Label("Next:                  "));
+	for(int i=0;i<source_names.size();i++){
+		loaders.push_back(new AsyncHttpLoader());
+		loaders.back()->timeout = http_get_timeout;
+		controlbar.children.push_back(new ControlBar::Button(source_names[i]));
+		controlbar.children.back()->userData = (void*)i;
+	}
+	controlbar.doLayout();
+	modes[0] = -1;
+	modes[1] = -1;
+	
+	oscOut.setup(rendermachine_ip,rendermachine_osc_port);
 
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
-		
-	if(tcpClient.isConnected()){
-		string rcv = tcpClient.receiveRaw();
-		if(tcpClient.getNumReceivedBytes() > 0){
-			parseReceivedBytes(rcv);
-		}
-	}else{
-		//is the connection freshly closed?
-		if(http_expect_connected){
-			//web page is done loading now.
-			http_expect_connected = false;
-			parseJSON(http_data_buffer);
-		}
-		
-		
-		//is it time to call the server again?
-		if(ofGetElapsedTimef() - lastConnectTime > polling_delay || lastConnectTime == 0){
-	
-			int server_port = settings["server_port"].asInt();
 
-			http_header_mode = true;//go back to waiting for header chunk
-			http_data_buffer.clear(); //reset data buffer
-			
-			// not connected, but waited long enough,
-			// or it's the first time, so calling right away
-			
-			string ip = getIpFromDomain(settings["server"].asString());
-			if(ip==""){
-				log("Domain resolution failed. Network may be down.");
+	for(int i=0;i<loaders.size();i++){
+		if(i!=modes[0] && i!=modes[1])continue;
+		
+		if(loaders[i]->done){
+			if(!loaders[i]->errorString.empty()){
+				log(loaders[i]->errorString,1);
 			}else{
-				if(!tcpClient.setup(ip, server_port, false)){
-					log("failed to setup TCP client");
-				}else if(!tcpClient.sendRaw(string("GET ") + settings["path_buzz"].asString() + string(" HTTP 1.0\n\n"))){
-					log("failed to send HTTP GET to web server");
-					tcpClient.close();
+				int status = loaders[i]->response.getStatus();
+				if(status!=200){
+					char statString[256];
+					sprintf(statString,"Server returned error %i",status);
+					log(statString,1);
 				}else{
-					log("calling server");
-					http_expect_connected = true;
+					json.parse(loaders[i]->data);
+					int itemCount = json["totalItems"].asInt();
+					if(itemCount==0){
+						log(source_names[i] + ": no new bubbles",2);
+					}
+					for(int j=0;j<itemCount;j++){
+						Json::Value bubble = json["items"][j];
+						
+						ofxOscMessage m;
+						
+						m.setAddress("/control/bubble/new");
+						m.addStringArg("mode");
+						m.addStringArg(source_names[i]);
+						m.addStringArg("queueID");
+						m.addStringArg(bubble["queueID"].asString());
+						m.addStringArg("profileImageURL");
+						m.addStringArg(bubble["profileImageURL"].asString());
+						m.addStringArg("userName");
+						m.addStringArg(bubble["userName"].asString());
+						m.addStringArg("text");
+						m.addStringArg(bubble["text"].asString());
+						
+						if(bubble["hasMedia"].asString()=="1"){
+							for(int k=0;k<bubble["media"].size();k++){
+								m.addStringArg("mediaID");
+								m.addStringArg(bubble["media"][k]["mediaID"].asString());
+								m.addStringArg("mediaThumbURL");
+								m.addStringArg(bubble["media"][k]["mediaThumbURL"].asString());
+								m.addStringArg("mediaURL");
+								m.addStringArg(bubble["media"][k]["mediaURL"].asString());
+							}
+						}
+						
+						oscOut.sendMessage(m);				
+						log(source_names[i] + string(" > ") +
+							bubble["queueID"].asString() + string(" > ") +
+							bubble["userName"].asString(),0);
+					}
+
 				}
-			
 			}
 			
-			lastConnectTime = ofGetElapsedTimef();
+			loaders[i]->reset();
 		}
 	}
 	
+	//is it time to call the server again?
+	if(ofGetElapsedTimef() - lastConnectTime > polling_delay || lastConnectTime == 0){
+		
+		//do consecutive blocking calls
+		try{
+			for(int i=0;i<source_names.size();i++){
+				if(i!=modes[0] && i!=modes[1])continue;
+				loaders[i]->get(json_settings["sources"][source_names[i]].asString(),http_auth);
+			}
+		}catch(logic_error err){
+			log("Error calling remote server -- network down?",1);
+		}
+		
+		lastConnectTime = ofGetElapsedTimef();
+	}
+
 	
+	//resizing the console to fit the window
+	int lineCount = (ofGetHeight()-6-controlbar.rect.height) / 8;
+	while(console.size() > lineCount){
+		console.pop_front();
+		console_colors.pop_front();
+	}
+
+	controlbar.update(mouseX,mouseY);
+	while(ControlBar::Control::eventQueue.size()>0){
+		ControlBar::Event e = ControlBar::Control::eventQueue.front();
+		ControlBar::Control::eventQueue.pop_front();
+		if(e.what=="mouseClicked" && e.obj->className=="Button"){
+				ControlBar::Button *b = (ControlBar::Button*)e.obj;
+			if(b->text!="Swap"){
+				//mode buttons
+				//set upcoming
+				modes[1] = (int)b->userData;
+				
+				log(string("set upcoming mode to \"") + source_names[modes[1]] + "\"",3);
+				((ControlBar::Button*)controlbar.children[2])->text = string("Next: ") + source_names[modes[1]];
+				
+				ofxOscMessage m;
+				m.setAddress("/control/mode/next");
+				m.addStringArg(source_names[modes[1]]);
+				oscOut.sendMessage(m);
+				
+			}else{
+				//do swap
+				if(modes[1] != -1){
+					modes[0] = modes[1];
+					
+					((ControlBar::Button*)controlbar.children[0])->text = string("Mode: ") + source_names[modes[1]];
+					((ControlBar::Button*)controlbar.children[2])->text = "Next:";
+
+					modes[1] = -1;
+					
+					ofxOscMessage m;
+					m.setAddress("/control/mode/swap");
+					oscOut.sendMessage(m);
+					
+					log(string("swapped current mode to \"") + source_names[modes[0]] + "\"",3);
+					
+				}else{
+					log("Swap error - you must first queue up an upcoming mode by pressing one of the buttons on the right",1);
+				}
+			}
+		}
+	}
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
-	ofBackground(0,0,0);
-	ofColor(255,255,255);
+	ofBackground(50,50,50);
+	controlbar.draw();
 	glPushMatrix();
-	font.drawString(console,0,6);
+	glTranslatef(0,controlbar.rect.height,0);
+	for(int i=0;i<console.size();i++){
+		switch(console_colors[i]){
+			case 0: ofSetColor(128,255,128);break;
+			case 1: ofSetColor(255,128,128);break;
+			case 2: ofSetColor(100,100,100);break;
+			case 3: ofSetColor(255,200,0);break;
+			default: ofSetColor(255,255,255);break;
+		}
+		font.drawString(console[i],0,6);
+		glTranslatef(0,8,0);
+	}
 	glPopMatrix();
 }
 
@@ -118,12 +222,12 @@ void testApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
-
+	controlbar.mouseDown();
 }
 
 //--------------------------------------------------------------
 void testApp::mouseReleased(int x, int y, int button){
-
+	controlbar.mouseUp();
 }
 
 //--------------------------------------------------------------
@@ -132,70 +236,18 @@ void testApp::windowResized(int w, int h){
 }
 
 //--------------------------------------------------------------
-
-string testApp::getIpFromDomain(string name){
-	hostent *h = gethostbyname(name.c_str());
-	if(h==NULL){
-		return string("");
-	}
-	char ipstr[18];
-	sprintf(ipstr,"%i.%i.%i.%i",
-			(unsigned char)h->h_addr_list[0][0],
-			(unsigned char)h->h_addr_list[0][1],
-			(unsigned char)h->h_addr_list[0][2],
-			(unsigned char)h->h_addr_list[0][3]);
-	return string(ipstr);
+void testApp::log(int n,int color=0){
+	char s[256];
+	sprintf(s,"%i",n);
+	log(s,color);
 }
-
 //--------------------------------------------------------------
-
-void testApp::log(string s){
-	console += ofGetTimestampString();
-	console += " ";
-	console += s + '\n';
+void testApp::log(string s,int color=0){
+	string displayLine = ofGetTimestampString();
+	displayLine += " ";
+	displayLine += s + '\n';
 	
-	//erase old stuff
-	string::iterator it = console.begin();
-	int count = 0;
-	for(;it!=console.end();it++){
-		if(*it=='\n')count++;
-	}
-	int lineCount = (ofGetHeight()-6) / 8;
-	int eraseCount = 0;
-	while(eraseCount < count-lineCount){
-		if(console[0]=='\n')eraseCount++;
-		console.erase(0,1);
-	}
+	console.push_back(displayLine);
+	console_colors.push_back(color);
+	
 }
-
-//--------------------------------------------------------------
-
-void testApp::parseReceivedBytes(string inBytes){
-	if(http_header_mode){
-		int nCount = 0;//consecutive line feed counter
-		string::iterator it = inBytes.begin();
-		for(;it!=inBytes.end();it++){
-			if(http_header_mode){
-				//just waiting for it to be over
-				if(*it=='\n'||*it=='\r'){
-					nCount++;
-					if(nCount==4){
-						http_header_mode = false;//start collecting the data from here	
-					}
-				}else nCount=0;
-			}else{
-				http_data_buffer += *it;
-			}
-		}
-	}else http_data_buffer += inBytes;//otherwise it's quite simple.
-}
-
-//--------------------------------------------------------------
-
-void testApp::parseJSON(string &data){
-	//json.parse(data);
-	//json.print();
-	cout << data << endl;
-}
-
-

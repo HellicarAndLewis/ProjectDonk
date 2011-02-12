@@ -166,6 +166,7 @@ protected:
 	ofImage *bg;
 	string bgImgUrl;
 	int layoutType;
+	void propagateListeners(GuiListener **listeners, int numListeners);
 private:
 	bool autoSaving;
 	string autoSaveFile;

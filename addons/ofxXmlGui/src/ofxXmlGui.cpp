@@ -18,6 +18,8 @@ void ofxXmlGui::addGui(GuiContainer *c) {
 
 #define PAGE_CHOOSER_OFFSET 30
 
+
+
 GuiContainer *ofxXmlGui::addPage(string title) {
 	
 	currPage->hide();
@@ -37,7 +39,7 @@ GuiContainer *ofxXmlGui::addPage(string title) {
 		pageChooser = (GuiSegmentedControl*)add("segmented", "", "pagechooser");
 		pageChooser->x = paddingX;
 		pageChooser->y = paddingY;
-		pageChooser->width = size;
+		pageChooser->width = controlSize;
 		
 		// push all the pages down
 		for(int i = 0; i < pages.size(); i++) {
@@ -80,9 +82,18 @@ GuiContainer *ofxXmlGui::addPage(string title) {
 ////////////////////////////////////////////////////////////////////////////
 
 
+
+GuiDrawable *ofxXmlGui::addDrawable(string name, ofBaseDraws &drawable) {
+	GuiDrawable *el = (GuiDrawable*) currPage->add("drawable", name, name);
+	el->drawable = &drawable;
+	return el;
+}
+
+
+
 GuiTitle *ofxXmlGui::addTitle(string label) {
 	GuiTitle *title = (GuiTitle*)currPage->add("title", label, label);
-	title->width = size;
+	title->width = controlSize;
 	return title;
 }
 
@@ -91,7 +102,7 @@ GuiSlider *ofxXmlGui::addSlider(string name, float &ptr, float minValue, float m
 	slider->min = minValue;
 	slider->max = maxValue;
 	slider->value = &ptr;
-	slider->width = size;
+	slider->width = controlSize;
 	slider->showValue = true;
 	return slider;
 }
@@ -102,7 +113,7 @@ GuiSlider2D *ofxXmlGui::addSlider2D(string name, ofPoint &ptr, float minX, float
 	slider2d->maxX = maxX;
 	slider2d->minY = minY;
 	slider2d->maxY = maxY;
-	slider2d->width = size;
+	slider2d->width = controlSize;
 	slider2d->showValue = true;
 	slider2d->value = &ptr[0];
 	return slider2d;
@@ -111,7 +122,7 @@ GuiSlider2D *ofxXmlGui::addSlider2D(string name, ofPoint &ptr, float minX, float
 GuiToggle *ofxXmlGui::addToggle(string name, bool &ptr) {
 	GuiToggle *slider = (GuiToggle*)currPage->add("toggle", name, name);		
 	slider->value = &ptr;
-	slider->width = size;
+	slider->width = controlSize;
 	return slider;
 }
 
@@ -137,9 +148,25 @@ GuiSegmentedControl *ofxXmlGui::addSegmentedControl(string name, int &value, str
 	GuiSegmentedControl * sc = (GuiSegmentedControl*)currPage->add("segmented", name, name);
 	sc->options = options;
 	sc->value = &value;
-	sc->width = size;
+	sc->width = controlSize;
 	sc->load();
 	return sc;
+}
+
+
+
+GuiTextField *ofxXmlGui::addTextField(string name, string &ptr) {
+	GuiTextField *tf = (GuiTextField*) currPage->add("textfield", name, name);
+	tf->value = &ptr;
+	tf->width = controlSize;
+	return tf;
+}
+
+GuiIntField *ofxXmlGui::addIntField(string name, int &ptr) {
+	GuiIntField *tf = (GuiIntField*) currPage->add("intfield", name, name);
+	tf->value = &ptr;
+	tf->width = controlSize;
+	return tf;
 }
 
 
@@ -151,27 +178,27 @@ GuiList *ofxXmlGui::addList(string name, int &value, string options) {
 	GuiList * gl = (GuiList*) currPage->add("list", name, name);
 	gl->options = options;
 	gl->value = &value;
-	gl->width = size;
+	gl->width = controlSize;
 	gl->load();
 	return gl;
 }
 
 GuiButton *ofxXmlGui::addButton(string name) {
 	GuiButton *button = (GuiButton*)currPage->add("button", name, name);
-	button->width = size;
+	button->width = controlSize;
 	return button;
 }
 GuiFloatField *ofxXmlGui::addFloatField(string name, float &value) {
 	GuiFloatField *ff = (GuiFloatField*)currPage->add("floatfield", name, name);
 	ff->value = &value;
-	ff->width = size;
+	ff->width = controlSize;
 	return ff;
 }
 
 GuiDoubleField *ofxXmlGui::addDoubleField(string name, double &value) {
 	GuiDoubleField *ff = (GuiDoubleField*)currPage->add("doublefield", name, name);
 	ff->value = &value;
-	ff->width = size;
+	ff->width = controlSize;
 	return ff;
 }
 
@@ -180,7 +207,7 @@ GuiSlider *ofxXmlGui::addPanner(string name, float &ptr, float minValue, float m
 	slider->min = minValue;
 	slider->max = maxValue;
 	slider->value = &ptr;
-	slider->width = size;
+	slider->width = controlSize;
 	slider->showValue = true;
 	return slider;
 }	
@@ -214,6 +241,17 @@ void ofxXmlGui::mouseReleased(ofMouseEventArgs &e) {
 	touchUp(e.x, e.y, e.button);
 }
 
+
+void ofxXmlGui::keyPressed(ofKeyEventArgs &e) {
+	GuiContainer::keyPressed((int)e.key);
+}
+void ofxXmlGui::keyReleased(ofKeyEventArgs &e) {
+//	this->keyReleased(e.key);
+}
+
+////////////////////////////////////////////////////////////////////////////
+// AUTO-SAVE
+////////////////////////////////////////////////////////////////////////////
 
 void ofxXmlGui::enableAutoSave(string file = "values.xml") {
 	if(pages.size()==0) {
@@ -264,6 +302,8 @@ void ofxXmlGui::enable() {
 	ofAddListener(ofEvents.mouseDragged, this, &ofxXmlGui::mouseDragged);
 	ofAddListener(ofEvents.mouseReleased, this, &ofxXmlGui::mouseReleased);
 	ofAddListener(ofEvents.draw, this, &ofxXmlGui::__draw);
+	ofAddListener(ofEvents.keyPressed, this, &ofxXmlGui::keyPressed);
+	ofAddListener(ofEvents.keyReleased, this, &ofxXmlGui::keyReleased);
 	show();
 }
 
@@ -274,11 +314,14 @@ void ofxXmlGui::disable() {
 	ofRemoveListener(ofEvents.mouseDragged, this, &ofxXmlGui::mouseDragged);
 	ofRemoveListener(ofEvents.mouseReleased, this, &ofxXmlGui::mouseReleased);
 	ofRemoveListener(ofEvents.draw, this, &ofxXmlGui::__draw);
+	ofRemoveListener(ofEvents.keyPressed, this, &ofxXmlGui::keyPressed);
+	ofRemoveListener(ofEvents.keyReleased, this, &ofxXmlGui::keyReleased);
 	hide();
 }
 
 void ofxXmlGui::setup(float _x, float _y, float size) {
 	
+	name = "ofxXmlGui";
 	pageChooser = NULL;
 	
 	setLayoutType(LAYOUT_ABSOLUTE);
@@ -286,10 +329,10 @@ void ofxXmlGui::setup(float _x, float _y, float size) {
 	y = _y;
 	
 	width = size;
-	this->size = size - paddingX*2;
+	this->controlSize = size - paddingX*2;
 	
 	currPage = createPage("default");
-	addListener(this);
+	addListener((GuiListener*)this);
 	
 	xmlFile = "";
 	saving = false;
@@ -323,7 +366,7 @@ GuiContainer *ofxXmlGui::createPage(string name) {
 	p->setLayoutType(LAYOUT_SIMPLE_GUI);
 	p->x = 0;
 	p->y = 0;
-	p->width = size+paddingX*2;
+	p->width = controlSize+paddingX*2;
 	return p;
 }
 

@@ -269,8 +269,8 @@
 									<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 									<array>
 										<array>
-											<integer>7</integer>
-											<integer>4</integer>
+											<integer>6</integer>
+											<integer>3</integer>
 											<integer>0</integer>
 										</array>
 									</array>
@@ -438,8 +438,8 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>4B78B42412FF5D0E00792980</string>
-				<string>4B78B42512FF5D0E00792980</string>
+				<string>4B6902A913031E2B00216BD8</string>
+				<string>4B6902AA13031E2B00216BD8</string>
 				<string>1C9437FD063B20B00039CFAC</string>
 				<string>1C9437FE063B20B00039CFAC</string>
 				<string>1C9437FF063B20B00039CFAC</string>
@@ -476,13 +476,8 @@
 	<integer>0</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>4B78B42E12FF5D0E00792980</string>
-		<string>4B78B42F12FF5D0E00792980</string>
-		<string>1C530D54069F1CE1000CFCEE</string>
 		<string>1C530D52069F1CE1000CFCEE</string>
 		<string>/Users/base/c_languages/openframeworks/coke_energy/ProjectDonk/apps/3d/bullet_demo/bullet_tst.xcodeproj</string>
-		<string>1C530D5B069F1CE1000CFCEE</string>
-		<string>4B78B43012FF5D0E00792980</string>
 	</array>
 	<key>WindowString</key>
 	<string>845 202 595 676 0 0 1440 878 </string>
@@ -699,7 +694,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C530D52069F1CE1000CFCEE</string>
-				<string>4B78B42612FF5D0E00792980</string>
+				<string>4B6902AB13031E2B00216BD8</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -821,13 +816,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C530D54069F1CE1000CFCEE</string>
-				<string>4B78B42712FF5D0E00792980</string>
+				<string>4B353A9A1301C846006091E4</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>4B78B42812FF5D0E00792980</string>
-				<string>4B78B42912FF5D0E00792980</string>
-				<string>4B78B42A12FF5D0E00792980</string>
-				<string>4B78B42B12FF5D0E00792980</string>
-				<string>4B78B42C12FF5D0E00792980</string>
+				<string>4B353A9B1301C846006091E4</string>
+				<string>4B353A9C1301C846006091E4</string>
+				<string>4B353A9D1301C846006091E4</string>
+				<string>4B353A9E1301C846006091E4</string>
+				<string>4B353A9F1301C846006091E4</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
@@ -991,7 +986,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C530D5B069F1CE1000CFCEE</string>
-				<string>4B78B42D12FF5D0E00792980</string>
+				<string>4B353AA01301C846006091E4</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>ToolbarConfiguration</key>
