@@ -100,6 +100,11 @@ public:
 		gui -- sorry, ofxSimpleGui has no buttons.
 	 */
 	ControlBar::Bar controlbar;
+	/**
+		current and upcoming modes
+		referring to ints
+	 */
+	int modes[2];
 };
 
 #endif

@@ -25,9 +25,12 @@ namespace ControlBar{
 		virtual void draw();
 		virtual void update(int mouseX,int mouseY);
 		bool mouseIsHovering;
+		bool mouseIsDown;
 		static deque<Event> eventQueue;
 		virtual bool mouseDown();
+		virtual void mouseUp();
 		string className;
+		void* userData;
 	};
 
 	class Event{
@@ -67,5 +70,6 @@ namespace ControlBar{
 		int margin;
 	};
 	
+	void drawRoundedRect(GLuint glMode,float w,float h,float r);
 	
 }

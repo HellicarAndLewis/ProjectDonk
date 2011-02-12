@@ -34,19 +34,28 @@ void testApp::setup(){
 	http_auth = json_settings["sources_auth"].asString();
 
 	controlbar.children.push_back(new ControlBar::Label("Mode:                  "));
+	controlbar.children.push_back(new ControlBar::Button("Swap"));
+	controlbar.children.push_back(new ControlBar::Label("Next:                  "));
 	for(int i=0;i<source_names.size();i++){
 		loaders.push_back(new AsyncHttpLoader());
 		loaders.back()->timeout = http_get_timeout;
 		controlbar.children.push_back(new ControlBar::Button(source_names[i]));
+		controlbar.children.back()->userData = (void*)i;
 	}
 	controlbar.doLayout();
+	modes[0] = -1;
+	modes[1] = -1;
 	
+	oscOut.setup(rendermachine_ip,rendermachine_osc_port);
+
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
 
 	for(int i=0;i<loaders.size();i++){
+		if(i!=modes[0] && i!=modes[1])continue;
+		
 		if(loaders[i]->done){
 			if(!loaders[i]->errorString.empty()){
 				log(loaders[i]->errorString,1);
@@ -58,14 +67,18 @@ void testApp::update(){
 					log(statString,1);
 				}else{
 					json.parse(loaders[i]->data);
-					
-					for(int j=0;j<json["totalItems"].asInt();j++){
+					int itemCount = json["totalItems"].asInt();
+					if(itemCount==0){
+						log(source_names[i] + ": no new bubbles",2);
+					}
+					for(int j=0;j<itemCount;j++){
 						Json::Value bubble = json["items"][j];
 						
-						oscOut.setup(rendermachine_ip,rendermachine_osc_port);
 						ofxOscMessage m;
 						
 						m.setAddress("/control/bubble/new");
+						m.addStringArg("mode");
+						m.addStringArg(source_names[i]);
 						m.addStringArg("queueID");
 						m.addStringArg(bubble["queueID"].asString());
 						m.addStringArg("profileImageURL");
@@ -105,6 +118,7 @@ void testApp::update(){
 		//do consecutive blocking calls
 		try{
 			for(int i=0;i<source_names.size();i++){
+				if(i!=modes[0] && i!=modes[1])continue;
 				loaders[i]->get(json_settings["sources"][source_names[i]].asString(),http_auth);
 			}
 		}catch(logic_error err){
@@ -126,24 +140,58 @@ void testApp::update(){
 	while(ControlBar::Control::eventQueue.size()>0){
 		ControlBar::Event e = ControlBar::Control::eventQueue.front();
 		ControlBar::Control::eventQueue.pop_front();
-		if(e.what=="mouseDown" && e.obj->className=="Button"){
+		if(e.what=="mouseClicked" && e.obj->className=="Button"){
 				ControlBar::Button *b = (ControlBar::Button*)e.obj;
-				cout << b->text << endl;
+			if(b->text!="Swap"){
+				//mode buttons
+				//set upcoming
+				modes[1] = (int)b->userData;
+				
+				log(string("set upcoming mode to \"") + source_names[modes[1]] + "\"",3);
+				((ControlBar::Button*)controlbar.children[2])->text = string("Next: ") + source_names[modes[1]];
+				
+				ofxOscMessage m;
+				m.setAddress("/control/mode/next");
+				m.addStringArg(source_names[modes[1]]);
+				oscOut.sendMessage(m);
+				
+			}else{
+				//do swap
+				if(modes[1] != -1){
+					modes[0] = modes[1];
+					
+					((ControlBar::Button*)controlbar.children[0])->text = string("Mode: ") + source_names[modes[1]];
+					((ControlBar::Button*)controlbar.children[2])->text = "Next:";
+
+					modes[1] = -1;
+					
+					ofxOscMessage m;
+					m.setAddress("/control/mode/swap");
+					oscOut.sendMessage(m);
+					
+					log(string("swapped current mode to \"") + source_names[modes[0]] + "\"",3);
+					
+				}else{
+					log("Swap error - you must first queue up an upcoming mode by pressing one of the buttons on the right",1);
+				}
+			}
 		}
 	}
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
-	ofBackground(0,0,0);
+	ofBackground(50,50,50);
 	controlbar.draw();
 	glPushMatrix();
 	glTranslatef(0,controlbar.rect.height,0);
 	for(int i=0;i<console.size();i++){
-		if(console_colors[i]==0){
-			ofSetColor(128,255,128);
-		}else{
-			ofSetColor(255,128,128);
+		switch(console_colors[i]){
+			case 0: ofSetColor(128,255,128);break;
+			case 1: ofSetColor(255,128,128);break;
+			case 2: ofSetColor(100,100,100);break;
+			case 3: ofSetColor(255,200,0);break;
+			default: ofSetColor(255,255,255);break;
 		}
 		font.drawString(console[i],0,6);
 		glTranslatef(0,8,0);
@@ -179,7 +227,7 @@ void testApp::mousePressed(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mouseReleased(int x, int y, int button){
-
+	controlbar.mouseUp();
 }
 
 //--------------------------------------------------------------
