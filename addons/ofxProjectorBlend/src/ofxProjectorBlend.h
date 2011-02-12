@@ -54,6 +54,12 @@
 #include "ofxSimpleGuiToo.h"
 #endif
 
+#define USE_XML_GUI
+
+#ifdef USE_XML_GUI
+#include "ofxXmlGui.h"
+#endif
+
 // not implemented yet!
 enum ofxProjectorBlendLayout {
 	ofxProjectorBlend_Horizontal = 1,
@@ -90,6 +96,10 @@ class ofxProjectorBlend
 	void addGuiPage();
 #endif
 	
+#ifdef USE_XML_GUI
+	ofxXmlGui *getGui();
+	ofxXmlGui *gui;
+#endif
   protected:
 	
 	float fullTextureWidth;
