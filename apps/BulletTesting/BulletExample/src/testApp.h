@@ -1,13 +1,16 @@
 
 #pragma once
 #include "ofMain.h"
+<<<<<<< HEAD
+=======
 
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 #include "ofxBullet.h"
 
 
 
 
-
+/*
 class ofxBulletDebugDrawer : public btIDebugDraw {
 	
 private:
@@ -60,7 +63,7 @@ public:
 	
 	
 };
-
+*/
 
 
 

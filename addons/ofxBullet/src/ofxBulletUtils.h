@@ -13,7 +13,7 @@
 #include "btBulletDynamicsCommon.h"
 #include "btMotionState.h"
 
-#define SCALE 30.0
+#define SCALE 1.0
 
 
 static btVector3 btVec3Scaled(ofVec3f &v) {

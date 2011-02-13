@@ -27,6 +27,7 @@ class ofxBullet {
 
 public:
 	
+	ofCamera							* camera;
 	ofxBulletRigidBody					* ground;
 	//btCollisionShape					* groundShape;
 	
@@ -58,4 +59,29 @@ public:
 	
 	vector <ofxBulletRigidBody*> rigidBodies;
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// -------------------------------------------------
+	// -------------------------------------------------
+	// -------------------------------------------------
+	
+	
+	btVector3 getRayTo(int x, int y, ofCamera * cam);
+	void mousePressed(int x, int y);
+	void mouseReleased(int x, int y);
+	void mouseDragged(int x, int y);
+	
+	
+	
+	
+	
 };
