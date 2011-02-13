@@ -18,6 +18,7 @@ class ofxBullet {
 
 public:
 	
+	ofCamera							* camera;
 	ofxBulletRigidBody					* ground;
 	//btCollisionShape					* groundShape;
 	
@@ -37,9 +38,10 @@ public:
 	void draw();
 	void drawFloor();
 	
-	void createGround(float size);
-	void addBody(ofxBulletRigidBody *b);
-	
+	void		createGround(float size);
+	void		addBody(ofxBulletRigidBody *b);
+	btVector3	getRayTo(int x, int y, ofCamera * cam);
+		
 	ofxBulletRigidBody * createSphere(ofVec3f pos, float radius, float mass);
 
 	ofxBulletRigidBody * createBox(ofVec3f pos, ofVec3f size, float mass);
@@ -47,4 +49,43 @@ public:
 	
 	vector <ofxBulletRigidBody*> rigidBodies;
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// -------------------------------------------------
+	// -------------------------------------------------
+	// -------------------------------------------------
+	
+	
+	
+	void mousePressed(int x, int y);
+	//--------------------------------------------------------------
+	void mouseReleased(int x, int y);
+	//--------------------------------------------------------------
+	void mouseDragged(int x, int y);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 };
