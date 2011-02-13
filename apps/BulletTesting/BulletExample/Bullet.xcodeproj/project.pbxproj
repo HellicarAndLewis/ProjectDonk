@@ -7,7 +7,158 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B2304911307FEAB006B722E /* ofxBullet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B2303F71307FEAB006B722E /* ofxBullet.cpp */; };
+		4B2304921307FEAB006B722E /* ofxBulletHollowSphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B2303F91307FEAB006B722E /* ofxBulletHollowSphere.cpp */; };
+		4B2304931307FEAB006B722E /* ofxBulletRigidBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B2303FB1307FEAB006B722E /* ofxBulletRigidBody.cpp */; };
+		4B5D0C4D13081CB000AE3F07 /* GL_ShapeDrawer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0AB913081CAF00AE3F07 /* GL_ShapeDrawer.cpp */; };
+		4B5D0C4E13081CB000AE3F07 /* btAxisSweep3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0AC213081CAF00AE3F07 /* btAxisSweep3.cpp */; };
+		4B5D0C4F13081CB000AE3F07 /* btBroadphaseProxy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0AC513081CAF00AE3F07 /* btBroadphaseProxy.cpp */; };
+		4B5D0C5013081CB000AE3F07 /* btCollisionAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0AC713081CAF00AE3F07 /* btCollisionAlgorithm.cpp */; };
+		4B5D0C5113081CB000AE3F07 /* btDbvt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0AC913081CAF00AE3F07 /* btDbvt.cpp */; };
+		4B5D0C5213081CB000AE3F07 /* btDbvtBroadphase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0ACB13081CAF00AE3F07 /* btDbvtBroadphase.cpp */; };
+		4B5D0C5313081CB000AE3F07 /* btDispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0ACD13081CAF00AE3F07 /* btDispatcher.cpp */; };
+		4B5D0C5413081CB000AE3F07 /* btMultiSapBroadphase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0ACF13081CAF00AE3F07 /* btMultiSapBroadphase.cpp */; };
+		4B5D0C5513081CB000AE3F07 /* btOverlappingPairCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0AD113081CAF00AE3F07 /* btOverlappingPairCache.cpp */; };
+		4B5D0C5613081CB000AE3F07 /* btQuantizedBvh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0AD413081CAF00AE3F07 /* btQuantizedBvh.cpp */; };
+		4B5D0C5713081CB000AE3F07 /* btSimpleBroadphase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0AD613081CAF00AE3F07 /* btSimpleBroadphase.cpp */; };
+		4B5D0C5813081CB000AE3F07 /* btActivatingCollisionAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0AD913081CAF00AE3F07 /* btActivatingCollisionAlgorithm.cpp */; };
+		4B5D0C5913081CB000AE3F07 /* btBoxBoxCollisionAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0ADB13081CAF00AE3F07 /* btBoxBoxCollisionAlgorithm.cpp */; };
+		4B5D0C5A13081CB000AE3F07 /* btBoxBoxDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0ADD13081CAF00AE3F07 /* btBoxBoxDetector.cpp */; };
+		4B5D0C5B13081CB000AE3F07 /* btCollisionDispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0AE113081CAF00AE3F07 /* btCollisionDispatcher.cpp */; };
+		4B5D0C5C13081CB000AE3F07 /* btCollisionObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0AE313081CAF00AE3F07 /* btCollisionObject.cpp */; };
+		4B5D0C5D13081CB000AE3F07 /* btCollisionWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0AE513081CAF00AE3F07 /* btCollisionWorld.cpp */; };
+		4B5D0C5E13081CB000AE3F07 /* btCompoundCollisionAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0AE713081CAF00AE3F07 /* btCompoundCollisionAlgorithm.cpp */; };
+		4B5D0C5F13081CB000AE3F07 /* btConvexConcaveCollisionAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0AE913081CAF00AE3F07 /* btConvexConcaveCollisionAlgorithm.cpp */; };
+		4B5D0C6013081CB000AE3F07 /* btConvexConvexAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0AEB13081CAF00AE3F07 /* btConvexConvexAlgorithm.cpp */; };
+		4B5D0C6113081CB000AE3F07 /* btConvexPlaneCollisionAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0AED13081CAF00AE3F07 /* btConvexPlaneCollisionAlgorithm.cpp */; };
+		4B5D0C6213081CB000AE3F07 /* btDefaultCollisionConfiguration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0AEF13081CAF00AE3F07 /* btDefaultCollisionConfiguration.cpp */; };
+		4B5D0C6313081CB000AE3F07 /* btEmptyCollisionAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0AF113081CAF00AE3F07 /* btEmptyCollisionAlgorithm.cpp */; };
+		4B5D0C6413081CB000AE3F07 /* btGhostObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0AF313081CAF00AE3F07 /* btGhostObject.cpp */; };
+		4B5D0C6513081CB000AE3F07 /* btManifoldResult.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0AF513081CAF00AE3F07 /* btManifoldResult.cpp */; };
+		4B5D0C6613081CB000AE3F07 /* btSimulationIslandManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0AF713081CAF00AE3F07 /* btSimulationIslandManager.cpp */; };
+		4B5D0C6713081CB000AE3F07 /* btSphereBoxCollisionAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0AF913081CAF00AE3F07 /* btSphereBoxCollisionAlgorithm.cpp */; };
+		4B5D0C6813081CB000AE3F07 /* btSphereSphereCollisionAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0AFB13081CAF00AE3F07 /* btSphereSphereCollisionAlgorithm.cpp */; };
+		4B5D0C6913081CB000AE3F07 /* btSphereTriangleCollisionAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0AFD13081CAF00AE3F07 /* btSphereTriangleCollisionAlgorithm.cpp */; };
+		4B5D0C6A13081CB000AE3F07 /* btUnionFind.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0AFF13081CAF00AE3F07 /* btUnionFind.cpp */; };
+		4B5D0C6B13081CB000AE3F07 /* SphereTriangleDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B0113081CAF00AE3F07 /* SphereTriangleDetector.cpp */; };
+		4B5D0C6C13081CB000AE3F07 /* btBoxShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B0413081CAF00AE3F07 /* btBoxShape.cpp */; };
+		4B5D0C6D13081CB000AE3F07 /* btBvhTriangleMeshShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B0613081CAF00AE3F07 /* btBvhTriangleMeshShape.cpp */; };
+		4B5D0C6E13081CB000AE3F07 /* btCapsuleShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B0813081CAF00AE3F07 /* btCapsuleShape.cpp */; };
+		4B5D0C6F13081CB000AE3F07 /* btCollisionShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B0B13081CAF00AE3F07 /* btCollisionShape.cpp */; };
+		4B5D0C7013081CB000AE3F07 /* btCompoundShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B0D13081CAF00AE3F07 /* btCompoundShape.cpp */; };
+		4B5D0C7113081CB000AE3F07 /* btConcaveShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B0F13081CAF00AE3F07 /* btConcaveShape.cpp */; };
+		4B5D0C7213081CB000AE3F07 /* btConeShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B1113081CAF00AE3F07 /* btConeShape.cpp */; };
+		4B5D0C7313081CB000AE3F07 /* btConvexHullShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B1313081CAF00AE3F07 /* btConvexHullShape.cpp */; };
+		4B5D0C7413081CB000AE3F07 /* btConvexInternalShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B1513081CAF00AE3F07 /* btConvexInternalShape.cpp */; };
+		4B5D0C7513081CB000AE3F07 /* btConvexPointCloudShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B1713081CAF00AE3F07 /* btConvexPointCloudShape.cpp */; };
+		4B5D0C7613081CB000AE3F07 /* btConvexShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B1913081CAF00AE3F07 /* btConvexShape.cpp */; };
+		4B5D0C7713081CB000AE3F07 /* btConvexTriangleMeshShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B1B13081CAF00AE3F07 /* btConvexTriangleMeshShape.cpp */; };
+		4B5D0C7813081CB000AE3F07 /* btCylinderShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B1D13081CAF00AE3F07 /* btCylinderShape.cpp */; };
+		4B5D0C7913081CB000AE3F07 /* btEmptyShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B1F13081CAF00AE3F07 /* btEmptyShape.cpp */; };
+		4B5D0C7A13081CB000AE3F07 /* btHeightfieldTerrainShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B2113081CAF00AE3F07 /* btHeightfieldTerrainShape.cpp */; };
+		4B5D0C7B13081CB000AE3F07 /* btMinkowskiSumShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B2413081CAF00AE3F07 /* btMinkowskiSumShape.cpp */; };
+		4B5D0C7C13081CB000AE3F07 /* btMultimaterialTriangleMeshShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B2613081CAF00AE3F07 /* btMultimaterialTriangleMeshShape.cpp */; };
+		4B5D0C7D13081CB000AE3F07 /* btMultiSphereShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B2813081CAF00AE3F07 /* btMultiSphereShape.cpp */; };
+		4B5D0C7E13081CB000AE3F07 /* btOptimizedBvh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B2A13081CAF00AE3F07 /* btOptimizedBvh.cpp */; };
+		4B5D0C7F13081CB000AE3F07 /* btPolyhedralConvexShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B2C13081CAF00AE3F07 /* btPolyhedralConvexShape.cpp */; };
+		4B5D0C8013081CB000AE3F07 /* btScaledBvhTriangleMeshShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B2E13081CAF00AE3F07 /* btScaledBvhTriangleMeshShape.cpp */; };
+		4B5D0C8113081CB000AE3F07 /* btShapeHull.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B3013081CAF00AE3F07 /* btShapeHull.cpp */; };
+		4B5D0C8213081CB000AE3F07 /* btSphereShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B3213081CAF00AE3F07 /* btSphereShape.cpp */; };
+		4B5D0C8313081CB000AE3F07 /* btStaticPlaneShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B3413081CAF00AE3F07 /* btStaticPlaneShape.cpp */; };
+		4B5D0C8413081CB000AE3F07 /* btStridingMeshInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B3613081CAF00AE3F07 /* btStridingMeshInterface.cpp */; };
+		4B5D0C8513081CB000AE3F07 /* btTetrahedronShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B3813081CAF00AE3F07 /* btTetrahedronShape.cpp */; };
+		4B5D0C8613081CB000AE3F07 /* btTriangleBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B3A13081CAF00AE3F07 /* btTriangleBuffer.cpp */; };
+		4B5D0C8713081CB000AE3F07 /* btTriangleCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B3C13081CAF00AE3F07 /* btTriangleCallback.cpp */; };
+		4B5D0C8813081CB000AE3F07 /* btTriangleIndexVertexArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B3E13081CAF00AE3F07 /* btTriangleIndexVertexArray.cpp */; };
+		4B5D0C8913081CB000AE3F07 /* btTriangleIndexVertexMaterialArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B4013081CAF00AE3F07 /* btTriangleIndexVertexMaterialArray.cpp */; };
+		4B5D0C8A13081CB000AE3F07 /* btTriangleMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B4213081CAF00AE3F07 /* btTriangleMesh.cpp */; };
+		4B5D0C8B13081CB000AE3F07 /* btTriangleMeshShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B4413081CAF00AE3F07 /* btTriangleMeshShape.cpp */; };
+		4B5D0C8C13081CB000AE3F07 /* btUniformScalingShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B4713081CAF00AE3F07 /* btUniformScalingShape.cpp */; };
+		4B5D0C8D13081CB000AE3F07 /* btContactProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B4C13081CAF00AE3F07 /* btContactProcessing.cpp */; };
+		4B5D0C8E13081CB000AE3F07 /* btGenericPoolAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B4E13081CAF00AE3F07 /* btGenericPoolAllocator.cpp */; };
+		4B5D0C8F13081CB000AE3F07 /* btGImpactBvh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B5113081CAF00AE3F07 /* btGImpactBvh.cpp */; };
+		4B5D0C9013081CB000AE3F07 /* btGImpactCollisionAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B5313081CAF00AE3F07 /* btGImpactCollisionAlgorithm.cpp */; };
+		4B5D0C9113081CB000AE3F07 /* btGImpactQuantizedBvh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B5613081CAF00AE3F07 /* btGImpactQuantizedBvh.cpp */; };
+		4B5D0C9213081CB000AE3F07 /* btGImpactShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B5813081CAF00AE3F07 /* btGImpactShape.cpp */; };
+		4B5D0C9313081CB000AE3F07 /* btTriangleShapeEx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B5B13081CAF00AE3F07 /* btTriangleShapeEx.cpp */; };
+		4B5D0C9413081CB000AE3F07 /* gim_box_set.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B6113081CAF00AE3F07 /* gim_box_set.cpp */; };
+		4B5D0C9513081CB000AE3F07 /* gim_contact.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B6413081CAF00AE3F07 /* gim_contact.cpp */; };
+		4B5D0C9613081CB000AE3F07 /* gim_memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B6B13081CAF00AE3F07 /* gim_memory.cpp */; };
+		4B5D0C9713081CB000AE3F07 /* gim_tri_collision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B6E13081CAF00AE3F07 /* gim_tri_collision.cpp */; };
+		4B5D0C9813081CB000AE3F07 /* btContinuousConvexCollision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B7113081CAF00AE3F07 /* btContinuousConvexCollision.cpp */; };
+		4B5D0C9913081CB000AE3F07 /* btConvexCast.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B7313081CAF00AE3F07 /* btConvexCast.cpp */; };
+		4B5D0C9A13081CB000AE3F07 /* btGjkConvexCast.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B7713081CAF00AE3F07 /* btGjkConvexCast.cpp */; };
+		4B5D0C9B13081CB000AE3F07 /* btGjkEpa2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B7913081CAF00AE3F07 /* btGjkEpa2.cpp */; };
+		4B5D0C9C13081CB000AE3F07 /* btGjkEpaPenetrationDepthSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B7B13081CAF00AE3F07 /* btGjkEpaPenetrationDepthSolver.cpp */; };
+		4B5D0C9D13081CB000AE3F07 /* btGjkPairDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B7D13081CAF00AE3F07 /* btGjkPairDetector.cpp */; };
+		4B5D0C9E13081CB000AE3F07 /* btMinkowskiPenetrationDepthSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B8013081CAF00AE3F07 /* btMinkowskiPenetrationDepthSolver.cpp */; };
+		4B5D0C9F13081CB000AE3F07 /* btPersistentManifold.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B8213081CAF00AE3F07 /* btPersistentManifold.cpp */; };
+		4B5D0CA013081CB000AE3F07 /* btRaycastCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B8513081CAF00AE3F07 /* btRaycastCallback.cpp */; };
+		4B5D0CA113081CB000AE3F07 /* btSubSimplexConvexCast.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B8813081CAF00AE3F07 /* btSubSimplexConvexCast.cpp */; };
+		4B5D0CA213081CB000AE3F07 /* btVoronoiSimplexSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B8A13081CAF00AE3F07 /* btVoronoiSimplexSolver.cpp */; };
+		4B5D0CA313081CB000AE3F07 /* btKinematicCharacterController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B8F13081CAF00AE3F07 /* btKinematicCharacterController.cpp */; };
+		4B5D0CA413081CB000AE3F07 /* btConeTwistConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B9213081CAF00AE3F07 /* btConeTwistConstraint.cpp */; };
+		4B5D0CA513081CB000AE3F07 /* btContactConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B9513081CAF00AE3F07 /* btContactConstraint.cpp */; };
+		4B5D0CA613081CB000AE3F07 /* btGeneric6DofConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B9813081CAF00AE3F07 /* btGeneric6DofConstraint.cpp */; };
+		4B5D0CA713081CB000AE3F07 /* btGeneric6DofSpringConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B9A13081CAF00AE3F07 /* btGeneric6DofSpringConstraint.cpp */; };
+		4B5D0CA813081CB000AE3F07 /* btHinge2Constraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B9C13081CAF00AE3F07 /* btHinge2Constraint.cpp */; };
+		4B5D0CA913081CB000AE3F07 /* btHingeConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0B9E13081CAF00AE3F07 /* btHingeConstraint.cpp */; };
+		4B5D0CAA13081CB000AE3F07 /* btPoint2PointConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BA113081CAF00AE3F07 /* btPoint2PointConstraint.cpp */; };
+		4B5D0CAB13081CB000AE3F07 /* btSequentialImpulseConstraintSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BA313081CAF00AE3F07 /* btSequentialImpulseConstraintSolver.cpp */; };
+		4B5D0CAC13081CB000AE3F07 /* btSliderConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BA513081CAF00AE3F07 /* btSliderConstraint.cpp */; };
+		4B5D0CAD13081CB000AE3F07 /* btSolve2LinearConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BA713081CAF00AE3F07 /* btSolve2LinearConstraint.cpp */; };
+		4B5D0CAE13081CB000AE3F07 /* btTypedConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BAB13081CAF00AE3F07 /* btTypedConstraint.cpp */; };
+		4B5D0CAF13081CB000AE3F07 /* btUniversalConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BAD13081CAF00AE3F07 /* btUniversalConstraint.cpp */; };
+		4B5D0CB013081CB000AE3F07 /* btContinuousDynamicsWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BB113081CAF00AE3F07 /* btContinuousDynamicsWorld.cpp */; };
+		4B5D0CB113081CB000AE3F07 /* btDiscreteDynamicsWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BB313081CAF00AE3F07 /* btDiscreteDynamicsWorld.cpp */; };
+		4B5D0CB213081CB000AE3F07 /* btRigidBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BB613081CAF00AE3F07 /* btRigidBody.cpp */; };
+		4B5D0CB313081CB000AE3F07 /* btSimpleDynamicsWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BB813081CAF00AE3F07 /* btSimpleDynamicsWorld.cpp */; };
+		4B5D0CB413081CB000AE3F07 /* Bullet-C-API.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BBA13081CAF00AE3F07 /* Bullet-C-API.cpp */; };
+		4B5D0CB513081CB000AE3F07 /* btRaycastVehicle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BBC13081CAF00AE3F07 /* btRaycastVehicle.cpp */; };
+		4B5D0CB613081CB000AE3F07 /* btWheelInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BBF13081CAF00AE3F07 /* btWheelInfo.cpp */; };
+		4B5D0CB713081CB000AE3F07 /* btGpu3DGridBroadphase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BC213081CAF00AE3F07 /* btGpu3DGridBroadphase.cpp */; };
+		4B5D0CB813081CB000AE3F07 /* btThreadSupportInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BCA13081CAF00AE3F07 /* btThreadSupportInterface.cpp */; };
+		4B5D0CB913081CB000AE3F07 /* MiniCLTask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BCE13081CAF00AE3F07 /* MiniCLTask.cpp */; };
+		4B5D0CBA13081CB000AE3F07 /* MiniCLTaskScheduler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BD013081CAF00AE3F07 /* MiniCLTaskScheduler.cpp */; };
+		4B5D0CBB13081CB000AE3F07 /* PosixThreadSupport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BD313081CAF00AE3F07 /* PosixThreadSupport.cpp */; };
+		4B5D0CBC13081CB000AE3F07 /* SequentialThreadSupport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BD613081CAF00AE3F07 /* SequentialThreadSupport.cpp */; };
+		4B5D0CBD13081CB000AE3F07 /* SpuBatchRaycaster.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BD813081CAF00AE3F07 /* SpuBatchRaycaster.cpp */; };
+		4B5D0CBE13081CB000AE3F07 /* SpuCollisionObjectWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BDA13081CAF00AE3F07 /* SpuCollisionObjectWrapper.cpp */; };
+		4B5D0CBF13081CB000AE3F07 /* SpuCollisionTaskProcess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BDC13081CAF00AE3F07 /* SpuCollisionTaskProcess.cpp */; };
+		4B5D0CC013081CB000AE3F07 /* SpuContactManifoldCollisionAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BDE13081CAF00AE3F07 /* SpuContactManifoldCollisionAlgorithm.cpp */; };
+		4B5D0CC113081CB000AE3F07 /* SpuFakeDma.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BE113081CAF00AE3F07 /* SpuFakeDma.cpp */; };
+		4B5D0CC213081CB000AE3F07 /* SpuGatheringCollisionDispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BE313081CAF00AE3F07 /* SpuGatheringCollisionDispatcher.cpp */; };
+		4B5D0CC313081CB000AE3F07 /* SpuLibspe2Support.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BE713081CAF00AE3F07 /* SpuLibspe2Support.cpp */; };
+		4B5D0CC413081CB000AE3F07 /* boxBoxDistance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BEB13081CAF00AE3F07 /* boxBoxDistance.cpp */; };
+		4B5D0CC513081CB000AE3F07 /* SpuCollisionShapes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BED13081CAF00AE3F07 /* SpuCollisionShapes.cpp */; };
+		4B5D0CC613081CB000AE3F07 /* SpuContactResult.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BEF13081CAF00AE3F07 /* SpuContactResult.cpp */; };
+		4B5D0CC713081CB000AE3F07 /* SpuEpaPenetrationDepthSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BF213081CAF00AE3F07 /* SpuEpaPenetrationDepthSolver.cpp */; };
+		4B5D0CC813081CB000AE3F07 /* SpuGatheringCollisionTask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BF413081CAF00AE3F07 /* SpuGatheringCollisionTask.cpp */; };
+		4B5D0CC913081CB000AE3F07 /* SpuGjkEpa2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BF613081CAF00AE3F07 /* SpuGjkEpa2.cpp */; };
+		4B5D0CCA13081CB000AE3F07 /* SpuGjkPairDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BF813081CAF00AE3F07 /* SpuGjkPairDetector.cpp */; };
+		4B5D0CCB13081CB000AE3F07 /* SpuMinkowskiPenetrationDepthSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BFB13081CAF00AE3F07 /* SpuMinkowskiPenetrationDepthSolver.cpp */; };
+		4B5D0CCC13081CB000AE3F07 /* SpuVoronoiSimplexSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0BFE13081CAF00AE3F07 /* SpuVoronoiSimplexSolver.cpp */; };
+		4B5D0CCD13081CB000AE3F07 /* SpuParallelSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0C0013081CAF00AE3F07 /* SpuParallelSolver.cpp */; };
+		4B5D0CCE13081CB000AE3F07 /* SpuRaycastTask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0C0313081CAF00AE3F07 /* SpuRaycastTask.cpp */; };
+		4B5D0CCF13081CB000AE3F07 /* SpuSubSimplexConvexCast.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0C0513081CAF00AE3F07 /* SpuSubSimplexConvexCast.cpp */; };
+		4B5D0CD013081CB000AE3F07 /* SpuRaycastTaskProcess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0C0713081CAF00AE3F07 /* SpuRaycastTaskProcess.cpp */; };
+		4B5D0CD113081CB000AE3F07 /* SpuSampleTask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0C0A13081CAF00AE3F07 /* SpuSampleTask.cpp */; };
+		4B5D0CD213081CB000AE3F07 /* SpuSampleTaskProcess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0C0C13081CAF00AE3F07 /* SpuSampleTaskProcess.cpp */; };
+		4B5D0CD313081CB000AE3F07 /* SpuParallellSolverTask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0C0F13081CAF00AE3F07 /* SpuParallellSolverTask.cpp */; };
+		4B5D0CD413081CB000AE3F07 /* Win32ThreadSupport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0C1A13081CB000AE3F07 /* Win32ThreadSupport.cpp */; };
+		4B5D0CD513081CB000AE3F07 /* btSoftBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0C1D13081CB000AE3F07 /* btSoftBody.cpp */; };
+		4B5D0CD613081CB000AE3F07 /* btSoftBodyConcaveCollisionAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0C1F13081CB000AE3F07 /* btSoftBodyConcaveCollisionAlgorithm.cpp */; };
+		4B5D0CD713081CB000AE3F07 /* btSoftBodyHelpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0C2113081CB000AE3F07 /* btSoftBodyHelpers.cpp */; };
+		4B5D0CD813081CB000AE3F07 /* btSoftBodyRigidBodyCollisionConfiguration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0C2413081CB000AE3F07 /* btSoftBodyRigidBodyCollisionConfiguration.cpp */; };
+		4B5D0CD913081CB000AE3F07 /* btSoftRigidCollisionAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0C2613081CB000AE3F07 /* btSoftRigidCollisionAlgorithm.cpp */; };
+		4B5D0CDA13081CB000AE3F07 /* btSoftRigidDynamicsWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0C2813081CB000AE3F07 /* btSoftRigidDynamicsWorld.cpp */; };
+		4B5D0CDB13081CB000AE3F07 /* btSoftSoftCollisionAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0C2A13081CB000AE3F07 /* btSoftSoftCollisionAlgorithm.cpp */; };
+		4B5D0CDC13081CB000AE3F07 /* btAlignedAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0C2F13081CB000AE3F07 /* btAlignedAllocator.cpp */; };
+		4B5D0CDD13081CB000AE3F07 /* btConvexHull.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0C3213081CB000AE3F07 /* btConvexHull.cpp */; };
+		4B5D0CDE13081CB000AE3F07 /* btGeometryUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0C3513081CB000AE3F07 /* btGeometryUtil.cpp */; };
+		4B5D0CDF13081CB000AE3F07 /* btQuickprof.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D0C4013081CB000AE3F07 /* btQuickprof.cpp */; };
 		4B9F3A9712F58B31008C3BAF /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B9F3A9612F58B31008C3BAF /* main.cpp */; };
+<<<<<<< HEAD
 		5FD6F78D1306E45300B7E62B /* GL_ShapeDrawer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FD6F5F01306E45200B7E62B /* GL_ShapeDrawer.cpp */; };
 		5FD6F78E1306E45300B7E62B /* btAxisSweep3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FD6F5F91306E45200B7E62B /* btAxisSweep3.cpp */; };
 		5FD6F78F1306E45300B7E62B /* btBroadphaseProxy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FD6F5FC1306E45200B7E62B /* btBroadphaseProxy.cpp */; };
@@ -158,6 +309,9 @@
 		5FD6F8201306E45300B7E62B /* ofxBullet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FD6F7881306E45300B7E62B /* ofxBullet.cpp */; };
 		5FD6F8211306E45300B7E62B /* ofxBulletRigidBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FD6F78A1306E45300B7E62B /* ofxBulletRigidBody.cpp */; };
 		E4C2422B10CC554B004149E2 /* openFrameworks.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2421E10CC549C004149E2 /* openFrameworks.a */; };
+=======
+		E4C2422B10CC554B004149E2 /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2421E10CC549C004149E2 /* openFrameworksDebug.a */; };
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 		E4C2443910CC7693004149E2 /* openFrameworks-Info.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */; };
 		EAC12C1A12E6F94F0071CE8E /* testApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAC12C1812E6F94F0071CE8E /* testApp.cpp */; };
 		EAF9774F12E45B8D0009DBBE /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF9774212E45B8D0009DBBE /* GLUT.framework */; };
@@ -215,7 +369,392 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4B2303F71307FEAB006B722E /* ofxBullet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBullet.cpp; sourceTree = "<group>"; };
+		4B2303F81307FEAB006B722E /* ofxBullet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBullet.h; sourceTree = "<group>"; };
+		4B2303F91307FEAB006B722E /* ofxBulletHollowSphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBulletHollowSphere.cpp; sourceTree = "<group>"; };
+		4B2303FA1307FEAB006B722E /* ofxBulletHollowSphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBulletHollowSphere.h; sourceTree = "<group>"; };
+		4B2303FB1307FEAB006B722E /* ofxBulletRigidBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBulletRigidBody.cpp; sourceTree = "<group>"; };
+		4B2303FC1307FEAB006B722E /* ofxBulletRigidBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBulletRigidBody.h; sourceTree = "<group>"; };
+		4B2303FD1307FEAB006B722E /* ofxBulletUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBulletUtils.h; sourceTree = "<group>"; };
+		4B5D0AB913081CAF00AE3F07 /* GL_ShapeDrawer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GL_ShapeDrawer.cpp; sourceTree = "<group>"; };
+		4B5D0ABA13081CAF00AE3F07 /* GL_ShapeDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GL_ShapeDrawer.h; sourceTree = "<group>"; };
+		4B5D0ABD13081CAF00AE3F07 /* btBulletCollisionCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btBulletCollisionCommon.h; sourceTree = "<group>"; };
+		4B5D0ABE13081CAF00AE3F07 /* btBulletDynamicsCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btBulletDynamicsCommon.h; sourceTree = "<group>"; };
+		4B5D0ABF13081CAF00AE3F07 /* Bullet-C-Api.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bullet-C-Api.h"; sourceTree = "<group>"; };
+		4B5D0AC213081CAF00AE3F07 /* btAxisSweep3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btAxisSweep3.cpp; sourceTree = "<group>"; };
+		4B5D0AC313081CAF00AE3F07 /* btAxisSweep3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btAxisSweep3.h; sourceTree = "<group>"; };
+		4B5D0AC413081CAF00AE3F07 /* btBroadphaseInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btBroadphaseInterface.h; sourceTree = "<group>"; };
+		4B5D0AC513081CAF00AE3F07 /* btBroadphaseProxy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btBroadphaseProxy.cpp; sourceTree = "<group>"; };
+		4B5D0AC613081CAF00AE3F07 /* btBroadphaseProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btBroadphaseProxy.h; sourceTree = "<group>"; };
+		4B5D0AC713081CAF00AE3F07 /* btCollisionAlgorithm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btCollisionAlgorithm.cpp; sourceTree = "<group>"; };
+		4B5D0AC813081CAF00AE3F07 /* btCollisionAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btCollisionAlgorithm.h; sourceTree = "<group>"; };
+		4B5D0AC913081CAF00AE3F07 /* btDbvt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btDbvt.cpp; sourceTree = "<group>"; };
+		4B5D0ACA13081CAF00AE3F07 /* btDbvt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btDbvt.h; sourceTree = "<group>"; };
+		4B5D0ACB13081CAF00AE3F07 /* btDbvtBroadphase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btDbvtBroadphase.cpp; sourceTree = "<group>"; };
+		4B5D0ACC13081CAF00AE3F07 /* btDbvtBroadphase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btDbvtBroadphase.h; sourceTree = "<group>"; };
+		4B5D0ACD13081CAF00AE3F07 /* btDispatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btDispatcher.cpp; sourceTree = "<group>"; };
+		4B5D0ACE13081CAF00AE3F07 /* btDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btDispatcher.h; sourceTree = "<group>"; };
+		4B5D0ACF13081CAF00AE3F07 /* btMultiSapBroadphase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btMultiSapBroadphase.cpp; sourceTree = "<group>"; };
+		4B5D0AD013081CAF00AE3F07 /* btMultiSapBroadphase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btMultiSapBroadphase.h; sourceTree = "<group>"; };
+		4B5D0AD113081CAF00AE3F07 /* btOverlappingPairCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btOverlappingPairCache.cpp; sourceTree = "<group>"; };
+		4B5D0AD213081CAF00AE3F07 /* btOverlappingPairCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btOverlappingPairCache.h; sourceTree = "<group>"; };
+		4B5D0AD313081CAF00AE3F07 /* btOverlappingPairCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btOverlappingPairCallback.h; sourceTree = "<group>"; };
+		4B5D0AD413081CAF00AE3F07 /* btQuantizedBvh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btQuantizedBvh.cpp; sourceTree = "<group>"; };
+		4B5D0AD513081CAF00AE3F07 /* btQuantizedBvh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btQuantizedBvh.h; sourceTree = "<group>"; };
+		4B5D0AD613081CAF00AE3F07 /* btSimpleBroadphase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btSimpleBroadphase.cpp; sourceTree = "<group>"; };
+		4B5D0AD713081CAF00AE3F07 /* btSimpleBroadphase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btSimpleBroadphase.h; sourceTree = "<group>"; };
+		4B5D0AD913081CAF00AE3F07 /* btActivatingCollisionAlgorithm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btActivatingCollisionAlgorithm.cpp; sourceTree = "<group>"; };
+		4B5D0ADA13081CAF00AE3F07 /* btActivatingCollisionAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btActivatingCollisionAlgorithm.h; sourceTree = "<group>"; };
+		4B5D0ADB13081CAF00AE3F07 /* btBoxBoxCollisionAlgorithm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btBoxBoxCollisionAlgorithm.cpp; sourceTree = "<group>"; };
+		4B5D0ADC13081CAF00AE3F07 /* btBoxBoxCollisionAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btBoxBoxCollisionAlgorithm.h; sourceTree = "<group>"; };
+		4B5D0ADD13081CAF00AE3F07 /* btBoxBoxDetector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btBoxBoxDetector.cpp; sourceTree = "<group>"; };
+		4B5D0ADE13081CAF00AE3F07 /* btBoxBoxDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btBoxBoxDetector.h; sourceTree = "<group>"; };
+		4B5D0ADF13081CAF00AE3F07 /* btCollisionConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btCollisionConfiguration.h; sourceTree = "<group>"; };
+		4B5D0AE013081CAF00AE3F07 /* btCollisionCreateFunc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btCollisionCreateFunc.h; sourceTree = "<group>"; };
+		4B5D0AE113081CAF00AE3F07 /* btCollisionDispatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btCollisionDispatcher.cpp; sourceTree = "<group>"; };
+		4B5D0AE213081CAF00AE3F07 /* btCollisionDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btCollisionDispatcher.h; sourceTree = "<group>"; };
+		4B5D0AE313081CAF00AE3F07 /* btCollisionObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btCollisionObject.cpp; sourceTree = "<group>"; };
+		4B5D0AE413081CAF00AE3F07 /* btCollisionObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btCollisionObject.h; sourceTree = "<group>"; };
+		4B5D0AE513081CAF00AE3F07 /* btCollisionWorld.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btCollisionWorld.cpp; sourceTree = "<group>"; };
+		4B5D0AE613081CAF00AE3F07 /* btCollisionWorld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btCollisionWorld.h; sourceTree = "<group>"; };
+		4B5D0AE713081CAF00AE3F07 /* btCompoundCollisionAlgorithm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btCompoundCollisionAlgorithm.cpp; sourceTree = "<group>"; };
+		4B5D0AE813081CAF00AE3F07 /* btCompoundCollisionAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btCompoundCollisionAlgorithm.h; sourceTree = "<group>"; };
+		4B5D0AE913081CAF00AE3F07 /* btConvexConcaveCollisionAlgorithm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btConvexConcaveCollisionAlgorithm.cpp; sourceTree = "<group>"; };
+		4B5D0AEA13081CAF00AE3F07 /* btConvexConcaveCollisionAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btConvexConcaveCollisionAlgorithm.h; sourceTree = "<group>"; };
+		4B5D0AEB13081CAF00AE3F07 /* btConvexConvexAlgorithm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btConvexConvexAlgorithm.cpp; sourceTree = "<group>"; };
+		4B5D0AEC13081CAF00AE3F07 /* btConvexConvexAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btConvexConvexAlgorithm.h; sourceTree = "<group>"; };
+		4B5D0AED13081CAF00AE3F07 /* btConvexPlaneCollisionAlgorithm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btConvexPlaneCollisionAlgorithm.cpp; sourceTree = "<group>"; };
+		4B5D0AEE13081CAF00AE3F07 /* btConvexPlaneCollisionAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btConvexPlaneCollisionAlgorithm.h; sourceTree = "<group>"; };
+		4B5D0AEF13081CAF00AE3F07 /* btDefaultCollisionConfiguration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btDefaultCollisionConfiguration.cpp; sourceTree = "<group>"; };
+		4B5D0AF013081CAF00AE3F07 /* btDefaultCollisionConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btDefaultCollisionConfiguration.h; sourceTree = "<group>"; };
+		4B5D0AF113081CAF00AE3F07 /* btEmptyCollisionAlgorithm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btEmptyCollisionAlgorithm.cpp; sourceTree = "<group>"; };
+		4B5D0AF213081CAF00AE3F07 /* btEmptyCollisionAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btEmptyCollisionAlgorithm.h; sourceTree = "<group>"; };
+		4B5D0AF313081CAF00AE3F07 /* btGhostObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btGhostObject.cpp; sourceTree = "<group>"; };
+		4B5D0AF413081CAF00AE3F07 /* btGhostObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btGhostObject.h; sourceTree = "<group>"; };
+		4B5D0AF513081CAF00AE3F07 /* btManifoldResult.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btManifoldResult.cpp; sourceTree = "<group>"; };
+		4B5D0AF613081CAF00AE3F07 /* btManifoldResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btManifoldResult.h; sourceTree = "<group>"; };
+		4B5D0AF713081CAF00AE3F07 /* btSimulationIslandManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btSimulationIslandManager.cpp; sourceTree = "<group>"; };
+		4B5D0AF813081CAF00AE3F07 /* btSimulationIslandManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btSimulationIslandManager.h; sourceTree = "<group>"; };
+		4B5D0AF913081CAF00AE3F07 /* btSphereBoxCollisionAlgorithm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btSphereBoxCollisionAlgorithm.cpp; sourceTree = "<group>"; };
+		4B5D0AFA13081CAF00AE3F07 /* btSphereBoxCollisionAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btSphereBoxCollisionAlgorithm.h; sourceTree = "<group>"; };
+		4B5D0AFB13081CAF00AE3F07 /* btSphereSphereCollisionAlgorithm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btSphereSphereCollisionAlgorithm.cpp; sourceTree = "<group>"; };
+		4B5D0AFC13081CAF00AE3F07 /* btSphereSphereCollisionAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btSphereSphereCollisionAlgorithm.h; sourceTree = "<group>"; };
+		4B5D0AFD13081CAF00AE3F07 /* btSphereTriangleCollisionAlgorithm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btSphereTriangleCollisionAlgorithm.cpp; sourceTree = "<group>"; };
+		4B5D0AFE13081CAF00AE3F07 /* btSphereTriangleCollisionAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btSphereTriangleCollisionAlgorithm.h; sourceTree = "<group>"; };
+		4B5D0AFF13081CAF00AE3F07 /* btUnionFind.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btUnionFind.cpp; sourceTree = "<group>"; };
+		4B5D0B0013081CAF00AE3F07 /* btUnionFind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btUnionFind.h; sourceTree = "<group>"; };
+		4B5D0B0113081CAF00AE3F07 /* SphereTriangleDetector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SphereTriangleDetector.cpp; sourceTree = "<group>"; };
+		4B5D0B0213081CAF00AE3F07 /* SphereTriangleDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SphereTriangleDetector.h; sourceTree = "<group>"; };
+		4B5D0B0413081CAF00AE3F07 /* btBoxShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btBoxShape.cpp; sourceTree = "<group>"; };
+		4B5D0B0513081CAF00AE3F07 /* btBoxShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btBoxShape.h; sourceTree = "<group>"; };
+		4B5D0B0613081CAF00AE3F07 /* btBvhTriangleMeshShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btBvhTriangleMeshShape.cpp; sourceTree = "<group>"; };
+		4B5D0B0713081CAF00AE3F07 /* btBvhTriangleMeshShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btBvhTriangleMeshShape.h; sourceTree = "<group>"; };
+		4B5D0B0813081CAF00AE3F07 /* btCapsuleShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btCapsuleShape.cpp; sourceTree = "<group>"; };
+		4B5D0B0913081CAF00AE3F07 /* btCapsuleShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btCapsuleShape.h; sourceTree = "<group>"; };
+		4B5D0B0A13081CAF00AE3F07 /* btCollisionMargin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btCollisionMargin.h; sourceTree = "<group>"; };
+		4B5D0B0B13081CAF00AE3F07 /* btCollisionShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btCollisionShape.cpp; sourceTree = "<group>"; };
+		4B5D0B0C13081CAF00AE3F07 /* btCollisionShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btCollisionShape.h; sourceTree = "<group>"; };
+		4B5D0B0D13081CAF00AE3F07 /* btCompoundShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btCompoundShape.cpp; sourceTree = "<group>"; };
+		4B5D0B0E13081CAF00AE3F07 /* btCompoundShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btCompoundShape.h; sourceTree = "<group>"; };
+		4B5D0B0F13081CAF00AE3F07 /* btConcaveShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btConcaveShape.cpp; sourceTree = "<group>"; };
+		4B5D0B1013081CAF00AE3F07 /* btConcaveShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btConcaveShape.h; sourceTree = "<group>"; };
+		4B5D0B1113081CAF00AE3F07 /* btConeShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btConeShape.cpp; sourceTree = "<group>"; };
+		4B5D0B1213081CAF00AE3F07 /* btConeShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btConeShape.h; sourceTree = "<group>"; };
+		4B5D0B1313081CAF00AE3F07 /* btConvexHullShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btConvexHullShape.cpp; sourceTree = "<group>"; };
+		4B5D0B1413081CAF00AE3F07 /* btConvexHullShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btConvexHullShape.h; sourceTree = "<group>"; };
+		4B5D0B1513081CAF00AE3F07 /* btConvexInternalShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btConvexInternalShape.cpp; sourceTree = "<group>"; };
+		4B5D0B1613081CAF00AE3F07 /* btConvexInternalShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btConvexInternalShape.h; sourceTree = "<group>"; };
+		4B5D0B1713081CAF00AE3F07 /* btConvexPointCloudShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btConvexPointCloudShape.cpp; sourceTree = "<group>"; };
+		4B5D0B1813081CAF00AE3F07 /* btConvexPointCloudShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btConvexPointCloudShape.h; sourceTree = "<group>"; };
+		4B5D0B1913081CAF00AE3F07 /* btConvexShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btConvexShape.cpp; sourceTree = "<group>"; };
+		4B5D0B1A13081CAF00AE3F07 /* btConvexShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btConvexShape.h; sourceTree = "<group>"; };
+		4B5D0B1B13081CAF00AE3F07 /* btConvexTriangleMeshShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btConvexTriangleMeshShape.cpp; sourceTree = "<group>"; };
+		4B5D0B1C13081CAF00AE3F07 /* btConvexTriangleMeshShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btConvexTriangleMeshShape.h; sourceTree = "<group>"; };
+		4B5D0B1D13081CAF00AE3F07 /* btCylinderShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btCylinderShape.cpp; sourceTree = "<group>"; };
+		4B5D0B1E13081CAF00AE3F07 /* btCylinderShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btCylinderShape.h; sourceTree = "<group>"; };
+		4B5D0B1F13081CAF00AE3F07 /* btEmptyShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btEmptyShape.cpp; sourceTree = "<group>"; };
+		4B5D0B2013081CAF00AE3F07 /* btEmptyShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btEmptyShape.h; sourceTree = "<group>"; };
+		4B5D0B2113081CAF00AE3F07 /* btHeightfieldTerrainShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btHeightfieldTerrainShape.cpp; sourceTree = "<group>"; };
+		4B5D0B2213081CAF00AE3F07 /* btHeightfieldTerrainShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btHeightfieldTerrainShape.h; sourceTree = "<group>"; };
+		4B5D0B2313081CAF00AE3F07 /* btMaterial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btMaterial.h; sourceTree = "<group>"; };
+		4B5D0B2413081CAF00AE3F07 /* btMinkowskiSumShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btMinkowskiSumShape.cpp; sourceTree = "<group>"; };
+		4B5D0B2513081CAF00AE3F07 /* btMinkowskiSumShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btMinkowskiSumShape.h; sourceTree = "<group>"; };
+		4B5D0B2613081CAF00AE3F07 /* btMultimaterialTriangleMeshShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btMultimaterialTriangleMeshShape.cpp; sourceTree = "<group>"; };
+		4B5D0B2713081CAF00AE3F07 /* btMultimaterialTriangleMeshShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btMultimaterialTriangleMeshShape.h; sourceTree = "<group>"; };
+		4B5D0B2813081CAF00AE3F07 /* btMultiSphereShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btMultiSphereShape.cpp; sourceTree = "<group>"; };
+		4B5D0B2913081CAF00AE3F07 /* btMultiSphereShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btMultiSphereShape.h; sourceTree = "<group>"; };
+		4B5D0B2A13081CAF00AE3F07 /* btOptimizedBvh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btOptimizedBvh.cpp; sourceTree = "<group>"; };
+		4B5D0B2B13081CAF00AE3F07 /* btOptimizedBvh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btOptimizedBvh.h; sourceTree = "<group>"; };
+		4B5D0B2C13081CAF00AE3F07 /* btPolyhedralConvexShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btPolyhedralConvexShape.cpp; sourceTree = "<group>"; };
+		4B5D0B2D13081CAF00AE3F07 /* btPolyhedralConvexShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btPolyhedralConvexShape.h; sourceTree = "<group>"; };
+		4B5D0B2E13081CAF00AE3F07 /* btScaledBvhTriangleMeshShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btScaledBvhTriangleMeshShape.cpp; sourceTree = "<group>"; };
+		4B5D0B2F13081CAF00AE3F07 /* btScaledBvhTriangleMeshShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btScaledBvhTriangleMeshShape.h; sourceTree = "<group>"; };
+		4B5D0B3013081CAF00AE3F07 /* btShapeHull.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btShapeHull.cpp; sourceTree = "<group>"; };
+		4B5D0B3113081CAF00AE3F07 /* btShapeHull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btShapeHull.h; sourceTree = "<group>"; };
+		4B5D0B3213081CAF00AE3F07 /* btSphereShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btSphereShape.cpp; sourceTree = "<group>"; };
+		4B5D0B3313081CAF00AE3F07 /* btSphereShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btSphereShape.h; sourceTree = "<group>"; };
+		4B5D0B3413081CAF00AE3F07 /* btStaticPlaneShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btStaticPlaneShape.cpp; sourceTree = "<group>"; };
+		4B5D0B3513081CAF00AE3F07 /* btStaticPlaneShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btStaticPlaneShape.h; sourceTree = "<group>"; };
+		4B5D0B3613081CAF00AE3F07 /* btStridingMeshInterface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btStridingMeshInterface.cpp; sourceTree = "<group>"; };
+		4B5D0B3713081CAF00AE3F07 /* btStridingMeshInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btStridingMeshInterface.h; sourceTree = "<group>"; };
+		4B5D0B3813081CAF00AE3F07 /* btTetrahedronShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btTetrahedronShape.cpp; sourceTree = "<group>"; };
+		4B5D0B3913081CAF00AE3F07 /* btTetrahedronShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btTetrahedronShape.h; sourceTree = "<group>"; };
+		4B5D0B3A13081CAF00AE3F07 /* btTriangleBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btTriangleBuffer.cpp; sourceTree = "<group>"; };
+		4B5D0B3B13081CAF00AE3F07 /* btTriangleBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btTriangleBuffer.h; sourceTree = "<group>"; };
+		4B5D0B3C13081CAF00AE3F07 /* btTriangleCallback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btTriangleCallback.cpp; sourceTree = "<group>"; };
+		4B5D0B3D13081CAF00AE3F07 /* btTriangleCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btTriangleCallback.h; sourceTree = "<group>"; };
+		4B5D0B3E13081CAF00AE3F07 /* btTriangleIndexVertexArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btTriangleIndexVertexArray.cpp; sourceTree = "<group>"; };
+		4B5D0B3F13081CAF00AE3F07 /* btTriangleIndexVertexArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btTriangleIndexVertexArray.h; sourceTree = "<group>"; };
+		4B5D0B4013081CAF00AE3F07 /* btTriangleIndexVertexMaterialArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btTriangleIndexVertexMaterialArray.cpp; sourceTree = "<group>"; };
+		4B5D0B4113081CAF00AE3F07 /* btTriangleIndexVertexMaterialArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btTriangleIndexVertexMaterialArray.h; sourceTree = "<group>"; };
+		4B5D0B4213081CAF00AE3F07 /* btTriangleMesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btTriangleMesh.cpp; sourceTree = "<group>"; };
+		4B5D0B4313081CAF00AE3F07 /* btTriangleMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btTriangleMesh.h; sourceTree = "<group>"; };
+		4B5D0B4413081CAF00AE3F07 /* btTriangleMeshShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btTriangleMeshShape.cpp; sourceTree = "<group>"; };
+		4B5D0B4513081CAF00AE3F07 /* btTriangleMeshShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btTriangleMeshShape.h; sourceTree = "<group>"; };
+		4B5D0B4613081CAF00AE3F07 /* btTriangleShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btTriangleShape.h; sourceTree = "<group>"; };
+		4B5D0B4713081CAF00AE3F07 /* btUniformScalingShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btUniformScalingShape.cpp; sourceTree = "<group>"; };
+		4B5D0B4813081CAF00AE3F07 /* btUniformScalingShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btUniformScalingShape.h; sourceTree = "<group>"; };
+		4B5D0B4A13081CAF00AE3F07 /* btBoxCollision.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btBoxCollision.h; sourceTree = "<group>"; };
+		4B5D0B4B13081CAF00AE3F07 /* btClipPolygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btClipPolygon.h; sourceTree = "<group>"; };
+		4B5D0B4C13081CAF00AE3F07 /* btContactProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btContactProcessing.cpp; sourceTree = "<group>"; };
+		4B5D0B4D13081CAF00AE3F07 /* btContactProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btContactProcessing.h; sourceTree = "<group>"; };
+		4B5D0B4E13081CAF00AE3F07 /* btGenericPoolAllocator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btGenericPoolAllocator.cpp; sourceTree = "<group>"; };
+		4B5D0B4F13081CAF00AE3F07 /* btGenericPoolAllocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btGenericPoolAllocator.h; sourceTree = "<group>"; };
+		4B5D0B5013081CAF00AE3F07 /* btGeometryOperations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btGeometryOperations.h; sourceTree = "<group>"; };
+		4B5D0B5113081CAF00AE3F07 /* btGImpactBvh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btGImpactBvh.cpp; sourceTree = "<group>"; };
+		4B5D0B5213081CAF00AE3F07 /* btGImpactBvh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btGImpactBvh.h; sourceTree = "<group>"; };
+		4B5D0B5313081CAF00AE3F07 /* btGImpactCollisionAlgorithm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btGImpactCollisionAlgorithm.cpp; sourceTree = "<group>"; };
+		4B5D0B5413081CAF00AE3F07 /* btGImpactCollisionAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btGImpactCollisionAlgorithm.h; sourceTree = "<group>"; };
+		4B5D0B5513081CAF00AE3F07 /* btGImpactMassUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btGImpactMassUtil.h; sourceTree = "<group>"; };
+		4B5D0B5613081CAF00AE3F07 /* btGImpactQuantizedBvh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btGImpactQuantizedBvh.cpp; sourceTree = "<group>"; };
+		4B5D0B5713081CAF00AE3F07 /* btGImpactQuantizedBvh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btGImpactQuantizedBvh.h; sourceTree = "<group>"; };
+		4B5D0B5813081CAF00AE3F07 /* btGImpactShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btGImpactShape.cpp; sourceTree = "<group>"; };
+		4B5D0B5913081CAF00AE3F07 /* btGImpactShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btGImpactShape.h; sourceTree = "<group>"; };
+		4B5D0B5A13081CAF00AE3F07 /* btQuantization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btQuantization.h; sourceTree = "<group>"; };
+		4B5D0B5B13081CAF00AE3F07 /* btTriangleShapeEx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btTriangleShapeEx.cpp; sourceTree = "<group>"; };
+		4B5D0B5C13081CAF00AE3F07 /* btTriangleShapeEx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btTriangleShapeEx.h; sourceTree = "<group>"; };
+		4B5D0B5D13081CAF00AE3F07 /* gim_array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gim_array.h; sourceTree = "<group>"; };
+		4B5D0B5E13081CAF00AE3F07 /* gim_basic_geometry_operations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gim_basic_geometry_operations.h; sourceTree = "<group>"; };
+		4B5D0B5F13081CAF00AE3F07 /* gim_bitset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gim_bitset.h; sourceTree = "<group>"; };
+		4B5D0B6013081CAF00AE3F07 /* gim_box_collision.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gim_box_collision.h; sourceTree = "<group>"; };
+		4B5D0B6113081CAF00AE3F07 /* gim_box_set.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gim_box_set.cpp; sourceTree = "<group>"; };
+		4B5D0B6213081CAF00AE3F07 /* gim_box_set.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gim_box_set.h; sourceTree = "<group>"; };
+		4B5D0B6313081CAF00AE3F07 /* gim_clip_polygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gim_clip_polygon.h; sourceTree = "<group>"; };
+		4B5D0B6413081CAF00AE3F07 /* gim_contact.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gim_contact.cpp; sourceTree = "<group>"; };
+		4B5D0B6513081CAF00AE3F07 /* gim_contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gim_contact.h; sourceTree = "<group>"; };
+		4B5D0B6613081CAF00AE3F07 /* gim_geom_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gim_geom_types.h; sourceTree = "<group>"; };
+		4B5D0B6713081CAF00AE3F07 /* gim_geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gim_geometry.h; sourceTree = "<group>"; };
+		4B5D0B6813081CAF00AE3F07 /* gim_hash_table.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gim_hash_table.h; sourceTree = "<group>"; };
+		4B5D0B6913081CAF00AE3F07 /* gim_linear_math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gim_linear_math.h; sourceTree = "<group>"; };
+		4B5D0B6A13081CAF00AE3F07 /* gim_math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gim_math.h; sourceTree = "<group>"; };
+		4B5D0B6B13081CAF00AE3F07 /* gim_memory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gim_memory.cpp; sourceTree = "<group>"; };
+		4B5D0B6C13081CAF00AE3F07 /* gim_memory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gim_memory.h; sourceTree = "<group>"; };
+		4B5D0B6D13081CAF00AE3F07 /* gim_radixsort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gim_radixsort.h; sourceTree = "<group>"; };
+		4B5D0B6E13081CAF00AE3F07 /* gim_tri_collision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gim_tri_collision.cpp; sourceTree = "<group>"; };
+		4B5D0B6F13081CAF00AE3F07 /* gim_tri_collision.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gim_tri_collision.h; sourceTree = "<group>"; };
+		4B5D0B7113081CAF00AE3F07 /* btContinuousConvexCollision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btContinuousConvexCollision.cpp; sourceTree = "<group>"; };
+		4B5D0B7213081CAF00AE3F07 /* btContinuousConvexCollision.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btContinuousConvexCollision.h; sourceTree = "<group>"; };
+		4B5D0B7313081CAF00AE3F07 /* btConvexCast.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btConvexCast.cpp; sourceTree = "<group>"; };
+		4B5D0B7413081CAF00AE3F07 /* btConvexCast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btConvexCast.h; sourceTree = "<group>"; };
+		4B5D0B7513081CAF00AE3F07 /* btConvexPenetrationDepthSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btConvexPenetrationDepthSolver.h; sourceTree = "<group>"; };
+		4B5D0B7613081CAF00AE3F07 /* btDiscreteCollisionDetectorInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btDiscreteCollisionDetectorInterface.h; sourceTree = "<group>"; };
+		4B5D0B7713081CAF00AE3F07 /* btGjkConvexCast.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btGjkConvexCast.cpp; sourceTree = "<group>"; };
+		4B5D0B7813081CAF00AE3F07 /* btGjkConvexCast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btGjkConvexCast.h; sourceTree = "<group>"; };
+		4B5D0B7913081CAF00AE3F07 /* btGjkEpa2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btGjkEpa2.cpp; sourceTree = "<group>"; };
+		4B5D0B7A13081CAF00AE3F07 /* btGjkEpa2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btGjkEpa2.h; sourceTree = "<group>"; };
+		4B5D0B7B13081CAF00AE3F07 /* btGjkEpaPenetrationDepthSolver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btGjkEpaPenetrationDepthSolver.cpp; sourceTree = "<group>"; };
+		4B5D0B7C13081CAF00AE3F07 /* btGjkEpaPenetrationDepthSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btGjkEpaPenetrationDepthSolver.h; sourceTree = "<group>"; };
+		4B5D0B7D13081CAF00AE3F07 /* btGjkPairDetector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btGjkPairDetector.cpp; sourceTree = "<group>"; };
+		4B5D0B7E13081CAF00AE3F07 /* btGjkPairDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btGjkPairDetector.h; sourceTree = "<group>"; };
+		4B5D0B7F13081CAF00AE3F07 /* btManifoldPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btManifoldPoint.h; sourceTree = "<group>"; };
+		4B5D0B8013081CAF00AE3F07 /* btMinkowskiPenetrationDepthSolver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btMinkowskiPenetrationDepthSolver.cpp; sourceTree = "<group>"; };
+		4B5D0B8113081CAF00AE3F07 /* btMinkowskiPenetrationDepthSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btMinkowskiPenetrationDepthSolver.h; sourceTree = "<group>"; };
+		4B5D0B8213081CAF00AE3F07 /* btPersistentManifold.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btPersistentManifold.cpp; sourceTree = "<group>"; };
+		4B5D0B8313081CAF00AE3F07 /* btPersistentManifold.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btPersistentManifold.h; sourceTree = "<group>"; };
+		4B5D0B8413081CAF00AE3F07 /* btPointCollector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btPointCollector.h; sourceTree = "<group>"; };
+		4B5D0B8513081CAF00AE3F07 /* btRaycastCallback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btRaycastCallback.cpp; sourceTree = "<group>"; };
+		4B5D0B8613081CAF00AE3F07 /* btRaycastCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btRaycastCallback.h; sourceTree = "<group>"; };
+		4B5D0B8713081CAF00AE3F07 /* btSimplexSolverInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btSimplexSolverInterface.h; sourceTree = "<group>"; };
+		4B5D0B8813081CAF00AE3F07 /* btSubSimplexConvexCast.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btSubSimplexConvexCast.cpp; sourceTree = "<group>"; };
+		4B5D0B8913081CAF00AE3F07 /* btSubSimplexConvexCast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btSubSimplexConvexCast.h; sourceTree = "<group>"; };
+		4B5D0B8A13081CAF00AE3F07 /* btVoronoiSimplexSolver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btVoronoiSimplexSolver.cpp; sourceTree = "<group>"; };
+		4B5D0B8B13081CAF00AE3F07 /* btVoronoiSimplexSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btVoronoiSimplexSolver.h; sourceTree = "<group>"; };
+		4B5D0B8E13081CAF00AE3F07 /* btCharacterControllerInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btCharacterControllerInterface.h; sourceTree = "<group>"; };
+		4B5D0B8F13081CAF00AE3F07 /* btKinematicCharacterController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btKinematicCharacterController.cpp; sourceTree = "<group>"; };
+		4B5D0B9013081CAF00AE3F07 /* btKinematicCharacterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btKinematicCharacterController.h; sourceTree = "<group>"; };
+		4B5D0B9213081CAF00AE3F07 /* btConeTwistConstraint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btConeTwistConstraint.cpp; sourceTree = "<group>"; };
+		4B5D0B9313081CAF00AE3F07 /* btConeTwistConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btConeTwistConstraint.h; sourceTree = "<group>"; };
+		4B5D0B9413081CAF00AE3F07 /* btConstraintSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btConstraintSolver.h; sourceTree = "<group>"; };
+		4B5D0B9513081CAF00AE3F07 /* btContactConstraint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btContactConstraint.cpp; sourceTree = "<group>"; };
+		4B5D0B9613081CAF00AE3F07 /* btContactConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btContactConstraint.h; sourceTree = "<group>"; };
+		4B5D0B9713081CAF00AE3F07 /* btContactSolverInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btContactSolverInfo.h; sourceTree = "<group>"; };
+		4B5D0B9813081CAF00AE3F07 /* btGeneric6DofConstraint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btGeneric6DofConstraint.cpp; sourceTree = "<group>"; };
+		4B5D0B9913081CAF00AE3F07 /* btGeneric6DofConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btGeneric6DofConstraint.h; sourceTree = "<group>"; };
+		4B5D0B9A13081CAF00AE3F07 /* btGeneric6DofSpringConstraint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btGeneric6DofSpringConstraint.cpp; sourceTree = "<group>"; };
+		4B5D0B9B13081CAF00AE3F07 /* btGeneric6DofSpringConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btGeneric6DofSpringConstraint.h; sourceTree = "<group>"; };
+		4B5D0B9C13081CAF00AE3F07 /* btHinge2Constraint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btHinge2Constraint.cpp; sourceTree = "<group>"; };
+		4B5D0B9D13081CAF00AE3F07 /* btHinge2Constraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btHinge2Constraint.h; sourceTree = "<group>"; };
+		4B5D0B9E13081CAF00AE3F07 /* btHingeConstraint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btHingeConstraint.cpp; sourceTree = "<group>"; };
+		4B5D0B9F13081CAF00AE3F07 /* btHingeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btHingeConstraint.h; sourceTree = "<group>"; };
+		4B5D0BA013081CAF00AE3F07 /* btJacobianEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btJacobianEntry.h; sourceTree = "<group>"; };
+		4B5D0BA113081CAF00AE3F07 /* btPoint2PointConstraint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btPoint2PointConstraint.cpp; sourceTree = "<group>"; };
+		4B5D0BA213081CAF00AE3F07 /* btPoint2PointConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btPoint2PointConstraint.h; sourceTree = "<group>"; };
+		4B5D0BA313081CAF00AE3F07 /* btSequentialImpulseConstraintSolver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btSequentialImpulseConstraintSolver.cpp; sourceTree = "<group>"; };
+		4B5D0BA413081CAF00AE3F07 /* btSequentialImpulseConstraintSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btSequentialImpulseConstraintSolver.h; sourceTree = "<group>"; };
+		4B5D0BA513081CAF00AE3F07 /* btSliderConstraint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btSliderConstraint.cpp; sourceTree = "<group>"; };
+		4B5D0BA613081CAF00AE3F07 /* btSliderConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btSliderConstraint.h; sourceTree = "<group>"; };
+		4B5D0BA713081CAF00AE3F07 /* btSolve2LinearConstraint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btSolve2LinearConstraint.cpp; sourceTree = "<group>"; };
+		4B5D0BA813081CAF00AE3F07 /* btSolve2LinearConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btSolve2LinearConstraint.h; sourceTree = "<group>"; };
+		4B5D0BA913081CAF00AE3F07 /* btSolverBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btSolverBody.h; sourceTree = "<group>"; };
+		4B5D0BAA13081CAF00AE3F07 /* btSolverConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btSolverConstraint.h; sourceTree = "<group>"; };
+		4B5D0BAB13081CAF00AE3F07 /* btTypedConstraint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btTypedConstraint.cpp; sourceTree = "<group>"; };
+		4B5D0BAC13081CAF00AE3F07 /* btTypedConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btTypedConstraint.h; sourceTree = "<group>"; };
+		4B5D0BAD13081CAF00AE3F07 /* btUniversalConstraint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btUniversalConstraint.cpp; sourceTree = "<group>"; };
+		4B5D0BAE13081CAF00AE3F07 /* btUniversalConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btUniversalConstraint.h; sourceTree = "<group>"; };
+		4B5D0BB013081CAF00AE3F07 /* btActionInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btActionInterface.h; sourceTree = "<group>"; };
+		4B5D0BB113081CAF00AE3F07 /* btContinuousDynamicsWorld.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btContinuousDynamicsWorld.cpp; sourceTree = "<group>"; };
+		4B5D0BB213081CAF00AE3F07 /* btContinuousDynamicsWorld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btContinuousDynamicsWorld.h; sourceTree = "<group>"; };
+		4B5D0BB313081CAF00AE3F07 /* btDiscreteDynamicsWorld.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btDiscreteDynamicsWorld.cpp; sourceTree = "<group>"; };
+		4B5D0BB413081CAF00AE3F07 /* btDiscreteDynamicsWorld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btDiscreteDynamicsWorld.h; sourceTree = "<group>"; };
+		4B5D0BB513081CAF00AE3F07 /* btDynamicsWorld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btDynamicsWorld.h; sourceTree = "<group>"; };
+		4B5D0BB613081CAF00AE3F07 /* btRigidBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btRigidBody.cpp; sourceTree = "<group>"; };
+		4B5D0BB713081CAF00AE3F07 /* btRigidBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btRigidBody.h; sourceTree = "<group>"; };
+		4B5D0BB813081CAF00AE3F07 /* btSimpleDynamicsWorld.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btSimpleDynamicsWorld.cpp; sourceTree = "<group>"; };
+		4B5D0BB913081CAF00AE3F07 /* btSimpleDynamicsWorld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btSimpleDynamicsWorld.h; sourceTree = "<group>"; };
+		4B5D0BBA13081CAF00AE3F07 /* Bullet-C-API.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "Bullet-C-API.cpp"; sourceTree = "<group>"; };
+		4B5D0BBC13081CAF00AE3F07 /* btRaycastVehicle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btRaycastVehicle.cpp; sourceTree = "<group>"; };
+		4B5D0BBD13081CAF00AE3F07 /* btRaycastVehicle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btRaycastVehicle.h; sourceTree = "<group>"; };
+		4B5D0BBE13081CAF00AE3F07 /* btVehicleRaycaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btVehicleRaycaster.h; sourceTree = "<group>"; };
+		4B5D0BBF13081CAF00AE3F07 /* btWheelInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btWheelInfo.cpp; sourceTree = "<group>"; };
+		4B5D0BC013081CAF00AE3F07 /* btWheelInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btWheelInfo.h; sourceTree = "<group>"; };
+		4B5D0BC213081CAF00AE3F07 /* btGpu3DGridBroadphase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btGpu3DGridBroadphase.cpp; sourceTree = "<group>"; };
+		4B5D0BC313081CAF00AE3F07 /* btGpu3DGridBroadphase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btGpu3DGridBroadphase.h; sourceTree = "<group>"; };
+		4B5D0BC413081CAF00AE3F07 /* btGpu3DGridBroadphaseSharedCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btGpu3DGridBroadphaseSharedCode.h; sourceTree = "<group>"; };
+		4B5D0BC513081CAF00AE3F07 /* btGpu3DGridBroadphaseSharedDefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btGpu3DGridBroadphaseSharedDefs.h; sourceTree = "<group>"; };
+		4B5D0BC613081CAF00AE3F07 /* btGpu3DGridBroadphaseSharedTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btGpu3DGridBroadphaseSharedTypes.h; sourceTree = "<group>"; };
+		4B5D0BC713081CAF00AE3F07 /* btGpuDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btGpuDefines.h; sourceTree = "<group>"; };
+		4B5D0BC813081CAF00AE3F07 /* btGpuUtilsSharedCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btGpuUtilsSharedCode.h; sourceTree = "<group>"; };
+		4B5D0BC913081CAF00AE3F07 /* btGpuUtilsSharedDefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btGpuUtilsSharedDefs.h; sourceTree = "<group>"; };
+		4B5D0BCA13081CAF00AE3F07 /* btThreadSupportInterface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btThreadSupportInterface.cpp; sourceTree = "<group>"; };
+		4B5D0BCB13081CAF00AE3F07 /* btThreadSupportInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btThreadSupportInterface.h; sourceTree = "<group>"; };
+		4B5D0BCC13081CAF00AE3F07 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		4B5D0BCE13081CAF00AE3F07 /* MiniCLTask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MiniCLTask.cpp; sourceTree = "<group>"; };
+		4B5D0BCF13081CAF00AE3F07 /* MiniCLTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MiniCLTask.h; sourceTree = "<group>"; };
+		4B5D0BD013081CAF00AE3F07 /* MiniCLTaskScheduler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MiniCLTaskScheduler.cpp; sourceTree = "<group>"; };
+		4B5D0BD113081CAF00AE3F07 /* MiniCLTaskScheduler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MiniCLTaskScheduler.h; sourceTree = "<group>"; };
+		4B5D0BD213081CAF00AE3F07 /* PlatformDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlatformDefinitions.h; sourceTree = "<group>"; };
+		4B5D0BD313081CAF00AE3F07 /* PosixThreadSupport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PosixThreadSupport.cpp; sourceTree = "<group>"; };
+		4B5D0BD413081CAF00AE3F07 /* PosixThreadSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PosixThreadSupport.h; sourceTree = "<group>"; };
+		4B5D0BD513081CAF00AE3F07 /* PpuAddressSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PpuAddressSpace.h; sourceTree = "<group>"; };
+		4B5D0BD613081CAF00AE3F07 /* SequentialThreadSupport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SequentialThreadSupport.cpp; sourceTree = "<group>"; };
+		4B5D0BD713081CAF00AE3F07 /* SequentialThreadSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SequentialThreadSupport.h; sourceTree = "<group>"; };
+		4B5D0BD813081CAF00AE3F07 /* SpuBatchRaycaster.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpuBatchRaycaster.cpp; sourceTree = "<group>"; };
+		4B5D0BD913081CAF00AE3F07 /* SpuBatchRaycaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpuBatchRaycaster.h; sourceTree = "<group>"; };
+		4B5D0BDA13081CAF00AE3F07 /* SpuCollisionObjectWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpuCollisionObjectWrapper.cpp; sourceTree = "<group>"; };
+		4B5D0BDB13081CAF00AE3F07 /* SpuCollisionObjectWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpuCollisionObjectWrapper.h; sourceTree = "<group>"; };
+		4B5D0BDC13081CAF00AE3F07 /* SpuCollisionTaskProcess.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpuCollisionTaskProcess.cpp; sourceTree = "<group>"; };
+		4B5D0BDD13081CAF00AE3F07 /* SpuCollisionTaskProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpuCollisionTaskProcess.h; sourceTree = "<group>"; };
+		4B5D0BDE13081CAF00AE3F07 /* SpuContactManifoldCollisionAlgorithm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpuContactManifoldCollisionAlgorithm.cpp; sourceTree = "<group>"; };
+		4B5D0BDF13081CAF00AE3F07 /* SpuContactManifoldCollisionAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpuContactManifoldCollisionAlgorithm.h; sourceTree = "<group>"; };
+		4B5D0BE013081CAF00AE3F07 /* SpuDoubleBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpuDoubleBuffer.h; sourceTree = "<group>"; };
+		4B5D0BE113081CAF00AE3F07 /* SpuFakeDma.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpuFakeDma.cpp; sourceTree = "<group>"; };
+		4B5D0BE213081CAF00AE3F07 /* SpuFakeDma.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpuFakeDma.h; sourceTree = "<group>"; };
+		4B5D0BE313081CAF00AE3F07 /* SpuGatheringCollisionDispatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpuGatheringCollisionDispatcher.cpp; sourceTree = "<group>"; };
+		4B5D0BE413081CAF00AE3F07 /* SpuGatheringCollisionDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpuGatheringCollisionDispatcher.h; sourceTree = "<group>"; };
+		4B5D0BE613081CAF00AE3F07 /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
+		4B5D0BE713081CAF00AE3F07 /* SpuLibspe2Support.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpuLibspe2Support.cpp; sourceTree = "<group>"; };
+		4B5D0BE813081CAF00AE3F07 /* SpuLibspe2Support.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpuLibspe2Support.h; sourceTree = "<group>"; };
+		4B5D0BEA13081CAF00AE3F07 /* Box.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Box.h; sourceTree = "<group>"; };
+		4B5D0BEB13081CAF00AE3F07 /* boxBoxDistance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = boxBoxDistance.cpp; sourceTree = "<group>"; };
+		4B5D0BEC13081CAF00AE3F07 /* boxBoxDistance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = boxBoxDistance.h; sourceTree = "<group>"; };
+		4B5D0BED13081CAF00AE3F07 /* SpuCollisionShapes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpuCollisionShapes.cpp; sourceTree = "<group>"; };
+		4B5D0BEE13081CAF00AE3F07 /* SpuCollisionShapes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpuCollisionShapes.h; sourceTree = "<group>"; };
+		4B5D0BEF13081CAF00AE3F07 /* SpuContactResult.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpuContactResult.cpp; sourceTree = "<group>"; };
+		4B5D0BF013081CAF00AE3F07 /* SpuContactResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpuContactResult.h; sourceTree = "<group>"; };
+		4B5D0BF113081CAF00AE3F07 /* SpuConvexPenetrationDepthSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpuConvexPenetrationDepthSolver.h; sourceTree = "<group>"; };
+		4B5D0BF213081CAF00AE3F07 /* SpuEpaPenetrationDepthSolver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpuEpaPenetrationDepthSolver.cpp; sourceTree = "<group>"; };
+		4B5D0BF313081CAF00AE3F07 /* SpuEpaPenetrationDepthSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpuEpaPenetrationDepthSolver.h; sourceTree = "<group>"; };
+		4B5D0BF413081CAF00AE3F07 /* SpuGatheringCollisionTask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpuGatheringCollisionTask.cpp; sourceTree = "<group>"; };
+		4B5D0BF513081CAF00AE3F07 /* SpuGatheringCollisionTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpuGatheringCollisionTask.h; sourceTree = "<group>"; };
+		4B5D0BF613081CAF00AE3F07 /* SpuGjkEpa2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpuGjkEpa2.cpp; sourceTree = "<group>"; };
+		4B5D0BF713081CAF00AE3F07 /* SpuGjkEpa2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpuGjkEpa2.h; sourceTree = "<group>"; };
+		4B5D0BF813081CAF00AE3F07 /* SpuGjkPairDetector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpuGjkPairDetector.cpp; sourceTree = "<group>"; };
+		4B5D0BF913081CAF00AE3F07 /* SpuGjkPairDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpuGjkPairDetector.h; sourceTree = "<group>"; };
+		4B5D0BFA13081CAF00AE3F07 /* SpuLocalSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpuLocalSupport.h; sourceTree = "<group>"; };
+		4B5D0BFB13081CAF00AE3F07 /* SpuMinkowskiPenetrationDepthSolver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpuMinkowskiPenetrationDepthSolver.cpp; sourceTree = "<group>"; };
+		4B5D0BFC13081CAF00AE3F07 /* SpuMinkowskiPenetrationDepthSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpuMinkowskiPenetrationDepthSolver.h; sourceTree = "<group>"; };
+		4B5D0BFD13081CAF00AE3F07 /* SpuPreferredPenetrationDirections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpuPreferredPenetrationDirections.h; sourceTree = "<group>"; };
+		4B5D0BFE13081CAF00AE3F07 /* SpuVoronoiSimplexSolver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpuVoronoiSimplexSolver.cpp; sourceTree = "<group>"; };
+		4B5D0BFF13081CAF00AE3F07 /* SpuVoronoiSimplexSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpuVoronoiSimplexSolver.h; sourceTree = "<group>"; };
+		4B5D0C0013081CAF00AE3F07 /* SpuParallelSolver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpuParallelSolver.cpp; sourceTree = "<group>"; };
+		4B5D0C0113081CAF00AE3F07 /* SpuParallelSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpuParallelSolver.h; sourceTree = "<group>"; };
+		4B5D0C0313081CAF00AE3F07 /* SpuRaycastTask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpuRaycastTask.cpp; sourceTree = "<group>"; };
+		4B5D0C0413081CAF00AE3F07 /* SpuRaycastTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpuRaycastTask.h; sourceTree = "<group>"; };
+		4B5D0C0513081CAF00AE3F07 /* SpuSubSimplexConvexCast.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpuSubSimplexConvexCast.cpp; sourceTree = "<group>"; };
+		4B5D0C0613081CAF00AE3F07 /* SpuSubSimplexConvexCast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpuSubSimplexConvexCast.h; sourceTree = "<group>"; };
+		4B5D0C0713081CAF00AE3F07 /* SpuRaycastTaskProcess.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpuRaycastTaskProcess.cpp; sourceTree = "<group>"; };
+		4B5D0C0813081CAF00AE3F07 /* SpuRaycastTaskProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpuRaycastTaskProcess.h; sourceTree = "<group>"; };
+		4B5D0C0A13081CAF00AE3F07 /* SpuSampleTask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpuSampleTask.cpp; sourceTree = "<group>"; };
+		4B5D0C0B13081CAF00AE3F07 /* SpuSampleTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpuSampleTask.h; sourceTree = "<group>"; };
+		4B5D0C0C13081CAF00AE3F07 /* SpuSampleTaskProcess.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpuSampleTaskProcess.cpp; sourceTree = "<group>"; };
+		4B5D0C0D13081CAF00AE3F07 /* SpuSampleTaskProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpuSampleTaskProcess.h; sourceTree = "<group>"; };
+		4B5D0C0F13081CAF00AE3F07 /* SpuParallellSolverTask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpuParallellSolverTask.cpp; sourceTree = "<group>"; };
+		4B5D0C1013081CAF00AE3F07 /* SpuParallellSolverTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpuParallellSolverTask.h; sourceTree = "<group>"; };
+		4B5D0C1113081CAF00AE3F07 /* SpuSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpuSync.h; sourceTree = "<group>"; };
+		4B5D0C1513081CAF00AE3F07 /* mat_aos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mat_aos.h; sourceTree = "<group>"; };
+		4B5D0C1613081CAF00AE3F07 /* quat_aos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = quat_aos.h; sourceTree = "<group>"; };
+		4B5D0C1713081CAF00AE3F07 /* vec_aos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vec_aos.h; sourceTree = "<group>"; };
+		4B5D0C1813081CAF00AE3F07 /* vectormath_aos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vectormath_aos.h; sourceTree = "<group>"; };
+		4B5D0C1913081CB000AE3F07 /* vectormath2bullet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vectormath2bullet.h; sourceTree = "<group>"; };
+		4B5D0C1A13081CB000AE3F07 /* Win32ThreadSupport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Win32ThreadSupport.cpp; sourceTree = "<group>"; };
+		4B5D0C1B13081CB000AE3F07 /* Win32ThreadSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Win32ThreadSupport.h; sourceTree = "<group>"; };
+		4B5D0C1D13081CB000AE3F07 /* btSoftBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btSoftBody.cpp; sourceTree = "<group>"; };
+		4B5D0C1E13081CB000AE3F07 /* btSoftBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btSoftBody.h; sourceTree = "<group>"; };
+		4B5D0C1F13081CB000AE3F07 /* btSoftBodyConcaveCollisionAlgorithm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btSoftBodyConcaveCollisionAlgorithm.cpp; sourceTree = "<group>"; };
+		4B5D0C2013081CB000AE3F07 /* btSoftBodyConcaveCollisionAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btSoftBodyConcaveCollisionAlgorithm.h; sourceTree = "<group>"; };
+		4B5D0C2113081CB000AE3F07 /* btSoftBodyHelpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btSoftBodyHelpers.cpp; sourceTree = "<group>"; };
+		4B5D0C2213081CB000AE3F07 /* btSoftBodyHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btSoftBodyHelpers.h; sourceTree = "<group>"; };
+		4B5D0C2313081CB000AE3F07 /* btSoftBodyInternals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btSoftBodyInternals.h; sourceTree = "<group>"; };
+		4B5D0C2413081CB000AE3F07 /* btSoftBodyRigidBodyCollisionConfiguration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btSoftBodyRigidBodyCollisionConfiguration.cpp; sourceTree = "<group>"; };
+		4B5D0C2513081CB000AE3F07 /* btSoftBodyRigidBodyCollisionConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btSoftBodyRigidBodyCollisionConfiguration.h; sourceTree = "<group>"; };
+		4B5D0C2613081CB000AE3F07 /* btSoftRigidCollisionAlgorithm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btSoftRigidCollisionAlgorithm.cpp; sourceTree = "<group>"; };
+		4B5D0C2713081CB000AE3F07 /* btSoftRigidCollisionAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btSoftRigidCollisionAlgorithm.h; sourceTree = "<group>"; };
+		4B5D0C2813081CB000AE3F07 /* btSoftRigidDynamicsWorld.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btSoftRigidDynamicsWorld.cpp; sourceTree = "<group>"; };
+		4B5D0C2913081CB000AE3F07 /* btSoftRigidDynamicsWorld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btSoftRigidDynamicsWorld.h; sourceTree = "<group>"; };
+		4B5D0C2A13081CB000AE3F07 /* btSoftSoftCollisionAlgorithm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btSoftSoftCollisionAlgorithm.cpp; sourceTree = "<group>"; };
+		4B5D0C2B13081CB000AE3F07 /* btSoftSoftCollisionAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btSoftSoftCollisionAlgorithm.h; sourceTree = "<group>"; };
+		4B5D0C2C13081CB000AE3F07 /* btSparseSDF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btSparseSDF.h; sourceTree = "<group>"; };
+		4B5D0C2E13081CB000AE3F07 /* btAabbUtil2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btAabbUtil2.h; sourceTree = "<group>"; };
+		4B5D0C2F13081CB000AE3F07 /* btAlignedAllocator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btAlignedAllocator.cpp; sourceTree = "<group>"; };
+		4B5D0C3013081CB000AE3F07 /* btAlignedAllocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btAlignedAllocator.h; sourceTree = "<group>"; };
+		4B5D0C3113081CB000AE3F07 /* btAlignedObjectArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btAlignedObjectArray.h; sourceTree = "<group>"; };
+		4B5D0C3213081CB000AE3F07 /* btConvexHull.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btConvexHull.cpp; sourceTree = "<group>"; };
+		4B5D0C3313081CB000AE3F07 /* btConvexHull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btConvexHull.h; sourceTree = "<group>"; };
+		4B5D0C3413081CB000AE3F07 /* btDefaultMotionState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btDefaultMotionState.h; sourceTree = "<group>"; };
+		4B5D0C3513081CB000AE3F07 /* btGeometryUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btGeometryUtil.cpp; sourceTree = "<group>"; };
+		4B5D0C3613081CB000AE3F07 /* btGeometryUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btGeometryUtil.h; sourceTree = "<group>"; };
+		4B5D0C3713081CB000AE3F07 /* btHashMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btHashMap.h; sourceTree = "<group>"; };
+		4B5D0C3813081CB000AE3F07 /* btIDebugDraw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btIDebugDraw.h; sourceTree = "<group>"; };
+		4B5D0C3913081CB000AE3F07 /* btList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btList.h; sourceTree = "<group>"; };
+		4B5D0C3A13081CB000AE3F07 /* btMatrix3x3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btMatrix3x3.h; sourceTree = "<group>"; };
+		4B5D0C3B13081CB000AE3F07 /* btMinMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btMinMax.h; sourceTree = "<group>"; };
+		4B5D0C3C13081CB000AE3F07 /* btMotionState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btMotionState.h; sourceTree = "<group>"; };
+		4B5D0C3D13081CB000AE3F07 /* btPoolAllocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btPoolAllocator.h; sourceTree = "<group>"; };
+		4B5D0C3E13081CB000AE3F07 /* btQuadWord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btQuadWord.h; sourceTree = "<group>"; };
+		4B5D0C3F13081CB000AE3F07 /* btQuaternion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btQuaternion.h; sourceTree = "<group>"; };
+		4B5D0C4013081CB000AE3F07 /* btQuickprof.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btQuickprof.cpp; sourceTree = "<group>"; };
+		4B5D0C4113081CB000AE3F07 /* btQuickprof.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btQuickprof.h; sourceTree = "<group>"; };
+		4B5D0C4213081CB000AE3F07 /* btRandom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btRandom.h; sourceTree = "<group>"; };
+		4B5D0C4313081CB000AE3F07 /* btScalar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btScalar.h; sourceTree = "<group>"; };
+		4B5D0C4413081CB000AE3F07 /* btStackAlloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btStackAlloc.h; sourceTree = "<group>"; };
+		4B5D0C4513081CB000AE3F07 /* btTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btTransform.h; sourceTree = "<group>"; };
+		4B5D0C4613081CB000AE3F07 /* btTransformUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btTransformUtil.h; sourceTree = "<group>"; };
+		4B5D0C4713081CB000AE3F07 /* btVector3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btVector3.h; sourceTree = "<group>"; };
+		4B5D0C4913081CB000AE3F07 /* cl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cl.h; sourceTree = "<group>"; };
+		4B5D0C4A13081CB000AE3F07 /* cl_gl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cl_gl.h; sourceTree = "<group>"; };
+		4B5D0C4B13081CB000AE3F07 /* cl_platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cl_platform.h; sourceTree = "<group>"; };
 		4B9F3A9612F58B31008C3BAF /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		5FD6F5F01306E45200B7E62B /* GL_ShapeDrawer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GL_ShapeDrawer.cpp; path = ../../../addons/ofxBullet/GLRender/GL_ShapeDrawer.cpp; sourceTree = SOURCE_ROOT; };
 		5FD6F5F11306E45200B7E62B /* GL_ShapeDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GL_ShapeDrawer.h; path = ../../../addons/ofxBullet/GLRender/GL_ShapeDrawer.h; sourceTree = SOURCE_ROOT; };
 		5FD6F5F41306E45200B7E62B /* btBulletCollisionCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = btBulletCollisionCommon.h; path = ../../../addons/ofxBullet/lib/bullet/btBulletCollisionCommon.h; sourceTree = SOURCE_ROOT; };
@@ -598,6 +1137,8 @@
 		5FD6F78A1306E45300B7E62B /* ofxBulletRigidBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxBulletRigidBody.cpp; path = ../../../addons/ofxBullet/src/ofxBulletRigidBody.cpp; sourceTree = SOURCE_ROOT; };
 		5FD6F78B1306E45300B7E62B /* ofxBulletRigidBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxBulletRigidBody.h; path = ../../../addons/ofxBullet/src/ofxBulletRigidBody.h; sourceTree = SOURCE_ROOT; };
 		5FD6F78C1306E45300B7E62B /* ofxBulletUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxBulletUtils.h; path = ../../../addons/ofxBullet/src/ofxBulletUtils.h; sourceTree = SOURCE_ROOT; };
+=======
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 		E4B69B5B0A3A1756003C02F2 /* bulletTestDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bulletTestDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = "openFrameworks-Info.plist"; sourceTree = "<group>"; };
 		E4C2421610CC549C004149E2 /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
@@ -623,7 +1164,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E4C2422B10CC554B004149E2 /* openFrameworks.a in Frameworks */,
+				E4C2422B10CC554B004149E2 /* openFrameworksDebug.a in Frameworks */,
 				EAF9774F12E45B8D0009DBBE /* GLUT.framework in Frameworks */,
 				EAF9775012E45B8D0009DBBE /* AppKit.framework in Frameworks */,
 				EAF9775112E45B8D0009DBBE /* Cocoa.framework in Frameworks */,
@@ -643,36 +1184,75 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+<<<<<<< HEAD
 		5FD6F5EE1306E45200B7E62B /* ofxBullet */ = {
 			isa = PBXGroup;
 			children = (
 				5FD6F5EF1306E45200B7E62B /* GLRender */,
 				5FD6F5F21306E45200B7E62B /* lib */,
 				5FD6F7871306E45300B7E62B /* src */,
+=======
+		4B2302601307FEAA006B722E /* ofxBullet */ = {
+			isa = PBXGroup;
+			children = (
+				4B5D0AB813081CAF00AE3F07 /* GLRender */,
+				4B5D0ABB13081CAF00AE3F07 /* lib */,
+				4B2303F61307FEAB006B722E /* src */,
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 			);
 			name = ofxBullet;
 			path = ../../../addons/ofxBullet;
 			sourceTree = SOURCE_ROOT;
 		};
+<<<<<<< HEAD
 		5FD6F5EF1306E45200B7E62B /* GLRender */ = {
 			isa = PBXGroup;
 			children = (
 				5FD6F5F01306E45200B7E62B /* GL_ShapeDrawer.cpp */,
 				5FD6F5F11306E45200B7E62B /* GL_ShapeDrawer.h */,
+=======
+		4B2303F61307FEAB006B722E /* src */ = {
+			isa = PBXGroup;
+			children = (
+				4B2303F71307FEAB006B722E /* ofxBullet.cpp */,
+				4B2303F81307FEAB006B722E /* ofxBullet.h */,
+				4B2303F91307FEAB006B722E /* ofxBulletHollowSphere.cpp */,
+				4B2303FA1307FEAB006B722E /* ofxBulletHollowSphere.h */,
+				4B2303FB1307FEAB006B722E /* ofxBulletRigidBody.cpp */,
+				4B2303FC1307FEAB006B722E /* ofxBulletRigidBody.h */,
+				4B2303FD1307FEAB006B722E /* ofxBulletUtils.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		4B5D0AB813081CAF00AE3F07 /* GLRender */ = {
+			isa = PBXGroup;
+			children = (
+				4B5D0AB913081CAF00AE3F07 /* GL_ShapeDrawer.cpp */,
+				4B5D0ABA13081CAF00AE3F07 /* GL_ShapeDrawer.h */,
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 			);
 			name = GLRender;
 			path = ../../../addons/ofxBullet/GLRender;
 			sourceTree = SOURCE_ROOT;
 		};
+<<<<<<< HEAD
 		5FD6F5F21306E45200B7E62B /* lib */ = {
 			isa = PBXGroup;
 			children = (
 				5FD6F5F31306E45200B7E62B /* bullet */,
+=======
+		4B5D0ABB13081CAF00AE3F07 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				4B5D0ABC13081CAF00AE3F07 /* bullet */,
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 			);
 			name = lib;
 			path = ../../../addons/ofxBullet/lib;
 			sourceTree = SOURCE_ROOT;
 		};
+<<<<<<< HEAD
 		5FD6F5F31306E45200B7E62B /* bullet */ = {
 			isa = PBXGroup;
 			children = (
@@ -687,11 +1267,27 @@
 				5FD6F7651306E45300B7E62B /* LinearMath */,
 				5FD6F7801306E45300B7E62B /* MiniCL */,
 				5FD6F7841306E45300B7E62B /* OpenGL */,
+=======
+		4B5D0ABC13081CAF00AE3F07 /* bullet */ = {
+			isa = PBXGroup;
+			children = (
+				4B5D0ABD13081CAF00AE3F07 /* btBulletCollisionCommon.h */,
+				4B5D0ABE13081CAF00AE3F07 /* btBulletDynamicsCommon.h */,
+				4B5D0ABF13081CAF00AE3F07 /* Bullet-C-Api.h */,
+				4B5D0AC013081CAF00AE3F07 /* BulletCollision */,
+				4B5D0B8C13081CAF00AE3F07 /* BulletDynamics */,
+				4B5D0BC113081CAF00AE3F07 /* BulletMultiThreaded */,
+				4B5D0C1C13081CB000AE3F07 /* BulletSoftBody */,
+				4B5D0C2D13081CB000AE3F07 /* LinearMath */,
+				4B5D0C4813081CB000AE3F07 /* MiniCL */,
+				4B5D0C4C13081CB000AE3F07 /* OpenGL */,
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 			);
 			name = bullet;
 			path = ../../../addons/ofxBullet/lib/bullet;
 			sourceTree = SOURCE_ROOT;
 		};
+<<<<<<< HEAD
 		5FD6F5F71306E45200B7E62B /* BulletCollision */ = {
 			isa = PBXGroup;
 			children = (
@@ -700,11 +1296,22 @@
 				5FD6F63A1306E45200B7E62B /* CollisionShapes */,
 				5FD6F6801306E45200B7E62B /* Gimpact */,
 				5FD6F6A71306E45200B7E62B /* NarrowPhaseCollision */,
+=======
+		4B5D0AC013081CAF00AE3F07 /* BulletCollision */ = {
+			isa = PBXGroup;
+			children = (
+				4B5D0AC113081CAF00AE3F07 /* BroadphaseCollision */,
+				4B5D0AD813081CAF00AE3F07 /* CollisionDispatch */,
+				4B5D0B0313081CAF00AE3F07 /* CollisionShapes */,
+				4B5D0B4913081CAF00AE3F07 /* Gimpact */,
+				4B5D0B7013081CAF00AE3F07 /* NarrowPhaseCollision */,
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 			);
 			name = BulletCollision;
 			path = ../../../addons/ofxBullet/lib/bullet/BulletCollision;
 			sourceTree = SOURCE_ROOT;
 		};
+<<<<<<< HEAD
 		5FD6F5F81306E45200B7E62B /* BroadphaseCollision */ = {
 			isa = PBXGroup;
 			children = (
@@ -730,11 +1337,39 @@
 				5FD6F60C1306E45200B7E62B /* btQuantizedBvh.h */,
 				5FD6F60D1306E45200B7E62B /* btSimpleBroadphase.cpp */,
 				5FD6F60E1306E45200B7E62B /* btSimpleBroadphase.h */,
+=======
+		4B5D0AC113081CAF00AE3F07 /* BroadphaseCollision */ = {
+			isa = PBXGroup;
+			children = (
+				4B5D0AC213081CAF00AE3F07 /* btAxisSweep3.cpp */,
+				4B5D0AC313081CAF00AE3F07 /* btAxisSweep3.h */,
+				4B5D0AC413081CAF00AE3F07 /* btBroadphaseInterface.h */,
+				4B5D0AC513081CAF00AE3F07 /* btBroadphaseProxy.cpp */,
+				4B5D0AC613081CAF00AE3F07 /* btBroadphaseProxy.h */,
+				4B5D0AC713081CAF00AE3F07 /* btCollisionAlgorithm.cpp */,
+				4B5D0AC813081CAF00AE3F07 /* btCollisionAlgorithm.h */,
+				4B5D0AC913081CAF00AE3F07 /* btDbvt.cpp */,
+				4B5D0ACA13081CAF00AE3F07 /* btDbvt.h */,
+				4B5D0ACB13081CAF00AE3F07 /* btDbvtBroadphase.cpp */,
+				4B5D0ACC13081CAF00AE3F07 /* btDbvtBroadphase.h */,
+				4B5D0ACD13081CAF00AE3F07 /* btDispatcher.cpp */,
+				4B5D0ACE13081CAF00AE3F07 /* btDispatcher.h */,
+				4B5D0ACF13081CAF00AE3F07 /* btMultiSapBroadphase.cpp */,
+				4B5D0AD013081CAF00AE3F07 /* btMultiSapBroadphase.h */,
+				4B5D0AD113081CAF00AE3F07 /* btOverlappingPairCache.cpp */,
+				4B5D0AD213081CAF00AE3F07 /* btOverlappingPairCache.h */,
+				4B5D0AD313081CAF00AE3F07 /* btOverlappingPairCallback.h */,
+				4B5D0AD413081CAF00AE3F07 /* btQuantizedBvh.cpp */,
+				4B5D0AD513081CAF00AE3F07 /* btQuantizedBvh.h */,
+				4B5D0AD613081CAF00AE3F07 /* btSimpleBroadphase.cpp */,
+				4B5D0AD713081CAF00AE3F07 /* btSimpleBroadphase.h */,
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 			);
 			name = BroadphaseCollision;
 			path = ../../../addons/ofxBullet/lib/bullet/BulletCollision/BroadphaseCollision;
 			sourceTree = SOURCE_ROOT;
 		};
+<<<<<<< HEAD
 		5FD6F60F1306E45200B7E62B /* CollisionDispatch */ = {
 			isa = PBXGroup;
 			children = (
@@ -780,11 +1415,59 @@
 				5FD6F6371306E45200B7E62B /* btUnionFind.h */,
 				5FD6F6381306E45200B7E62B /* SphereTriangleDetector.cpp */,
 				5FD6F6391306E45200B7E62B /* SphereTriangleDetector.h */,
+=======
+		4B5D0AD813081CAF00AE3F07 /* CollisionDispatch */ = {
+			isa = PBXGroup;
+			children = (
+				4B5D0AD913081CAF00AE3F07 /* btActivatingCollisionAlgorithm.cpp */,
+				4B5D0ADA13081CAF00AE3F07 /* btActivatingCollisionAlgorithm.h */,
+				4B5D0ADB13081CAF00AE3F07 /* btBoxBoxCollisionAlgorithm.cpp */,
+				4B5D0ADC13081CAF00AE3F07 /* btBoxBoxCollisionAlgorithm.h */,
+				4B5D0ADD13081CAF00AE3F07 /* btBoxBoxDetector.cpp */,
+				4B5D0ADE13081CAF00AE3F07 /* btBoxBoxDetector.h */,
+				4B5D0ADF13081CAF00AE3F07 /* btCollisionConfiguration.h */,
+				4B5D0AE013081CAF00AE3F07 /* btCollisionCreateFunc.h */,
+				4B5D0AE113081CAF00AE3F07 /* btCollisionDispatcher.cpp */,
+				4B5D0AE213081CAF00AE3F07 /* btCollisionDispatcher.h */,
+				4B5D0AE313081CAF00AE3F07 /* btCollisionObject.cpp */,
+				4B5D0AE413081CAF00AE3F07 /* btCollisionObject.h */,
+				4B5D0AE513081CAF00AE3F07 /* btCollisionWorld.cpp */,
+				4B5D0AE613081CAF00AE3F07 /* btCollisionWorld.h */,
+				4B5D0AE713081CAF00AE3F07 /* btCompoundCollisionAlgorithm.cpp */,
+				4B5D0AE813081CAF00AE3F07 /* btCompoundCollisionAlgorithm.h */,
+				4B5D0AE913081CAF00AE3F07 /* btConvexConcaveCollisionAlgorithm.cpp */,
+				4B5D0AEA13081CAF00AE3F07 /* btConvexConcaveCollisionAlgorithm.h */,
+				4B5D0AEB13081CAF00AE3F07 /* btConvexConvexAlgorithm.cpp */,
+				4B5D0AEC13081CAF00AE3F07 /* btConvexConvexAlgorithm.h */,
+				4B5D0AED13081CAF00AE3F07 /* btConvexPlaneCollisionAlgorithm.cpp */,
+				4B5D0AEE13081CAF00AE3F07 /* btConvexPlaneCollisionAlgorithm.h */,
+				4B5D0AEF13081CAF00AE3F07 /* btDefaultCollisionConfiguration.cpp */,
+				4B5D0AF013081CAF00AE3F07 /* btDefaultCollisionConfiguration.h */,
+				4B5D0AF113081CAF00AE3F07 /* btEmptyCollisionAlgorithm.cpp */,
+				4B5D0AF213081CAF00AE3F07 /* btEmptyCollisionAlgorithm.h */,
+				4B5D0AF313081CAF00AE3F07 /* btGhostObject.cpp */,
+				4B5D0AF413081CAF00AE3F07 /* btGhostObject.h */,
+				4B5D0AF513081CAF00AE3F07 /* btManifoldResult.cpp */,
+				4B5D0AF613081CAF00AE3F07 /* btManifoldResult.h */,
+				4B5D0AF713081CAF00AE3F07 /* btSimulationIslandManager.cpp */,
+				4B5D0AF813081CAF00AE3F07 /* btSimulationIslandManager.h */,
+				4B5D0AF913081CAF00AE3F07 /* btSphereBoxCollisionAlgorithm.cpp */,
+				4B5D0AFA13081CAF00AE3F07 /* btSphereBoxCollisionAlgorithm.h */,
+				4B5D0AFB13081CAF00AE3F07 /* btSphereSphereCollisionAlgorithm.cpp */,
+				4B5D0AFC13081CAF00AE3F07 /* btSphereSphereCollisionAlgorithm.h */,
+				4B5D0AFD13081CAF00AE3F07 /* btSphereTriangleCollisionAlgorithm.cpp */,
+				4B5D0AFE13081CAF00AE3F07 /* btSphereTriangleCollisionAlgorithm.h */,
+				4B5D0AFF13081CAF00AE3F07 /* btUnionFind.cpp */,
+				4B5D0B0013081CAF00AE3F07 /* btUnionFind.h */,
+				4B5D0B0113081CAF00AE3F07 /* SphereTriangleDetector.cpp */,
+				4B5D0B0213081CAF00AE3F07 /* SphereTriangleDetector.h */,
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 			);
 			name = CollisionDispatch;
 			path = ../../../addons/ofxBullet/lib/bullet/BulletCollision/CollisionDispatch;
 			sourceTree = SOURCE_ROOT;
 		};
+<<<<<<< HEAD
 		5FD6F63A1306E45200B7E62B /* CollisionShapes */ = {
 			isa = PBXGroup;
 			children = (
@@ -857,11 +1540,86 @@
 				5FD6F67D1306E45200B7E62B /* btTriangleShape.h */,
 				5FD6F67E1306E45200B7E62B /* btUniformScalingShape.cpp */,
 				5FD6F67F1306E45200B7E62B /* btUniformScalingShape.h */,
+=======
+		4B5D0B0313081CAF00AE3F07 /* CollisionShapes */ = {
+			isa = PBXGroup;
+			children = (
+				4B5D0B0413081CAF00AE3F07 /* btBoxShape.cpp */,
+				4B5D0B0513081CAF00AE3F07 /* btBoxShape.h */,
+				4B5D0B0613081CAF00AE3F07 /* btBvhTriangleMeshShape.cpp */,
+				4B5D0B0713081CAF00AE3F07 /* btBvhTriangleMeshShape.h */,
+				4B5D0B0813081CAF00AE3F07 /* btCapsuleShape.cpp */,
+				4B5D0B0913081CAF00AE3F07 /* btCapsuleShape.h */,
+				4B5D0B0A13081CAF00AE3F07 /* btCollisionMargin.h */,
+				4B5D0B0B13081CAF00AE3F07 /* btCollisionShape.cpp */,
+				4B5D0B0C13081CAF00AE3F07 /* btCollisionShape.h */,
+				4B5D0B0D13081CAF00AE3F07 /* btCompoundShape.cpp */,
+				4B5D0B0E13081CAF00AE3F07 /* btCompoundShape.h */,
+				4B5D0B0F13081CAF00AE3F07 /* btConcaveShape.cpp */,
+				4B5D0B1013081CAF00AE3F07 /* btConcaveShape.h */,
+				4B5D0B1113081CAF00AE3F07 /* btConeShape.cpp */,
+				4B5D0B1213081CAF00AE3F07 /* btConeShape.h */,
+				4B5D0B1313081CAF00AE3F07 /* btConvexHullShape.cpp */,
+				4B5D0B1413081CAF00AE3F07 /* btConvexHullShape.h */,
+				4B5D0B1513081CAF00AE3F07 /* btConvexInternalShape.cpp */,
+				4B5D0B1613081CAF00AE3F07 /* btConvexInternalShape.h */,
+				4B5D0B1713081CAF00AE3F07 /* btConvexPointCloudShape.cpp */,
+				4B5D0B1813081CAF00AE3F07 /* btConvexPointCloudShape.h */,
+				4B5D0B1913081CAF00AE3F07 /* btConvexShape.cpp */,
+				4B5D0B1A13081CAF00AE3F07 /* btConvexShape.h */,
+				4B5D0B1B13081CAF00AE3F07 /* btConvexTriangleMeshShape.cpp */,
+				4B5D0B1C13081CAF00AE3F07 /* btConvexTriangleMeshShape.h */,
+				4B5D0B1D13081CAF00AE3F07 /* btCylinderShape.cpp */,
+				4B5D0B1E13081CAF00AE3F07 /* btCylinderShape.h */,
+				4B5D0B1F13081CAF00AE3F07 /* btEmptyShape.cpp */,
+				4B5D0B2013081CAF00AE3F07 /* btEmptyShape.h */,
+				4B5D0B2113081CAF00AE3F07 /* btHeightfieldTerrainShape.cpp */,
+				4B5D0B2213081CAF00AE3F07 /* btHeightfieldTerrainShape.h */,
+				4B5D0B2313081CAF00AE3F07 /* btMaterial.h */,
+				4B5D0B2413081CAF00AE3F07 /* btMinkowskiSumShape.cpp */,
+				4B5D0B2513081CAF00AE3F07 /* btMinkowskiSumShape.h */,
+				4B5D0B2613081CAF00AE3F07 /* btMultimaterialTriangleMeshShape.cpp */,
+				4B5D0B2713081CAF00AE3F07 /* btMultimaterialTriangleMeshShape.h */,
+				4B5D0B2813081CAF00AE3F07 /* btMultiSphereShape.cpp */,
+				4B5D0B2913081CAF00AE3F07 /* btMultiSphereShape.h */,
+				4B5D0B2A13081CAF00AE3F07 /* btOptimizedBvh.cpp */,
+				4B5D0B2B13081CAF00AE3F07 /* btOptimizedBvh.h */,
+				4B5D0B2C13081CAF00AE3F07 /* btPolyhedralConvexShape.cpp */,
+				4B5D0B2D13081CAF00AE3F07 /* btPolyhedralConvexShape.h */,
+				4B5D0B2E13081CAF00AE3F07 /* btScaledBvhTriangleMeshShape.cpp */,
+				4B5D0B2F13081CAF00AE3F07 /* btScaledBvhTriangleMeshShape.h */,
+				4B5D0B3013081CAF00AE3F07 /* btShapeHull.cpp */,
+				4B5D0B3113081CAF00AE3F07 /* btShapeHull.h */,
+				4B5D0B3213081CAF00AE3F07 /* btSphereShape.cpp */,
+				4B5D0B3313081CAF00AE3F07 /* btSphereShape.h */,
+				4B5D0B3413081CAF00AE3F07 /* btStaticPlaneShape.cpp */,
+				4B5D0B3513081CAF00AE3F07 /* btStaticPlaneShape.h */,
+				4B5D0B3613081CAF00AE3F07 /* btStridingMeshInterface.cpp */,
+				4B5D0B3713081CAF00AE3F07 /* btStridingMeshInterface.h */,
+				4B5D0B3813081CAF00AE3F07 /* btTetrahedronShape.cpp */,
+				4B5D0B3913081CAF00AE3F07 /* btTetrahedronShape.h */,
+				4B5D0B3A13081CAF00AE3F07 /* btTriangleBuffer.cpp */,
+				4B5D0B3B13081CAF00AE3F07 /* btTriangleBuffer.h */,
+				4B5D0B3C13081CAF00AE3F07 /* btTriangleCallback.cpp */,
+				4B5D0B3D13081CAF00AE3F07 /* btTriangleCallback.h */,
+				4B5D0B3E13081CAF00AE3F07 /* btTriangleIndexVertexArray.cpp */,
+				4B5D0B3F13081CAF00AE3F07 /* btTriangleIndexVertexArray.h */,
+				4B5D0B4013081CAF00AE3F07 /* btTriangleIndexVertexMaterialArray.cpp */,
+				4B5D0B4113081CAF00AE3F07 /* btTriangleIndexVertexMaterialArray.h */,
+				4B5D0B4213081CAF00AE3F07 /* btTriangleMesh.cpp */,
+				4B5D0B4313081CAF00AE3F07 /* btTriangleMesh.h */,
+				4B5D0B4413081CAF00AE3F07 /* btTriangleMeshShape.cpp */,
+				4B5D0B4513081CAF00AE3F07 /* btTriangleMeshShape.h */,
+				4B5D0B4613081CAF00AE3F07 /* btTriangleShape.h */,
+				4B5D0B4713081CAF00AE3F07 /* btUniformScalingShape.cpp */,
+				4B5D0B4813081CAF00AE3F07 /* btUniformScalingShape.h */,
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 			);
 			name = CollisionShapes;
 			path = ../../../addons/ofxBullet/lib/bullet/BulletCollision/CollisionShapes;
 			sourceTree = SOURCE_ROOT;
 		};
+<<<<<<< HEAD
 		5FD6F6801306E45200B7E62B /* Gimpact */ = {
 			isa = PBXGroup;
 			children = (
@@ -903,11 +1661,55 @@
 				5FD6F6A41306E45200B7E62B /* gim_radixsort.h */,
 				5FD6F6A51306E45200B7E62B /* gim_tri_collision.cpp */,
 				5FD6F6A61306E45200B7E62B /* gim_tri_collision.h */,
+=======
+		4B5D0B4913081CAF00AE3F07 /* Gimpact */ = {
+			isa = PBXGroup;
+			children = (
+				4B5D0B4A13081CAF00AE3F07 /* btBoxCollision.h */,
+				4B5D0B4B13081CAF00AE3F07 /* btClipPolygon.h */,
+				4B5D0B4C13081CAF00AE3F07 /* btContactProcessing.cpp */,
+				4B5D0B4D13081CAF00AE3F07 /* btContactProcessing.h */,
+				4B5D0B4E13081CAF00AE3F07 /* btGenericPoolAllocator.cpp */,
+				4B5D0B4F13081CAF00AE3F07 /* btGenericPoolAllocator.h */,
+				4B5D0B5013081CAF00AE3F07 /* btGeometryOperations.h */,
+				4B5D0B5113081CAF00AE3F07 /* btGImpactBvh.cpp */,
+				4B5D0B5213081CAF00AE3F07 /* btGImpactBvh.h */,
+				4B5D0B5313081CAF00AE3F07 /* btGImpactCollisionAlgorithm.cpp */,
+				4B5D0B5413081CAF00AE3F07 /* btGImpactCollisionAlgorithm.h */,
+				4B5D0B5513081CAF00AE3F07 /* btGImpactMassUtil.h */,
+				4B5D0B5613081CAF00AE3F07 /* btGImpactQuantizedBvh.cpp */,
+				4B5D0B5713081CAF00AE3F07 /* btGImpactQuantizedBvh.h */,
+				4B5D0B5813081CAF00AE3F07 /* btGImpactShape.cpp */,
+				4B5D0B5913081CAF00AE3F07 /* btGImpactShape.h */,
+				4B5D0B5A13081CAF00AE3F07 /* btQuantization.h */,
+				4B5D0B5B13081CAF00AE3F07 /* btTriangleShapeEx.cpp */,
+				4B5D0B5C13081CAF00AE3F07 /* btTriangleShapeEx.h */,
+				4B5D0B5D13081CAF00AE3F07 /* gim_array.h */,
+				4B5D0B5E13081CAF00AE3F07 /* gim_basic_geometry_operations.h */,
+				4B5D0B5F13081CAF00AE3F07 /* gim_bitset.h */,
+				4B5D0B6013081CAF00AE3F07 /* gim_box_collision.h */,
+				4B5D0B6113081CAF00AE3F07 /* gim_box_set.cpp */,
+				4B5D0B6213081CAF00AE3F07 /* gim_box_set.h */,
+				4B5D0B6313081CAF00AE3F07 /* gim_clip_polygon.h */,
+				4B5D0B6413081CAF00AE3F07 /* gim_contact.cpp */,
+				4B5D0B6513081CAF00AE3F07 /* gim_contact.h */,
+				4B5D0B6613081CAF00AE3F07 /* gim_geom_types.h */,
+				4B5D0B6713081CAF00AE3F07 /* gim_geometry.h */,
+				4B5D0B6813081CAF00AE3F07 /* gim_hash_table.h */,
+				4B5D0B6913081CAF00AE3F07 /* gim_linear_math.h */,
+				4B5D0B6A13081CAF00AE3F07 /* gim_math.h */,
+				4B5D0B6B13081CAF00AE3F07 /* gim_memory.cpp */,
+				4B5D0B6C13081CAF00AE3F07 /* gim_memory.h */,
+				4B5D0B6D13081CAF00AE3F07 /* gim_radixsort.h */,
+				4B5D0B6E13081CAF00AE3F07 /* gim_tri_collision.cpp */,
+				4B5D0B6F13081CAF00AE3F07 /* gim_tri_collision.h */,
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 			);
 			name = Gimpact;
 			path = ../../../addons/ofxBullet/lib/bullet/BulletCollision/Gimpact;
 			sourceTree = SOURCE_ROOT;
 		};
+<<<<<<< HEAD
 		5FD6F6A71306E45200B7E62B /* NarrowPhaseCollision */ = {
 			isa = PBXGroup;
 			children = (
@@ -938,11 +1740,44 @@
 				5FD6F6C01306E45200B7E62B /* btSubSimplexConvexCast.h */,
 				5FD6F6C11306E45200B7E62B /* btVoronoiSimplexSolver.cpp */,
 				5FD6F6C21306E45200B7E62B /* btVoronoiSimplexSolver.h */,
+=======
+		4B5D0B7013081CAF00AE3F07 /* NarrowPhaseCollision */ = {
+			isa = PBXGroup;
+			children = (
+				4B5D0B7113081CAF00AE3F07 /* btContinuousConvexCollision.cpp */,
+				4B5D0B7213081CAF00AE3F07 /* btContinuousConvexCollision.h */,
+				4B5D0B7313081CAF00AE3F07 /* btConvexCast.cpp */,
+				4B5D0B7413081CAF00AE3F07 /* btConvexCast.h */,
+				4B5D0B7513081CAF00AE3F07 /* btConvexPenetrationDepthSolver.h */,
+				4B5D0B7613081CAF00AE3F07 /* btDiscreteCollisionDetectorInterface.h */,
+				4B5D0B7713081CAF00AE3F07 /* btGjkConvexCast.cpp */,
+				4B5D0B7813081CAF00AE3F07 /* btGjkConvexCast.h */,
+				4B5D0B7913081CAF00AE3F07 /* btGjkEpa2.cpp */,
+				4B5D0B7A13081CAF00AE3F07 /* btGjkEpa2.h */,
+				4B5D0B7B13081CAF00AE3F07 /* btGjkEpaPenetrationDepthSolver.cpp */,
+				4B5D0B7C13081CAF00AE3F07 /* btGjkEpaPenetrationDepthSolver.h */,
+				4B5D0B7D13081CAF00AE3F07 /* btGjkPairDetector.cpp */,
+				4B5D0B7E13081CAF00AE3F07 /* btGjkPairDetector.h */,
+				4B5D0B7F13081CAF00AE3F07 /* btManifoldPoint.h */,
+				4B5D0B8013081CAF00AE3F07 /* btMinkowskiPenetrationDepthSolver.cpp */,
+				4B5D0B8113081CAF00AE3F07 /* btMinkowskiPenetrationDepthSolver.h */,
+				4B5D0B8213081CAF00AE3F07 /* btPersistentManifold.cpp */,
+				4B5D0B8313081CAF00AE3F07 /* btPersistentManifold.h */,
+				4B5D0B8413081CAF00AE3F07 /* btPointCollector.h */,
+				4B5D0B8513081CAF00AE3F07 /* btRaycastCallback.cpp */,
+				4B5D0B8613081CAF00AE3F07 /* btRaycastCallback.h */,
+				4B5D0B8713081CAF00AE3F07 /* btSimplexSolverInterface.h */,
+				4B5D0B8813081CAF00AE3F07 /* btSubSimplexConvexCast.cpp */,
+				4B5D0B8913081CAF00AE3F07 /* btSubSimplexConvexCast.h */,
+				4B5D0B8A13081CAF00AE3F07 /* btVoronoiSimplexSolver.cpp */,
+				4B5D0B8B13081CAF00AE3F07 /* btVoronoiSimplexSolver.h */,
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 			);
 			name = NarrowPhaseCollision;
 			path = ../../../addons/ofxBullet/lib/bullet/BulletCollision/NarrowPhaseCollision;
 			sourceTree = SOURCE_ROOT;
 		};
+<<<<<<< HEAD
 		5FD6F6C31306E45200B7E62B /* BulletDynamics */ = {
 			isa = PBXGroup;
 			children = (
@@ -950,22 +1785,41 @@
 				5FD6F6C81306E45200B7E62B /* ConstraintSolver */,
 				5FD6F6E61306E45300B7E62B /* Dynamics */,
 				5FD6F6F21306E45300B7E62B /* Vehicle */,
+=======
+		4B5D0B8C13081CAF00AE3F07 /* BulletDynamics */ = {
+			isa = PBXGroup;
+			children = (
+				4B5D0B8D13081CAF00AE3F07 /* Character */,
+				4B5D0B9113081CAF00AE3F07 /* ConstraintSolver */,
+				4B5D0BAF13081CAF00AE3F07 /* Dynamics */,
+				4B5D0BBB13081CAF00AE3F07 /* Vehicle */,
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 			);
 			name = BulletDynamics;
 			path = ../../../addons/ofxBullet/lib/bullet/BulletDynamics;
 			sourceTree = SOURCE_ROOT;
 		};
+<<<<<<< HEAD
 		5FD6F6C41306E45200B7E62B /* Character */ = {
 			isa = PBXGroup;
 			children = (
 				5FD6F6C51306E45200B7E62B /* btCharacterControllerInterface.h */,
 				5FD6F6C61306E45200B7E62B /* btKinematicCharacterController.cpp */,
 				5FD6F6C71306E45200B7E62B /* btKinematicCharacterController.h */,
+=======
+		4B5D0B8D13081CAF00AE3F07 /* Character */ = {
+			isa = PBXGroup;
+			children = (
+				4B5D0B8E13081CAF00AE3F07 /* btCharacterControllerInterface.h */,
+				4B5D0B8F13081CAF00AE3F07 /* btKinematicCharacterController.cpp */,
+				4B5D0B9013081CAF00AE3F07 /* btKinematicCharacterController.h */,
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 			);
 			name = Character;
 			path = ../../../addons/ofxBullet/lib/bullet/BulletDynamics/Character;
 			sourceTree = SOURCE_ROOT;
 		};
+<<<<<<< HEAD
 		5FD6F6C81306E45200B7E62B /* ConstraintSolver */ = {
 			isa = PBXGroup;
 			children = (
@@ -998,11 +1852,46 @@
 				5FD6F6E31306E45300B7E62B /* btTypedConstraint.h */,
 				5FD6F6E41306E45300B7E62B /* btUniversalConstraint.cpp */,
 				5FD6F6E51306E45300B7E62B /* btUniversalConstraint.h */,
+=======
+		4B5D0B9113081CAF00AE3F07 /* ConstraintSolver */ = {
+			isa = PBXGroup;
+			children = (
+				4B5D0B9213081CAF00AE3F07 /* btConeTwistConstraint.cpp */,
+				4B5D0B9313081CAF00AE3F07 /* btConeTwistConstraint.h */,
+				4B5D0B9413081CAF00AE3F07 /* btConstraintSolver.h */,
+				4B5D0B9513081CAF00AE3F07 /* btContactConstraint.cpp */,
+				4B5D0B9613081CAF00AE3F07 /* btContactConstraint.h */,
+				4B5D0B9713081CAF00AE3F07 /* btContactSolverInfo.h */,
+				4B5D0B9813081CAF00AE3F07 /* btGeneric6DofConstraint.cpp */,
+				4B5D0B9913081CAF00AE3F07 /* btGeneric6DofConstraint.h */,
+				4B5D0B9A13081CAF00AE3F07 /* btGeneric6DofSpringConstraint.cpp */,
+				4B5D0B9B13081CAF00AE3F07 /* btGeneric6DofSpringConstraint.h */,
+				4B5D0B9C13081CAF00AE3F07 /* btHinge2Constraint.cpp */,
+				4B5D0B9D13081CAF00AE3F07 /* btHinge2Constraint.h */,
+				4B5D0B9E13081CAF00AE3F07 /* btHingeConstraint.cpp */,
+				4B5D0B9F13081CAF00AE3F07 /* btHingeConstraint.h */,
+				4B5D0BA013081CAF00AE3F07 /* btJacobianEntry.h */,
+				4B5D0BA113081CAF00AE3F07 /* btPoint2PointConstraint.cpp */,
+				4B5D0BA213081CAF00AE3F07 /* btPoint2PointConstraint.h */,
+				4B5D0BA313081CAF00AE3F07 /* btSequentialImpulseConstraintSolver.cpp */,
+				4B5D0BA413081CAF00AE3F07 /* btSequentialImpulseConstraintSolver.h */,
+				4B5D0BA513081CAF00AE3F07 /* btSliderConstraint.cpp */,
+				4B5D0BA613081CAF00AE3F07 /* btSliderConstraint.h */,
+				4B5D0BA713081CAF00AE3F07 /* btSolve2LinearConstraint.cpp */,
+				4B5D0BA813081CAF00AE3F07 /* btSolve2LinearConstraint.h */,
+				4B5D0BA913081CAF00AE3F07 /* btSolverBody.h */,
+				4B5D0BAA13081CAF00AE3F07 /* btSolverConstraint.h */,
+				4B5D0BAB13081CAF00AE3F07 /* btTypedConstraint.cpp */,
+				4B5D0BAC13081CAF00AE3F07 /* btTypedConstraint.h */,
+				4B5D0BAD13081CAF00AE3F07 /* btUniversalConstraint.cpp */,
+				4B5D0BAE13081CAF00AE3F07 /* btUniversalConstraint.h */,
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 			);
 			name = ConstraintSolver;
 			path = ../../../addons/ofxBullet/lib/bullet/BulletDynamics/ConstraintSolver;
 			sourceTree = SOURCE_ROOT;
 		};
+<<<<<<< HEAD
 		5FD6F6E61306E45300B7E62B /* Dynamics */ = {
 			isa = PBXGroup;
 			children = (
@@ -1017,11 +1906,28 @@
 				5FD6F6EF1306E45300B7E62B /* btSimpleDynamicsWorld.cpp */,
 				5FD6F6F01306E45300B7E62B /* btSimpleDynamicsWorld.h */,
 				5FD6F6F11306E45300B7E62B /* Bullet-C-API.cpp */,
+=======
+		4B5D0BAF13081CAF00AE3F07 /* Dynamics */ = {
+			isa = PBXGroup;
+			children = (
+				4B5D0BB013081CAF00AE3F07 /* btActionInterface.h */,
+				4B5D0BB113081CAF00AE3F07 /* btContinuousDynamicsWorld.cpp */,
+				4B5D0BB213081CAF00AE3F07 /* btContinuousDynamicsWorld.h */,
+				4B5D0BB313081CAF00AE3F07 /* btDiscreteDynamicsWorld.cpp */,
+				4B5D0BB413081CAF00AE3F07 /* btDiscreteDynamicsWorld.h */,
+				4B5D0BB513081CAF00AE3F07 /* btDynamicsWorld.h */,
+				4B5D0BB613081CAF00AE3F07 /* btRigidBody.cpp */,
+				4B5D0BB713081CAF00AE3F07 /* btRigidBody.h */,
+				4B5D0BB813081CAF00AE3F07 /* btSimpleDynamicsWorld.cpp */,
+				4B5D0BB913081CAF00AE3F07 /* btSimpleDynamicsWorld.h */,
+				4B5D0BBA13081CAF00AE3F07 /* Bullet-C-API.cpp */,
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 			);
 			name = Dynamics;
 			path = ../../../addons/ofxBullet/lib/bullet/BulletDynamics/Dynamics;
 			sourceTree = SOURCE_ROOT;
 		};
+<<<<<<< HEAD
 		5FD6F6F21306E45300B7E62B /* Vehicle */ = {
 			isa = PBXGroup;
 			children = (
@@ -1030,11 +1936,22 @@
 				5FD6F6F51306E45300B7E62B /* btVehicleRaycaster.h */,
 				5FD6F6F61306E45300B7E62B /* btWheelInfo.cpp */,
 				5FD6F6F71306E45300B7E62B /* btWheelInfo.h */,
+=======
+		4B5D0BBB13081CAF00AE3F07 /* Vehicle */ = {
+			isa = PBXGroup;
+			children = (
+				4B5D0BBC13081CAF00AE3F07 /* btRaycastVehicle.cpp */,
+				4B5D0BBD13081CAF00AE3F07 /* btRaycastVehicle.h */,
+				4B5D0BBE13081CAF00AE3F07 /* btVehicleRaycaster.h */,
+				4B5D0BBF13081CAF00AE3F07 /* btWheelInfo.cpp */,
+				4B5D0BC013081CAF00AE3F07 /* btWheelInfo.h */,
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 			);
 			name = Vehicle;
 			path = ../../../addons/ofxBullet/lib/bullet/BulletDynamics/Vehicle;
 			sourceTree = SOURCE_ROOT;
 		};
+<<<<<<< HEAD
 		5FD6F6F81306E45300B7E62B /* BulletMultiThreaded */ = {
 			isa = PBXGroup;
 			children = (
@@ -1089,30 +2006,102 @@
 				5FD6F7501306E45300B7E62B /* vectormath2bullet.h */,
 				5FD6F7511306E45300B7E62B /* Win32ThreadSupport.cpp */,
 				5FD6F7521306E45300B7E62B /* Win32ThreadSupport.h */,
+=======
+		4B5D0BC113081CAF00AE3F07 /* BulletMultiThreaded */ = {
+			isa = PBXGroup;
+			children = (
+				4B5D0BC213081CAF00AE3F07 /* btGpu3DGridBroadphase.cpp */,
+				4B5D0BC313081CAF00AE3F07 /* btGpu3DGridBroadphase.h */,
+				4B5D0BC413081CAF00AE3F07 /* btGpu3DGridBroadphaseSharedCode.h */,
+				4B5D0BC513081CAF00AE3F07 /* btGpu3DGridBroadphaseSharedDefs.h */,
+				4B5D0BC613081CAF00AE3F07 /* btGpu3DGridBroadphaseSharedTypes.h */,
+				4B5D0BC713081CAF00AE3F07 /* btGpuDefines.h */,
+				4B5D0BC813081CAF00AE3F07 /* btGpuUtilsSharedCode.h */,
+				4B5D0BC913081CAF00AE3F07 /* btGpuUtilsSharedDefs.h */,
+				4B5D0BCA13081CAF00AE3F07 /* btThreadSupportInterface.cpp */,
+				4B5D0BCB13081CAF00AE3F07 /* btThreadSupportInterface.h */,
+				4B5D0BCC13081CAF00AE3F07 /* CMakeLists.txt */,
+				4B5D0BCD13081CAF00AE3F07 /* MiniCLTask */,
+				4B5D0BD013081CAF00AE3F07 /* MiniCLTaskScheduler.cpp */,
+				4B5D0BD113081CAF00AE3F07 /* MiniCLTaskScheduler.h */,
+				4B5D0BD213081CAF00AE3F07 /* PlatformDefinitions.h */,
+				4B5D0BD313081CAF00AE3F07 /* PosixThreadSupport.cpp */,
+				4B5D0BD413081CAF00AE3F07 /* PosixThreadSupport.h */,
+				4B5D0BD513081CAF00AE3F07 /* PpuAddressSpace.h */,
+				4B5D0BD613081CAF00AE3F07 /* SequentialThreadSupport.cpp */,
+				4B5D0BD713081CAF00AE3F07 /* SequentialThreadSupport.h */,
+				4B5D0BD813081CAF00AE3F07 /* SpuBatchRaycaster.cpp */,
+				4B5D0BD913081CAF00AE3F07 /* SpuBatchRaycaster.h */,
+				4B5D0BDA13081CAF00AE3F07 /* SpuCollisionObjectWrapper.cpp */,
+				4B5D0BDB13081CAF00AE3F07 /* SpuCollisionObjectWrapper.h */,
+				4B5D0BDC13081CAF00AE3F07 /* SpuCollisionTaskProcess.cpp */,
+				4B5D0BDD13081CAF00AE3F07 /* SpuCollisionTaskProcess.h */,
+				4B5D0BDE13081CAF00AE3F07 /* SpuContactManifoldCollisionAlgorithm.cpp */,
+				4B5D0BDF13081CAF00AE3F07 /* SpuContactManifoldCollisionAlgorithm.h */,
+				4B5D0BE013081CAF00AE3F07 /* SpuDoubleBuffer.h */,
+				4B5D0BE113081CAF00AE3F07 /* SpuFakeDma.cpp */,
+				4B5D0BE213081CAF00AE3F07 /* SpuFakeDma.h */,
+				4B5D0BE313081CAF00AE3F07 /* SpuGatheringCollisionDispatcher.cpp */,
+				4B5D0BE413081CAF00AE3F07 /* SpuGatheringCollisionDispatcher.h */,
+				4B5D0BE513081CAF00AE3F07 /* SpuIntegrationTask */,
+				4B5D0BE713081CAF00AE3F07 /* SpuLibspe2Support.cpp */,
+				4B5D0BE813081CAF00AE3F07 /* SpuLibspe2Support.h */,
+				4B5D0BE913081CAF00AE3F07 /* SpuNarrowPhaseCollisionTask */,
+				4B5D0C0013081CAF00AE3F07 /* SpuParallelSolver.cpp */,
+				4B5D0C0113081CAF00AE3F07 /* SpuParallelSolver.h */,
+				4B5D0C0213081CAF00AE3F07 /* SpuRaycastTask */,
+				4B5D0C0713081CAF00AE3F07 /* SpuRaycastTaskProcess.cpp */,
+				4B5D0C0813081CAF00AE3F07 /* SpuRaycastTaskProcess.h */,
+				4B5D0C0913081CAF00AE3F07 /* SpuSampleTask */,
+				4B5D0C0C13081CAF00AE3F07 /* SpuSampleTaskProcess.cpp */,
+				4B5D0C0D13081CAF00AE3F07 /* SpuSampleTaskProcess.h */,
+				4B5D0C0E13081CAF00AE3F07 /* SpuSolverTask */,
+				4B5D0C1113081CAF00AE3F07 /* SpuSync.h */,
+				4B5D0C1213081CAF00AE3F07 /* vectormath */,
+				4B5D0C1913081CB000AE3F07 /* vectormath2bullet.h */,
+				4B5D0C1A13081CB000AE3F07 /* Win32ThreadSupport.cpp */,
+				4B5D0C1B13081CB000AE3F07 /* Win32ThreadSupport.h */,
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 			);
 			name = BulletMultiThreaded;
 			path = ../../../addons/ofxBullet/lib/bullet/BulletMultiThreaded;
 			sourceTree = SOURCE_ROOT;
 		};
+<<<<<<< HEAD
 		5FD6F7041306E45300B7E62B /* MiniCLTask */ = {
 			isa = PBXGroup;
 			children = (
 				5FD6F7051306E45300B7E62B /* MiniCLTask.cpp */,
 				5FD6F7061306E45300B7E62B /* MiniCLTask.h */,
+=======
+		4B5D0BCD13081CAF00AE3F07 /* MiniCLTask */ = {
+			isa = PBXGroup;
+			children = (
+				4B5D0BCE13081CAF00AE3F07 /* MiniCLTask.cpp */,
+				4B5D0BCF13081CAF00AE3F07 /* MiniCLTask.h */,
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 			);
 			name = MiniCLTask;
 			path = ../../../addons/ofxBullet/lib/bullet/BulletMultiThreaded/MiniCLTask;
 			sourceTree = SOURCE_ROOT;
 		};
+<<<<<<< HEAD
 		5FD6F71C1306E45300B7E62B /* SpuIntegrationTask */ = {
 			isa = PBXGroup;
 			children = (
 				5FD6F71D1306E45300B7E62B /* readme.txt */,
+=======
+		4B5D0BE513081CAF00AE3F07 /* SpuIntegrationTask */ = {
+			isa = PBXGroup;
+			children = (
+				4B5D0BE613081CAF00AE3F07 /* readme.txt */,
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 			);
 			name = SpuIntegrationTask;
 			path = ../../../addons/ofxBullet/lib/bullet/BulletMultiThreaded/SpuIntegrationTask;
 			sourceTree = SOURCE_ROOT;
 		};
+<<<<<<< HEAD
 		5FD6F7201306E45300B7E62B /* SpuNarrowPhaseCollisionTask */ = {
 			isa = PBXGroup;
 			children = (
@@ -1138,11 +2127,39 @@
 				5FD6F7341306E45300B7E62B /* SpuPreferredPenetrationDirections.h */,
 				5FD6F7351306E45300B7E62B /* SpuVoronoiSimplexSolver.cpp */,
 				5FD6F7361306E45300B7E62B /* SpuVoronoiSimplexSolver.h */,
+=======
+		4B5D0BE913081CAF00AE3F07 /* SpuNarrowPhaseCollisionTask */ = {
+			isa = PBXGroup;
+			children = (
+				4B5D0BEA13081CAF00AE3F07 /* Box.h */,
+				4B5D0BEB13081CAF00AE3F07 /* boxBoxDistance.cpp */,
+				4B5D0BEC13081CAF00AE3F07 /* boxBoxDistance.h */,
+				4B5D0BED13081CAF00AE3F07 /* SpuCollisionShapes.cpp */,
+				4B5D0BEE13081CAF00AE3F07 /* SpuCollisionShapes.h */,
+				4B5D0BEF13081CAF00AE3F07 /* SpuContactResult.cpp */,
+				4B5D0BF013081CAF00AE3F07 /* SpuContactResult.h */,
+				4B5D0BF113081CAF00AE3F07 /* SpuConvexPenetrationDepthSolver.h */,
+				4B5D0BF213081CAF00AE3F07 /* SpuEpaPenetrationDepthSolver.cpp */,
+				4B5D0BF313081CAF00AE3F07 /* SpuEpaPenetrationDepthSolver.h */,
+				4B5D0BF413081CAF00AE3F07 /* SpuGatheringCollisionTask.cpp */,
+				4B5D0BF513081CAF00AE3F07 /* SpuGatheringCollisionTask.h */,
+				4B5D0BF613081CAF00AE3F07 /* SpuGjkEpa2.cpp */,
+				4B5D0BF713081CAF00AE3F07 /* SpuGjkEpa2.h */,
+				4B5D0BF813081CAF00AE3F07 /* SpuGjkPairDetector.cpp */,
+				4B5D0BF913081CAF00AE3F07 /* SpuGjkPairDetector.h */,
+				4B5D0BFA13081CAF00AE3F07 /* SpuLocalSupport.h */,
+				4B5D0BFB13081CAF00AE3F07 /* SpuMinkowskiPenetrationDepthSolver.cpp */,
+				4B5D0BFC13081CAF00AE3F07 /* SpuMinkowskiPenetrationDepthSolver.h */,
+				4B5D0BFD13081CAF00AE3F07 /* SpuPreferredPenetrationDirections.h */,
+				4B5D0BFE13081CAF00AE3F07 /* SpuVoronoiSimplexSolver.cpp */,
+				4B5D0BFF13081CAF00AE3F07 /* SpuVoronoiSimplexSolver.h */,
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 			);
 			name = SpuNarrowPhaseCollisionTask;
 			path = ../../../addons/ofxBullet/lib/bullet/BulletMultiThreaded/SpuNarrowPhaseCollisionTask;
 			sourceTree = SOURCE_ROOT;
 		};
+<<<<<<< HEAD
 		5FD6F7391306E45300B7E62B /* SpuRaycastTask */ = {
 			isa = PBXGroup;
 			children = (
@@ -1150,49 +2167,89 @@
 				5FD6F73B1306E45300B7E62B /* SpuRaycastTask.h */,
 				5FD6F73C1306E45300B7E62B /* SpuSubSimplexConvexCast.cpp */,
 				5FD6F73D1306E45300B7E62B /* SpuSubSimplexConvexCast.h */,
+=======
+		4B5D0C0213081CAF00AE3F07 /* SpuRaycastTask */ = {
+			isa = PBXGroup;
+			children = (
+				4B5D0C0313081CAF00AE3F07 /* SpuRaycastTask.cpp */,
+				4B5D0C0413081CAF00AE3F07 /* SpuRaycastTask.h */,
+				4B5D0C0513081CAF00AE3F07 /* SpuSubSimplexConvexCast.cpp */,
+				4B5D0C0613081CAF00AE3F07 /* SpuSubSimplexConvexCast.h */,
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 			);
 			name = SpuRaycastTask;
 			path = ../../../addons/ofxBullet/lib/bullet/BulletMultiThreaded/SpuRaycastTask;
 			sourceTree = SOURCE_ROOT;
 		};
+<<<<<<< HEAD
 		5FD6F7401306E45300B7E62B /* SpuSampleTask */ = {
 			isa = PBXGroup;
 			children = (
 				5FD6F7411306E45300B7E62B /* SpuSampleTask.cpp */,
 				5FD6F7421306E45300B7E62B /* SpuSampleTask.h */,
+=======
+		4B5D0C0913081CAF00AE3F07 /* SpuSampleTask */ = {
+			isa = PBXGroup;
+			children = (
+				4B5D0C0A13081CAF00AE3F07 /* SpuSampleTask.cpp */,
+				4B5D0C0B13081CAF00AE3F07 /* SpuSampleTask.h */,
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 			);
 			name = SpuSampleTask;
 			path = ../../../addons/ofxBullet/lib/bullet/BulletMultiThreaded/SpuSampleTask;
 			sourceTree = SOURCE_ROOT;
 		};
+<<<<<<< HEAD
 		5FD6F7451306E45300B7E62B /* SpuSolverTask */ = {
 			isa = PBXGroup;
 			children = (
 				5FD6F7461306E45300B7E62B /* SpuParallellSolverTask.cpp */,
 				5FD6F7471306E45300B7E62B /* SpuParallellSolverTask.h */,
+=======
+		4B5D0C0E13081CAF00AE3F07 /* SpuSolverTask */ = {
+			isa = PBXGroup;
+			children = (
+				4B5D0C0F13081CAF00AE3F07 /* SpuParallellSolverTask.cpp */,
+				4B5D0C1013081CAF00AE3F07 /* SpuParallellSolverTask.h */,
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 			);
 			name = SpuSolverTask;
 			path = ../../../addons/ofxBullet/lib/bullet/BulletMultiThreaded/SpuSolverTask;
 			sourceTree = SOURCE_ROOT;
 		};
+<<<<<<< HEAD
 		5FD6F7491306E45300B7E62B /* vectormath */ = {
 			isa = PBXGroup;
 			children = (
 				5FD6F74A1306E45300B7E62B /* scalar */,
+=======
+		4B5D0C1213081CAF00AE3F07 /* vectormath */ = {
+			isa = PBXGroup;
+			children = (
+				4B5D0C1313081CAF00AE3F07 /* scalar */,
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 			);
 			name = vectormath;
 			path = ../../../addons/ofxBullet/lib/bullet/BulletMultiThreaded/vectormath;
 			sourceTree = SOURCE_ROOT;
 		};
+<<<<<<< HEAD
 		5FD6F74A1306E45300B7E62B /* scalar */ = {
 			isa = PBXGroup;
 			children = (
 				5FD6F74B1306E45300B7E62B /* cpp */,
+=======
+		4B5D0C1313081CAF00AE3F07 /* scalar */ = {
+			isa = PBXGroup;
+			children = (
+				4B5D0C1413081CAF00AE3F07 /* cpp */,
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 			);
 			name = scalar;
 			path = ../../../addons/ofxBullet/lib/bullet/BulletMultiThreaded/vectormath/scalar;
 			sourceTree = SOURCE_ROOT;
 		};
+<<<<<<< HEAD
 		5FD6F74B1306E45300B7E62B /* cpp */ = {
 			isa = PBXGroup;
 			children = (
@@ -1200,11 +2257,21 @@
 				5FD6F74D1306E45300B7E62B /* quat_aos.h */,
 				5FD6F74E1306E45300B7E62B /* vec_aos.h */,
 				5FD6F74F1306E45300B7E62B /* vectormath_aos.h */,
+=======
+		4B5D0C1413081CAF00AE3F07 /* cpp */ = {
+			isa = PBXGroup;
+			children = (
+				4B5D0C1513081CAF00AE3F07 /* mat_aos.h */,
+				4B5D0C1613081CAF00AE3F07 /* quat_aos.h */,
+				4B5D0C1713081CAF00AE3F07 /* vec_aos.h */,
+				4B5D0C1813081CAF00AE3F07 /* vectormath_aos.h */,
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 			);
 			name = cpp;
 			path = ../../../addons/ofxBullet/lib/bullet/BulletMultiThreaded/vectormath/scalar/cpp;
 			sourceTree = SOURCE_ROOT;
 		};
+<<<<<<< HEAD
 		5FD6F7531306E45300B7E62B /* BulletSoftBody */ = {
 			isa = PBXGroup;
 			children = (
@@ -1224,11 +2291,33 @@
 				5FD6F7611306E45300B7E62B /* btSoftSoftCollisionAlgorithm.cpp */,
 				5FD6F7621306E45300B7E62B /* btSoftSoftCollisionAlgorithm.h */,
 				5FD6F7631306E45300B7E62B /* btSparseSDF.h */,
+=======
+		4B5D0C1C13081CB000AE3F07 /* BulletSoftBody */ = {
+			isa = PBXGroup;
+			children = (
+				4B5D0C1D13081CB000AE3F07 /* btSoftBody.cpp */,
+				4B5D0C1E13081CB000AE3F07 /* btSoftBody.h */,
+				4B5D0C1F13081CB000AE3F07 /* btSoftBodyConcaveCollisionAlgorithm.cpp */,
+				4B5D0C2013081CB000AE3F07 /* btSoftBodyConcaveCollisionAlgorithm.h */,
+				4B5D0C2113081CB000AE3F07 /* btSoftBodyHelpers.cpp */,
+				4B5D0C2213081CB000AE3F07 /* btSoftBodyHelpers.h */,
+				4B5D0C2313081CB000AE3F07 /* btSoftBodyInternals.h */,
+				4B5D0C2413081CB000AE3F07 /* btSoftBodyRigidBodyCollisionConfiguration.cpp */,
+				4B5D0C2513081CB000AE3F07 /* btSoftBodyRigidBodyCollisionConfiguration.h */,
+				4B5D0C2613081CB000AE3F07 /* btSoftRigidCollisionAlgorithm.cpp */,
+				4B5D0C2713081CB000AE3F07 /* btSoftRigidCollisionAlgorithm.h */,
+				4B5D0C2813081CB000AE3F07 /* btSoftRigidDynamicsWorld.cpp */,
+				4B5D0C2913081CB000AE3F07 /* btSoftRigidDynamicsWorld.h */,
+				4B5D0C2A13081CB000AE3F07 /* btSoftSoftCollisionAlgorithm.cpp */,
+				4B5D0C2B13081CB000AE3F07 /* btSoftSoftCollisionAlgorithm.h */,
+				4B5D0C2C13081CB000AE3F07 /* btSparseSDF.h */,
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 			);
 			name = BulletSoftBody;
 			path = ../../../addons/ofxBullet/lib/bullet/BulletSoftBody;
 			sourceTree = SOURCE_ROOT;
 		};
+<<<<<<< HEAD
 		5FD6F7641306E45300B7E62B /* ibmsdk */ = {
 			isa = PBXGroup;
 			children = (
@@ -1266,32 +2355,79 @@
 				5FD6F77D1306E45300B7E62B /* btTransform.h */,
 				5FD6F77E1306E45300B7E62B /* btTransformUtil.h */,
 				5FD6F77F1306E45300B7E62B /* btVector3.h */,
+=======
+		4B5D0C2D13081CB000AE3F07 /* LinearMath */ = {
+			isa = PBXGroup;
+			children = (
+				4B5D0C2E13081CB000AE3F07 /* btAabbUtil2.h */,
+				4B5D0C2F13081CB000AE3F07 /* btAlignedAllocator.cpp */,
+				4B5D0C3013081CB000AE3F07 /* btAlignedAllocator.h */,
+				4B5D0C3113081CB000AE3F07 /* btAlignedObjectArray.h */,
+				4B5D0C3213081CB000AE3F07 /* btConvexHull.cpp */,
+				4B5D0C3313081CB000AE3F07 /* btConvexHull.h */,
+				4B5D0C3413081CB000AE3F07 /* btDefaultMotionState.h */,
+				4B5D0C3513081CB000AE3F07 /* btGeometryUtil.cpp */,
+				4B5D0C3613081CB000AE3F07 /* btGeometryUtil.h */,
+				4B5D0C3713081CB000AE3F07 /* btHashMap.h */,
+				4B5D0C3813081CB000AE3F07 /* btIDebugDraw.h */,
+				4B5D0C3913081CB000AE3F07 /* btList.h */,
+				4B5D0C3A13081CB000AE3F07 /* btMatrix3x3.h */,
+				4B5D0C3B13081CB000AE3F07 /* btMinMax.h */,
+				4B5D0C3C13081CB000AE3F07 /* btMotionState.h */,
+				4B5D0C3D13081CB000AE3F07 /* btPoolAllocator.h */,
+				4B5D0C3E13081CB000AE3F07 /* btQuadWord.h */,
+				4B5D0C3F13081CB000AE3F07 /* btQuaternion.h */,
+				4B5D0C4013081CB000AE3F07 /* btQuickprof.cpp */,
+				4B5D0C4113081CB000AE3F07 /* btQuickprof.h */,
+				4B5D0C4213081CB000AE3F07 /* btRandom.h */,
+				4B5D0C4313081CB000AE3F07 /* btScalar.h */,
+				4B5D0C4413081CB000AE3F07 /* btStackAlloc.h */,
+				4B5D0C4513081CB000AE3F07 /* btTransform.h */,
+				4B5D0C4613081CB000AE3F07 /* btTransformUtil.h */,
+				4B5D0C4713081CB000AE3F07 /* btVector3.h */,
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 			);
 			name = LinearMath;
 			path = ../../../addons/ofxBullet/lib/bullet/LinearMath;
 			sourceTree = SOURCE_ROOT;
 		};
+<<<<<<< HEAD
 		5FD6F7801306E45300B7E62B /* MiniCL */ = {
 			isa = PBXGroup;
 			children = (
 				5FD6F7811306E45300B7E62B /* cl.h */,
 				5FD6F7821306E45300B7E62B /* cl_gl.h */,
 				5FD6F7831306E45300B7E62B /* cl_platform.h */,
+=======
+		4B5D0C4813081CB000AE3F07 /* MiniCL */ = {
+			isa = PBXGroup;
+			children = (
+				4B5D0C4913081CB000AE3F07 /* cl.h */,
+				4B5D0C4A13081CB000AE3F07 /* cl_gl.h */,
+				4B5D0C4B13081CB000AE3F07 /* cl_platform.h */,
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 			);
 			name = MiniCL;
 			path = ../../../addons/ofxBullet/lib/bullet/MiniCL;
 			sourceTree = SOURCE_ROOT;
 		};
+<<<<<<< HEAD
 		5FD6F7841306E45300B7E62B /* OpenGL */ = {
 			isa = PBXGroup;
 			children = (
 				5FD6F7851306E45300B7E62B /* Debug */,
 				5FD6F7861306E45300B7E62B /* Release */,
+=======
+		4B5D0C4C13081CB000AE3F07 /* OpenGL */ = {
+			isa = PBXGroup;
+			children = (
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 			);
 			name = OpenGL;
 			path = ../../../addons/ofxBullet/lib/bullet/OpenGL;
 			sourceTree = SOURCE_ROOT;
 		};
+<<<<<<< HEAD
 		5FD6F7851306E45300B7E62B /* Debug */ = {
 			isa = PBXGroup;
 			children = (
@@ -1325,6 +2461,12 @@
 			isa = PBXGroup;
 			children = (
 				5FD6F5EE1306E45200B7E62B /* ofxBullet */,
+=======
+		E4B69B4A0A3A1720003C02F2 = {
+			isa = PBXGroup;
+			children = (
+				4B2302601307FEAA006B722E /* ofxBullet */,
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 				E4B69B5B0A3A1756003C02F2 /* bulletTestDebug.app */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
@@ -1346,7 +2488,7 @@
 		E4C2421710CC549C004149E2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E4C2421E10CC549C004149E2 /* openFrameworks.a */,
+				E4C2421E10CC549C004149E2 /* openFrameworksDebug.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1409,7 +2551,6 @@
 			isa = PBXProject;
 			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "Bullet" */;
 			compatibilityVersion = "Xcode 2.4";
-			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				English,
@@ -1434,10 +2575,10 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		E4C2421E10CC549C004149E2 /* openFrameworks.a */ = {
+		E4C2421E10CC549C004149E2 /* openFrameworksDebug.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = openFrameworks.a;
+			path = openFrameworksDebug.a;
 			remoteRef = E4C2421D10CC549C004149E2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1466,6 +2607,7 @@
 			files = (
 				EAC12C1A12E6F94F0071CE8E /* testApp.cpp in Sources */,
 				4B9F3A9712F58B31008C3BAF /* main.cpp in Sources */,
+<<<<<<< HEAD
 				5FD6F78D1306E45300B7E62B /* GL_ShapeDrawer.cpp in Sources */,
 				5FD6F78E1306E45300B7E62B /* btAxisSweep3.cpp in Sources */,
 				5FD6F78F1306E45300B7E62B /* btBroadphaseProxy.cpp in Sources */,
@@ -1615,6 +2757,158 @@
 				5FD6F81F1306E45300B7E62B /* btQuickprof.cpp in Sources */,
 				5FD6F8201306E45300B7E62B /* ofxBullet.cpp in Sources */,
 				5FD6F8211306E45300B7E62B /* ofxBulletRigidBody.cpp in Sources */,
+=======
+				4B2304911307FEAB006B722E /* ofxBullet.cpp in Sources */,
+				4B2304921307FEAB006B722E /* ofxBulletHollowSphere.cpp in Sources */,
+				4B2304931307FEAB006B722E /* ofxBulletRigidBody.cpp in Sources */,
+				4B5D0C4D13081CB000AE3F07 /* GL_ShapeDrawer.cpp in Sources */,
+				4B5D0C4E13081CB000AE3F07 /* btAxisSweep3.cpp in Sources */,
+				4B5D0C4F13081CB000AE3F07 /* btBroadphaseProxy.cpp in Sources */,
+				4B5D0C5013081CB000AE3F07 /* btCollisionAlgorithm.cpp in Sources */,
+				4B5D0C5113081CB000AE3F07 /* btDbvt.cpp in Sources */,
+				4B5D0C5213081CB000AE3F07 /* btDbvtBroadphase.cpp in Sources */,
+				4B5D0C5313081CB000AE3F07 /* btDispatcher.cpp in Sources */,
+				4B5D0C5413081CB000AE3F07 /* btMultiSapBroadphase.cpp in Sources */,
+				4B5D0C5513081CB000AE3F07 /* btOverlappingPairCache.cpp in Sources */,
+				4B5D0C5613081CB000AE3F07 /* btQuantizedBvh.cpp in Sources */,
+				4B5D0C5713081CB000AE3F07 /* btSimpleBroadphase.cpp in Sources */,
+				4B5D0C5813081CB000AE3F07 /* btActivatingCollisionAlgorithm.cpp in Sources */,
+				4B5D0C5913081CB000AE3F07 /* btBoxBoxCollisionAlgorithm.cpp in Sources */,
+				4B5D0C5A13081CB000AE3F07 /* btBoxBoxDetector.cpp in Sources */,
+				4B5D0C5B13081CB000AE3F07 /* btCollisionDispatcher.cpp in Sources */,
+				4B5D0C5C13081CB000AE3F07 /* btCollisionObject.cpp in Sources */,
+				4B5D0C5D13081CB000AE3F07 /* btCollisionWorld.cpp in Sources */,
+				4B5D0C5E13081CB000AE3F07 /* btCompoundCollisionAlgorithm.cpp in Sources */,
+				4B5D0C5F13081CB000AE3F07 /* btConvexConcaveCollisionAlgorithm.cpp in Sources */,
+				4B5D0C6013081CB000AE3F07 /* btConvexConvexAlgorithm.cpp in Sources */,
+				4B5D0C6113081CB000AE3F07 /* btConvexPlaneCollisionAlgorithm.cpp in Sources */,
+				4B5D0C6213081CB000AE3F07 /* btDefaultCollisionConfiguration.cpp in Sources */,
+				4B5D0C6313081CB000AE3F07 /* btEmptyCollisionAlgorithm.cpp in Sources */,
+				4B5D0C6413081CB000AE3F07 /* btGhostObject.cpp in Sources */,
+				4B5D0C6513081CB000AE3F07 /* btManifoldResult.cpp in Sources */,
+				4B5D0C6613081CB000AE3F07 /* btSimulationIslandManager.cpp in Sources */,
+				4B5D0C6713081CB000AE3F07 /* btSphereBoxCollisionAlgorithm.cpp in Sources */,
+				4B5D0C6813081CB000AE3F07 /* btSphereSphereCollisionAlgorithm.cpp in Sources */,
+				4B5D0C6913081CB000AE3F07 /* btSphereTriangleCollisionAlgorithm.cpp in Sources */,
+				4B5D0C6A13081CB000AE3F07 /* btUnionFind.cpp in Sources */,
+				4B5D0C6B13081CB000AE3F07 /* SphereTriangleDetector.cpp in Sources */,
+				4B5D0C6C13081CB000AE3F07 /* btBoxShape.cpp in Sources */,
+				4B5D0C6D13081CB000AE3F07 /* btBvhTriangleMeshShape.cpp in Sources */,
+				4B5D0C6E13081CB000AE3F07 /* btCapsuleShape.cpp in Sources */,
+				4B5D0C6F13081CB000AE3F07 /* btCollisionShape.cpp in Sources */,
+				4B5D0C7013081CB000AE3F07 /* btCompoundShape.cpp in Sources */,
+				4B5D0C7113081CB000AE3F07 /* btConcaveShape.cpp in Sources */,
+				4B5D0C7213081CB000AE3F07 /* btConeShape.cpp in Sources */,
+				4B5D0C7313081CB000AE3F07 /* btConvexHullShape.cpp in Sources */,
+				4B5D0C7413081CB000AE3F07 /* btConvexInternalShape.cpp in Sources */,
+				4B5D0C7513081CB000AE3F07 /* btConvexPointCloudShape.cpp in Sources */,
+				4B5D0C7613081CB000AE3F07 /* btConvexShape.cpp in Sources */,
+				4B5D0C7713081CB000AE3F07 /* btConvexTriangleMeshShape.cpp in Sources */,
+				4B5D0C7813081CB000AE3F07 /* btCylinderShape.cpp in Sources */,
+				4B5D0C7913081CB000AE3F07 /* btEmptyShape.cpp in Sources */,
+				4B5D0C7A13081CB000AE3F07 /* btHeightfieldTerrainShape.cpp in Sources */,
+				4B5D0C7B13081CB000AE3F07 /* btMinkowskiSumShape.cpp in Sources */,
+				4B5D0C7C13081CB000AE3F07 /* btMultimaterialTriangleMeshShape.cpp in Sources */,
+				4B5D0C7D13081CB000AE3F07 /* btMultiSphereShape.cpp in Sources */,
+				4B5D0C7E13081CB000AE3F07 /* btOptimizedBvh.cpp in Sources */,
+				4B5D0C7F13081CB000AE3F07 /* btPolyhedralConvexShape.cpp in Sources */,
+				4B5D0C8013081CB000AE3F07 /* btScaledBvhTriangleMeshShape.cpp in Sources */,
+				4B5D0C8113081CB000AE3F07 /* btShapeHull.cpp in Sources */,
+				4B5D0C8213081CB000AE3F07 /* btSphereShape.cpp in Sources */,
+				4B5D0C8313081CB000AE3F07 /* btStaticPlaneShape.cpp in Sources */,
+				4B5D0C8413081CB000AE3F07 /* btStridingMeshInterface.cpp in Sources */,
+				4B5D0C8513081CB000AE3F07 /* btTetrahedronShape.cpp in Sources */,
+				4B5D0C8613081CB000AE3F07 /* btTriangleBuffer.cpp in Sources */,
+				4B5D0C8713081CB000AE3F07 /* btTriangleCallback.cpp in Sources */,
+				4B5D0C8813081CB000AE3F07 /* btTriangleIndexVertexArray.cpp in Sources */,
+				4B5D0C8913081CB000AE3F07 /* btTriangleIndexVertexMaterialArray.cpp in Sources */,
+				4B5D0C8A13081CB000AE3F07 /* btTriangleMesh.cpp in Sources */,
+				4B5D0C8B13081CB000AE3F07 /* btTriangleMeshShape.cpp in Sources */,
+				4B5D0C8C13081CB000AE3F07 /* btUniformScalingShape.cpp in Sources */,
+				4B5D0C8D13081CB000AE3F07 /* btContactProcessing.cpp in Sources */,
+				4B5D0C8E13081CB000AE3F07 /* btGenericPoolAllocator.cpp in Sources */,
+				4B5D0C8F13081CB000AE3F07 /* btGImpactBvh.cpp in Sources */,
+				4B5D0C9013081CB000AE3F07 /* btGImpactCollisionAlgorithm.cpp in Sources */,
+				4B5D0C9113081CB000AE3F07 /* btGImpactQuantizedBvh.cpp in Sources */,
+				4B5D0C9213081CB000AE3F07 /* btGImpactShape.cpp in Sources */,
+				4B5D0C9313081CB000AE3F07 /* btTriangleShapeEx.cpp in Sources */,
+				4B5D0C9413081CB000AE3F07 /* gim_box_set.cpp in Sources */,
+				4B5D0C9513081CB000AE3F07 /* gim_contact.cpp in Sources */,
+				4B5D0C9613081CB000AE3F07 /* gim_memory.cpp in Sources */,
+				4B5D0C9713081CB000AE3F07 /* gim_tri_collision.cpp in Sources */,
+				4B5D0C9813081CB000AE3F07 /* btContinuousConvexCollision.cpp in Sources */,
+				4B5D0C9913081CB000AE3F07 /* btConvexCast.cpp in Sources */,
+				4B5D0C9A13081CB000AE3F07 /* btGjkConvexCast.cpp in Sources */,
+				4B5D0C9B13081CB000AE3F07 /* btGjkEpa2.cpp in Sources */,
+				4B5D0C9C13081CB000AE3F07 /* btGjkEpaPenetrationDepthSolver.cpp in Sources */,
+				4B5D0C9D13081CB000AE3F07 /* btGjkPairDetector.cpp in Sources */,
+				4B5D0C9E13081CB000AE3F07 /* btMinkowskiPenetrationDepthSolver.cpp in Sources */,
+				4B5D0C9F13081CB000AE3F07 /* btPersistentManifold.cpp in Sources */,
+				4B5D0CA013081CB000AE3F07 /* btRaycastCallback.cpp in Sources */,
+				4B5D0CA113081CB000AE3F07 /* btSubSimplexConvexCast.cpp in Sources */,
+				4B5D0CA213081CB000AE3F07 /* btVoronoiSimplexSolver.cpp in Sources */,
+				4B5D0CA313081CB000AE3F07 /* btKinematicCharacterController.cpp in Sources */,
+				4B5D0CA413081CB000AE3F07 /* btConeTwistConstraint.cpp in Sources */,
+				4B5D0CA513081CB000AE3F07 /* btContactConstraint.cpp in Sources */,
+				4B5D0CA613081CB000AE3F07 /* btGeneric6DofConstraint.cpp in Sources */,
+				4B5D0CA713081CB000AE3F07 /* btGeneric6DofSpringConstraint.cpp in Sources */,
+				4B5D0CA813081CB000AE3F07 /* btHinge2Constraint.cpp in Sources */,
+				4B5D0CA913081CB000AE3F07 /* btHingeConstraint.cpp in Sources */,
+				4B5D0CAA13081CB000AE3F07 /* btPoint2PointConstraint.cpp in Sources */,
+				4B5D0CAB13081CB000AE3F07 /* btSequentialImpulseConstraintSolver.cpp in Sources */,
+				4B5D0CAC13081CB000AE3F07 /* btSliderConstraint.cpp in Sources */,
+				4B5D0CAD13081CB000AE3F07 /* btSolve2LinearConstraint.cpp in Sources */,
+				4B5D0CAE13081CB000AE3F07 /* btTypedConstraint.cpp in Sources */,
+				4B5D0CAF13081CB000AE3F07 /* btUniversalConstraint.cpp in Sources */,
+				4B5D0CB013081CB000AE3F07 /* btContinuousDynamicsWorld.cpp in Sources */,
+				4B5D0CB113081CB000AE3F07 /* btDiscreteDynamicsWorld.cpp in Sources */,
+				4B5D0CB213081CB000AE3F07 /* btRigidBody.cpp in Sources */,
+				4B5D0CB313081CB000AE3F07 /* btSimpleDynamicsWorld.cpp in Sources */,
+				4B5D0CB413081CB000AE3F07 /* Bullet-C-API.cpp in Sources */,
+				4B5D0CB513081CB000AE3F07 /* btRaycastVehicle.cpp in Sources */,
+				4B5D0CB613081CB000AE3F07 /* btWheelInfo.cpp in Sources */,
+				4B5D0CB713081CB000AE3F07 /* btGpu3DGridBroadphase.cpp in Sources */,
+				4B5D0CB813081CB000AE3F07 /* btThreadSupportInterface.cpp in Sources */,
+				4B5D0CB913081CB000AE3F07 /* MiniCLTask.cpp in Sources */,
+				4B5D0CBA13081CB000AE3F07 /* MiniCLTaskScheduler.cpp in Sources */,
+				4B5D0CBB13081CB000AE3F07 /* PosixThreadSupport.cpp in Sources */,
+				4B5D0CBC13081CB000AE3F07 /* SequentialThreadSupport.cpp in Sources */,
+				4B5D0CBD13081CB000AE3F07 /* SpuBatchRaycaster.cpp in Sources */,
+				4B5D0CBE13081CB000AE3F07 /* SpuCollisionObjectWrapper.cpp in Sources */,
+				4B5D0CBF13081CB000AE3F07 /* SpuCollisionTaskProcess.cpp in Sources */,
+				4B5D0CC013081CB000AE3F07 /* SpuContactManifoldCollisionAlgorithm.cpp in Sources */,
+				4B5D0CC113081CB000AE3F07 /* SpuFakeDma.cpp in Sources */,
+				4B5D0CC213081CB000AE3F07 /* SpuGatheringCollisionDispatcher.cpp in Sources */,
+				4B5D0CC313081CB000AE3F07 /* SpuLibspe2Support.cpp in Sources */,
+				4B5D0CC413081CB000AE3F07 /* boxBoxDistance.cpp in Sources */,
+				4B5D0CC513081CB000AE3F07 /* SpuCollisionShapes.cpp in Sources */,
+				4B5D0CC613081CB000AE3F07 /* SpuContactResult.cpp in Sources */,
+				4B5D0CC713081CB000AE3F07 /* SpuEpaPenetrationDepthSolver.cpp in Sources */,
+				4B5D0CC813081CB000AE3F07 /* SpuGatheringCollisionTask.cpp in Sources */,
+				4B5D0CC913081CB000AE3F07 /* SpuGjkEpa2.cpp in Sources */,
+				4B5D0CCA13081CB000AE3F07 /* SpuGjkPairDetector.cpp in Sources */,
+				4B5D0CCB13081CB000AE3F07 /* SpuMinkowskiPenetrationDepthSolver.cpp in Sources */,
+				4B5D0CCC13081CB000AE3F07 /* SpuVoronoiSimplexSolver.cpp in Sources */,
+				4B5D0CCD13081CB000AE3F07 /* SpuParallelSolver.cpp in Sources */,
+				4B5D0CCE13081CB000AE3F07 /* SpuRaycastTask.cpp in Sources */,
+				4B5D0CCF13081CB000AE3F07 /* SpuSubSimplexConvexCast.cpp in Sources */,
+				4B5D0CD013081CB000AE3F07 /* SpuRaycastTaskProcess.cpp in Sources */,
+				4B5D0CD113081CB000AE3F07 /* SpuSampleTask.cpp in Sources */,
+				4B5D0CD213081CB000AE3F07 /* SpuSampleTaskProcess.cpp in Sources */,
+				4B5D0CD313081CB000AE3F07 /* SpuParallellSolverTask.cpp in Sources */,
+				4B5D0CD413081CB000AE3F07 /* Win32ThreadSupport.cpp in Sources */,
+				4B5D0CD513081CB000AE3F07 /* btSoftBody.cpp in Sources */,
+				4B5D0CD613081CB000AE3F07 /* btSoftBodyConcaveCollisionAlgorithm.cpp in Sources */,
+				4B5D0CD713081CB000AE3F07 /* btSoftBodyHelpers.cpp in Sources */,
+				4B5D0CD813081CB000AE3F07 /* btSoftBodyRigidBodyCollisionConfiguration.cpp in Sources */,
+				4B5D0CD913081CB000AE3F07 /* btSoftRigidCollisionAlgorithm.cpp in Sources */,
+				4B5D0CDA13081CB000AE3F07 /* btSoftRigidDynamicsWorld.cpp in Sources */,
+				4B5D0CDB13081CB000AE3F07 /* btSoftSoftCollisionAlgorithm.cpp in Sources */,
+				4B5D0CDC13081CB000AE3F07 /* btAlignedAllocator.cpp in Sources */,
+				4B5D0CDD13081CB000AE3F07 /* btConvexHull.cpp in Sources */,
+				4B5D0CDE13081CB000AE3F07 /* btGeometryUtil.cpp in Sources */,
+				4B5D0CDF13081CB000AE3F07 /* btQuickprof.cpp in Sources */,
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1653,7 +2947,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_VALUE = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
+<<<<<<< HEAD
 				HEADER_SEARCH_PATHS = "../../../addons/ofxBullet/lib/bullet/**";
+=======
+				HEADER_SEARCH_PATHS = ../../../addons/ofxBullet/lib/bullet;
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
 					"-lpthread",
@@ -1744,7 +3042,7 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/src/lib/bullet/OpenGL/Release\"";
 				PREBINDING = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)Universal";
-				USER_HEADER_SEARCH_PATHS = "../addon/ofxBullet/lib/bullet/**";
+				USER_HEADER_SEARCH_PATHS = "../../../addons/ofxBullet/lib/bullet/**";
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
 			};
@@ -1769,7 +3067,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_VALUE = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
+<<<<<<< HEAD
 				HEADER_SEARCH_PATHS = "../../../addons/ofxBullet/lib/bullet/**";
+=======
+				HEADER_SEARCH_PATHS = ../../../addons/ofxBullet/lib/bullet;
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
 					"-lpthread",
@@ -1800,7 +3102,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_VALUE = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
+<<<<<<< HEAD
 				HEADER_SEARCH_PATHS = "../../../addons/ofxBullet/lib/bullet/**";
+=======
+				HEADER_SEARCH_PATHS = ../../../addons/ofxBullet/lib/bullet;
+>>>>>>> 887133601a872e75145402f0b7772fa669d6e26f
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
 					"-lpthread",
@@ -1924,7 +3230,7 @@
 				OTHER_LDFLAGS_QUOTED_FOR_TARGET_9 = "\"../../../libs/glew/lib/osx/glew.a\"";
 				PREBINDING = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)Debug";
-				USER_HEADER_SEARCH_PATHS = "../addon/ofxBullet/lib/bullet/**";
+				USER_HEADER_SEARCH_PATHS = "../../../addons/ofxBullet/lib/bullet/**";
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
 			};
@@ -2011,7 +3317,7 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/src/lib/bullet/OpenGL/Release\"";
 				PREBINDING = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "../addon/ofxBullet/lib/bullet/**";
+				USER_HEADER_SEARCH_PATHS = "../../../addons/ofxBullet/lib/bullet/**";
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
 			};

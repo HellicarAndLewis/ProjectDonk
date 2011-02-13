@@ -1,12 +1,17 @@
 	
 uniform vec3 fresnelValues;
 uniform vec3 IoR_Values;
-uniform float opacity;
+//uniform float opacity;
 uniform samplerCube environmentMap;
 uniform sampler2D glossMap;
 uniform sampler2D baseMap;
 varying vec3 N;
 varying vec3 E;
+
+varying vec3 NTrans;
+varying vec3 ITrans;
+// the amount that we're going to fade at the edges
+uniform float EdgeFalloff;
 	
 vec3 refract(vec3 i, vec3 n, float eta)
 {
@@ -15,13 +20,7 @@ vec3 refract(vec3 i, vec3 n, float eta)
     vec3 t = eta*i + ((eta*cosi - sqrt(abs(cost2))) * n);
     return t * vec3(cost2 > 0.0);
 }
-	
-	//
-	// fresnel approximation
-	// F(a) = F(0) + (1- cos(a))^5 * (1- F(0))
-	//
-	// Calculate fresnel term. You can approximate it with 1.0-dot(normal, viewpos).	
-	//
+
 	float fast_fresnel(vec3 I, vec3 N, vec3 fresnelValues)
 	{
 	    float bias = fresnelValues.x;
@@ -30,27 +29,17 @@ vec3 refract(vec3 i, vec3 n, float eta)
 	
 	    return bias + pow(1.0 - dot(I, N), power) * scale;
 	}
-	
-	//
-	//
-	// Calculate fresnel term. You can approximate it with 1.0-dot(normal, viewpos).	
-	//
-	float very_fast_fresnel(vec3 I, vec3 N)
-	{
-		return 1.0 - dot(N, I);
-	}
+
 
 	void main(void)
 	{
-	    //------ normalize incoming vectors
-		//
 		vec3 normal = normalize(N);
 	     vec3 incident = normalize(E);
 		
-	   	//------ Find the reflection
+	   	// make reflection
 	   	//
-		vec3 reflVec = normalize(reflect(incident, normal));
-	   	vec3 reflectColor = textureCube(environmentMap, reflVec).xyz;
+		vec3 reflectionVector = normalize(reflect(incident, normal));
+	   	vec3 reflectColor = textureCube(environmentMap, reflectionVector).xyz;
 	  	
 		//------ Find the refraction
 	   	//
@@ -61,8 +50,7 @@ vec3 refract(vec3 i, vec3 n, float eta)
 		
 		vec3 base_color = texture2D(baseMap, gl_TexCoord[0].st).rgb;
 		
-		//------ Do a gloss map look up and compute the reflectivity.
-		//
+		// now do gloss colorzz	
 		vec3 gloss_color = texture2D(glossMap, gl_TexCoord[0].st).rgb;
 		float reflectivity = (gloss_color.r + gloss_color.g + gloss_color.b)/2.0;
 		
@@ -70,11 +58,16 @@ vec3 refract(vec3 i, vec3 n, float eta)
 	   	//------ Find the Fresnel term
 	   	//
 	    float fresnelTerm = fast_fresnel(-incident, normal, fresnelValues);
-		//float fresnelTerm = very_fast_fresnel(-incident, normal);
-    
-	    
-		//------ Write the final pixel.
-		//
+
+    	float opacity = dot(normalize(NTrans), normalize(-ITrans));
+		opacity = abs(opacity);
+		opacity = 1.0 - pow(opacity, EdgeFalloff);
+
+		vec4 bTint = gl_Color;
+		// janky way to get a slight blue...I guess
+		bTint.z += abs(EdgeFalloff * 0.15);
+
+		//------ final pixel -
 		vec3 color = mix(refractColor, reflectColor, fresnelTerm);
-		gl_FragColor = vec4( mix(base_color, color, reflectivity), opacity);
+		gl_FragColor = vec4( mix(base_color, color, reflectivity), (opacity * bTint));
 }

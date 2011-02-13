@@ -3,6 +3,11 @@
 	varying vec3 N;
 	varying vec3 E;
 	
+	varying vec3 NTrans;
+	varying vec3 ITrans;
+
+	// getting the 3x3 out of the 4x4 matrix
+	// maybe there's a cleverer way to do this
 	mat3 GetLinearPart( mat4 m )
 	{
 		mat3 result;
@@ -23,13 +28,21 @@
 	}		
 	
 	
-	void main(void)
+	void main()
 	{
+
+		NTrans = gl_NormalMatrix * gl_Normal;
+		ITrans = vec3(gl_ModelViewMatrix * gl_Vertex);
+
 	    // output position
 		gl_Position = ftransform();
 		
 		// Texture coordinates for glossMap. 
-		gl_TexCoord[0] = gl_MultiTexCoord0;
+		//gl_TexCoord[0] = gl_MultiTexCoord0; // not doing this
+		
+		gl_FrontColor = gl_Color;
+		gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;
+		
 		
 		mat3 ModelWorld3x3 = GetLinearPart( ModelWorld4x4 );
 		

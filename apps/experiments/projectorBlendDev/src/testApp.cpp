@@ -14,7 +14,7 @@
 
 //--------------------------------------------------------------
 void testApp::setup(){
-	blender.setup(PROJECTOR_WIDTH, PROJECTOR_HEIGHT, PIXEL_OVERLAP, ofxProjectorBlend_Vertical);
+	blender.setup(PROJECTOR_WIDTH, PROJECTOR_HEIGHT, PIXEL_OVERLAP, ofxProjectorBlend_Horizontal);
 	blender.gamma = .5;
 	blender.blendPower = 1;
 	blender.luminance = 0;
@@ -32,7 +32,21 @@ void testApp::draw(){
 	
 	//light gray backaground
 	ofSetColor(100, 100, 100);
-	ofRect(0, 0, blender.getCanvasWidth(), blender.getCanvasHeight());
+	glBegin(GL_QUADS);
+	
+	glColor3f(0.5, 0, 0);
+	glVertex2f(0, 0);
+	
+	glColor3f(0, 0.5, 0);
+	glVertex2f(blender.getCanvasWidth(), 0);
+	
+	glColor3f(0, 0, 0.5);
+	glVertex2f(blender.getCanvasWidth(), blender.getCanvasHeight());
+	
+	glColor3f(0.5, 0, 0.5);
+	glVertex2f(0, blender.getCanvasHeight());
+	glEnd();
+	//ofRect(0, 0, blender.getCanvasWidth(), blender.getCanvasHeight());
 	
 	//thick grid lines for blending
 	ofSetColor(255, 255, 255);

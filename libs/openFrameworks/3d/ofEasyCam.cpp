@@ -57,7 +57,7 @@ void ofEasyCam::begin(ofRectangle rect) {
 			}
 			
 			
-			printf("mousePos: %f %f %f\n", mousePos.x, mousePos.y, mousePos.z);
+			//printf("mousePos: %f %f %f\n", mousePos.x, mousePos.y, mousePos.z);
 			
 			if(oldMousePress) {
 				//			vel -= (mousePos - mousePrev) * speed;

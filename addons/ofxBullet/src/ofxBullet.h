@@ -11,6 +11,15 @@
 #include "ofMain.h"
 #include "ofxBulletUtils.h"
 #include "ofxBulletRigidBody.h"
+#include "btBulletCollisionCommon.h"
+#include "btBulletDynamicsCommon.h"
+
+struct callback : public btOverlapFilterCallback
+{
+	// return true when pairs need collision
+	bool	needBroadphaseCollision(btBroadphaseProxy* proxy0,btBroadphaseProxy* proxy1) const;
+	bool	(*collFunction)(void* obj1ToCompare, void* obj2ToCompare);
+};
 
 
 class ofxBullet {
@@ -38,10 +47,11 @@ public:
 	void draw();
 	void drawFloor();
 	
-	void		createGround(float size);
-	void		addBody(ofxBulletRigidBody *b);
-	btVector3	getRayTo(int x, int y, ofCamera * cam);
-		
+	void createCollisionFlag(bool	(*collFunction)(void* obj1ToCompare, void* obj2ToCompare));
+	
+	void createGround(float size);
+	void addBody(ofxBulletRigidBody *b);
+	
 	ofxBulletRigidBody * createSphere(ofVec3f pos, float radius, float mass);
 
 	ofxBulletRigidBody * createBox(ofVec3f pos, ofVec3f size, float mass);
@@ -65,24 +75,10 @@ public:
 	// -------------------------------------------------
 	
 	
-	
+	btVector3 getRayTo(int x, int y, ofCamera * cam);
 	void mousePressed(int x, int y);
-	//--------------------------------------------------------------
 	void mouseReleased(int x, int y);
-	//--------------------------------------------------------------
 	void mouseDragged(int x, int y);
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

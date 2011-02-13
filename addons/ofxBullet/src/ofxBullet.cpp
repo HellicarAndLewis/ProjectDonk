@@ -9,6 +9,17 @@
 
 #include "ofxBullet.h"
 
+
+bool callback::needBroadphaseCollision(btBroadphaseProxy* proxy0, btBroadphaseProxy* proxy1) const
+{
+	
+	if( proxy0->m_collisionFilterGroup == 2 && proxy1->m_collisionFilterGroup == 2) {
+		return false;
+	}
+	
+	return true;
+}
+
 static bool removeRigidBody(ofxBulletRigidBody * b) {
 	bool remove = true;
 	if(b!=NULL) {
@@ -232,14 +243,10 @@ ofxBulletRigidBody * ofxBullet::createCone(ofVec3f pos, float radius, float heig
 
 
 
-
-
-
-
-
-
-
-
+//--------------------------------------------------------------
+//---------------- NEED TO CLEAN UP ----------------------
+//-------------------RIP FROM BULLET---------------------------------
+//--------------------------------------------------------------
 
 
 //--------------------------------------------------------------
@@ -307,156 +314,10 @@ btVector3 ofxBullet::getRayTo(int x, int y, ofCamera * cam) {
 	rayTo += x * dHor;
 	rayTo -= y * dVert;
 	return rayTo;
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/*
-	if (m_ortho)
-	{
-		
-		btScalar aspect;
-		btVector3 extents;
-		if (m_glutScreenWidth > m_glutScreenHeight) 
-		{
-			aspect = m_glutScreenWidth / (btScalar)m_glutScreenHeight;
-			extents.setValue(aspect * 1.0f, 1.0f,0);
-		} else 
-		{
-			aspect = m_glutScreenHeight / (btScalar)m_glutScreenWidth;
-			extents.setValue(1.0f, aspect*1.f,0);
-		}
-		
-		extents *= m_cameraDistance;
-		btVector3 lower = m_cameraTargetPosition - extents;
-		btVector3 upper = m_cameraTargetPosition + extents;
-		
-		btScalar u = x / btScalar(m_glutScreenWidth);
-		btScalar v = (m_glutScreenHeight - y) / btScalar(m_glutScreenHeight);
-		
-		btVector3	p(0,0,0);
-		p.setValue((1.0f - u) * lower.getX() + u * upper.getX(),(1.0f - v) * lower.getY() + v * upper.getY(),m_cameraTargetPosition.getZ());
-		return p;
-	}*/
-	/*
-	float top = 1.f;
-	float bottom = -1.f;
-	float nearPlane = 1.f;
-	float tanFov = (top-bottom)*0.5f / nearPlane;
-	float fov = btScalar(2.0) * btAtan(tanFov);
-	
-	ofVec3f camPos = camera->getPosition();
-	ofVec3f camDir = camera->getLookAtDir(); 
-	ofVec3f camUp  = camera->getUpDir();
-	
-	
-
-	
-	btVector3	rayFrom  = tobtVec3(camPos);// getCameraPosition();
-	btVector3 rayForward = tobtVec3(camDir);// (getCameraTargetPosition()-getCameraPosition());
-	rayForward.normalize();
-	float farPlane = 10000.f;
-	rayForward*= farPlane;
-	
-	
-	btVector3 rightOffset;
-	btVector3 vertical = tobtVec3(camUp);
-	
-	
-	
-	//printf("H:%f V:%f\n", vertical.getX(), rayForward.getX());
-	
-	btVector3 hor;
-	hor = rayForward.cross(vertical);
-	hor.normalize();
-	vertical = hor.cross(rayForward);
-	vertical.normalize();
-	
-	
-	
-	float tanfov = tanf(0.5f * fov);
-
-	
-	hor		 *= 2.f * farPlane * tanfov;
-	vertical *= 2.f * farPlane * tanfov;
-	
-	
-	float aspect;
-	
-	if (ofGetWidth() > ofGetHeight()) {
-		//if (m_glutScreenWidth > m_glutScreenHeight) {
-		aspect = (float)ofGetWidth() / (float)ofGetHeight();
-		//aspect = m_glutScreenWidth / (btScalar)m_glutScreenHeight;
-		hor *= aspect;
-		
-	} 
-	else {
-		aspect = (float)ofGetHeight() / (float)ofGetWidth();
-		//aspect = m_glutScreenHeight / (btScalar)m_glutScreenWidth;
-		vertical *= aspect;
-	}
-	
-	
-	
-	printf("%f\n", hor.getX());
-	
-	
-	btVector3 rayToCenter = rayFrom + rayForward;
-	btVector3 dHor = hor * 1.f/float(ofGetWidth());
-	btVector3 dVert = vertical * 1.f/float(ofGetHeight());
-	
-	
-	btVector3 rayTo = rayToCenter - 0.5f * hor + 0.5f * vertical;
-	rayTo += btScalar(x) * dHor;
-	rayTo -= btScalar(y) * dVert;
-	
-	
-	return rayTo;
-	
-	
-	
-	*/
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
 
 
-
-
-
-
+//--------------------------------------------------------------
 btScalar mousePickClamp = 30.f;
 btVector3 hitPos(-1,-1,-1);
 float oldPickingDist  = 0.f;
@@ -477,15 +338,15 @@ void ofxBullet::mousePressed(int x, int y){
 		
 		
 		if (rayCallback.hasHit()) {
-
+			
 			btRigidBody * body = btRigidBody::upcast(rayCallback.m_collisionObject);
 			
 			if (body) {
-			
+				
 				
 				//other exclusions?
 				if (!(body->isStaticObject() || body->isKinematicObject())) {
-			
+					
 					
 					printf("Hit\n");
 					
@@ -562,6 +423,7 @@ void ofxBullet::mouseDragged(int x, int y){
 		
 	}
 }
+
 
 
 

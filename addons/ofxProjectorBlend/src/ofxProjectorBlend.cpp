@@ -49,6 +49,9 @@ ofxProjectorBlend::ofxProjectorBlend()
 	channelOne = NULL;
 	channelTwo = NULL;
 	blendShader = NULL;
+#ifdef USE_XML_GUI
+	gui = NULL;
+#endif
 }
 
 void ofxProjectorBlend::setup(int resolutionWidth, int resolutionHeight, int _pixelOverlap, ofxProjectorBlendLayout layout)
@@ -114,8 +117,6 @@ void ofxProjectorBlend::addGuiPage()
 {
 	gui.addPage("Projector Blend");
 	gui.addToggle("Show Blend", showBlend);
-	gui.addToggle("Show Standby", showStandBy);
-	
 	gui.addSlider("Blend Power", blendPower, 0.0, 4.0);
 	gui.addSlider("Gamma", gamma, 0.0, 4.0);
 	gui.addSlider("Luminance", luminance, 0.0, 4.0);
@@ -125,7 +126,21 @@ void ofxProjectorBlend::addGuiPage()
 
 #endif
 
-
+#ifdef USE_XML_GUI
+ofxXmlGui *ofxProjectorBlend::getGui() {
+	if(gui==NULL) {
+		gui = new ofxXmlGui();
+		gui->setup(0, 0, 200);
+		gui->addToggle("Show Blend", showBlend);
+		gui->addSlider("Blend Power", blendPower, 0, 4);
+		gui->addSlider("Gamma", gamma, 0, 4);
+		gui->addSlider("Luminance", luminance, 0, 4);
+		gui->enableAutoSave("");
+	}
+	
+	return gui;
+}
+#endif
 void ofxProjectorBlend::end()
 {
 	fullTexture->end();
@@ -158,37 +173,10 @@ void ofxProjectorBlend::end()
 void ofxProjectorBlend::draw()
 {
 	ofPushStyle();
-	ofSetRectMode(OF_RECTMODE_CENTER);
-	
-	//center it within the OF canvas, maintaining aspect ratio
-	float ofAspect = 1.0*ofGetWidth()/ofGetHeight();  //16x9 would be 1.77777
-	float canvasAspect = 0;
-	if(layout==ofxProjectorBlend_Vertical) {
-		canvasAspect = singleChannelWidth/(singleChannelHeight*2);
-	} else {
-		canvasAspect = singleChannelWidth*2/singleChannelHeight;  //2560x960 2.6667
-	}
 
-	//cout << "canvas aspect is " << canvasAspect << " of aspect is " << ofAspect << " OF: " << ofGetWidth() << "x" << ofGetHeight() << endl;
-	
-	float w,h;
-	if(ofAspect < canvasAspect){
-		w = ofGetWidth();
-		h = -w/canvasAspect;
-	}
-	else {
-		h = -ofGetHeight();
-		w = -h*canvasAspect;
-	}
-				   
-	float x = ofGetWidth()/2.0;
-	float y = ofGetHeight()/2.0;
-	
-	ofSetColor(0, 0, 0);
-	ofRect(x, y, ofGetWidth(), ofGetHeight());
-	ofSetColor(255, 255, 255);
+	ofSetRectMode(OF_RECTMODE_CORNER);
 
-	if(showBlend){
+	if(showBlend) {
 
 		glActiveTexture(GL_TEXTURE0);	
 		blendShader->begin();
@@ -220,11 +208,9 @@ void ofxProjectorBlend::draw()
 		
 		blendShader->setUniform4f("SolidEdgeColor", 0.0f, 0.0f, 0.0f, 1.0f);
 		
-		if(layout==ofxProjectorBlend_Horizontal) {
-			channelOne->draw(x-w/4, y, w/2, h);
-		} else {
-			channelOne->draw(x, y-h/4, w, h/2);
-		}
+				
+		channelOne->draw(0, 0, singleChannelWidth, singleChannelHeight);
+		
 		
 		if(layout==ofxProjectorBlend_Horizontal) {
 			blendShader->setUniform1f("OverlapLeft", pixelOverlap);
@@ -235,21 +221,20 @@ void ofxProjectorBlend::draw()
 		}
 		
 		if(layout==ofxProjectorBlend_Horizontal) {
-			channelTwo->draw(x+w/4, y, w/2, h);
+			channelTwo->draw(singleChannelWidth, 0, singleChannelWidth, singleChannelHeight);
 		} else {
-			channelTwo->draw(x, y+h/4, w, h/2);
+			channelTwo->draw(0, singleChannelHeight, singleChannelWidth, singleChannelHeight); 
 		}
 		
 		blendShader->end();
 	}
 	else{
-		//calculate the real single channel width based on the height
-		w = -singleChannelWidth * ( h / getCanvasHeight());
-		float scaledPixelOverlap = pixelOverlap *  w / singleChannelWidth;
-		channelOne->draw( x-w/2+scaledPixelOverlap/2, y, w, h);
-		channelTwo->draw(x+w/2-scaledPixelOverlap/2, y, w, h);
+		channelOne->draw(0, 0, singleChannelWidth, singleChannelHeight);
+		if(layout==ofxProjectorBlend_Horizontal) {
+			channelTwo->draw(singleChannelWidth-pixelOverlap, 0, singleChannelWidth, singleChannelHeight);
+		} else {
+			channelTwo->draw(0, singleChannelHeight-pixelOverlap, singleChannelWidth, singleChannelHeight); 
+		}
 	}
-	
 	ofPopStyle();
 }
-
