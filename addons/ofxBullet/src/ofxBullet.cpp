@@ -9,6 +9,17 @@
 
 #include "ofxBullet.h"
 
+
+bool callback::needBroadphaseCollision(btBroadphaseProxy* proxy0, btBroadphaseProxy* proxy1) const
+{
+	
+	if( proxy0->m_collisionFilterGroup == 2 && proxy1->m_collisionFilterGroup == 2) {
+		return false;
+	}
+	
+	return true;
+}
+
 static bool removeRigidBody(ofxBulletRigidBody * b) {
 	bool remove = true;
 	if(b!=NULL) {
@@ -228,6 +239,8 @@ ofxBulletRigidBody * ofxBullet::createCone(ofVec3f pos, float radius, float heig
 	
 	return b;
 }
+
+
 
 
 

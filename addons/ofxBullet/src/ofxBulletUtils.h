@@ -25,6 +25,26 @@ static btVector3 tobtVec3(ofVec3f &v) {
 }
 
 
+static btVector4 ofVec4fToBtVec( ofVec4f ov ) {
+	btVector4 bv(ov.x, ov.y, ov.z, ov.w);
+	return bv;
+}
+
+static btVector3 ofVec3fToBtVec( ofVec3f ov ) {
+	btVector3 bv(ov.x, ov.y, ov.z);
+	return bv;
+}
+
+static ofVec4f btVecToOfVec4f( btVector4 bv ) {
+	ofVec4f ov(bv.getX(), bv.getY(), bv.getZ(), bv.getW());
+	return ov;
+}
+
+static ofVec3f btVecToOfVec3f( btVector3 bv ) {
+	ofVec3f ov(bv.getX(), bv.getY(), bv.getZ());
+	return ov;
+}
+
 
 class MyKinematicMotionState : public btMotionState {
 

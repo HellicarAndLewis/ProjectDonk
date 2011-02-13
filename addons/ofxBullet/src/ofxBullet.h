@@ -11,6 +11,15 @@
 #include "ofMain.h"
 #include "ofxBulletUtils.h"
 #include "ofxBulletRigidBody.h"
+#include "btBulletCollisionCommon.h"
+#include "btBulletDynamicsCommon.h"
+
+struct callback : public btOverlapFilterCallback
+{
+	// return true when pairs need collision
+	bool	needBroadphaseCollision(btBroadphaseProxy* proxy0,btBroadphaseProxy* proxy1) const;
+	bool	(*collFunction)(void* obj1ToCompare, void* obj2ToCompare);
+};
 
 
 class ofxBullet {
@@ -36,6 +45,8 @@ public:
 	void update();
 	void draw();
 	void drawFloor();
+	
+	void createCollisionFlag(bool	(*collFunction)(void* obj1ToCompare, void* obj2ToCompare));
 	
 	void createGround(float size);
 	void addBody(ofxBulletRigidBody *b);

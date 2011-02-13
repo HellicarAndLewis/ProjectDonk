@@ -214,8 +214,8 @@
 			4BBDB7E012F5895000148548 /* bulletTest */,
 		);
 		perUserDictionary = {
-			PBXPerProjectTemplateStateSaveDate = 318971429;
-			PBXWorkspaceStateSaveDate = 318971429;
+			PBXPerProjectTemplateStateSaveDate = 319298174;
+			PBXWorkspaceStateSaveDate = 319298174;
 		};
 		sourceControlManager = 4BBDB7EC12F5895900148548 /* Source Control */;
 		userBuildSettings = {
@@ -229,16 +229,16 @@
 	};
 	EAC12C1812E6F94F0071CE8E /* testApp.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1009, 3549}}";
-			sepNavSelRange = "{4833, 0}";
-			sepNavVisRange = "{3652, 1799}";
+			sepNavIntBoundsRect = "{{0, 0}, {1009, 3770}}";
+			sepNavSelRange = "{23, 222}";
+			sepNavVisRange = "{0, 1086}";
 		};
 	};
 	EAC12C1912E6F94F0071CE8E /* testApp.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1172, 1040}}";
-			sepNavSelRange = "{323, 1}";
-			sepNavVisRange = "{0, 433}";
+			sepNavIntBoundsRect = "{{0, 0}, {1009, 1001}}";
+			sepNavSelRange = "{182, 23}";
+			sepNavVisRange = "{0, 1107}";
 		};
 	};
 }

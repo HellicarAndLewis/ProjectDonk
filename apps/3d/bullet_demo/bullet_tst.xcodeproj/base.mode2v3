@@ -298,7 +298,7 @@
 									<real>43</real>
 								</array>
 								<key>RubberWindowFrame</key>
-								<string>845 202 595 676 0 0 1440 878 </string>
+								<string>845 59 595 676 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXSmartGroupTreeModule</string>
@@ -438,8 +438,8 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>4B6902A913031E2B00216BD8</string>
-				<string>4B6902AA13031E2B00216BD8</string>
+				<string>4B2306CA13081A8C006B722E</string>
+				<string>4B2306CB13081A8C006B722E</string>
 				<string>1C9437FD063B20B00039CFAC</string>
 				<string>1C9437FE063B20B00039CFAC</string>
 				<string>1C9437FF063B20B00039CFAC</string>
@@ -476,11 +476,12 @@
 	<integer>0</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>1C530D54069F1CE1000CFCEE</string>
 		<string>1C530D52069F1CE1000CFCEE</string>
 		<string>/Users/base/c_languages/openframeworks/coke_energy/ProjectDonk/apps/3d/bullet_demo/bullet_tst.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>845 202 595 676 0 0 1440 878 </string>
+	<string>845 59 595 676 0 0 1440 878 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>
@@ -694,7 +695,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C530D52069F1CE1000CFCEE</string>
-				<string>4B6902AB13031E2B00216BD8</string>
+				<string>4B2306CC13081A8C006B722E</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -816,13 +817,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C530D54069F1CE1000CFCEE</string>
-				<string>4B353A9A1301C846006091E4</string>
+				<string>4B2306CD13081A8C006B722E</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>4B353A9B1301C846006091E4</string>
-				<string>4B353A9C1301C846006091E4</string>
-				<string>4B353A9D1301C846006091E4</string>
-				<string>4B353A9E1301C846006091E4</string>
-				<string>4B353A9F1301C846006091E4</string>
+				<string>4B2306CE13081A8C006B722E</string>
+				<string>4B2306CF13081A8C006B722E</string>
+				<string>4B2306D013081A8C006B722E</string>
+				<string>4B2306D113081A8C006B722E</string>
+				<string>4B2306D213081A8C006B722E</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
