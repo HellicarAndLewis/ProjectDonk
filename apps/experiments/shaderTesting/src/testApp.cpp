@@ -17,6 +17,14 @@ void testApp::setup(){
 	uniform sampler2D glossMap;
 	uniform sampler2D baseMap;*/
 	
+	int glossMapIndex, baseMapIndex;
+	
+	glossMap.loadImage("perm_text.png");
+	glossMapIndex = glossMap.getTexture().textureID;
+	
+	baseMapIndex.loadImage("black.png");
+	baseMapIndex = baseMap.getTexture().textureID;
+	
 	
 }
 
