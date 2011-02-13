@@ -1,15 +1,12 @@
 
 #pragma once
 #include "ofMain.h"
-#include "btBulletCollisionCommon.h"
-#include "btBulletDynamicsCommon.h"
-
 #include "ofxBullet.h"
 
 
 
 
-
+/*
 class ofxBulletDebugDrawer : public btIDebugDraw {
 	
 private:
@@ -62,7 +59,7 @@ public:
 	
 	
 };
-
+*/
 
 
 
