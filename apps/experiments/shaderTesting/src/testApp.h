@@ -3,7 +3,7 @@
 
 
 #include "ofMain.h"
-
+#include "ofxCubeMap.h"
 
 class testApp : public ofBaseApp{
 
@@ -23,7 +23,14 @@ class testApp : public ofBaseApp{
 	
 	
 	ofShader bubbleShader;
-
+	
+	ofxCubeMap cubeMap;
+	ofImage glossMap;
+	ofImage baseMap;
+	ofEasyCam cam;
+	
+	ofVec3f sphereCenter;
+	
 };
 
 #endif
