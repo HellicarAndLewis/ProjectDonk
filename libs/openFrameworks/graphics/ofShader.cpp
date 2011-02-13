@@ -148,6 +148,9 @@ bool ofShader::linkProgram() {
 		if(shaders.empty()) {
 			ofLog(OF_LOG_ERROR, "Trying to link GLSL program, but no shaders created yet");
 		} else {
+			
+			ofLog(OF_LOG_ERROR, "created");
+			
 			checkAndCreateProgram();
 			
 			for(map<GLenum, GLuint>::const_iterator it = shaders.begin(); it != shaders.end(); ++it){
