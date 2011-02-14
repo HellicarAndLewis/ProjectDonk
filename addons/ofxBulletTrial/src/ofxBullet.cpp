@@ -119,6 +119,7 @@ void ofxBullet::update() {
 	
 	if(world == NULL) return;
 	float dt = ofGetElapsedTimeMillis() * 0.00001f;
+	solveConstraints();
 	world->stepSimulation( dt );
 	
 	
@@ -424,6 +425,55 @@ void ofxBullet::mouseDragged(int x, int y){
 	}
 }
 
+
+
+ofxBulletBaseConstraint * ofxBullet::addAttractor(ofxBulletRigidBody * a, ofxBulletRigidBody * b, float force)
+{
+	constraints.push_back( new ofxBulletRBtoRBAttractor() );
+	int me = constraints.size()-1;
+	((ofxBulletRBtoRBAttractor*)(constraints[ me ]))->setup(a, b, force);
+}
+
+//--------------------------------------------------------------
+void ofxBullet::solveConstraints()
+{
+	if(constraints.size() <= 0) return;
+	
+	// clean up -- must check both objects are not set for destruction!
+	for(int i = constraints.size()-1; i >=0; i--)
+	{
+		if( constraints[i]->shouldDestroy() ){
+			constraints.erase(constraints.begin()+i); 
+		}
+	}
+	
+	// solve constraints
+	for(int i = 0; i <constraints.size(); i++) constraints[i]->solve();
+	
+}
+
+void ofxBullet::clearConstraints()
+{
+	for(int i = 0; i <constraints.size(); i++)
+	{
+		delete constraints[i];
+	}
+	constraints.clear();
+}
+//--------------------------------------------------------------
+void ofxBullet::clearAttractions(ofxBulletRigidBody * a)
+{
+	for(int i = 0; i <constraints.size(); i++)
+	{
+		if(constraints[i]->getType() == constraintTypeAttraction)
+		{
+			if( ((ofxBulletRBtoRBAttractor*)(constraints[ i ]))->getA() == a)
+			{
+				constraints[i]->kill();
+			}
+		}
+	}
+}
 
 
 
