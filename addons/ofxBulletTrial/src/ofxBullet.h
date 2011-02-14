@@ -13,6 +13,8 @@
 #include "ofxBulletRigidBody.h"
 #include "btBulletCollisionCommon.h"
 #include "btBulletDynamicsCommon.h"
+#include "ofxBulletBaseConstraint.h"
+#include "ofxBulletRBtoRBAttractor.h"
 
 struct callback : public btOverlapFilterCallback
 {
@@ -60,16 +62,6 @@ public:
 	vector <ofxBulletRigidBody*> rigidBodies;
 
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	// -------------------------------------------------
 	// -------------------------------------------------
 	// -------------------------------------------------
@@ -81,6 +73,26 @@ public:
 	void mouseDragged(int x, int y);
 	
 	
+	//-----------
+	/*
+	 Not sure about this model yet for attraction. Trying out if its comforta
+	 attraction, repulsion, constraints are managed by ofxBullet rather than 
+	 */
+	ofxBulletBaseConstraint * addAttractor(ofxBulletRigidBody * a, ofxBulletRigidBody * b, float force);
+	//ofxBulletBaseConstraint * addRepulsor(ofxBulletRigidBody * a, ofxBulle
+	
+	// checks all attractions etc, destroys dead ones and updates others
+	void solveConstraints();
+	
+	// clears all constraints of any type
+	void clearConstraints();
+	
+	// clear all attractions for body a
+	void clearAttractions(ofxBulletRigidBody * a);
+	
+	// vector of all constraints
+	vector<ofxBulletBaseConstraint *> constraints;
+	//------------------
 	
 	
 	
