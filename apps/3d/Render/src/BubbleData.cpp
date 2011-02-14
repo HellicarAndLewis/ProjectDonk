@@ -25,6 +25,10 @@ namespace Donk{
 				userName = m.getArgAsString(index);
 			}else if(key=="text"){
 				text = m.getArgAsString(index);
+			}else if(key=="questionID"){
+				questionID = m.getArgAsString(index);
+			}else if(key=="text"){
+				tag = m.getArgAsString(index);
 			}else if(key=="mediaID"){
 				media.push_back(MediaEntry());
 				media.back().id = m.getArgAsString(index);

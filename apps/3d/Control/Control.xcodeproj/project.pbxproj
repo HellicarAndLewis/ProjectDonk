@@ -12,6 +12,7 @@
 		814B60761300CDF40003229E /* ofxOscMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 814B60691300CDF40003229E /* ofxOscMessage.cpp */; };
 		814B60771300CDF40003229E /* ofxOscReceiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 814B606B1300CDF40003229E /* ofxOscReceiver.cpp */; };
 		814B60781300CDF40003229E /* ofxOscSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 814B606D1300CDF40003229E /* ofxOscSender.cpp */; };
+		81A50A701308D89900E1911C /* donkcontrol.icns in Resources */ = {isa = PBXBuildFile; fileRef = 81A50A491308D80B00E1911C /* donkcontrol.icns */; };
 		81D113641304B18B00946186 /* base64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81D113621304B18B00946186 /* base64.cpp */; };
 		81D1147C13053EC200946186 /* ControlBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81D1147B13053EC200946186 /* ControlBar.cpp */; };
 		81ED08E11303707F003081E9 /* AsyncHttpLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81ED08E01303707F003081E9 /* AsyncHttpLoader.cpp */; };
@@ -93,6 +94,7 @@
 		814B606C1300CDF40003229E /* ofxOscReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxOscReceiver.h; sourceTree = "<group>"; };
 		814B606D1300CDF40003229E /* ofxOscSender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxOscSender.cpp; sourceTree = "<group>"; };
 		814B606E1300CDF40003229E /* ofxOscSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxOscSender.h; sourceTree = "<group>"; };
+		81A50A491308D80B00E1911C /* donkcontrol.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = donkcontrol.icns; sourceTree = "<group>"; };
 		81D113621304B18B00946186 /* base64.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = base64.cpp; sourceTree = "<group>"; };
 		81D113631304B18B00946186 /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
 		81D1147A13053EC200946186 /* ControlBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlBar.h; sourceTree = "<group>"; };
@@ -294,6 +296,7 @@
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
+				81A50A491308D80B00E1911C /* donkcontrol.icns */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4B69B5B0A3A1756003C02F2 /* ControlDebug.app */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
@@ -398,6 +401,7 @@
 				E4B69B590A3A1756003C02F2 /* Frameworks */,
 				E4B6FFFD0C3F9AB9008CF71C /* ShellScript */,
 				E4C2427710CC5ABF004149E2 /* CopyFiles */,
+				81A50A781308D89F00E1911C /* Resources */,
 			);
 			buildRules = (
 			);
@@ -449,6 +453,17 @@
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		81A50A781308D89F00E1911C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				81A50A701308D89900E1911C /* donkcontrol.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		E4B6FFFD0C3F9AB9008CF71C /* ShellScript */ = {

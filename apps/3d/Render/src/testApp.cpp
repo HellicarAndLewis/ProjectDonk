@@ -1,5 +1,6 @@
 #include "testApp.h"
 #include "BubbleData.h"
+#include "QuestionData.h"
 
 //--------------------------------------------------------------
 void testApp::setup(){
@@ -30,11 +31,29 @@ void testApp::update(){
 			cout << "todo: begin transition from current to upcoming mode." << endl;
 			
 		}else if(m.getAddress()=="/control/bubble/new"){
+			
 			Donk::BubbleData bd(m);
-			cout << "new bubble received from " << bd.userName << " in mode " << bd.mode << endl;
+			cout << "todo: do something with new bubble received from " << bd.userName << " in mode " << bd.mode << endl;
 			
-			//todo: do something with the bubble data
+		}else if(m.getAddress()=="/control/question/update"){
 			
+			Donk::QuestionData qd(m);
+			cout << "todo: handle question update \"" << qd.text << "\" " << qd.tags[0] << "=" <<
+				qd.tag_counts[0] << "," << qd.tags[1] << "=" << qd.tag_counts[1] << endl;
+			
+		}else if(m.getAddress()=="/audio"){
+			
+			//get 6 floated values
+			float audioData[6];
+			for(int i=0;i<6;i++)audioData[i] = m.getArgAsFloat(i);
+			
+			cout << "todo: do something with new audio frequency sample: " <<
+				audioData[0] << ' ' <<
+				audioData[1] << ' ' <<
+				audioData[2] << ' ' <<
+				audioData[3] << ' ' <<
+				audioData[4] << ' ' <<
+				audioData[5] << endl;
 		}
 	}
 	

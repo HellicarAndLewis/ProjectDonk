@@ -26,6 +26,9 @@ namespace Donk{
 		string userName;
 		string text;
 		
+		string questionID; ///only filled by question bubbles
+		string tag; ///only filled by question bubbles
+		
 		class MediaEntry{
 		public:
 			string id;
@@ -38,3 +41,4 @@ namespace Donk{
 	};
 	
 }
+

@@ -105,6 +105,11 @@ public:
 		referring to ints
 	 */
 	int modes[2];
+	
+	/**
+		populate osc message with json bubble data
+	 */
+	void populateBubble(ofxOscMessage &m,Json::Value &bubble);
 };
 
 #endif

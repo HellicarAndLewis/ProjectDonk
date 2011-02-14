@@ -3,6 +3,10 @@
  *  Control
  *
  *  Created by Josh Nimoy on 2/11/11.
+ 
+ quick and dirty UI with buttons, labels, and a single layout pane called a "bar"
+ which sits at the top of the gl window. event passing only works for non-overlapping controls.
+ 
  *
  */
 

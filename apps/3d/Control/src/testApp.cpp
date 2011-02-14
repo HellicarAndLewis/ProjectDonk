@@ -66,43 +66,96 @@ void testApp::update(){
 					sprintf(statString,"Server returned error %i",status);
 					log(statString,1);
 				}else{
+					
+					cout << source_names[i] << "=" << "\"\"\"" << loaders[i]->data << "\"\"\"" << endl;
+					
+					json = ofxJSON();
 					json.parse(loaders[i]->data);
-					int itemCount = json["totalItems"].asInt();
-					if(itemCount==0){
-						log(source_names[i] + ": no new bubbles",2);
-					}
-					for(int j=0;j<itemCount;j++){
-						Json::Value bubble = json["items"][j];
+					
+					if(!json.isObject()){ // accounting for incomplete data error
+						log(source_names[i] + " error: json parsing failed. bubbles may have been lost.",1);
+					}else if(source_names[i]=="question"){ //parse question format
 						
-						ofxOscMessage m;
-						
-						m.setAddress("/control/bubble/new");
-						m.addStringArg("mode");
-						m.addStringArg(source_names[i]);
-						m.addStringArg("queueID");
-						m.addStringArg(bubble["queueID"].asString());
-						m.addStringArg("profileImageURL");
-						m.addStringArg(bubble["profileImageURL"].asString());
-						m.addStringArg("userName");
-						m.addStringArg(bubble["userName"].asString());
-						m.addStringArg("text");
-						m.addStringArg(bubble["text"].asString());
-						
-						if(bubble["hasMedia"].asString()=="1"){
-							for(int k=0;k<bubble["media"].size();k++){
-								m.addStringArg("mediaID");
-								m.addStringArg(bubble["media"][k]["mediaID"].asString());
-								m.addStringArg("mediaThumbURL");
-								m.addStringArg(bubble["media"][k]["mediaThumbURL"].asString());
-								m.addStringArg("mediaURL");
-								m.addStringArg(bubble["media"][k]["mediaURL"].asString());
+						for(int j=0;j<json["questions"].size();j++){
+							Json::Value question = json["questions"][j];
+							ofxOscMessage m;
+							m.setAddress("/control/question/update");
+							m.addStringArg("questionID");
+							m.addStringArg(question["questionID"].asString());
+							m.addStringArg("text");
+							m.addStringArg(question["text"].asString());
+							m.addStringArg("tag1");
+							m.addStringArg(question["tag1"].asString());
+							m.addStringArg("tag2");
+							m.addStringArg(question["tag2"].asString());
+							m.addStringArg("count_tag1");
+							m.addStringArg(question["count_tag1"].asString());
+							m.addStringArg("count_tag2");
+							m.addStringArg(question["count_tag2"].asString());
+							oscOut.sendMessage(m);
+							
+							log(string("question update \"") +
+								question["text"].asString() +
+								string("\" ") +
+								question["tag1"].asString() + string("=") + question["count_tag1"].asString() + string(",") +
+								question["tag2"].asString() + string("=") + question["count_tag2"].asString()
+								,0);
+							
+							//parse through each bubble set and send the bubbles
+							for(int k=0;k<2;k++){
+								Json::Value items;
+								Json::Value tag;
+								
+								
+								if(k==0){
+									items = question["tag1_items"];
+									tag = question["tag1"];
+								}else{
+									items = question["tag2_items"];
+									tag = question["tag2"];
+								}
+								
+								for(int ii=0;ii<items.size();ii++){
+									Json::Value bubble = items[ii];
+
+									ofxOscMessage m;
+									m.setAddress("/control/bubble/new");
+									m.addStringArg("mode");
+									m.addStringArg("question");
+									m.addStringArg("questionID");
+									m.addStringArg(question["questionID"].asString());
+									m.addStringArg("tag");
+									m.addStringArg(tag.asString());
+									populateBubble(m,bubble);
+									oscOut.sendMessage(m);				
+									log(source_names[i] + string(" > ") +
+										bubble["queueID"].asString() + string(" > ") +
+										bubble["userName"].asString(),0);
+									
+								}
 							}
 						}
 						
-						oscOut.sendMessage(m);				
-						log(source_names[i] + string(" > ") +
-							bubble["queueID"].asString() + string(" > ") +
-							bubble["userName"].asString(),0);
+					}else{ //parse default bubble format
+						
+						int itemCount = json["totalItems"].asInt();
+						if(itemCount==0){
+							log(source_names[i] + ": no new bubbles",2);
+						}
+						for(int j=0;j<itemCount;j++){
+							Json::Value bubble = json["items"][j];
+							
+							ofxOscMessage m;
+							m.setAddress("/control/bubble/new");
+							m.addStringArg("mode");
+							m.addStringArg(source_names[i]);
+							populateBubble(m,bubble);
+							oscOut.sendMessage(m);				
+							log(source_names[i] + string(" > ") +
+								bubble["queueID"].asString() + string(" > ") +
+								bubble["userName"].asString(),0);
+						}
+							
 					}
 
 				}
@@ -241,6 +294,7 @@ void testApp::log(int n,int color=0){
 	sprintf(s,"%i",n);
 	log(s,color);
 }
+
 //--------------------------------------------------------------
 void testApp::log(string s,int color=0){
 	string displayLine = ofGetTimestampString();
@@ -251,3 +305,28 @@ void testApp::log(string s,int color=0){
 	console_colors.push_back(color);
 	
 }
+
+//--------------------------------------------------------------
+void testApp::populateBubble(ofxOscMessage &m,Json::Value &bubble){
+	m.addStringArg("queueID");
+	m.addStringArg(bubble["queueID"].asString());
+	m.addStringArg("profileImageURL");
+	m.addStringArg(bubble["profileImageURL"].asString());
+	m.addStringArg("userName");
+	m.addStringArg(bubble["userName"].asString());
+	m.addStringArg("text");
+	m.addStringArg(bubble["text"].asString());
+	
+	if(bubble["hasMedia"].asString()=="1"){
+		for(int k=0;k<bubble["media"].size();k++){
+			m.addStringArg("mediaID");
+			m.addStringArg(bubble["media"][k]["mediaID"].asString());
+			m.addStringArg("mediaThumbURL");
+			m.addStringArg(bubble["media"][k]["mediaThumbURL"].asString());
+			m.addStringArg("mediaURL");
+			m.addStringArg(bubble["media"][k]["mediaURL"].asString());
+		}
+	}
+	
+}
+
