@@ -71,6 +71,7 @@ TuioTime ofxTuioServer::getCurrentTime(){
 
 void ofxTuioServer::setVerbose(bool _b){
 	verbose = _b;
+	tuioServer->setVerbose(_b);
 }
 
 //send the OSC messages

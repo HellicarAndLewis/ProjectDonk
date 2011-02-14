@@ -46,17 +46,25 @@ void ofxBlobTracker::clearKalman(int id) {
 
 
 int ofxBlobTracker::getNextAvailableBlobId() {
+	/*printf("There are already %d blobs\n", lastBlobs.size());
+	for(int i = 0; i < lastBlobs.size(); i++) {
+		printf("\t\tblob %d = %f %f\n", lastBlobs[i]->id, lastBlobs[i]->x, lastBlobs[i]->y);
+	}*/
 	for(int id = 0; id < MAX_NUM_BLOBS; id++) {
 		bool foundId = false;
+
 		for(int i = 0; i < lastBlobs.size(); i++) {
 			if(lastBlobs[i]->id==id) {
 				foundId = true;
 				continue;
 			}
-			if(!foundId) {
-				return id;
-			}
 		}
+		
+		if(!foundId) {
+			//printf("New blob ID: %d!\n", id);
+			return id;
+		}
+		
 	}
 	return 0;
 }
