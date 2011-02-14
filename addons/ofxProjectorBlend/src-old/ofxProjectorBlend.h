@@ -63,12 +63,7 @@
 // not implemented yet!
 enum ofxProjectorBlendLayout {
 	ofxProjectorBlend_Horizontal = 1,
-	ofxProjectorBlend_Vertical = 2,
-};
-
-enum ofxProjectorBlendOrientation {
-	ofxProjectorBlend_NoRotation = 1,
-	ofxProjectorBlend_RotatedRight = 2
+	ofxProjectorBlend_Vertical = 2
 };
 
 class ofxProjectorBlend
@@ -80,9 +75,7 @@ class ofxProjectorBlend
 	/**
 	 * Set resolutionWidth and height to the resolutions of each projector output.
 	 */
-	void setup(int resolutionWidth, int resolutionHeight, int numProjectors, int pixelOverlap, 
-			   ofxProjectorBlendLayout layout = ofxProjectorBlend_Horizontal, 
-			   ofxProjectorBlendOrientation orientation = ofxProjectorBlend_NoRotation);
+	void setup(int resolutionWidth, int resolutionHeight, int pixelOverlap, ofxProjectorBlendLayout layout = ofxProjectorBlend_Horizontal);
 	void begin();
 	void end();
 	//void draw(float x, float y, float w, float h);
@@ -115,12 +108,14 @@ class ofxProjectorBlend
 	float singleChannelHeight;
 
 	float pixelOverlap;
-	int numProjectors;
+	
 	ofxProjectorBlendLayout layout;
-	ofxProjectorBlendOrientation orientation;
+	
 	ofShader* blendShader;
 	ofFbo* fullTexture;
-	void setShaderDefaults();
+	ofFbo* channelOne;
+	ofFbo* channelTwo;
+	
 };
 
 #endif
