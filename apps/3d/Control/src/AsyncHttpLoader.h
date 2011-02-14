@@ -58,10 +58,16 @@ public:
 	URI uri;
 	
 	/**
-		flags that the thread is (almost) finished
-		and the data is safe to retrieve
+		status:
+	 
+		0 = uncalled
+	 
+		1 = call in progress
+	 
+		2 = call is finished
+	 
 	 */
-	bool done;
+	int status;
 	
 	/**
 		resets the object, among other things

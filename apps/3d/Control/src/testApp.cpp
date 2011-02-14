@@ -56,7 +56,7 @@ void testApp::update(){
 	for(int i=0;i<loaders.size();i++){
 		if(i!=modes[0] && i!=modes[1])continue;
 		
-		if(loaders[i]->done){
+		if(loaders[i]->status==2){
 			if(!loaders[i]->errorString.empty()){
 				log(loaders[i]->errorString,1);
 			}else{
@@ -172,7 +172,11 @@ void testApp::update(){
 		try{
 			for(int i=0;i<source_names.size();i++){
 				if(i!=modes[0] && i!=modes[1])continue;
-				loaders[i]->get(json_settings["sources"][source_names[i]].asString(),http_auth);
+				if(loaders[i]->status==0){
+					loaders[i]->get(json_settings["sources"][source_names[i]].asString(),http_auth);
+				}else{
+					log(source_names[i] + " (previous network call not yet finished)",2);
+				}
 			}
 		}catch(logic_error err){
 			log("Error calling remote server -- network down?",1);

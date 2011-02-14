@@ -13,7 +13,7 @@
 using namespace std;
 
 AsyncHttpLoader::AsyncHttpLoader(){
-	done = false;
+	status = 0;
 	timeout = 20;
 }
 
@@ -28,7 +28,7 @@ void AsyncHttpLoader::get(string s,string userpass){
 }
 
 void AsyncHttpLoader::reset(){
-	done = false;
+	status = 0;
 	data = "";
 	errorString = "";
 }
@@ -40,6 +40,8 @@ void* AsyncHttpLoader::threadfunc(void*ptr){
 	
 	std::string path(ths->uri.getPathAndQuery());
 	if (path.empty()) path = "/";
+	
+	ths->status = 1;
 	
 	try{
 		HTTPClientSession session(ths->uri.getHost(), ths->uri.getPort());
@@ -58,7 +60,7 @@ void* AsyncHttpLoader::threadfunc(void*ptr){
 	}catch(Exception &err){
 		ths->errorString = err.what();
 	}
-	ths->done = true;
+	ths->status = 2;
 
 }
 
