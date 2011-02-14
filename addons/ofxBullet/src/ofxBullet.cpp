@@ -421,6 +421,8 @@ void ofxBullet::mouseDragged(int x, int y){
 			p2p->setPivotB(newPivotB);
 		}
 		
+	} else {
+		mousePressed(x, y);
 	}
 }
 

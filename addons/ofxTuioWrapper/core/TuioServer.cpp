@@ -606,7 +606,6 @@ std::list<TuioCursor*> TuioServer::getUntouchedCursors() {
 }
 
 void TuioServer::stopUntouchedMovingCursors() {
-	
 	std::list<TuioCursor*> untouched;
 	for (std::list<TuioCursor*>::iterator tuioCursor = cursorList.begin(); tuioCursor!=cursorList.end(); tuioCursor++) {
 		TuioCursor *tcur = (*tuioCursor);

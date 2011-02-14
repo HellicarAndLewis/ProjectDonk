@@ -13,7 +13,6 @@ void testApp::setup(){
 	kinect.open(planarKinect.deviceId);
 
 	blobTracker.addListener(this);
-	
 	setupGui();
 	
 	tuioServer.start((char*)tuioHost.c_str(), tuioPort);
