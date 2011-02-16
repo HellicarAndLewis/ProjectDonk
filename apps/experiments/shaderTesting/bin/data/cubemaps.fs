@@ -16,4 +16,5 @@ void main()
 	gl_FragColor.rgb = envColor * base;
 	gl_FragColor.a = 1.;
 	//gl_FragColor.rgb = base;
+
 }

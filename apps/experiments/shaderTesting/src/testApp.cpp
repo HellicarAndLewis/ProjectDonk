@@ -17,10 +17,23 @@ void testApp::setup(){
 					   "skybox/berkeley_negative_y.png",
 					   "skybox/berkeley_negative_z.png");
 	
-	bubbleShader.setUniform3f("BaseColor", 0.8, 1.0, 0.8);
-	bubbleShader.setUniform1f("EnvMap", 0);
-	bubbleShader.setUniform3f("LightPos", 0.5, 0.5, 0.5);
+	float* bc = new float[3];
+	bc[0] = 0.6;
+	bc[1] = 0.6;
+	bc[2] = 0.6;
+	
+	float* lp = new float[3];
+	lp[0] = 0.6;
+	lp[1] = 0.6;
+	lp[2] = 0.6;	
+	
+	bubbleShader.setUniform1fv("BaseColor", bc);
+	bubbleShader.setUniform1i("EnvMap", cubeMap.textureObject);
+	bubbleShader.setUniform1fv("LightPos", lp);
 	bubbleShader.setUniform1f("MixRatio", 0.8);
+	
+	delete bc;
+	delete lp;
 	
 	//cubeMap.enableFixedMapping();
 	
@@ -66,13 +79,7 @@ void testApp::draw(){
 	cam.begin();
 	
 	bubbleShader.begin();
-	cubeMap.enableFixedMapping();
-	cubeMap.bindMulti(1);
-	
 	ofSphere(sphereCenter, 30);
-		
-	cubeMap.unbind();	
-	cubeMap.disableFixedMapping();
 	bubbleShader.end();
 	
 	cam.end();
@@ -103,6 +110,11 @@ void testApp::mouseDragged(int x, int y, int button){
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
 
+	bubbleShader.setUniform3f("BaseColor", 0.8, 1.0, 0.8);
+	//bubbleShader.setUniform1f("EnvMap", 0);
+	bubbleShader.setUniform3f("LightPos", 1, 1, 1);
+	bubbleShader.setUniform1f("MixRatio", 0.8);
+	
 }
 
 //--------------------------------------------------------------

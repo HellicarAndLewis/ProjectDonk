@@ -15,6 +15,7 @@
 #include "btBulletDynamicsCommon.h"
 #include "ofxBulletBaseConstraint.h"
 #include "ofxBulletRBtoRBAttractor.h"
+#include "ofxBulletHollowSphere.h"
 
 struct callback : public btOverlapFilterCallback
 {
