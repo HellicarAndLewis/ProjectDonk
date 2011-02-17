@@ -57,24 +57,29 @@ void ofxProjectorBlend::setup(int resolutionWidth,
 							  int numProjectors, 
 							  int _pixelOverlap, 
 							  ofxProjectorBlendLayout layout, 
-							  ofxProjectorBlendOrientation orientation)
+							  ofxProjectorBlendRotation rotation)
 {
 	
 	this->numProjectors = numProjectors;
-	this->orientation = orientation;
+	this->rotation = rotation;
 	this->layout = layout;
 	
 	pixelOverlap = _pixelOverlap;
 	
-	singleChannelWidth = resolutionWidth;
-	singleChannelHeight = resolutionHeight;
+	if(rotation==ofxProjectorBlend_NoRotation) {
+		singleChannelWidth = resolutionWidth;
+		singleChannelHeight = resolutionHeight;
+	} else {
+		singleChannelWidth = resolutionHeight;
+		singleChannelHeight = resolutionWidth;
+	}
 	
 	
 	if(layout==ofxProjectorBlend_Vertical) {
 		fullTextureWidth = singleChannelWidth;
-		fullTextureHeight = resolutionHeight*numProjectors - pixelOverlap*(numProjectors-1);
+		fullTextureHeight = singleChannelHeight*numProjectors - pixelOverlap*(numProjectors-1);
 	} else if(layout==ofxProjectorBlend_Horizontal) {
-		fullTextureWidth = resolutionWidth*numProjectors - pixelOverlap*(numProjectors-1);
+		fullTextureWidth = singleChannelWidth*numProjectors - pixelOverlap*(numProjectors-1);
 		fullTextureHeight = singleChannelHeight;
 	} else {
 		ofLog(OF_LOG_ERROR, "ofxProjectorBlend: You have used an invalid ofxProjectorBlendLayout in ofxProjectorBlend::setup()");
@@ -150,17 +155,12 @@ void ofxProjectorBlend::setShaderDefaults() {
 	blendShader->setUniform1f("OverlapBottom", 0.0f);
 	blendShader->setUniform1f("OverlapRight", 0.0f);	
 	
-	blendShader->setUniform1f("BlackOutLeft", 0.0f);
-	blendShader->setUniform1f("BlackOutRight", 0.0f);
-	blendShader->setUniform1f("BlackOutTop", 0.0f);
-	blendShader->setUniform1f("BlackOutBottom", 0.0f);
+	
 	
 	blendShader->setUniform1f("BlendPower", blendPower);
 	blendShader->setUniform1f("SomeLuminanceControl", luminance);
 	blendShader->setUniform3f("GammaCorrection", gamma, gamma, gamma);
-	blendShader->setUniform1f("SolidEdgeEnable", 0.0f);
 	
-	blendShader->setUniform4f("SolidEdgeColor", 0.0f, 0.0f, 0.0f, 1.0f);
 	
 }
 
@@ -185,8 +185,10 @@ void ofxProjectorBlend::draw()
 		
 		blendShader->setUniformTexture("Tex0", fullTexture->getTexture(0), 0);
 		
+		
 		ofVec2f offset(0,0);
 		glPushMatrix();
+		
 		// loop through each projector and glTranslatef() to its position and draw.
 		for(int i = 0; i < numProjectors; i++) {
 			
@@ -211,28 +213,44 @@ void ofxProjectorBlend::draw()
 				}
 			}
 			
-			glBegin(GL_QUADS);
-			glTexCoord2f(0, 0);
-			glVertex2f(0, 0);
-			
-			glTexCoord2f(singleChannelWidth, 0);
-			glVertex2f(singleChannelWidth, 0);
-			
-			glTexCoord2f(singleChannelWidth, singleChannelHeight);
-			glVertex2f(singleChannelWidth, singleChannelHeight);
-			
-			glTexCoord2f(0, singleChannelHeight);
-			glVertex2f(0, singleChannelHeight);
-			
-			glEnd();
-			
+			glPushMatrix();
+			{
+				if(rotation==ofxProjectorBlend_RotatedRight) {
+					glRotatef(90, 0, 0, 1);
+					glTranslatef(0, -singleChannelHeight, 0);
+				} else if(rotation==ofxProjectorBlend_RotatedLeft) {
+					glRotatef(-90, 0, 0, 1);
+					glTranslatef(-singleChannelWidth, 0, 0);
+				}
+				glBegin(GL_QUADS);
+				glTexCoord2f(0, 0);
+				glVertex2f(0, 0);
+				
+				glTexCoord2f(singleChannelWidth, 0);
+				glVertex2f(singleChannelWidth, 0);
+				
+				glTexCoord2f(singleChannelWidth, singleChannelHeight);
+				glVertex2f(singleChannelWidth, singleChannelHeight);
+				
+				glTexCoord2f(0, singleChannelHeight);
+				glVertex2f(0, singleChannelHeight);
+				
+				glEnd();
+			}
+			glPopMatrix();
 			// move the texture offset and where we're drawing to.
 			if(layout==ofxProjectorBlend_Horizontal) {
 				offset.x += singleChannelWidth - pixelOverlap;
-				glTranslatef(singleChannelWidth, 0, 0);
+//				glTranslatef(singleChannelWidth, 0, 0);
 			} else {
 				offset.y += singleChannelHeight - pixelOverlap;
-				glTranslatef(0, singleChannelHeight, 0);
+//				glTranslatef(0, singleChannelHeight, 0);
+				
+			}
+			if(rotation==ofxProjectorBlend_RotatedLeft || rotation==ofxProjectorBlend_RotatedRight) {
+				glTranslatef(singleChannelHeight, 0, 0);
+			} else {
+				glTranslatef(singleChannelWidth, 0, 0);
 			}
 			
 		}

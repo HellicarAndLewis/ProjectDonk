@@ -14,10 +14,15 @@
 
 //--------------------------------------------------------------
 void testApp::setup(){
-	blender.setup(PROJECTOR_WIDTH, PROJECTOR_HEIGHT, 3, PIXEL_OVERLAP, ofxProjectorBlend_Vertical);
+	
+	
+	blender.setup(PROJECTOR_WIDTH, PROJECTOR_HEIGHT, 3, PIXEL_OVERLAP, ofxProjectorBlend_Horizontal, ofxProjectorBlend_RotatedLeft);
 	blender.gamma = .5;
 	blender.blendPower = 1;
 	blender.luminance = 0;
+	
+	gui = blender.getGui();
+	gui->enable();
 }
 
 //--------------------------------------------------------------
