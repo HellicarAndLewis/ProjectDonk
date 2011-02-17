@@ -1,8 +1,10 @@
 /**
  *  ofxProjectorBlend
- *  
+ *  (version 2.0)
+ *
  * Copyright 2010 (c) James George, http://www.jamesgeorge.org
  * in collaboration with FlightPhase http://www.flightphase.com
+ * additions by Marek Bereza, http://www.mazbox.com/
  *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -59,7 +61,15 @@ void ofxProjectorBlend::setup(int resolutionWidth,
 							  ofxProjectorBlendLayout layout, 
 							  ofxProjectorBlendRotation rotation)
 {
+
+	string l = "horizontal";
+	if(layout==ofxProjectorBlend_Vertical) l = "vertical";
 	
+	string r = "normal";
+	if(rotation==ofxProjectorBlend_RotatedLeft) r = "rotated left";
+	else if(rotation==ofxProjectorBlend_RotatedRight) r = "rotated right";
+	
+	ofLog(OF_LOG_NOTICE, "ofxProjectorBlend: res: %d x %d * %d, overlap: %d pixels, layout: %s, rotation: %s\n", resolutionWidth, resolutionHeight, numProjectors, _pixelOverlap, l.c_str(), r.c_str());
 	this->numProjectors = numProjectors;
 	this->rotation = rotation;
 	this->layout = layout;
@@ -164,8 +174,10 @@ void ofxProjectorBlend::setShaderDefaults() {
 	
 }
 
-void ofxProjectorBlend::draw()
+void ofxProjectorBlend::draw(float x, float y)
 {
+	glPushMatrix();
+	glTranslatef(x, y, 0);
 	if(showBlend) {
 		blendShader->begin();
 		blendShader->setUniform1f("width", singleChannelWidth);
@@ -260,5 +272,5 @@ void ofxProjectorBlend::draw()
 	} else {
 		fullTexture->draw(0, 0);
 	}
-	ofPopStyle();
+	glPopMatrix();
 }

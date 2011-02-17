@@ -17,18 +17,27 @@ void testApp::setup() {
 	ofSetVerticalSync(true);
 	ofSetFrameRate(60.f);
 	ofBackground(0, 0, 0);
-	
+	light.setDirectional(false);
+	light.setPosition(ofVec3f(2, 4, 5));
+	light.setAmbientColor(ofColor(0));
+	//light.disable();
 }
 
 void testApp::update() {
+	
 }
 
+void testApp::render() {
+}
 void testApp::drawView() {
-
 	glColor3f(1, 1, 1);
 	
+	ofEnableLighting();
+	light.enable();
 	// setting the parameter to false just draws a wireframe
-	scene->getModel()->draw(false);
+	glShadeModel(GL_FLAT);
+	scene->getModel()->drawSolid();
+	ofDisableLighting();
 }
 
 

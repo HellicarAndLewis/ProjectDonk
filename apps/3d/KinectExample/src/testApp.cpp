@@ -28,7 +28,6 @@ void testApp::update() {
 
 
 void testApp::render() {
-	glDisable(GL_DEPTH_TEST);
 	bubbles.render();
 }
 

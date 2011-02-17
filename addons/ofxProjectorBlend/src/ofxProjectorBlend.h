@@ -1,8 +1,10 @@
 /**
  *  ofxProjectorBlend
- *  
+ *	(version 2.0)
+ * 
  * Copyright 2010 (c) James George, http://www.jamesgeorge.org
  * in collaboration with FlightPhase http://www.flightphase.com
+ * additions by Marek Bereza, http://www.mazbox.com/
  *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -95,7 +97,7 @@ class ofxProjectorBlend
 	void begin();
 	void end();
 	//void draw(float x, float y, float w, float h);
-	void draw();
+	void draw(float x = 0, float y = 0);
 	
 	float getCanvasWidth();
 	float getCanvasHeight();

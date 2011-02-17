@@ -66,6 +66,7 @@ void SceneGui::mouseMoved(float x, float y) {
 }
 
 void SceneGui::draw() {
-	if(enabled) gui.draw();
-
+	if(enabled) {
+		gui.draw();
+	}
 }

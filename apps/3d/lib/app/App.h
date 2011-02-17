@@ -3,13 +3,7 @@
 #include "Scene.h"
 #include "SceneGui.h"
 #include "ofxFourUpDisplay.h"
-
-// this is a Project Donk specific thing
-#define USE_PROJECTOR_BLEND
-
-#ifdef USE_PROJECTOR_BLEND
 #include "ofxProjectorBlend.h"
-#endif
 /**
  * \brief Basic app that you inherit from for your app
  */
@@ -58,9 +52,8 @@ private:
 	
 	void drawAllProjectors();
 	
-#ifdef USE_PROJECTOR_BLEND
 	ofxProjectorBlend projectorBlend;
-#endif
+	bool usingProjectorBlend;
 };
 
 /**
