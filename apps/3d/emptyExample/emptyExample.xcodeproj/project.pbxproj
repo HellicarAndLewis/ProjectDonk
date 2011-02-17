@@ -17,7 +17,6 @@
 		EA6F3821130D73D4001548D6 /* ofxProjectorBlend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA6F3818130D73D4001548D6 /* ofxProjectorBlend.cpp */; };
 		EA6F3878130D7654001548D6 /* App.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA6F385D130D7654001548D6 /* App.cpp */; };
 		EA6F3879130D7654001548D6 /* SceneGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA6F3861130D7654001548D6 /* SceneGui.cpp */; };
-		EA6F387A130D7654001548D6 /* Kinect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA6F3864130D7654001548D6 /* Kinect.cpp */; };
 		EA6F387B130D7654001548D6 /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA6F3866130D7654001548D6 /* Model.cpp */; };
 		EA6F387C130D7654001548D6 /* Projector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA6F3868130D7654001548D6 /* Projector.cpp */; };
 		EA6F387D130D7654001548D6 /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA6F386A130D7654001548D6 /* Scene.cpp */; };
@@ -123,8 +122,6 @@
 		EA6F3860130D7654001548D6 /* Enableable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enableable.h; sourceTree = "<group>"; };
 		EA6F3861130D7654001548D6 /* SceneGui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneGui.cpp; sourceTree = "<group>"; };
 		EA6F3862130D7654001548D6 /* SceneGui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneGui.h; sourceTree = "<group>"; };
-		EA6F3864130D7654001548D6 /* Kinect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Kinect.cpp; sourceTree = "<group>"; };
-		EA6F3865130D7654001548D6 /* Kinect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Kinect.h; sourceTree = "<group>"; };
 		EA6F3866130D7654001548D6 /* Model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Model.cpp; sourceTree = "<group>"; };
 		EA6F3867130D7654001548D6 /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
 		EA6F3868130D7654001548D6 /* Projector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Projector.cpp; sourceTree = "<group>"; };
@@ -411,8 +408,6 @@
 				EA6F385D130D7654001548D6 /* App.cpp */,
 				EA6F385E130D7654001548D6 /* App.h */,
 				EA6F385F130D7654001548D6 /* gui */,
-				EA6F3864130D7654001548D6 /* Kinect.cpp */,
-				EA6F3865130D7654001548D6 /* Kinect.h */,
 				EA6F3866130D7654001548D6 /* Model.cpp */,
 				EA6F3867130D7654001548D6 /* Model.h */,
 				EA6F3868130D7654001548D6 /* Projector.cpp */,
@@ -900,7 +895,6 @@
 				EA6F3821130D73D4001548D6 /* ofxProjectorBlend.cpp in Sources */,
 				EA6F3878130D7654001548D6 /* App.cpp in Sources */,
 				EA6F3879130D7654001548D6 /* SceneGui.cpp in Sources */,
-				EA6F387A130D7654001548D6 /* Kinect.cpp in Sources */,
 				EA6F387B130D7654001548D6 /* Model.cpp in Sources */,
 				EA6F387C130D7654001548D6 /* Projector.cpp in Sources */,
 				EA6F387D130D7654001548D6 /* Scene.cpp in Sources */,

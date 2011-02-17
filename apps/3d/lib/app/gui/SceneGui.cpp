@@ -27,17 +27,6 @@ SceneGui::SceneGui(Scene *scene): Enableable() {
 		gui.addPanner("z rotation", scene->projectors[i]->rot.z, -180, 180);
 		gui.addToggle("Rotate then position", scene->projectors[i]->rotateThenPosition);
 	}
-
-
-	for(int i = 0; i < scene->kinects.size(); i++) {
-		gui.addPage(scene->kinects[i]->name);
-		gui.addToggle("enabled", scene->kinects[i]->enabled);
-		
-		gui.addSlider2D("xy position", scene->kinects[i]->pos, -10, 10, -10, 10);
-		gui.addPanner("z position", scene->kinects[i]->pos.z, -10, 10);
-		gui.addSlider2D("xy rotation", scene->kinects[i]->rot, -180, 180, -180, 180);
-		gui.addPanner("z rotation", scene->kinects[i]->rot.z, -180, 180);
-	}
 	gui.setPage(0);
 	
 	gui.enableAutoSave("settings/cameras.xml");

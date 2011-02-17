@@ -8,7 +8,7 @@
 #include "App.h"
 #include "ofxSettings.h"
 #include "GLHelpers.h"
-
+#include "constants.h"
 using namespace util;
 
 App::App() {
@@ -37,9 +37,7 @@ App::App() {
 								ofxProjectorBlend_RotatedRight:ofxProjectorBlend_NoRotation
 						
 		);
-		WIDTH = projectorBlend.getCanvasWidth();
-		HEIGHT = projectorBlend.getCanvasHeight();
-		ofSetWindowShape(WIDTH, HEIGHT);
+		ofSetWindowShape(projectorBlend.getCanvasWidth(), projectorBlend.getCanvasHeight());
 	}
 	
 	ofAddListener(ofEvents.mousePressed, this, &App::_mousePressed);

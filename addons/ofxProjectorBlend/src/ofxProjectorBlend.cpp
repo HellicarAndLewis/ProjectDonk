@@ -105,6 +105,7 @@ void ofxProjectorBlend::setup(int resolutionWidth,
 void ofxProjectorBlend::begin()
 {
 	fullTexture->begin();
+	ofClear(0,0,0,0);
 	ofPushStyle();
 }
 
