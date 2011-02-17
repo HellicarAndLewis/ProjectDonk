@@ -10,6 +10,5 @@
 class Scene {
 private:
 	vector<Projector*> projectors;
-	vector<Kinect*>    kinects;
 	Model *model;
 };

@@ -15,24 +15,10 @@ Scene::Scene() {
 	
 	bool usingFirstScreenForGuiOnly = settings.getBool("using first screen for gui only", false);
 	int numProjectors	= settings.getInt("num projectors", 1);
-	int numKinects		= settings.getInt("num kinects", 1);
 	int projectorWidth	= settings.getInt("projector width", 1024);
 	int projectorHeight = settings.getInt("projector height", 768);
 	
-	
-	for(int i = 0; i < numKinects; i++) {
 		
-		// add it to our local list.
-		kinects.push_back(new Kinect("kinect " + ofToString(i+1)));
-		
-		// add it to the scene list
-		addNode(*kinects.back());
-		if(!kinects.back()->open()) {
-			ofLog(OF_LOG_ERROR, "Failed to open %s\n", kinects.back()->name.c_str());
-		} else {
-			ofLog(OF_LOG_NOTICE, "Successfully %s\n", kinects.back()->name.c_str());
-		}
-	}
 	
 	for(int i = 0; i < numProjectors; i++) {
 		int offset = 0;
@@ -52,18 +38,13 @@ Scene::Scene() {
 
 
 Scene::~Scene() {
-	for(int i = 0; i < kinects.size(); i++) {
-		kinects[i]->close();
-	}
+	
 }
 Model *Scene::getModel() {
 	return model;
 }
 void Scene::update() {
-	for(int i = 0; i < kinects.size(); i++) {
-		kinects[i]->update();
-	}
-	
+		
 	for(int i = 0; i < projectors.size(); i++) {
 		projectors[i]->update();
 	}

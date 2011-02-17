@@ -1,9 +1,12 @@
 <properties>
+    <property key="layout" value="horizontal"></property>
     <property key="model file" value="scene.obj"></property>
-    <property key="num kinects" value="1"></property>
-    <property key="num projectors" value="1"></property>
-    <property key="projector height" value="768"></property>
-    <property key="projector width" value="1024"></property>
+    <property key="num projectors" value="2"></property>
+    <property key="orientation" value="normal"></property>
+    <property key="projector height" value="480"></property>
+    <property key="projector overlap" value="100"></property>
+    <property key="projector width" value="640"></property>
     <property key="using MSAA" value="false"></property>
     <property key="using first screen for gui only" value="false"></property>
+    <property key="using projector blending" value="true"></property>
 </properties>

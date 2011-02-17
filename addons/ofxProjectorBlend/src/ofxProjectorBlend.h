@@ -1,8 +1,10 @@
 /**
  *  ofxProjectorBlend
- *  
+ *	(version 2.0)
+ * 
  * Copyright 2010 (c) James George, http://www.jamesgeorge.org
  * in collaboration with FlightPhase http://www.flightphase.com
+ * additions by Marek Bereza, http://www.mazbox.com/
  *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -66,9 +68,10 @@ enum ofxProjectorBlendLayout {
 	ofxProjectorBlend_Vertical = 2,
 };
 
-enum ofxProjectorBlendOrientation {
+enum ofxProjectorBlendRotation {
 	ofxProjectorBlend_NoRotation = 1,
-	ofxProjectorBlend_RotatedRight = 2
+	ofxProjectorBlend_RotatedLeft = 2,
+	ofxProjectorBlend_RotatedRight = 3
 };
 
 class ofxProjectorBlend
@@ -78,15 +81,23 @@ class ofxProjectorBlend
 	
 	
 	/**
-	 * Set resolutionWidth and height to the resolutions of each projector output.
+	 * Set resolutionWidth and height to the resolutions of each projector output - if you're portrait, 
+	 * still give it a landscape resolution.
+	 *
+	 * layout   - this is how the projectors are stacked, so if they are next to eachother, it's horizontal
+	 *            and if they're on-top of eachother, it's vertical. (this is regardless of rotation)
+	 * 
+	 * rotation - this is the rotation of the projector. If the projectors are on their sides then it's 
+	 *            rotatedRight, if it's the right way round, it's noRotation.
+	 *
 	 */
 	void setup(int resolutionWidth, int resolutionHeight, int numProjectors, int pixelOverlap, 
 			   ofxProjectorBlendLayout layout = ofxProjectorBlend_Horizontal, 
-			   ofxProjectorBlendOrientation orientation = ofxProjectorBlend_NoRotation);
+			   ofxProjectorBlendRotation rotation = ofxProjectorBlend_NoRotation);
 	void begin();
 	void end();
 	//void draw(float x, float y, float w, float h);
-	void draw();
+	void draw(float x = 0, float y = 0);
 	
 	float getCanvasWidth();
 	float getCanvasHeight();
@@ -117,7 +128,7 @@ class ofxProjectorBlend
 	float pixelOverlap;
 	int numProjectors;
 	ofxProjectorBlendLayout layout;
-	ofxProjectorBlendOrientation orientation;
+	ofxProjectorBlendRotation rotation;
 	ofShader* blendShader;
 	ofFbo* fullTexture;
 	void setShaderDefaults();
