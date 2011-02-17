@@ -37,7 +37,7 @@ void testApp::setup() {
 	camera.orbit(90, -90, 500);
 	
 	
-	bullet.createSphere(ofVec3f(0, 200, 0), 30, 1);
+	bd = bullet.createSphere(ofVec3f(0, 200, 0), 30, 1);
 	for (int i=0; i<10; i++) {
 		ofVec3f pos(ofRandom(-50, 50), ofRandom(0, 150), ofRandom(-50, 50));
 		bullet.createSphere(pos, ofRandom(8, 15), 1);
@@ -302,7 +302,6 @@ void testApp::draw() {
 	
 	
 	
-	
 	//btCollisionWorld::ClosestRayResultCallback rayCallback(rayFrom, rayTo);
 	//getWorld()->rayTest(rayFrom,rayTo,rayCallback);
 	//if (rayCallback.hasHit()) {
@@ -390,7 +389,11 @@ void testApp::keyPressed(int key) {
 		
 	}
 	
-	
+	if(key == '1') {
+		btRigidBody * body = btRigidBody::upcast(bd->body);
+		btSphereShape* sphereShape = static_cast<const btSphereShape*>(body->getCollisionShape());
+		sphereShape->setUnscaledRadius((btScalar)ofRandom(10, 140));
+	}
 	
 	/*if(key == ' ') {
 	

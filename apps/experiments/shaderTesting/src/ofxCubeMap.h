@@ -99,47 +99,8 @@ public:
 	 CubeMap[CUBE_POS_X + i]); // pixel data
 	 }*/
 	 
-	 void loadFromOfImages( ofImage pos_x, ofImage pos_y, ofImage pos_z, ofImage neg_x,ofImage neg_y,ofImage neg_z)
-	{	
-		//create a texture object
-		glGenTextures(1, &textureObject);
-		glBindTexture(GL_TEXTURE_CUBE_MAP_ARB, textureObject);
-		//assign the images to positions
-		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB, 0, pos_x.getTextureReference().getTextureData().glTypeInternal, 
-					 (GLint)pos_x.getTextureReference().getTextureData().tex_w, (GLint)pos_x.getTextureReference().getTextureData().tex_h, 0, 
-					 pos_x.getTextureReference().getTextureData().glType, pos_x.getTextureReference().getTextureData().pixelType, 
-					 pos_x.getPixels());
-		
-		glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB, 0, neg_x.getTextureReference().getTextureData().glTypeInternal, 
-					 (GLint)neg_x.getTextureReference().getTextureData().tex_w, (GLint)neg_x.getTextureReference().getTextureData().tex_h, 0, 
-					 neg_x.getTextureReference().getTextureData().glType, neg_x.getTextureReference().getTextureData().pixelType, 
-					 neg_x.getPixels());
-		
-		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB, 0, pos_y.getTextureReference().getTextureData().glTypeInternal, 
-					 (GLint)pos_y.getTextureReference().getTextureData().tex_w, (GLint)pos_y.getTextureReference().getTextureData().tex_h, 0, 
-					 pos_y.getTextureReference().getTextureData().glType, pos_y.getTextureReference().getTextureData().pixelType, 
-					 pos_y.getPixels());
-		
-		glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB, 0, neg_y.getTextureReference().getTextureData().glTypeInternal, 
-					 (GLint)neg_y.getTextureReference().getTextureData().tex_w, (GLint)neg_y.getTextureReference().getTextureData().tex_h, 0, 
-					 neg_y.getTextureReference().getTextureData().glType, neg_y.getTextureReference().getTextureData().pixelType, 
-					 neg_y.getPixels());
-		
-		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB, 0, pos_z.getTextureReference().getTextureData().glTypeInternal, 
-					 (GLint)pos_z.getTextureReference().getTextureData().tex_w, (GLint)pos_z.getTextureReference().getTextureData().tex_h, 0, 
-					 pos_z.getTextureReference().getTextureData().glType, pos_z.getTextureReference().getTextureData().pixelType, 
-					 pos_z.getPixels());
-		
-		glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB, 0, neg_z.getTextureReference().getTextureData().glTypeInternal, 
-					 (GLint)neg_z.getTextureReference().getTextureData().tex_w, (GLint)neg_z.getTextureReference().getTextureData().tex_h, 0, 
-					 neg_z.getTextureReference().getTextureData().glType, neg_z.getTextureReference().getTextureData().pixelType, 
-					 neg_z.getPixels());
-		//set filtering modes for scaling up and down
-		glTexParameteri(GL_TEXTURE_CUBE_MAP_ARB, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_CUBE_MAP_ARB, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		
-	}
-
+	void loadFromOfImages( ofImage pos_x, ofImage pos_y, ofImage pos_z, ofImage neg_x,ofImage neg_y,ofImage neg_z);
+	
 	void bindMulti( int pos )
 	{
 		glActiveTexture(GL_TEXTURE0 + pos );

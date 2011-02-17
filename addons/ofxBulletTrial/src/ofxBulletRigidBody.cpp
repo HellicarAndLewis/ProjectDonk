@@ -17,10 +17,19 @@ ofxBulletRigidBody::ofxBulletRigidBody() {
 	bDestroy = false;
 }
 
+
+ofxBulletRigidBody::ofxBulletRigidBody(btRigidBody* body) {
+	
+	body  = NULL;
+
+}
+
 //--------------------------------------------------------------
 ofxBulletRigidBody::~ofxBulletRigidBody() {
 
 }
+
+
 
 
 //--------------------------------------------------------------
