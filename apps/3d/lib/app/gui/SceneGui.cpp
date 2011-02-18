@@ -8,6 +8,7 @@
 
 #include "SceneGui.h"
 #include "ofxSettings.h"
+#include "constants.h"
 
 float a = 0;
 SceneGui::SceneGui(Scene *scene): Enableable() {
