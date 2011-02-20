@@ -13,8 +13,8 @@ void main()
 	vec3 base	= LightIntensity * BaseColor;
 	envColor	= mix( envColor, base, MixRatio );
 	
-	gl_FragColor.rgb = envColor * base;
+	//gl_FragColor.rgb = envColor * base;
 	gl_FragColor.a = 1.;
-	//gl_FragColor.rgb = base;
+	gl_FragColor.rgb = envColor ;
 
 }
