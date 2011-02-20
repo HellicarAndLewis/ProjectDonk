@@ -46,6 +46,7 @@
 		EA6F3984130D76D1001548D6 /* ofxOscMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA6F3977130D76D1001548D6 /* ofxOscMessage.cpp */; };
 		EA6F3985130D76D1001548D6 /* ofxOscReceiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA6F3979130D76D1001548D6 /* ofxOscReceiver.cpp */; };
 		EA6F3986130D76D1001548D6 /* ofxOscSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA6F397B130D76D1001548D6 /* ofxOscSender.cpp */; };
+		EA6F3D63130E9AB0001548D6 /* ofxCoordMapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA6F3D62130E9AB0001548D6 /* ofxCoordMapper.cpp */; };
 		EAC12C1A12E6F94F0071CE8E /* testApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAC12C1812E6F94F0071CE8E /* testApp.cpp */; };
 		EAF9774F12E45B8D0009DBBE /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF9774212E45B8D0009DBBE /* GLUT.framework */; };
 		EAF9775012E45B8D0009DBBE /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF9774312E45B8D0009DBBE /* AppKit.framework */; };
@@ -226,6 +227,8 @@
 		EA6F397B130D76D1001548D6 /* ofxOscSender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxOscSender.cpp; sourceTree = "<group>"; };
 		EA6F397C130D76D1001548D6 /* ofxOscSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxOscSender.h; sourceTree = "<group>"; };
 		EA6F3CB9130D9DB8001548D6 /* general.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = general.xml; path = bin/data/settings/general.xml; sourceTree = "<group>"; };
+		EA6F3D61130E9AB0001548D6 /* ofxCoordMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxCoordMapper.h; path = ../../../addons/ofxCoordMapper/ofxCoordMapper.h; sourceTree = SOURCE_ROOT; };
+		EA6F3D62130E9AB0001548D6 /* ofxCoordMapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxCoordMapper.cpp; path = ../../../addons/ofxCoordMapper/ofxCoordMapper.cpp; sourceTree = SOURCE_ROOT; };
 		EAC12C1812E6F94F0071CE8E /* testApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = testApp.cpp; sourceTree = "<group>"; };
 		EAC12C1912E6F94F0071CE8E /* testApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testApp.h; sourceTree = "<group>"; };
 		EAF9774212E45B8D0009DBBE /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = SOURCE_ROOT; };
@@ -277,6 +280,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				EA6F3D5D130E9A6C001548D6 /* ofxCoordMapper */,
 				EA6F3952130D76D1001548D6 /* ofxOsc */,
 				EA6F3943130D76AA001548D6 /* ofxSettings */,
 				EA6F3934130D7698001548D6 /* ofxFourUpDisplay */,
@@ -767,6 +771,15 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		EA6F3D5D130E9A6C001548D6 /* ofxCoordMapper */ = {
+			isa = PBXGroup;
+			children = (
+				EA6F3D61130E9AB0001548D6 /* ofxCoordMapper.h */,
+				EA6F3D62130E9AB0001548D6 /* ofxCoordMapper.cpp */,
+			);
+			name = ofxCoordMapper;
+			sourceTree = "<group>";
+		};
 		EAF9774112E45B8D0009DBBE /* frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -918,6 +931,7 @@
 				EA6F3984130D76D1001548D6 /* ofxOscMessage.cpp in Sources */,
 				EA6F3985130D76D1001548D6 /* ofxOscReceiver.cpp in Sources */,
 				EA6F3986130D76D1001548D6 /* ofxOscSender.cpp in Sources */,
+				EA6F3D63130E9AB0001548D6 /* ofxCoordMapper.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

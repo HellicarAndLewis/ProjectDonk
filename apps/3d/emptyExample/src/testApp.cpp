@@ -38,6 +38,7 @@ void testApp::drawView() {
 	glShadeModel(GL_FLAT);
 	scene->getModel()->drawSolid();
 	ofDisableLighting();
+	
 }
 
 
