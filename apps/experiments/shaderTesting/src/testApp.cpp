@@ -6,9 +6,15 @@
 //--------------------------------------------------------------
 void testApp::setup(){
 	
-
 	
-	bubbleShader.setup("cubemaps.vs", "cubemaps.fs");
+	ofDisableArbTex();
+	
+	/*cubeMap.loadImages("pos_x.png",
+					   "pos_y.png",
+					   "pos_z.png",
+					   "neg_x.png",
+					   "neg_y.png",
+					   "neg_z.png"); */
 	
 	cubeMap.loadImages("skybox/berkeley_positive_x.png",
 					   "skybox/berkeley_positive_y.png",
@@ -17,54 +23,28 @@ void testApp::setup(){
 					   "skybox/berkeley_negative_y.png",
 					   "skybox/berkeley_negative_z.png");
 	
-	float* bc = new float[3];
-	bc[0] = 0.6;
-	bc[1] = 0.6;
-	bc[2] = 0.6;
-	
-	float* lp = new float[3];
-	lp[0] = 0.6;
-	lp[1] = 0.6;
-	lp[2] = 0.6;	
-	
-	bubbleShader.setUniform1fv("BaseColor", bc);
-	bubbleShader.setUniform1i("EnvMap", cubeMap.textureObject);
-	bubbleShader.setUniform1fv("LightPos", lp);
-	bubbleShader.setUniform1f("MixRatio", 0.8);
-	
-	delete bc;
-	delete lp;
-	
 	//cubeMap.enableFixedMapping();
 	
-	/*
-	 
-	 glossMap.loadImage("white.png");
-	baseMap.loadImage("Permutation Texture.png");
 	
-	int glossMapIndex, baseMapIndex;
+	first.setup(512, 512, GL_RGBA);
+	second.setup(512, 512, GL_RGBA);
 	
-	bubbleShader.begin();
-	bubbleShader.setUniform3f("fresnelValues", 0.1, 0, 0);
-	bubbleShader.setUniform3f("IoR_Values", 0.5, 0.5, 0.5);
-	
-	//use multi-tex coords
-	bubbleShader.setUniform1i("environmentMap", 0);
-	bubbleShader.setUniform1f("glossMap", 1);
-	//bubbleShader.setUniform1f("glossMap", glossMap.getTextureReference().getTextureData().textureID);
-	bubbleShader.setUniform1f("baseMap", 2);
-	//bubbleShader.setUniform1f("baseMap", baseMap.getTextureReference().getTextureData().textureID);
-	
-	// the amount that we're going to fade at the edges
-	bubbleShader.setUniform1f("EdgeFalloff", 0.2);
-	
-
-	bubbleShader.end();
-	*/
+	permTex.loadImage("Permutation Texture.png");
+	glossTex.loadImage("texturing.png");
 	
 	sphereCenter = ofVec3f(0, 0, 0);
 	cam.setTarget(sphereCenter);
 	cam.setDistance(300);
+	
+	
+	cubeshader.setup("fresnel_refraction.vs", "fresnel_refraction.fs");
+	
+	cubeshader.begin();
+	cubeshader.setUniform1i("glossMap", 1);
+	cubeshader.setUniform1i("baseMap", 2);
+	cubeshader.end();
+	
+	hasDrawnTex = false;
 }
 
 //--------------------------------------------------------------
@@ -74,15 +54,125 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
-	ofBackground(255, 255, 255);
+	//ofBackground(0);
+	
+	//glClearColor( 1.0f, 1.0f, 1.0f, 1.0f );
+	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+	
+	
+	if( !hasDrawnTex )
+	{
+		first.begin();
+		permTex.draw(0, 0, 0);
+		first.end();
+		second.begin();
+		glossTex.draw(0, 0, 0);
+		second.end();
+		hasDrawnTex = true;
+	}
 	
 	cam.begin();
 	
-	bubbleShader.begin();
-	ofSphere(sphereCenter, 30);
-	bubbleShader.end();
+	/*GLdouble modelview[16];
+	glGetDoublev(GL_MODELVIEW_MATRIX, modelview);
+	
+	cout << " begin " << endl;
+	for(int i = 0; i<16; i++)
+	{
+		cout << modelview[i];
+	}
+	cout << " end " << endl;
+	*/
+	
+	//glPushAttrib(GL_ALL_ATTRIB_BITS);
+	glEnable(GL_TEXTURE_CUBE_MAP);
+	glEnable(GL_NORMALIZE);
+	glEnable(GL_DEPTH_TEST);
+		
+	cubeshader.begin();
+	
+	//cubeMap.enableFixedMapping();
+	
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMap.textureObject);
+	cubeshader.setUniform1i("environmentMap", 0);
+	
+	//cubeMap.disableFixedMapping();
+	
+	glActiveTexture(GL_TEXTURE1);
+	//glEnable(GL_TEXTURE_2D);
+	//glBindTexture( GL_TEXTURE_2D, (GLuint)first.getTextureReference().texData.textureID);
+	first.getTexture(0).bind();
+
+	glActiveTexture(GL_TEXTURE2);	
+	//glEnable(GL_TEXTURE_2D);
+	//glBindTexture( GL_TEXTURE_2D, (GLuint)permTex.getTextureReference().texData.textureID);
+	second.getTexture(0).bind();
+
+	cubeshader.setUniform1i("glossMap", 1);
+	cubeshader.setUniform1i("baseMap", 2);
+	
+
+	cubeshader.setUniform1f("EdgeFalloff", 0.2);
+	
+	float* pos = new float[3];
+	pos[0] = 0.8;
+	pos[1] = 0.8;
+	pos[2] = 0.8;
+	cubeshader.setUniform3fv("fresnelValues", pos);
+	
+	float* cpos = new float[3];
+	cpos[0] = 0.107;
+	cpos[1] = 0.0;
+	cpos[2] = 1.f;
+	cubeshader.setUniform3fv("CameraPos", cpos);
+	
+	float* lPos = new float[3];
+	lPos[0] = 0.7;
+	lPos[1] = 0.0;
+	lPos[2] = 0.9;
+	cubeshader.setUniform3fv("IoR_Values", lPos);
+	
+	float* mat = new float[16];
+	mat[0] = 0.21;
+	mat[1] = 0.715; 
+	mat[2] = 0.75; 
+	mat[3] = 0.75;
+	mat[4] = 0; 
+	mat[5] = 1; 
+	mat[6] = 0; 
+	mat[7] = 0; 
+	mat[8] = 0; 
+	mat[9] = 0; 
+	mat[10] = 1; 
+	mat[11] = 0; 
+	mat[12] = 0; 
+	mat[13] = 0;
+	mat[14] = 0.43;
+	mat[15] = 1;
+	
+	cubeshader.setUniform4mat("ModelWorld4x4", mat);
+	
+	ofEnableAlphaBlending();
+	
+	ofSphere(10, 0, -100, 40);
+	ofSphere(10, 30, -200, 40);
+	ofSphere(20, 40, -10, 40);
+	
+	glDisable(GL_NORMALIZE);
+	glDisable(GL_TEXTURE_CUBE_MAP);
+	//glPopAttrib();
+
+	glDisable(GL_TEXTURE_2D);
+	
+	cubeshader.end();
+	
+	delete pos;
+	delete lPos;
+	delete mat;
 	
 	cam.end();
+
 }
 
 
@@ -109,12 +199,6 @@ void testApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
-
-	bubbleShader.setUniform3f("BaseColor", 0.8, 1.0, 0.8);
-	//bubbleShader.setUniform1f("EnvMap", 0);
-	bubbleShader.setUniform3f("LightPos", 1, 1, 1);
-	bubbleShader.setUniform1f("MixRatio", 0.8);
-	
 }
 
 //--------------------------------------------------------------

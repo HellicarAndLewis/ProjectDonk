@@ -4,6 +4,7 @@
 
 #include "ofMain.h"
 #include "ofxCubeMap.h"
+#include <GLUT/glut.h>
 
 class testApp : public ofBaseApp{
 
@@ -21,7 +22,7 @@ class testApp : public ofBaseApp{
 	void mouseReleased(int x, int y, int button);
 	void windowResized(int w, int h);
 	
-	ofShader bubbleShader;
+	ofShader cubeshader;
 	ofImage glossMap, baseMap;
 	
 	ofxCubeMap cubeMap;
@@ -29,6 +30,14 @@ class testApp : public ofBaseApp{
 	ofVec3f sphereCenter;
 	ofEasyCam cam;
 	
+	ofImage permTex;
+	ofImage glossTex;
+	
+	bool hasDrawnTex;
+	
+	ofFbo first;
+	ofFbo second;
+
 
 };
 

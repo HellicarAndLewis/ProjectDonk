@@ -3,11 +3,8 @@ uniform vec3 fresnelValues;
 uniform vec3 IoR_Values;
 //uniform float opacity;
 uniform samplerCube environmentMap;
-//uniform sampler2D glossMap;
-//uniform sampler2D baseMap;
-uniform sampler2DRect glossMap;
-uniform sampler2DRect baseMap;
-
+uniform sampler2D glossMap;
+uniform sampler2D baseMap;
 varying vec3 N;
 varying vec3 E;
 
@@ -36,31 +33,25 @@ vec3 refract(vec3 i, vec3 n, float eta)
 
 	void main(void)
 	{
-/*		vec3 normal = normalize(N);
-		vec3 incident = normalize(E);
+		vec3 normal = normalize(N);
+	     vec3 incident = normalize(E);
 		
 	   	// make reflection
 	   	//
 		vec3 reflectionVector = normalize(reflect(incident, normal));
-	   	vec3 reflectColor = textureCube(environmentMap, reflectionVector).xyz; */
-		
-		/*
-		
-		//JG commented out for testing.
-		
+	   	vec3 reflectColor = textureCube(environmentMap, reflectionVector).xyz;
+	  	
 		//------ Find the refraction
 	   	//
 	    vec3 refractColor;
 	    refractColor.x = textureCube(environmentMap, refract(incident, normal, IoR_Values.x)).x;
 	    refractColor.y = textureCube(environmentMap, refract(incident, normal, IoR_Values.y)).y;
 	    refractColor.z = textureCube(environmentMap, refract(incident, normal, IoR_Values.z)).z;
-
-		//JG turned to texture2DRect
-		vec3 base_color = texture2DRect(baseMap, gl_TexCoord[0].st).rgb;
+		
+		vec3 base_color = texture2D(baseMap, gl_TexCoord[0].st).rgb;
 		
 		// now do gloss colorzz	
-		//JG turned to texture2DRect
-		vec3 gloss_color = texture2DRect(glossMap, gl_TexCoord[0].st).rgb;
+		vec3 gloss_color = texture2D(glossMap, gl_TexCoord[0].st).rgb;
 		float reflectivity = (gloss_color.r + gloss_color.g + gloss_color.b)/2.0;
 		
 	    
@@ -78,18 +69,5 @@ vec3 refract(vec3 i, vec3 n, float eta)
 
 		//------ final pixel -
 		vec3 color = mix(refractColor, reflectColor, fresnelTerm);
-		//gl_FragColor = vec4( mix(base_color, color, reflectivity), (opacity * bTint));
-		*/
-		
-		
-		//cubemap sample test
-		//gl_FragColor.rgb = reflectColor;
-		
-		//gl_FragColor.rgb = reflectColor;
-		gl_FragColor.rgb = textureCube(environmentMap, vec3(.1, .1, .1) ).xyz;
-		
-		//yellow test...
-		//gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
-		
-		
+		gl_FragColor = vec4( mix(base_color, color, reflectivity), (opacity * bTint));
 }
