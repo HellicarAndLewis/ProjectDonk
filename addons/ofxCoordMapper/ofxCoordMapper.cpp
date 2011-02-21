@@ -9,7 +9,7 @@
 #include "ofxCoordMapper.h"
 ofxCoordMapper::ofxCoordMapper() {
 	lut = NULL;
-	ofEnableArbTex();
+	
 }
 
 ofxCoordMapper::~ofxCoordMapper() {
@@ -18,17 +18,20 @@ ofxCoordMapper::~ofxCoordMapper() {
 void ofxCoordMapper::setup() {
 	width = 640;
 	height = 480;
-	coordColors.setup(128,128, GL_RGB);
+	ofEnableArbTex();
+	coordColors.setup(256,256, GL_RGB32F);
 	drawColorsIntoTexture();
-	lutFbo.setup(width, height, GL_RGB);
+	lutFbo.setup(width, height, GL_RGB32F);
 	
 	lut = new float[width*height*3];
 	debugSaved.allocate(width, height, OF_IMAGE_COLOR);
 
 }
+
 void ofxCoordMapper::drawLUT() {
 	coordColors.draw(0, 0);
 }
+
 void ofxCoordMapper::drawColorsIntoTexture() {
 	
 	coordColors.begin();
@@ -64,16 +67,30 @@ void ofxCoordMapper::beginCapture() {
 	glScalef(coordColors.getWidth(), coordColors.getHeight(), 1);
 	
 	glMatrixMode(GL_MODELVIEW);
-	//glReadPixels(x, y, 1, 1, GL_RGB, GL_FLOAT, pixelf);
 	
 	glColor3f(1, 1, 1);
 	coordColors.getTexture(0).bind();
 }
 
+ofVec2f ofxCoordMapper::lookUp(ofVec2f inPos) {
+	// scale to our lut
+	inPos *= ofVec2f(width, height);
+	
+	// check we're in bounds.
+	if(inPos.x<0 || inPos.y<0 || inPos.x>width-1 || inPos.y>height-1) return ofVec2f(0,0);
+	
+	// find that pixel.
+	int inX = inPos.x;
+	int inY = inPos.y;
+	int offset = (inX + inY*width)*3;
+	return ofVec2f(lut[offset], lut[offset+1]);
+}
+
+
 void ofxCoordMapper::endCapture() {
 	coordColors.getTexture(0).unbind();
 	
-	/*
+	
 	
 	// capture pixels
 	glPixelStorei(GL_PACK_ALIGNMENT, 1);
@@ -85,9 +102,9 @@ void ofxCoordMapper::endCapture() {
 	}
 
     debugSaved.setFromPixels(c, width, height, OF_IMAGE_COLOR);
-    debugSaved.saveImage("test1.png");
+    debugSaved.saveImage("lut.png");
 	delete [] c;	
-	*/
+	
 	
 	lutFbo.end();
 	

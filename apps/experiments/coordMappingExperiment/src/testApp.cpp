@@ -16,9 +16,8 @@ void testApp::update(){
 void testApp::draw(){
 	ofBackground(0,0,0);
 	
-	coordMapper.drawLUT();
 	
-	/*
+	
 	coordMapper.beginCapture();
 	glPushMatrix();
 	glTranslatef(10, 10, 0);
@@ -26,7 +25,7 @@ void testApp::draw(){
 	ofBox(100, 100, 0, 100);
 	glPopMatrix();
 	coordMapper.endCapture();
-	*/
+	
 	
 	
 }
@@ -45,6 +44,9 @@ void testApp::keyReleased(int key){
 //--------------------------------------------------------------
 void testApp::mouseMoved(int x, int y ){
 
+	ofVec2f point((float)x/640.f, (float)y/480.f);
+	point = coordMapper.lookUp(point);
+	ofLogNotice() << point << endl;
 }
 
 //--------------------------------------------------------------

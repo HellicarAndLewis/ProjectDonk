@@ -23,13 +23,18 @@ public:
 	void beginCapture();
 	void endCapture();
 	
+	/**
+	 * Give this method a normalized in coordinate, and it'll give you a normalized out coordinate.
+	 */
+	ofVec2f lookUp(ofVec2f inPos);
+	
 	void drawLUT();
 private:
 	int width, height;
 	ofFbo coordColors;
 
 	void drawColorsIntoTexture();
-	
+
 	// what gets generated from the coordinate pixelzz
 	float *lut;
 	ofFbo lutFbo;
