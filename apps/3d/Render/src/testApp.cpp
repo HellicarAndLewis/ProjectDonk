@@ -5,10 +5,11 @@
 //--------------------------------------------------------------
 void testApp::setup(){
 	
-	if(!json_settings.loadFromFile("settings.json.txt")){
+	if(!json_settings.loadFromFile("settings/OSC.json.txt")){
 		cerr << "failed to load json settings file" << endl;
 		_exit(1);
 	}
+	
 	
 	oscIn.setup(json_settings["osc_listen_port"].asInt());
 }

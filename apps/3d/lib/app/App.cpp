@@ -10,7 +10,7 @@
 #include "GLHelpers.h"
 #include "constants.h"
 using namespace util;
-
+using namespace Donk;
 App::App() {
 	ofSetLogLevel(OF_LOG_NOTICE);
 

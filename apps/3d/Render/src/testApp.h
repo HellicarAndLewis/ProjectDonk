@@ -5,8 +5,9 @@
 #include "ofMain.h"
 #include "ofxOsc.h"
 #include "ofxJSON.h"
+#include "App.h"
 
-class testApp : public ofBaseApp{
+class testApp : public Donk::App {
 
 public:
 	void setup();

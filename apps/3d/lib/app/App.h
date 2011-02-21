@@ -4,6 +4,9 @@
 #include "SceneGui.h"
 #include "ofxFourUpDisplay.h"
 #include "ofxProjectorBlend.h"
+namespace Donk { 
+
+
 /**
  * \brief Basic app that you inherit from for your app
  */
@@ -55,7 +58,7 @@ private:
 	ofxProjectorBlend projectorBlend;
 	bool usingProjectorBlend;
 };
-
+}
 /**
  * \mainpage 
  * This is a framework for creating installations involving projectors and kinects.
