@@ -9,6 +9,7 @@
 #include "ofxCoordMapper.h"
 ofxCoordMapper::ofxCoordMapper() {
 	lut = NULL;
+	ofEnableArbTex();
 }
 
 ofxCoordMapper::~ofxCoordMapper() {
@@ -17,15 +18,17 @@ ofxCoordMapper::~ofxCoordMapper() {
 void ofxCoordMapper::setup() {
 	width = 640;
 	height = 480;
-	coordColors.setup(100,100, GL_RGB32F);
+	coordColors.setup(128,128, GL_RGB);
 	drawColorsIntoTexture();
-	lutFbo.setup(width, height, GL_RGB32F);
+	lutFbo.setup(width, height, GL_RGB);
 	
 	lut = new float[width*height*3];
 	debugSaved.allocate(width, height, OF_IMAGE_COLOR);
 
 }
-
+void ofxCoordMapper::drawLUT() {
+	coordColors.draw(0, 0);
+}
 void ofxCoordMapper::drawColorsIntoTexture() {
 	
 	coordColors.begin();
@@ -70,7 +73,7 @@ void ofxCoordMapper::beginCapture() {
 void ofxCoordMapper::endCapture() {
 	coordColors.getTexture(0).unbind();
 	
-	
+	/*
 	
 	// capture pixels
 	glPixelStorei(GL_PACK_ALIGNMENT, 1);
@@ -84,7 +87,7 @@ void ofxCoordMapper::endCapture() {
     debugSaved.setFromPixels(c, width, height, OF_IMAGE_COLOR);
     debugSaved.saveImage("test1.png");
 	delete [] c;	
-	
+	*/
 	
 	lutFbo.end();
 	

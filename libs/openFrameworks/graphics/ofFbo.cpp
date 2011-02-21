@@ -101,8 +101,12 @@ ofFbo::Settings::Settings() {
 	numColorbuffers			= 1;
 	useDepth				= true;
 	useStencil				= false;
-	//textureTarget			= GL_TEXTURE_RECTANGLE_ARB;
-	textureTarget			= GL_TEXTURE_2D;
+	
+	if(ofGetUsingArbTex()) {
+		textureTarget			= GL_TEXTURE_RECTANGLE_ARB;
+	} else {
+		textureTarget			= GL_TEXTURE_2D;
+	}
 	internalformat			= GL_RGBA;
 	wrapModeHorizontal		= GL_CLAMP_TO_EDGE;
 	wrapModeVertical		= GL_CLAMP_TO_EDGE;

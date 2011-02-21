@@ -8,7 +8,8 @@
 
 /**
  * Usage:
- * get the coordColorTexture, call begin() draw the texture to your shape, call end()
+ * call setup() (this creates the texture to be drawn onto the shape)
+ * get the coordColorTexture, call beginCapture() draw your shape with normalized texCoords, call endCapture()
  */
 #pragma once
 
@@ -21,6 +22,8 @@ public:
 	void setup();
 	void beginCapture();
 	void endCapture();
+	
+	void drawLUT();
 private:
 	int width, height;
 	ofFbo coordColors;

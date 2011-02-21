@@ -16,6 +16,9 @@ void testApp::update(){
 void testApp::draw(){
 	ofBackground(0,0,0);
 	
+	coordMapper.drawLUT();
+	
+	/*
 	coordMapper.beginCapture();
 	glPushMatrix();
 	glTranslatef(10, 10, 0);
@@ -23,7 +26,7 @@ void testApp::draw(){
 	ofBox(100, 100, 0, 100);
 	glPopMatrix();
 	coordMapper.endCapture();
-	
+	*/
 	
 	
 }
