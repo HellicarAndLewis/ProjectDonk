@@ -6,6 +6,7 @@
 #include "ofxOsc.h"
 #include "ofxJSON.h"
 #include "App.h"
+#include "Mode.h"
 
 class testApp : public Donk::App {
 
@@ -21,7 +22,8 @@ public:
 	void mousePressed(int x, int y, int button);
 	void mouseReleased(int x, int y, int button);
 	void windowResized(int w, int h);
-	
+
+private:
 	/**
 	 osc object for receiving osc messages
 	 */
@@ -32,6 +34,10 @@ public:
 	 */
 	ofxJSON json_settings;
 	
+	/** The mode we're going in to next - told to us by OSC /control/mode/next */
+	string nextMode;
+	
+	Donk::Mode *mode;
 };
 
 #endif

@@ -41,6 +41,10 @@ SceneGui::SceneGui(Scene *scene): Enableable() {
 }
 
 
+void SceneGui::add(GuiContainer *gc) {
+	gui.addGui(gc)->position(gui.x+gui.width, gui.y);
+}
+
 
 void SceneGui::mousePressed(float x, float y, int button) {
 	if(enabled) gui.touchDown(x, y, button);

@@ -10,7 +10,12 @@ void testApp::setup(){
 		_exit(1);
 	}
 	
+	mode = Donk::Mode::getInstance();
+	// default starting mode
+	nextMode = "buzz";
+	mode->setMode(nextMode);
 	
+	ofLogNotice() << mode->getValue("hello");
 	oscIn.setup(json_settings["osc_listen_port"].asInt());
 }
 
@@ -24,12 +29,13 @@ void testApp::update(){
 			
 			//get the next mode ready
 			string modeName = m.getArgAsString(0);
+			nextMode = modeName;
 			
-			cout << "todo: start upcoming mode standby for mode: " << modeName << endl;
+//			cout << "todo: start upcoming mode standby for mode: " << modeName << endl;
 			
 		}else if(m.getAddress()=="/control/mode/swap"){
-			
-			cout << "todo: begin transition from current to upcoming mode." << endl;
+			mode->setMode(nextMode);
+//			cout << "todo: begin transition from current to upcoming mode." << endl;
 			
 		}else if(m.getAddress()=="/control/bubble/new"){
 			
@@ -62,7 +68,11 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
-
+	ofBackground(
+				 mode->getValue("Background Red"), 
+				 mode->getValue("Background Green"), 
+				 mode->getValue("Background Blue")
+	);
 }
 
 //--------------------------------------------------------------

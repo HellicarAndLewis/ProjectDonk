@@ -9,6 +9,8 @@
 #include "ofxSettings.h"
 #include "GLHelpers.h"
 #include "constants.h"
+#include "Mode.h"
+
 using namespace util;
 using namespace Donk;
 App::App() {
@@ -55,7 +57,7 @@ App::App() {
 
 	viewports->setEnabled(true);
 	sceneGui->setEnabled(true);
-	
+	sceneGui->add(Mode::getInstance()->getGui());
 }
 
 void App::drawAllProjectors() {

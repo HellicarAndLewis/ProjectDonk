@@ -22,7 +22,7 @@ public:
 	void mouseMoved(float x, float y);
 	
 	void draw();
-	
+	void add(GuiContainer *gc);
 private:
 	ofxXmlGui gui;
 	Scene *scene;
