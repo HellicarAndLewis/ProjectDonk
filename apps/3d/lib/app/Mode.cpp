@@ -117,7 +117,7 @@ Mode *Mode::getInstance() {
 
 void Mode::setMode(string modeName) {
 	if(currModeName==modeName) {
-		ofLogNotice() << "Mode: Not changing mode because we're already in '" << modeName<< "'";
+		//ofLogNotice() << "Mode: Not changing mode because we're already in '" << modeName<< "'";
 		return;
 	}
 	
@@ -171,13 +171,15 @@ ofxXmlGui *Mode::getGui() {
 			currModeName = (*parameters.begin()).first;
 			ofLogNotice() << "Choosing default mode " << currModeName;
 		}
-		gui->addList("Mode", selectedModeId, modeNames);
+		GuiList *list = gui->addList("Mode", selectedModeId, modeNames);
+		list->height = 110;
 		for(it = parameters[currModeName].begin(); it != parameters[currModeName].end(); it++) {
 			string key = (*it).first;
 			gui->addSlider(key, (*it).second, parameterMinMax[key].first, parameterMinMax[key].second);
 		}
-		setMode(currModeName);
 		gui->addListener(this);
+		currModeName = "34234df"; // force the mode to update
+		setMode(currModeName);
 	}
 	return gui;
 }

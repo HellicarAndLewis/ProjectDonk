@@ -19,12 +19,8 @@ App::App() {
 	usingProjectorBlend = settings.getBool("using projector blending");
 
 	scene		= new Scene();
-	float x = GUI_PADDING*2 + CAMERA_GUI_WIDTH;
-		
-	viewports	= new ofxFourUpDisplay(scene, ofRectangle(x, GUI_PADDING, 
-														  settings.getInt("projector width") - x - GUI_PADDING,
-														  ofGetHeight() - GUI_PADDING*2));
 	sceneGui	= new SceneGui(scene);
+	
 	if(usingProjectorBlend) {	
 		projectorBlend.setup(
 						 settings.getInt("projector width"), 
@@ -55,9 +51,8 @@ App::App() {
 		guiEnabled = true;
 	}
 
-	viewports->setEnabled(true);
 	sceneGui->setEnabled(true);
-	sceneGui->add(Mode::getInstance()->getGui());
+	modeGui = Mode::getInstance()->getGui();
 }
 
 void App::drawAllProjectors() {
@@ -90,59 +85,55 @@ void App::_draw(ofEventArgs &e) {
 	glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, 0);
 	this->render();
 	drawAllProjectors();
-	if(guiEnabled) {
-		ScopedGLCapability depth(GL_DEPTH_TEST, false);
-		glViewport(0, 0, ofGetWidth(), ofGetHeight());
-		ofSetupScreen();
-		glViewport(0, 0, ofGetWidth(), ofGetHeight());
-		ofSetupScreen();
-		sceneGui->draw();
-	}
+
+		
+/*	ScopedGLCapability depth(GL_DEPTH_TEST, false);*/
+	glViewport(0, 0, ofGetWidth(), ofGetHeight());
+	ofSetupScreen();
+	glViewport(0, 0, ofGetWidth(), ofGetHeight());
+	ofSetupScreen();
 }
 ofPoint lastMouse;
 void App::_mousePressed(ofMouseEventArgs &e) {
-	if(guiEnabled) {
-		//viewports->mousePressed(e.x, e.y, e.button);
-		sceneGui->mousePressed(e.x, e.y, e.button);
-	}
 	lastMouse = ofPoint(e.x, e.y);
 }
 void App::_mouseMoved(ofMouseEventArgs &e) {
-	if(guiEnabled) {
-		//viewports->mouseMoved(e.x, e.y);
-		sceneGui->mouseMoved(e.x, e.y);
-	}
+
 }
 
 void App::_mouseDragged(ofMouseEventArgs &e) {
 	ofPoint currMouse = ofPoint(e.x, e.y);
-	if(guiEnabled) {
-		//viewports->mouseDragged(e.x, e.y, e.button);
-		sceneGui->mouseDragged(e.x, e.y, e.button);
-	} else {
-	}
-	
 	lastMouse = currMouse;
 }
 void App::_mouseReleased(ofMouseEventArgs &e) {
-	if(guiEnabled) {
-		//viewports->mouseReleased(e.x, e.y, e.button);
-		sceneGui->mouseReleased(e.x, e.y, e.button);
-	}
 }
 
+int lastGui = 1;
 void App::_keyPressed(ofKeyEventArgs &e) {
 	switch(e.key) {
 		case ' ':
 			guiEnabled ^= true;
-
-			break;
-		case '2':
-			viewports->toggle();
+			if(!guiEnabled) {
+				sceneGui->setEnabled(false);
+				modeGui->disable();
+			} else {
+				e.key = lastGui;
+				_keyPressed(e);
+			}
 			break;
 		case '1':
-			sceneGui->toggle();
+			lastGui = '1';
+			guiEnabled = true;
+			sceneGui->setEnabled(true);
+			modeGui->disable();
 			break;
+		case '2':
+			lastGui = '2';
+			guiEnabled = true;
+			sceneGui->setEnabled(false);
+			modeGui->enable();
+			break;
+			
 		case 'f':
 		case 'F':
 			ofToggleFullscreen();

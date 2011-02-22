@@ -77,6 +77,12 @@ public:
 	bool boolValue();
 	float arrayValue(int index);
 	
+	void setValue(string s);
+	void setValue(int i);
+	void setValue(float f);
+	void setValue(bool b);
+	void setValue(double d);
+	void setValue(float f, int index); // for arrays
 	
 
 	
@@ -186,8 +192,10 @@ public:
 	
 	
 	ofPoint getAbsoluteCoords();
-	
-	
+
+	// shouldn't need this, it's to set the hierarchical
+	// parent of an element, it's used by the API
+	void setParent(GuiControl *parent);
 protected:
 	// creates a new guicontrol subclass based on the type string
 	static GuiControl* instantiator(string _type, string _name, string _controlId, GuiResources *_resources, GuiControl *parent);
@@ -199,3 +207,4 @@ protected:
 
 void maskOn(int _x, int _y, int _w, int _h);
 void maskOff();
+

@@ -8,22 +8,20 @@
 #include "ofxXmlGui.h"
 #include "Scene.h"
 #include "Enableable.h"
+#include "ofxFourUpDisplay.h"
 
 /**
  * \brief The gui for arranging cameras
  */
-class SceneGui: public Enableable {
+class SceneGui: public Enableable, public GuiListener {
 public:
 	SceneGui(Scene *scene);
 
-	void mousePressed(float x, float y, int button);
-	void mouseReleased(float x, float y, int button);
-	void mouseDragged(float x, float y, int button);
-	void mouseMoved(float x, float y);
-	
+	void controlChanged(GuiControl *control);
+	void setEnabled(bool enabled);
 	void draw();
-	void add(GuiContainer *gc);
 private:
 	ofxXmlGui gui;
 	Scene *scene;
+	ofxFourUpDisplay *viewports;
 };

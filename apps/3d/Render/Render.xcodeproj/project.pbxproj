@@ -1040,16 +1040,8 @@
 				EA746B461312883D000753DA /* Enableable.h */,
 				EA746B471312883D000753DA /* SceneGui.cpp */,
 				EA746B481312883D000753DA /* SceneGui.h */,
-				EA746B491312883D000753DA /* viewport */,
 			);
 			path = gui;
-			sourceTree = "<group>";
-		};
-		EA746B491312883D000753DA /* viewport */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = viewport;
 			sourceTree = "<group>";
 		};
 		EA746B4B1312883D000753DA /* projection */ = {

@@ -320,3 +320,30 @@ bool GuiControl::boolValue() {
 float GuiControl::arrayValue(int index) {
 	return faval(value, index);
 }
+void GuiControl::setParent(GuiControl *parent) {
+	this->parent = parent;
+}
+
+
+void GuiControl::setValue(string s) {
+	sval(value) = s;
+}
+
+void GuiControl::setValue(int i) {
+	ival(value) = i;
+}
+
+void GuiControl::setValue(float f) {
+	fval(value) = f;
+}
+
+void GuiControl::setValue(bool b) {
+	bval(value) = b;
+}
+
+void GuiControl::setValue(double d) {
+	dval(value) = d;
+}
+void GuiControl::setValue(float f, int index) {
+	faval(value, index) = f;
+}

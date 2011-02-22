@@ -574,6 +574,7 @@ void GuiContainer::add(GuiControl *c) {
 		width = layoutOffsetX + paddingX;
 		height = c->height + paddingY * 2;
 	} else if(layoutType==LAYOUT_SIMPLE_GUI) {
+
 		if(layoutOffsetX==0) layoutOffsetX = paddingX;
 		
 		if(controls.size()>0) layoutOffsetY += controls.back()->height;
@@ -602,10 +603,12 @@ void GuiContainer::add(GuiControl *c) {
 		height = MAX(height, c->y+c->height+paddingY);
 		width = MAX(width, c->x+c->width+paddingX);
 	}
+	
 	if(c->listeners==NULL &&listeners!=NULL) {
 		c->listeners = listeners;
 		c->numListeners = numListeners;
 	}
+	c->setParent(this);
 	controls.push_back(c);
 }
 int GuiContainer::numChildren() {

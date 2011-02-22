@@ -83,19 +83,12 @@ public:
 		ofRect(x, y, width, height);
 		
 		glEnable(GL_SCISSOR_TEST);
-		
 		ofNoFill();
-		ofSetHexColor(fgColor);
-		ofRect(x, y, width, height);
+
 		
 		ofPoint abs = getAbsoluteCoords();
+		
 		maskOn(abs.x, abs.y, width, height);
-		ofFill();
-		ofSetHexColor(0xFF00FF);
-		ofRect(-1000, -1000, 2000, 2000);
-		ofNoFill();
-		
-		
 		
 		for(int i =0; i < items.size(); i++) {
 			ofSetHexColor(fgColor);
@@ -117,6 +110,9 @@ public:
 		resources->getDefaultFont()->drawString("UP", 4+x+width-scrollerWidth, y+height/2 - 5);
 		resources->getDefaultFont()->drawString("DN", 4+x+width-scrollerWidth, y+height/2 + 15);
 		maskOff();
+		ofNoFill();
+		ofSetHexColor(fgColor);
+		ofRect(x, y, width, height);
 		ofFill();
 	}
 	

@@ -50,9 +50,8 @@ protected:
 	
 private:
 	bool guiEnabled;
-	ofxFourUpDisplay *viewports;
 	SceneGui *sceneGui;
-	
+	ofxXmlGui *modeGui;
 	void drawAllProjectors();
 	
 	ofxProjectorBlend projectorBlend;
