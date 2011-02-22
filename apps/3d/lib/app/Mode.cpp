@@ -65,9 +65,13 @@ Mode::Mode() {
 	
 	// create all the tween objects
 	for(int i = 0; i < parameterNames.size(); i++) {
-		tweens[parameterNames[i]] = Tween();
-		tweens[parameterNames[i]] = parameterDefaults[parameterNames[i]];
+		tweens[parameterNames[i]] = new Tween();
+		tweens[parameterNames[i]]->setValue(parameterDefaults[parameterNames[i]]);
 	}
+	
+	
+	
+	
 	print();
 }
 
@@ -135,16 +139,23 @@ void Mode::setMode(string modeName) {
 
 	// start the tweens
 	for(int i = 0; i < parameterNames.size(); i++) {
-		tweens[parameterNames[i]].tween(parameters[modeName][parameterNames[i]], FADE_DURATION);
+		
+		tweens[parameterNames[i]]->tween(parameters[modeName][parameterNames[i]], FADE_DURATION);
 	}
+	
+
 	
 }
 
 float Mode::getValue(const string& key) {
 	
 	// for now this just switches, but we'll make it lerp soon
-	return parameters[currModeName][key];
-	//return tweens[key].getValue();
+	//return parameters[currModeName][key];
+	if(tweens.find(key)!=tweens.end()) {
+		return tweens[key]->getValue();
+	} else {
+		return 0;
+	}
 }
 
 
@@ -172,9 +183,11 @@ ofxXmlGui *Mode::getGui() {
 }
 
 void Mode::controlChanged(GuiControl *control) {
-	saveModeValues(currModeName);
+
 	if(control->controlId=="Mode") {
-		printf("Mode id: %d\n", selectedModeId);
 		setMode(modeNames[selectedModeId]);
+	} else if(tweens.find(control->controlId)!=tweens.end()) {
+		tweens[control->controlId]->setValue(fval(control->value));
+		saveModeValues(currModeName);
 	}
 }

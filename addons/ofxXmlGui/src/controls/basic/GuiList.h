@@ -90,7 +90,10 @@ public:
 		
 		ofPoint abs = getAbsoluteCoords();
 		maskOn(abs.x, abs.y, width, height);
-		
+		ofFill();
+		ofSetHexColor(0xFF00FF);
+		ofRect(-1000, -1000, 2000, 2000);
+		ofNoFill();
 		
 		
 		

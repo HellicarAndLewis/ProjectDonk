@@ -59,8 +59,10 @@ public:
 		
 		this->type = type;
 		this->direction = direction;
-		
-		delete easer;
+		/*if(easer!=NULL) {
+			delete easer;
+			easer = NULL;
+		}*/
 		
 		switch(this->type) {
 			case EASE_BACK: easer = new ofxEasingBack(); break;
@@ -80,6 +82,12 @@ public:
 	}
 	
 	void operator=(const float &a) {
+		isDone = true;
+		value = a;
+	}
+	
+	void setValue(const float &a) {
+		isDone = true;
 		value = a;
 	}
 	
@@ -149,6 +157,11 @@ public:
 		return isDone;
 	}
 	
+	
+	void print() {
+		printf("Tween: %f -> %f in %f seconds, curr value %f, type: %d, direction: %d\n", fadeFrom, fadeTo
+			   , fadeDuration, value, type, direction);
+	}
 	
 	
 private:
