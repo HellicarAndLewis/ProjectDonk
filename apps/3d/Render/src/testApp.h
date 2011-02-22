@@ -12,8 +12,13 @@ class testApp : public Donk::App {
 
 public:
 	void setup();
+	void setupGraphics();
+	
 	void update();
-	void draw();
+	
+	void render();
+	void drawView();
+	
 
 	void keyPressed  (int key);
 	void keyReleased(int key);
@@ -28,6 +33,8 @@ private:
 	 osc object for receiving osc messages
 	 */
 	ofxOscReceiver oscIn;
+	void setupOsc();
+	void processOsc();
 	
 	/**
 	 json settings file

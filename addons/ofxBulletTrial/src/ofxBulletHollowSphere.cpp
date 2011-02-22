@@ -80,7 +80,7 @@ void ofxBulletHollowSphere::setCollisionFlags()
 
 void ofxBulletHollowSphere::draw()
 {
-	it = m_children.begin();
+	vector<ofxBulletRigidBody*>::iterator it = m_children.begin();
 	while( it != m_children.end())
 	{
 		const btVector3 pos = (*it)->getCenterOfMassPosition();

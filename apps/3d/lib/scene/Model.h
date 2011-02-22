@@ -18,23 +18,25 @@ class Model: public ofNode { //: public ofNode {
 public:
 	ofxOBJModel model;
 	bool solid;
-	
+	bool disableWhite;
 	Model() {
+		disableWhite = false;
 		solid = false;
 		model.load(settings.get("model file", "scene.obj"));
 	}
 	
 	void drawSolid() {
 		solid = true;
+		disableWhite = true;
 		draw();
+		disableWhite = false;
 		solid = false;
 	}
 	void customDraw() {
-		glColor3f(1,1,1);
+		if(!disableWhite) glColor3f(1,1,1);
 		model.draw(solid);
 	}
 	void drawModel() {
-		glColor3f(1,1,1);
 		model.draw(true);
 	}
 };

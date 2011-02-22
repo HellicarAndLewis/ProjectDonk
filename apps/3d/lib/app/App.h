@@ -34,10 +34,6 @@ public:
 	// callbacks for gui
 	void _update(ofEventArgs &e);
 	void _draw(ofEventArgs &e);
-	void _mousePressed(ofMouseEventArgs &e);	
-	void _mouseMoved(ofMouseEventArgs &e);	
-	void _mouseDragged(ofMouseEventArgs &e);	
-	void _mouseReleased(ofMouseEventArgs &e);
 	void _keyPressed(ofKeyEventArgs &e);
 protected:
 

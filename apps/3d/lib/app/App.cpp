@@ -38,21 +38,18 @@ App::App() {
 		ofSetWindowShape(projectorBlend.getCanvasWidth(), projectorBlend.getCanvasHeight());
 	}
 	
-	ofAddListener(ofEvents.mousePressed, this, &App::_mousePressed);
-	ofAddListener(ofEvents.mouseMoved, this, &App::_mouseMoved);
-	ofAddListener(ofEvents.mouseDragged, this, &App::_mouseDragged);
-	ofAddListener(ofEvents.mouseReleased, this, &App::_mouseReleased);
 	ofAddListener(ofEvents.keyPressed, this, &App::_keyPressed);
 	ofAddListener(ofEvents.draw, this, &App::_draw);
 	ofAddListener(ofEvents.update, this, &App::_update);
 	
-	guiEnabled = false;
+	guiEnabled = true;
 	if(settings.getBool("using first screen for gui only", false)) {
 		guiEnabled = true;
 	}
 
-	sceneGui->setEnabled(true);
+	sceneGui->setEnabled(false);
 	modeGui = Mode::getInstance()->getGui();
+	modeGui->enable();
 }
 
 void App::drawAllProjectors() {
@@ -93,20 +90,7 @@ void App::_draw(ofEventArgs &e) {
 	glViewport(0, 0, ofGetWidth(), ofGetHeight());
 	ofSetupScreen();
 }
-ofPoint lastMouse;
-void App::_mousePressed(ofMouseEventArgs &e) {
-	lastMouse = ofPoint(e.x, e.y);
-}
-void App::_mouseMoved(ofMouseEventArgs &e) {
 
-}
-
-void App::_mouseDragged(ofMouseEventArgs &e) {
-	ofPoint currMouse = ofPoint(e.x, e.y);
-	lastMouse = currMouse;
-}
-void App::_mouseReleased(ofMouseEventArgs &e) {
-}
 
 int lastGui = 1;
 void App::_keyPressed(ofKeyEventArgs &e) {

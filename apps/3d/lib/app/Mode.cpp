@@ -72,7 +72,7 @@ Mode::Mode() {
 	
 	
 	
-	print();
+	//print();
 }
 
 void Mode::saveModeValues(string modeName) {
