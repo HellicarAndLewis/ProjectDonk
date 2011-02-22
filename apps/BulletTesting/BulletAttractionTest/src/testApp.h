@@ -88,4 +88,5 @@ public:
 	
 	ofxBullet bullet;
 	ofxBulletRigidBody * mom;
+	ofxBulletRigidBody * mom2;
 };

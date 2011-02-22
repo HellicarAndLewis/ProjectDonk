@@ -43,8 +43,6 @@ void ofxBulletRBtoRBAttractor::solve()
 	v.normalize();
 	v *= force;
 	
-	// need to clear ?
-	a->body->clearForces();
 	a->body->applyCentralForce(btVector3(v.x, v.y, v.z));
 	
 }

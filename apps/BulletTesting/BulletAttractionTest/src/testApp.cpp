@@ -5,7 +5,7 @@ void testApp::setup() {
 	
 	bApplyForce = false;
 	ofSetSphereResolution(4);
-	ofBackground(0);
+	ofBackground(255,255,255);
 	ofEnableLighting();
 	glEnable(GL_DEPTH_TEST);
 	
@@ -22,8 +22,9 @@ void testApp::setup() {
 	
 	ofVec3f posb(ofRandom(-50, 50), 150, ofRandom(-50, 50));
 	mom = bullet.createSphere(posb, 100, 0);
-	
-	bullet.addAttractor(a,mom,100);
+	ofVec3f posb2(posb.x+200, 150, ofRandom(-50, 50));
+	mom2 = bullet.createSphere(posb2, 70, 0);
+	bullet.addAttractor(a,mom2,40);
 	
 }
 
@@ -60,10 +61,10 @@ void testApp::draw() {
 	
 	glPushMatrix();
 	
-	glTranslatef(ofGetWidth()/2, (ofGetHeight()/2)+100, 40);
+	glTranslatef(ofGetWidth()/2, (ofGetHeight()/2), 40);
 	glScalef(SCALE, SCALE, SCALE);
-	ofRotateX(ofGetMouseY());
-	ofRotateY(ofGetMouseX());
+	ofRotateX(90);//ofGetMouseY());
+	//ofRotateY(90);//ofGetMouseX());
 	
 	bullet.draw();
 	
@@ -99,18 +100,24 @@ void testApp::keyPressed(int key) {
 		ofxBulletRigidBody * a;
 		a = bullet.createSphere(pos, ofRandom(3, 20), 1);
 		bullet.addAttractor(a,mom,100);
+		bullet.addAttractor(a,mom2,40);
+
 	}
 	
 	if( key == 'x')
 	{
-		for	(int i=0; i<bullet.rigidBodies.size(); i++)
-			bullet.clearAttractions(bullet.rigidBodies[i]);
+		bullet.clearConstraints();
+		//for	(int i=0; i<bullet.rigidBodies.size(); i++)
+		//	bullet.clearAttractions(bullet.rigidBodies[i]);
 	}
 	
 	if( key == 'z')
 	{
 		for	(int i=0; i<bullet.rigidBodies.size(); i++)
-			bullet.addAttractor(bullet.rigidBodies[i],mom,10);
+		{	
+		bullet.addAttractor(bullet.rigidBodies[i],mom,10);
+		bullet.addAttractor(bullet.rigidBodies[i],mom2,5);
+		}
 	}
 	
 	if( key == 'q')	bullet.clearConstraints();
