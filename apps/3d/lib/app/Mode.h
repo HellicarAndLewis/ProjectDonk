@@ -60,7 +60,7 @@ namespace Donk {
 		void saveModeValues(string modeName);
 		ofxXmlGui *gui;
 		
-		map<string,Tween> tweens;
+		map<string,Tween*> tweens;
 		
 		// this is for the gui, not an actual representation of which mode we're in.
 		int selectedModeId;

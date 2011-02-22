@@ -49,7 +49,9 @@ ofPoint GuiControl::getAbsoluteCoords() {
 	if(parent==NULL) {
 		return ofPoint(x, y);
 	} else {
-		return ofPoint(x, y) + parent->getAbsoluteCoords();
+		ofPoint parentPos = parent->getAbsoluteCoords();
+//		printf("parent: %f %f, this %f %f\n", parentPos.x, parentPos.y, x, y);
+		return ofPoint(x, y) + parentPos;
 	}
 }
 void GuiControl::show() {
