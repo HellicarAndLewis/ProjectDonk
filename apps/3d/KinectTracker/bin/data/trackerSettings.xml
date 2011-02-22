@@ -1,7 +1,7 @@
 <values>
     <value controlId="Kinect Input" value="0"></value>
     <value controlId="kinect" value="0"></value>
-    <value controlId="Mode" value="1"></value>
+    <value controlId="Mode" value="0"></value>
     <value controlId="Corner calibration" value="0"></value>
     <value controlId="1" value="0"></value>
     <value controlId="4" value="0"></value>

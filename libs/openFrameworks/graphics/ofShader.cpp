@@ -306,6 +306,12 @@ void ofShader::setUniform4fv(const char* name, float* v, int count) {
 		glUniform4fv(getUniformLocation(name), count, v);
 }
 
+void ofShader::setUniform4mat(const char* name, float* m, bool transpose, int count) {
+	if(bLoaded)
+		glUniformMatrix4fvARB(getUniformLocation(name), count, transpose, m);
+}
+
+
 void ofShader::setAttribute1s(GLint location, short v1) {
 	if(bLoaded)
 		glVertexAttrib1s(location, v1);

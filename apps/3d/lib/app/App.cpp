@@ -8,18 +8,39 @@
 #include "App.h"
 #include "ofxSettings.h"
 #include "GLHelpers.h"
+#include "constants.h"
+#include "Mode.h"
 
 using namespace util;
-
+using namespace Donk;
 App::App() {
 	ofSetLogLevel(OF_LOG_NOTICE);
 
+	usingProjectorBlend = settings.getBool("using projector blending");
+
 	scene		= new Scene();
 	float x = GUI_PADDING*2 + CAMERA_GUI_WIDTH;
+		
 	viewports	= new ofxFourUpDisplay(scene, ofRectangle(x, GUI_PADDING, 
 														  settings.getInt("projector width") - x - GUI_PADDING,
 														  ofGetHeight() - GUI_PADDING*2));
 	sceneGui	= new SceneGui(scene);
+	if(usingProjectorBlend) {	
+		projectorBlend.setup(
+						 settings.getInt("projector width"), 
+						 settings.getInt("projector height"), 
+						 settings.getInt("num projectors"),
+						 settings.getInt("projector overlap"),
+						 settings.get("layout")=="vertical"?ofxProjectorBlend_Vertical:ofxProjectorBlend_Horizontal,
+						settings.get("orientation")=="left"
+							 ?
+							 ofxProjectorBlend_RotatedLeft:settings.get("orientation")=="right"
+								?
+								ofxProjectorBlend_RotatedRight:ofxProjectorBlend_NoRotation
+						
+		);
+		ofSetWindowShape(projectorBlend.getCanvasWidth(), projectorBlend.getCanvasHeight());
+	}
 	
 	ofAddListener(ofEvents.mousePressed, this, &App::_mousePressed);
 	ofAddListener(ofEvents.mouseMoved, this, &App::_mouseMoved);
@@ -36,10 +57,17 @@ App::App() {
 
 	viewports->setEnabled(true);
 	sceneGui->setEnabled(true);
-	
+	sceneGui->add(Mode::getInstance()->getGui());
 }
 
 void App::drawAllProjectors() {
+	
+	if(usingProjectorBlend) {
+		// if we're using projector blending, there 
+		// will be only one projector.
+		projectorBlend.begin();
+	}
+
 	for(int i = 0; i < scene->projectors.size(); i++) {
 		if(scene->projectors[i]->enabled) {
 			scene->projectors[i]->begin();
@@ -47,11 +75,19 @@ void App::drawAllProjectors() {
 			scene->projectors[i]->end();
 		}
 	}
+	if(usingProjectorBlend) {
+		projectorBlend.end();
+		projectorBlend.draw(0, 0);
+	}
 }
 void App::_update(ofEventArgs &e) {
 	scene->update();
 }
 void App::_draw(ofEventArgs &e) {
+	// just have to have this here for some weird reason
+	// - I think it's a bug in 007, maybe it's me. meh.
+	glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
+	glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, 0);
 	this->render();
 	drawAllProjectors();
 	if(guiEnabled) {

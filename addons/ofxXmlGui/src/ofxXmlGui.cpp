@@ -8,12 +8,14 @@
 
 #include "ofxXmlGui.h"
 
-void ofxXmlGui::addGui(GuiContainer *c) {
+GuiContainer *ofxXmlGui::addGui(GuiContainer *c) {
 	GuiListener **l = c->listeners;
 	int numL = c->numListeners;
 	add(c);
 	c->listeners = l;
+	c->show();
 	c->numListeners = numL;
+	return c;
 }
 
 #define PAGE_CHOOSER_OFFSET 30

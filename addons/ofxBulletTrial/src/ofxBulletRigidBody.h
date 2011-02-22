@@ -27,6 +27,7 @@ public:
 	
 	btPolyhedralConvexAabbCachingShape * polyShape;
 	ofxBulletRigidBody();
+	ofxBulletRigidBody(btRigidBody* body);
 	~ofxBulletRigidBody();
 	
 	void destroy() {

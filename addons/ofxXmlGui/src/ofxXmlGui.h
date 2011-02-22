@@ -105,7 +105,7 @@ public:
 	void disable();
 	
 	
-	void addGui(GuiContainer *c);	
+	GuiContainer *addGui(GuiContainer *c);	
 
 	///////////////////////////////////////////////////////////////////////
 	// other useful inherited methods (from GuiContainer)

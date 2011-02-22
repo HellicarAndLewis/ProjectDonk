@@ -70,6 +70,8 @@ void ofxFourUpDisplay::draw(ofEventArgs &e) {
 	ofSetupScreen();
 	//ofViewport();
 	glViewport(0, 0, ofGetWidth(), ofGetHeight());
+	
+	glDisable(GL_DEPTH_TEST);
 	for(int i = 0; i < viewports.size(); i++) {
 		ofFill();
 		ofSetHexColor(0x1E2832);
@@ -84,7 +86,6 @@ void ofxFourUpDisplay::draw(ofEventArgs &e) {
 		ofRect(centre.x - 3, centre.y - 3, 6, 6);
 	}
 	
-	
 	ofFill();
 	
 	for(int i = 0; i < viewports.size(); i++) {
@@ -93,8 +94,8 @@ void ofxFourUpDisplay::draw(ofEventArgs &e) {
 		// position the viewport in opengl space.
 		viewports[i]->begin();
 		
-		for(int i = 0; i < scene->getNumNodes(); i++) {
-			scene->getNode(i).draw();
+		for(int j = 0; j < scene->getNumNodes(); j++) {
+			scene->getNode(j).draw();
 		}
 		
 		viewports[i]->end();

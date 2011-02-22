@@ -155,6 +155,9 @@ public:
 	
 	
 	int numChildren();
+	
+	
+	
 protected:
 	
 	// adds an actual element to the gui

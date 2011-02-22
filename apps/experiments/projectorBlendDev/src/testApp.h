@@ -16,6 +16,7 @@
 
 #include "ofMain.h"
 #include "ofxProjectorBlend.h"
+#include "ofxXmlGui.h"
 
 //let's pretend we are blending 2 projectors 
 //side by side, set at a display resolution of 640x480
@@ -24,7 +25,7 @@
 #define PROJECTOR_WIDTH 320
 #define PROJECTOR_HEIGHT 240
 
-class testApp : public ofBaseApp{
+class testApp : public ofBaseApp {
 	
 public:
 	void setup();
@@ -40,7 +41,7 @@ public:
 	void windowResized(int w, int h);
 	
 	ofxProjectorBlend blender;
-	
+	ofxXmlGui *gui;
 };
 
 #endif

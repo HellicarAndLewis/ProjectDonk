@@ -26,7 +26,7 @@ public:
 	void setup();
 	void update();
 
-	
+	void render();
 	void drawView();
 	
 	void keyPressed  (int key);
@@ -36,4 +36,5 @@ public:
 	void mousePressed(int x, int y, int button);
 	void mouseReleased(int x, int y, int button);
 	void windowResized(int w, int h);
+	ofLight light;
 };

@@ -1,8 +1,10 @@
 /**
  *  ofxProjectorBlend
- *  
+ *  (version 2.0)
+ *
  * Copyright 2010 (c) James George, http://www.jamesgeorge.org
  * in collaboration with FlightPhase http://www.flightphase.com
+ * additions by Marek Bereza, http://www.mazbox.com/
  *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -46,49 +48,55 @@ ofxProjectorBlend::ofxProjectorBlend()
 {
 	showBlend = true;
 	fullTexture = NULL;
-	channelOne = NULL;
-	channelTwo = NULL;
 	blendShader = NULL;
 #ifdef USE_XML_GUI
 	gui = NULL;
 #endif
 }
 
-void ofxProjectorBlend::setup(int resolutionWidth, int resolutionHeight, int _pixelOverlap, ofxProjectorBlendLayout layout)
+void ofxProjectorBlend::setup(int resolutionWidth, 
+							  int resolutionHeight, 
+							  int numProjectors, 
+							  int _pixelOverlap, 
+							  ofxProjectorBlendLayout layout, 
+							  ofxProjectorBlendRotation rotation)
 {
+
+	string l = "horizontal";
+	if(layout==ofxProjectorBlend_Vertical) l = "vertical";
+	
+	string r = "normal";
+	if(rotation==ofxProjectorBlend_RotatedLeft) r = "rotated left";
+	else if(rotation==ofxProjectorBlend_RotatedRight) r = "rotated right";
+	
+	ofLog(OF_LOG_NOTICE, "ofxProjectorBlend: res: %d x %d * %d, overlap: %d pixels, layout: %s, rotation: %s\n", resolutionWidth, resolutionHeight, numProjectors, _pixelOverlap, l.c_str(), r.c_str());
+	this->numProjectors = numProjectors;
+	this->rotation = rotation;
 	this->layout = layout;
 	
 	pixelOverlap = _pixelOverlap;
 	
-	singleChannelWidth = resolutionWidth;
-	singleChannelHeight = resolutionHeight;
+	if(rotation==ofxProjectorBlend_NoRotation) {
+		singleChannelWidth = resolutionWidth;
+		singleChannelHeight = resolutionHeight;
+	} else {
+		singleChannelWidth = resolutionHeight;
+		singleChannelHeight = resolutionWidth;
+	}
 	
 	
 	if(layout==ofxProjectorBlend_Vertical) {
 		fullTextureWidth = singleChannelWidth;
-		fullTextureHeight = resolutionHeight*2 - pixelOverlap;
+		fullTextureHeight = singleChannelHeight*numProjectors - pixelOverlap*(numProjectors-1);
 	} else if(layout==ofxProjectorBlend_Horizontal) {
-		fullTextureWidth = resolutionWidth*2 - pixelOverlap;
+		fullTextureWidth = singleChannelWidth*numProjectors - pixelOverlap*(numProjectors-1);
 		fullTextureHeight = singleChannelHeight;
 	} else {
 		ofLog(OF_LOG_ERROR, "ofxProjectorBlend: You have used an invalid ofxProjectorBlendLayout in ofxProjectorBlend::setup()");
 	}
-	
-	
-	
 
-	
 	fullTexture = new ofFbo();
 	fullTexture->setup(fullTextureWidth, fullTextureHeight, GL_RGB);
-
-	channelOne = new ofFbo();
-	channelTwo = new ofFbo();
-	
-	channelOne->setup(singleChannelWidth, singleChannelHeight, GL_RGB);
-	channelTwo->setup(singleChannelWidth, singleChannelHeight, GL_RGB);
-	
-	
-	
 	
 	blendShader = new ofShader();
 	blendShader->setup("shader/SmoothEdgeBlend.vert","shader/SmoothEdgeBlend.frag", "");
@@ -97,6 +105,7 @@ void ofxProjectorBlend::setup(int resolutionWidth, int resolutionHeight, int _pi
 void ofxProjectorBlend::begin()
 {
 	fullTexture->begin();
+	ofClear(0,0,0,0);
 	ofPushStyle();
 }
 
@@ -145,50 +154,40 @@ void ofxProjectorBlend::end()
 {
 	fullTexture->end();
 	ofPopStyle();
-	
-	ofPushStyle();{
-		ofEnableAlphaBlending();
-		ofSetRectMode(OF_RECTMODE_CORNER);
-
-		channelOne->begin();
-		fullTexture->draw(0,0, getCanvasWidth(), getCanvasHeight());
-		channelOne->end();
-		
-		if(layout==ofxProjectorBlend_Horizontal) {
-			channelTwo->begin();
-			fullTexture->draw(-singleChannelWidth+pixelOverlap, 0, getCanvasWidth(), getCanvasHeight());
-			channelTwo->end();
-		} else if(layout==ofxProjectorBlend_Vertical) {			
-			channelTwo->begin();
-			fullTexture->draw(0, -singleChannelHeight+pixelOverlap, getCanvasWidth(), getCanvasHeight());
-			channelTwo->end();
-		}
-		
-	}ofPopStyle();
 }
 
 
 
 
-void ofxProjectorBlend::draw()
+void ofxProjectorBlend::setShaderDefaults() {
+	
+	blendShader->setUniform1f("OverlapTop", 0.0f);
+	blendShader->setUniform1f("OverlapLeft", 0.0f);
+	blendShader->setUniform1f("OverlapBottom", 0.0f);
+	blendShader->setUniform1f("OverlapRight", 0.0f);	
+	
+	
+	
+	blendShader->setUniform1f("BlendPower", blendPower);
+	blendShader->setUniform1f("SomeLuminanceControl", luminance);
+	blendShader->setUniform3f("GammaCorrection", gamma, gamma, gamma);
+	
+	
+}
+
+void ofxProjectorBlend::draw(float x, float y)
 {
-	ofPushStyle();
-
-	ofSetRectMode(OF_RECTMODE_CORNER);
-
+	glPushMatrix();
+	glTranslatef(x, y, 0);
 	if(showBlend) {
-
-		glActiveTexture(GL_TEXTURE0);	
 		blendShader->begin();
-		
-		blendShader->setUniform1i("Tex0", 0);
 		blendShader->setUniform1f("width", singleChannelWidth);
 		blendShader->setUniform1f("height", singleChannelHeight);
 		
-		blendShader->setUniform1f("OverlapTop", 0.0f);
-		blendShader->setUniform1f("OverlapLeft", 0.0f);
-		blendShader->setUniform1f("OverlapBottom", 0.0f);
-		blendShader->setUniform1f("OverlapRight", 0.0f);	
+		
+		setShaderDefaults();
+		
+		
 		
 		if(layout==ofxProjectorBlend_Horizontal) {
 			blendShader->setUniform1f("OverlapRight", pixelOverlap);	
@@ -196,45 +195,83 @@ void ofxProjectorBlend::draw()
 			blendShader->setUniform1f("OverlapTop", pixelOverlap);
 		}
 		
-		blendShader->setUniform1f("BlackOutLeft", 0.0f);
-		blendShader->setUniform1f("BlackOutRight", 0.0f);
-		blendShader->setUniform1f("BlackOutTop", 0.0f);
-		blendShader->setUniform1f("BlackOutBottom", 0.0f);
 		
-		blendShader->setUniform1f("BlendPower", blendPower);
-		blendShader->setUniform1f("SomeLuminanceControl", luminance);
-		blendShader->setUniform3f("GammaCorrection", gamma, gamma, gamma);
-		blendShader->setUniform1f("SolidEdgeEnable", 0.0f);
+		blendShader->setUniformTexture("Tex0", fullTexture->getTexture(0), 0);
 		
-		blendShader->setUniform4f("SolidEdgeColor", 0.0f, 0.0f, 0.0f, 1.0f);
 		
+		ofVec2f offset(0,0);
+		glPushMatrix();
+		
+		// loop through each projector and glTranslatef() to its position and draw.
+		for(int i = 0; i < numProjectors; i++) {
+			
+			blendShader->setUniform2f("texCoordOffset", offset.x, offset.y);
+			
+			if(i==1) {
+				// set the first edge
+				if(layout==ofxProjectorBlend_Horizontal) {
+					blendShader->setUniform1f("OverlapLeft", pixelOverlap);	
+				} else {
+					blendShader->setUniform1f("OverlapBottom", pixelOverlap);
+				}
 				
-		channelOne->draw(0, 0, singleChannelWidth, singleChannelHeight);
-		
-		
-		if(layout==ofxProjectorBlend_Horizontal) {
-			blendShader->setUniform1f("OverlapLeft", pixelOverlap);
-			blendShader->setUniform1f("OverlapRight", 0.0f);
-		} else {
-			blendShader->setUniform1f("OverlapTop", 0.0f);
-			blendShader->setUniform1f("OverlapBottom", pixelOverlap);
+			}
+			// if we're at the end of the list of projectors, turn off the second edge's blend
+			
+			if(i+1 == numProjectors) {
+				if(layout==ofxProjectorBlend_Horizontal) {
+					blendShader->setUniform1f("OverlapRight", 0);	
+				} else {
+					blendShader->setUniform1f("OverlapTop", 0);
+				}
+			}
+			
+			glPushMatrix();
+			{
+				if(rotation==ofxProjectorBlend_RotatedRight) {
+					glRotatef(90, 0, 0, 1);
+					glTranslatef(0, -singleChannelHeight, 0);
+				} else if(rotation==ofxProjectorBlend_RotatedLeft) {
+					glRotatef(-90, 0, 0, 1);
+					glTranslatef(-singleChannelWidth, 0, 0);
+				}
+				glBegin(GL_QUADS);
+				glTexCoord2f(0, 0);
+				glVertex2f(0, 0);
+				
+				glTexCoord2f(singleChannelWidth, 0);
+				glVertex2f(singleChannelWidth, 0);
+				
+				glTexCoord2f(singleChannelWidth, singleChannelHeight);
+				glVertex2f(singleChannelWidth, singleChannelHeight);
+				
+				glTexCoord2f(0, singleChannelHeight);
+				glVertex2f(0, singleChannelHeight);
+				
+				glEnd();
+			}
+			glPopMatrix();
+			// move the texture offset and where we're drawing to.
+			if(layout==ofxProjectorBlend_Horizontal) {
+				offset.x += singleChannelWidth - pixelOverlap;
+//				glTranslatef(singleChannelWidth, 0, 0);
+			} else {
+				offset.y += singleChannelHeight - pixelOverlap;
+//				glTranslatef(0, singleChannelHeight, 0);
+				
+			}
+			if(rotation==ofxProjectorBlend_RotatedLeft || rotation==ofxProjectorBlend_RotatedRight) {
+				glTranslatef(singleChannelHeight, 0, 0);
+			} else {
+				glTranslatef(singleChannelWidth, 0, 0);
+			}
+			
 		}
-		
-		if(layout==ofxProjectorBlend_Horizontal) {
-			channelTwo->draw(singleChannelWidth, 0, singleChannelWidth, singleChannelHeight);
-		} else {
-			channelTwo->draw(0, singleChannelHeight, singleChannelWidth, singleChannelHeight); 
-		}
-		
+		glPopMatrix();
+	
 		blendShader->end();
+	} else {
+		fullTexture->draw(0, 0);
 	}
-	else{
-		channelOne->draw(0, 0, singleChannelWidth, singleChannelHeight);
-		if(layout==ofxProjectorBlend_Horizontal) {
-			channelTwo->draw(singleChannelWidth-pixelOverlap, 0, singleChannelWidth, singleChannelHeight);
-		} else {
-			channelTwo->draw(0, singleChannelHeight-pixelOverlap, singleChannelWidth, singleChannelHeight); 
-		}
-	}
-	ofPopStyle();
+	glPopMatrix();
 }

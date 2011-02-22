@@ -1,14 +1,15 @@
-uniform vec3 CameraPos;
-uniform mat4 ModelWorld4x4;
-varying vec3 N;
-varying vec3 E;
+	uniform vec3 CameraPos;
+	uniform mat4 ModelWorld4x4;
+	varying vec3 N;
+	varying vec3 E;
 	
-varying vec3 NTrans;
-varying vec3 ITrans;
+	varying vec3 NTrans;
+	varying vec3 ITrans;
 
-// getting the 3x3 out of the 4x4 matrix
-// maybe there's a cleverer way to do this
-mat3 GetLinearPart( mat4 m ) {
+	// getting the 3x3 out of the 4x4 matrix
+	// maybe there's a cleverer way to do this
+	mat3 GetLinearPart( mat4 m )
+	{
 		mat3 result;
 		
 		result[0][0] = m[0][0]; 
@@ -53,5 +54,4 @@ mat3 GetLinearPart( mat4 m ) {
 		
 		// find world space eye vector.
 		E = WorldPos.xyz - CameraPos.xyz;	
-
 	}

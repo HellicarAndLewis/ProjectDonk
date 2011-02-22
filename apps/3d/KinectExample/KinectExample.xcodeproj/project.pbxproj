@@ -20,7 +20,6 @@
 		EA5F31B412F8581000354A07 /* ofxSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA5F31B212F8581000354A07 /* ofxSettings.cpp */; };
 		EAB6FCA612EDBAE60025041E /* App.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6FC7F12EDBAE60025041E /* App.cpp */; };
 		EAB6FCA812EDBAE60025041E /* SceneGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6FC8712EDBAE60025041E /* SceneGui.cpp */; };
-		EAB6FCAA12EDBAE60025041E /* Kinect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6FC8C12EDBAE60025041E /* Kinect.cpp */; };
 		EAB6FCAB12EDBAE60025041E /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6FC8E12EDBAE60025041E /* Model.cpp */; };
 		EAB6FCAC12EDBAE60025041E /* Projector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6FC9012EDBAE60025041E /* Projector.cpp */; };
 		EAB6FCAD12EDBAE60025041E /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB6FC9212EDBAE60025041E /* Scene.cpp */; };
@@ -119,8 +118,6 @@
 		EAB6FC8412EDBAE60025041E /* Enableable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enableable.h; sourceTree = "<group>"; };
 		EAB6FC8712EDBAE60025041E /* SceneGui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneGui.cpp; sourceTree = "<group>"; };
 		EAB6FC8812EDBAE60025041E /* SceneGui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneGui.h; sourceTree = "<group>"; };
-		EAB6FC8C12EDBAE60025041E /* Kinect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Kinect.cpp; sourceTree = "<group>"; };
-		EAB6FC8D12EDBAE60025041E /* Kinect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Kinect.h; sourceTree = "<group>"; };
 		EAB6FC8E12EDBAE60025041E /* Model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Model.cpp; sourceTree = "<group>"; };
 		EAB6FC8F12EDBAE60025041E /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
 		EAB6FC9012EDBAE60025041E /* Projector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Projector.cpp; sourceTree = "<group>"; };
@@ -381,8 +378,6 @@
 				EAB6FC7F12EDBAE60025041E /* App.cpp */,
 				EAB6FC8012EDBAE60025041E /* App.h */,
 				EAB6FC8312EDBAE60025041E /* gui */,
-				EAB6FC8C12EDBAE60025041E /* Kinect.cpp */,
-				EAB6FC8D12EDBAE60025041E /* Kinect.h */,
 				EAB6FC8E12EDBAE60025041E /* Model.cpp */,
 				EAB6FC8F12EDBAE60025041E /* Model.h */,
 				EAB6FC9012EDBAE60025041E /* Projector.cpp */,
@@ -712,7 +707,6 @@
 				EAC12C1A12E6F94F0071CE8E /* testApp.cpp in Sources */,
 				EAB6FCA612EDBAE60025041E /* App.cpp in Sources */,
 				EAB6FCA812EDBAE60025041E /* SceneGui.cpp in Sources */,
-				EAB6FCAA12EDBAE60025041E /* Kinect.cpp in Sources */,
 				EAB6FCAB12EDBAE60025041E /* Model.cpp in Sources */,
 				EAB6FCAC12EDBAE60025041E /* Projector.cpp in Sources */,
 				EAB6FCAD12EDBAE60025041E /* Scene.cpp in Sources */,
