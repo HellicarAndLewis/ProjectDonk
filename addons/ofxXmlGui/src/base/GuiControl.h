@@ -68,9 +68,19 @@ public:
 	// whether this element is focused
 	bool focus;
 	
+
+	// get the value of an element - careful - it's got to be the right type!
+	string stringValue();
+	int intValue();
+	float floatValue();
+	double doubleValue();
+	bool boolValue();
+	float arrayValue(int index);
 	
 	
 
+	
+	
 	GuiControl();	
 	
 	

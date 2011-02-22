@@ -95,7 +95,16 @@ public:
 			ofSetHexColor(0xFFFFFF);
 			fg->draw(x, y);
 		} else {
-			
+		
+			glBegin(GL_QUADS);
+			ofSetHexColor(fgTopColor);
+			glVertex2f(x, y);
+			glVertex2f(x+width, y);
+			ofSetHexColor(fgBottomColor);
+			glVertex2f(x+width, y+height);
+			glVertex2f(x, y+height);
+			glEnd();
+			/*
 			points[0] = x;
 			points[1] = y;
 			points[2] = 0;
@@ -111,7 +120,7 @@ public:
 			points[9] = x;
 			points[10] = y+height;
 			points[11] = 0;
-#ifndef TARGET_OF_IPHONE
+
 			glEnableClientState(GL_VERTEX_ARRAY);
 			glEnableClientState(GL_COLOR_ARRAY);
 			glVertexPointer(3, GL_FLOAT, 0, &points[0]);
@@ -119,8 +128,8 @@ public:
 			glDrawArrays(GL_QUADS, 0, 12);
 			glDisableClientState(GL_VERTEX_ARRAY);
 			glDisableClientState(GL_COLOR_ARRAY);
-#endif
-			
+
+			*/
 			
 			
 //			ofRect(x, y, width, height);

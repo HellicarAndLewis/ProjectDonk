@@ -298,3 +298,23 @@ GuiControl *GuiControl::right(GuiControl *rel, float padding) {
 	this->x = rel->x + rel->width + padding;
 	return this;
 }
+
+string GuiControl::stringValue() {
+	return sval(value);
+}
+int GuiControl::intValue() {
+	return ival(value);
+}
+float GuiControl::floatValue() {
+	return fval(value);
+}
+
+double GuiControl::doubleValue() {
+	return dval(value);
+}
+bool GuiControl::boolValue() {
+	return bval(value);
+}
+float GuiControl::arrayValue(int index) {
+	return faval(value, index);
+}

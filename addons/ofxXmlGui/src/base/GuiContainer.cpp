@@ -24,6 +24,7 @@ GuiContainer::GuiContainer() {
 	bg = NULL;
 	bgImgUrl = "";
 	autoSaving = false;
+	loadedFromFile = false;
 }
 /**
  * This points a control's value to the parameter
@@ -128,6 +129,7 @@ void GuiContainer::saveValues(string file) {
 }
 
 void GuiContainer::loadFromXml(string file) {
+	loadedFromFile = true;
 	controls.clear();
 	ofxXmlSettings xml;
 	res.init(file);
