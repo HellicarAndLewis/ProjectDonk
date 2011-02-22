@@ -256,7 +256,9 @@ void ofxXmlGui::keyReleased(ofKeyEventArgs &e) {
 ////////////////////////////////////////////////////////////////////////////
 
 void ofxXmlGui::enableAutoSave(string file = "values.xml") {
-	if(pages.size()==0) {
+	if(loadedFromFile) {
+		GuiContainer::enableAutoSave(file);
+	} else if(pages.size()==0) {
 		currPage->enableAutoSave(file);
 	} else {
 		// find basename of xml

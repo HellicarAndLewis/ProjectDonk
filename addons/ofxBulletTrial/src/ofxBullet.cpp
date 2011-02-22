@@ -194,7 +194,6 @@ ofxBulletRigidBody * ofxBullet::createSphere(ofVec3f pos, float radius, float ma
 	b->world = world;
 	b->shape = new btSphereShape(radius/SCALE);
 	b->createRigidBody(mass, startTransform);
-	
 	world->addRigidBody(b->body);
 	rigidBodies.push_back(b);
 	
@@ -426,7 +425,6 @@ void ofxBullet::mouseDragged(int x, int y){
 }
 
 
-
 ofxBulletBaseConstraint * ofxBullet::addAttractor(ofxBulletRigidBody * a, ofxBulletRigidBody * b, float force)
 {
 	constraints.push_back( new ofxBulletRBtoRBAttractor() );
@@ -474,7 +472,5 @@ void ofxBullet::clearAttractions(ofxBulletRigidBody * a)
 		}
 	}
 }
-
-
 
 

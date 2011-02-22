@@ -23,7 +23,7 @@ public:
 	
 	void draw() {
 		
-		ofSetColor(50, 50, 50);
+		ofSetHexColor(0x505050);
 		ofRect(x, y, width, height);
 		ofNoFill();
 		ofRect(x, y, width, height);

@@ -24,6 +24,7 @@ public:
 	btDynamicsWorld			*	world;
 	btRigidBody				*	body;
 	btConvexInternalShape	*	shape;
+	
 	btPolyhedralConvexAabbCachingShape * polyShape;
 	ofxBulletRigidBody();
 	ofxBulletRigidBody(btRigidBody* body);
@@ -90,6 +91,10 @@ public:
 		
 		
 	}
+	
+	void	setSize(float radius);	// sphere
+	//void	setSize(ofxVec3f size); // to do: box
+	//void	setSize(float radius, float height); // to do : cone
 	
 	//void createSphere(btTransform startTrans, int radius, int mass);
 	//void createBox();

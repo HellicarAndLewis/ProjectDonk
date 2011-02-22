@@ -40,7 +40,6 @@ void ofxBulletRigidBody::createRigidBody(int mass, const btTransform startTrans)
 	
 	btMotionState* myMotionState;
 	myMotionState = new btDefaultMotionState(startTrans);			
-	
 	/*switch (bodyType) {
 		case 0:
 			myMotionState = new btDefaultMotionState(startTrans);
@@ -60,9 +59,11 @@ void ofxBulletRigidBody::createRigidBody(int mass, const btTransform startTrans)
 	*/
 	
 	btRigidBody::btRigidBodyConstructionInfo rbci(mass, myMotionState, shape, inertia);
+	//rbci.m_friction = btScalar(0);
+	//rbci.m_linearDamping = btScalar(.5);
+
 	rbci.m_startWorldTransform = startTrans;	
 	body = new btRigidBody(rbci);
-	
 	//if (bodyType == 2) {
 	//	psb->setCollisionFlags(psb->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
 	//	psb->setActivationState(DISABLE_DEACTIVATION);
@@ -190,7 +191,14 @@ ofVec3f ofxBulletRigidBody::getPosition() {
 	btVector3 org(m[12], m[13], m[14]);
 	return ofVec3f(org.x(), org.y(), org.z());
 }
+//--------------------------------------------------------------
+void ofxBulletRigidBody::setSize(float radius){
+	
+	if(shape->getShapeType() != SPHERE_SHAPE_PROXYTYPE) return;
+	((btSphereShape*)shape)->setUnscaledRadius(radius/SCALE);
+	body->setCollisionShape( shape);
 
+}
 //--------------------------------------------------------------
 void ofxBulletRigidBody::draw() {
 	

@@ -83,10 +83,14 @@ public:
 	void mouseReleased(int x, int y, int button);
 	void windowResized(int w, int h);
 	
+	btGeneric6DofSpringConstraint* makeSpring(btRigidBody* pBodyA,btRigidBody* pBodyB);
+	
 	bool bApplyForce;
 	ofLight light;
 	
 	ofxBullet bullet;
-	ofxBulletRigidBody * mom;
-	ofxBulletRigidBody * mom2;
+	ofxBulletRigidBody * momA;
+	ofxBulletRigidBody * momB;
+	btGeneric6DofSpringConstraint* sA;
+	btGeneric6DofSpringConstraint* sB;
 };

@@ -164,6 +164,7 @@ protected:
 	void add(GuiControl *c);
 	
 	bool moving;
+	bool loadedFromFile;
 	vector<GuiControl*> controls;
 	GuiResources res;
 	ofImage *bg;

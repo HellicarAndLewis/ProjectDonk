@@ -55,8 +55,9 @@ public:
 	void createGround(float size);
 	void addBody(ofxBulletRigidBody *b);
 	
-	ofxBulletRigidBody * createSphere(ofVec3f pos, float radius, float mass);
+	//btGeneric6DofSpringConstraint * addSpring(btRigidBody* pBodyA,btRigidBody* pBodyB, float springLen);
 
+	ofxBulletRigidBody * createSphere(ofVec3f pos, float radius, float mass);
 	ofxBulletRigidBody * createBox(ofVec3f pos, ofVec3f size, float mass);
 	ofxBulletRigidBody * createCone(ofVec3f pos, float radius, float height, float mass);
 	
@@ -80,7 +81,6 @@ public:
 	 attraction, repulsion, constraints are managed by ofxBullet rather than 
 	 */
 	ofxBulletBaseConstraint * addAttractor(ofxBulletRigidBody * a, ofxBulletRigidBody * b, float force);
-	//ofxBulletBaseConstraint * addRepulsor(ofxBulletRigidBody * a, ofxBulle
 	
 	// checks all attractions etc, destroys dead ones and updates others
 	void solveConstraints();
