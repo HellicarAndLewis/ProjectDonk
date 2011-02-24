@@ -26,8 +26,8 @@ void testApp::setup(){
 	//cubeMap.enableFixedMapping();
 	
 	
-	first.setup(512, 512, GL_RGBA);
-	second.setup(512, 512, GL_RGBA);
+	//first.setup(512, 512, GL_RGBA);
+	//second.setup(512, 512, GL_RGBA);
 	
 	permTex.loadImage("Permutation Texture.png");
 	glossTex.loadImage("texturing.png");
@@ -35,7 +35,6 @@ void testApp::setup(){
 	sphereCenter = ofVec3f(0, 0, 0);
 	cam.setTarget(sphereCenter);
 	cam.setDistance(300);
-	
 	
 	cubeshader.setup("fresnel_refraction.vs", "fresnel_refraction.fs");
 	
@@ -60,7 +59,7 @@ void testApp::draw(){
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	
 	
-	if( !hasDrawnTex )
+	/*if( !hasDrawnTex )
 	{
 		first.begin();
 		permTex.draw(0, 0, 0);
@@ -69,20 +68,9 @@ void testApp::draw(){
 		glossTex.draw(0, 0, 0);
 		second.end();
 		hasDrawnTex = true;
-	}
+	}*/
 	
 	cam.begin();
-	
-	/*GLdouble modelview[16];
-	glGetDoublev(GL_MODELVIEW_MATRIX, modelview);
-	
-	cout << " begin " << endl;
-	for(int i = 0; i<16; i++)
-	{
-		cout << modelview[i];
-	}
-	cout << " end " << endl;
-	*/
 	
 	//glPushAttrib(GL_ALL_ATTRIB_BITS);
 	glEnable(GL_TEXTURE_CUBE_MAP);
@@ -100,14 +88,14 @@ void testApp::draw(){
 	//cubeMap.disableFixedMapping();
 	
 	glActiveTexture(GL_TEXTURE1);
-	//glEnable(GL_TEXTURE_2D);
-	//glBindTexture( GL_TEXTURE_2D, (GLuint)first.getTextureReference().texData.textureID);
-	first.getTexture(0).bind();
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture( GL_TEXTURE_2D, (GLuint)glossTex.getTextureReference().texData.textureID);
+	//first.getTexture(0).bind();
 
 	glActiveTexture(GL_TEXTURE2);	
-	//glEnable(GL_TEXTURE_2D);
-	//glBindTexture( GL_TEXTURE_2D, (GLuint)permTex.getTextureReference().texData.textureID);
-	second.getTexture(0).bind();
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture( GL_TEXTURE_2D, (GLuint)permTex.getTextureReference().texData.textureID);
+	//second.getTexture(0).bind();
 
 	cubeshader.setUniform1i("glossMap", 1);
 	cubeshader.setUniform1i("baseMap", 2);
