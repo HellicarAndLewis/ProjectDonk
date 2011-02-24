@@ -23,8 +23,6 @@ class testApp : public ofBaseApp{
 	void windowResized(int w, int h);
 	
 	ofShader cubeshader;
-	ofImage glossMap, baseMap;
-	
 	ofxCubeMap cubeMap;
 	
 	ofVec3f sphereCenter;
