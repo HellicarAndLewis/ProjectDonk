@@ -6,18 +6,23 @@
 void testApp::setup(){
 	
 	setupOsc();
+	setupKinect();
 	setupGraphics();
 	mode = Donk::Mode::getInstance();
 	// default starting mode
 	nextMode = "buzz";
 	mode->setMode(nextMode);
-	
+	calibrate = false;
 }
 
 void testApp::setupGraphics() {
 	ofSetVerticalSync(true);
 	ofSetFrameRate(60.f);
 	ofBackground(0, 0, 0);
+
+	projection.setup(PROJECTION_RESOLUTION_WIDTH, PROJECTION_RESOLUTION_HEIGHT);
+	calibrationProjection.setup(PROJECTION_RESOLUTION_WIDTH, PROJECTION_RESOLUTION_HEIGHT);
+	
 }
 //--------------------------------------------------------------
 void testApp::update(){
@@ -34,8 +39,6 @@ void testApp::update(){
 
 
 void testApp::render() {
-	ofSetHexColor(0xFF0000);
-	ofCircle(mouseX, mouseY, 10);
 	
 	//draw all the bubbles
 	glPushMatrix();
@@ -58,20 +61,40 @@ void testApp::render() {
 		}
 	}
 	glPopMatrix();
+		
 	
+	
+	
+	
+	// if we're capturing coords for projection mapping...
+	if(calibrate) {
+		calibrationProjection.setInteractiveArea(projection.getInteractiveArea());
+		calibrationProjection.render();
+	} else {
+		projection.render();
+	}
 }
 
 void testApp::drawView() {
 	
 	// comment this stuff out if you don't want to draw the mesh
-	ofSetColor(mode->getValue("Background Red"), 
+	/*ofSetColor(mode->getValue("Background Red"), 
 			  mode->getValue("Background Green"), 
 			  mode->getValue("Background Blue"));
+	*/
 	
-	
-	scene->getModel()->drawSolid();
-
-	
+	if(calibrate) {
+		
+		calibrationProjection.drawOnModel(scene->getModel());
+		if(calibrationProjection.drawFacets) {
+			glLineWidth(calibrationProjection.lineWidth);
+			ofSetHexColor(calibrationProjection.facetColor);
+			scene->getModel()->drawOutline();
+			glLineWidth(1);
+		}
+	} else {
+		projection.drawOnModel(scene->getModel());
+	}
 	
 }
 
@@ -93,17 +116,29 @@ void testApp::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void testApp::mouseDragged(int x, int y, int button){
-
+	ofTouchEventArgs t;
+	t.x = (float)x/ofGetWidth();
+	t.y = (float)y/ofGetHeight();
+	t.id = button;
+	touchMoved(t);
 }
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
-
+	ofTouchEventArgs t;
+	t.x = (float)x/ofGetWidth();
+	t.y = (float)y/ofGetHeight();
+	t.id = button;
+	touchDown(t);
 }
 
 //--------------------------------------------------------------
 void testApp::mouseReleased(int x, int y, int button){
-
+	ofTouchEventArgs t;
+	t.x = (float)x/ofGetWidth();
+	t.y = (float)y/ofGetHeight();
+	t.id = button;
+	touchUp(t);
 }
 
 //--------------------------------------------------------------
@@ -119,6 +154,7 @@ void testApp::setupOsc() {
 		_exit(1);
 	}
 	oscIn.setup(json_settings["osc_listen_port"].asInt());
+	
 }
 
 void testApp::processOsc() {
@@ -166,3 +202,43 @@ void testApp::processOsc() {
 	}
 }
 
+void testApp::setupKinect() {
+	tuio.connect(json_settings["tuio_listen_port"].asInt());
+	ofAddListener(ofEvents.touchDown, this, &testApp::touchDown);
+	ofAddListener(ofEvents.touchUp, this, &testApp::touchUp);
+	ofAddListener(ofEvents.touchMoved, this, &testApp::touchMoved);
+	ofxXmlGui *gui = getInteractionGui();
+	gui->addToggle("Calibration Mode", calibrate);
+	gui->addTitle("Projection");
+	gui->addToggle("Draw Lena", calibrationProjection.drawLena);
+	gui->addSlider("Lena scale", calibrationProjection.lenaScale, 0.2, 5);
+	gui->addToggle("Draw Facets", calibrationProjection.drawFacets);
+	gui->addColorPicker("Facet Color", calibrationProjection.facetColor);
+	gui->addSlider("Line Width", calibrationProjection.lineWidth, 1, 10);
+	gui->addTitle("Interaction Area");
+	gui->addToggle("Draw Interactive Area", calibrationProjection.drawInteractiveArea);
+	gui->addSlider("Interaction x", projection.getInteractiveArea().x, 0, PROJECTION_RESOLUTION_WIDTH);
+	gui->addSlider("Interaction y", projection.getInteractiveArea().y, 0, PROJECTION_RESOLUTION_WIDTH);
+	gui->addSlider("Interaction width", projection.getInteractiveArea().width, 0, PROJECTION_RESOLUTION_WIDTH);
+	gui->addSlider("Interaction height", projection.getInteractiveArea().height, 0, PROJECTION_RESOLUTION_HEIGHT);
+	gui->enableAutoSave("settings/interactionSettings.xml");
+}
+
+void testApp::touchDown(ofTouchEventArgs &touch) {
+	projection.touchDown(touch.x, touch.y, touch.id);
+}
+
+void testApp::touchMoved(ofTouchEventArgs &touch) {
+	projection.touchMoved(touch.x, touch.y, touch.id);
+	// e.g.
+	// touches are normalized
+	ofVec2f pos(touch.x, touch.y);
+	
+	// now scaled for screen coords
+	pos *= ofGetWindowSize();
+	//printf("pos: %f %f\n", pos.x, pos.y);
+}
+
+void testApp::touchUp(ofTouchEventArgs &touch) {
+	projection.touchUp(touch.x, touch.y, touch.id);
+}

@@ -25,6 +25,11 @@ public:
 		model.load(settings.get("model file", "scene.obj"));
 	}
 	
+	void drawOutline() {
+		disableWhite = true;
+		draw();
+		disableWhite = false;
+	}
 	void drawSolid() {
 		solid = true;
 		disableWhite = true;

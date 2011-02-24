@@ -60,8 +60,9 @@ void ofxCoordMapper::drawColorsIntoTexture() {
 }
 
 void ofxCoordMapper::beginCapture() {
-	lutFbo.begin();
+	/*lutFbo.begin();
 	ofClear(0,0,0,0);
+	 */
 	glMatrixMode(GL_TEXTURE);
 	glLoadIdentity();
 	glScalef(coordColors.getWidth(), coordColors.getHeight(), 1);
@@ -89,7 +90,7 @@ ofVec2f ofxCoordMapper::lookUp(ofVec2f inPos) {
 
 void ofxCoordMapper::endCapture() {
 	coordColors.getTexture(0).unbind();
-	
+	/*
 	
 	
 	// capture pixels
@@ -116,4 +117,9 @@ void ofxCoordMapper::endCapture() {
 	lutFbo.draw(0,0);
 	//coordColors.draw(0,0);
 	// now get the pixels out of the fbo
+	 */
+}
+
+ofFbo *ofxCoordMapper::getCoordTexture() {
+	return &coordColors;
 }

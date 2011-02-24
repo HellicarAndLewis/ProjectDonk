@@ -9,6 +9,12 @@
 #include "Mode.h"
 #include "BubbleData.h"
 #include <vector>
+#include "BubbleProjection.h"
+#include "ofxTuioClient.h"
+#include "CalibrationProjection.h"
+
+#define PROJECTION_RESOLUTION_WIDTH 2000
+#define PROJECTION_RESOLUTION_HEIGHT 2800
 
 class testApp : public Donk::App {
 
@@ -24,12 +30,17 @@ public:
 
 	void keyPressed  (int key);
 	void keyReleased(int key);
+	
 	void mouseMoved(int x, int y );
 	void mouseDragged(int x, int y, int button);
 	void mousePressed(int x, int y, int button);
 	void mouseReleased(int x, int y, int button);
 	void windowResized(int w, int h);
 
+	void touchUp(ofTouchEventArgs &touch);
+	void touchDown(ofTouchEventArgs &touch);
+	void touchMoved(ofTouchEventArgs &touch);
+	
 private:
 	/**
 	 osc object for receiving osc messages
@@ -37,6 +48,8 @@ private:
 	ofxOscReceiver oscIn;
 	void setupOsc();
 	void processOsc();
+
+	void setupKinect();
 	
 	/**
 	 json settings file
@@ -50,6 +63,10 @@ private:
 	
 	std::vector<Donk::BubbleData*> bubbles;
 	
+	BubbleProjection projection;
+	CalibrationProjection calibrationProjection;
+	ofxTuioClient tuio;
+	bool calibrate;
 };
 
 #endif

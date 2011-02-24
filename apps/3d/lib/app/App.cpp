@@ -14,6 +14,7 @@
 
 using namespace util;
 using namespace Donk;
+float f = 0;
 App::App() {
 	ofSetLogLevel(OF_LOG_NOTICE);
 
@@ -52,6 +53,8 @@ App::App() {
 	sceneGui->setEnabled(false);
 	modeGui = Mode::getInstance()->getGui();
 	modeGui->enable();
+	interactionGui = new ofxXmlGui();
+	interactionGui->setup(10, 10, 200);
 }
 
 void App::drawAllProjectors() {
@@ -93,6 +96,9 @@ void App::_draw(ofEventArgs &e) {
 	ofSetupScreen();
 	glViewport(0, 0, ofGetWidth(), ofGetHeight());
 	ofSetupScreen();
+	
+	ofSetHexColor(0xFF0000);
+	ofDrawBitmapString(ofToString(ofGetFrameRate(), 2),10,ofGetHeight()-10);
 }
 
 
@@ -130,6 +136,7 @@ void App::_keyPressed(ofKeyEventArgs &e) {
 			if(!guiEnabled) {
 				sceneGui->setEnabled(false);
 				modeGui->disable();
+				interactionGui->disable();
 			} else {
 				e.key = lastGui;
 				_keyPressed(e);
@@ -140,14 +147,22 @@ void App::_keyPressed(ofKeyEventArgs &e) {
 			guiEnabled = true;
 			sceneGui->setEnabled(true);
 			modeGui->disable();
+			interactionGui->disable();
 			break;
 		case '2':
 			lastGui = '2';
 			guiEnabled = true;
 			sceneGui->setEnabled(false);
 			modeGui->enable();
+			interactionGui->disable();
 			break;
-			
+		case '3':
+			lastGui = '3';
+			guiEnabled = true;
+			sceneGui->setEnabled(false);
+			modeGui->disable();
+			interactionGui->enable();
+			break;
 		case 'f':
 		case 'F':
 			ofToggleFullscreen();
@@ -196,4 +211,8 @@ void App::_keyPressed(ofKeyEventArgs &e) {
 			sceneGui->save();
 			break;
 	}
+}
+
+ofxXmlGui *App::getInteractionGui() {
+	return interactionGui;
 }

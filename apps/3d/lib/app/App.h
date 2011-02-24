@@ -4,6 +4,7 @@
 #include "SceneGui.h"
 #include "ofxFourUpDisplay.h"
 #include "ofxProjectorBlend.h"
+
 namespace Donk { 
 
 
@@ -45,10 +46,18 @@ protected:
 	 */
 	Scene *scene;
 	
+	// this is an extra gui (on key 3) for 
+	// any interaction stuff you want to add.
+	ofxXmlGui *getInteractionGui();
+	
 private:
+	
 	bool guiEnabled;
+	
 	SceneGui *sceneGui;
 	ofxXmlGui *modeGui;
+	ofxXmlGui *interactionGui;
+	
 	void drawAllProjectors();
 	
 	ofxProjectorBlend projectorBlend;

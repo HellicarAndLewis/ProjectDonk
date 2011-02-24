@@ -92,6 +92,9 @@
 		EAB93DB81312D5B2009430F8 /* ofxEasingQuint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB93DA81312D5B2009430F8 /* ofxEasingQuint.cpp */; };
 		EAB93DB91312D5B2009430F8 /* ofxEasingSine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB93DAA1312D5B2009430F8 /* ofxEasingSine.cpp */; };
 		EAFA56BF1316759E00714F88 /* ofxMacKeys.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAFA56BE1316759E00714F88 /* ofxMacKeys.cpp */; };
+		EAFA578D1316834D00714F88 /* BubbleProjection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAFA578C1316834D00714F88 /* BubbleProjection.cpp */; };
+		EAFA57E41316873F00714F88 /* ofxCoordMapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAFA57E21316873F00714F88 /* ofxCoordMapper.cpp */; };
+		EAFA581E13168B3B00714F88 /* CalibrationProjection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAFA581D13168B3B00714F88 /* CalibrationProjection.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -363,6 +366,12 @@
 		EAB93DAD1312D5B2009430F8 /* Tween.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tween.h; sourceTree = "<group>"; };
 		EAFA56BD1316759E00714F88 /* ofxMacKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxMacKeys.h; path = ../../../addons/ofxMacKeys/ofxMacKeys.h; sourceTree = SOURCE_ROOT; };
 		EAFA56BE1316759E00714F88 /* ofxMacKeys.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxMacKeys.cpp; path = ../../../addons/ofxMacKeys/ofxMacKeys.cpp; sourceTree = SOURCE_ROOT; };
+		EAFA578B1316834D00714F88 /* BubbleProjection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BubbleProjection.h; sourceTree = "<group>"; };
+		EAFA578C1316834D00714F88 /* BubbleProjection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BubbleProjection.cpp; sourceTree = "<group>"; };
+		EAFA57E21316873F00714F88 /* ofxCoordMapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxCoordMapper.cpp; sourceTree = "<group>"; };
+		EAFA57E31316873F00714F88 /* ofxCoordMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxCoordMapper.h; sourceTree = "<group>"; };
+		EAFA581C13168B3B00714F88 /* CalibrationProjection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalibrationProjection.h; sourceTree = "<group>"; };
+		EAFA581D13168B3B00714F88 /* CalibrationProjection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CalibrationProjection.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -504,6 +513,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				EAFA57E11316873F00714F88 /* ofxCoordMapper */,
 				EA746AD013128676000753DA /* ofxSettings */,
 				EA7469F31312865B000753DA /* ofxOBJModel */,
 				EA7469F71312865B000753DA /* ofxProjectorBlend */,
@@ -557,8 +567,12 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
+				EAFA581C13168B3B00714F88 /* CalibrationProjection.h */,
+				EAFA581D13168B3B00714F88 /* CalibrationProjection.cpp */,
+				EAFA578B1316834D00714F88 /* BubbleProjection.h */,
+				EAFA578C1316834D00714F88 /* BubbleProjection.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
+				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
 				8196445E13062409008A111C /* BubbleData.h */,
 				8196445F13062409008A111C /* BubbleData.cpp */,
 				81A509A21308C42E00E1911C /* QuestionData.h */,
@@ -1139,6 +1153,16 @@
 			path = easing;
 			sourceTree = "<group>";
 		};
+		EAFA57E11316873F00714F88 /* ofxCoordMapper */ = {
+			isa = PBXGroup;
+			children = (
+				EAFA57E21316873F00714F88 /* ofxCoordMapper.cpp */,
+				EAFA57E31316873F00714F88 /* ofxCoordMapper.h */,
+			);
+			name = ofxCoordMapper;
+			path = ../../../addons/ofxCoordMapper;
+			sourceTree = SOURCE_ROOT;
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1287,6 +1311,9 @@
 				81313BE71316160E000F5CD2 /* base64.cpp in Sources */,
 				81313BEA13161617000F5CD2 /* AsyncHttpLoader.cpp in Sources */,
 				EAFA56BF1316759E00714F88 /* ofxMacKeys.cpp in Sources */,
+				EAFA578D1316834D00714F88 /* BubbleProjection.cpp in Sources */,
+				EAFA57E41316873F00714F88 /* ofxCoordMapper.cpp in Sources */,
+				EAFA581E13168B3B00714F88 /* CalibrationProjection.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

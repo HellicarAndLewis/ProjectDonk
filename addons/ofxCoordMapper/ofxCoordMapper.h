@@ -22,7 +22,7 @@ public:
 	void setup();
 	void beginCapture();
 	void endCapture();
-	
+	ofFbo *getCoordTexture();
 	/**
 	 * Give this method a normalized in coordinate, and it'll give you a normalized out coordinate.
 	 */

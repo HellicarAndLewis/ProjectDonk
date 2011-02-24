@@ -121,6 +121,13 @@ GuiSlider2D *ofxXmlGui::addSlider2D(string name, ofPoint &ptr, float minX, float
 	return slider2d;
 }
 
+GuiColorPicker *ofxXmlGui::addColorPicker(string name, int &hexColor) {
+	GuiColorPicker *cp = (GuiColorPicker*)currPage->add("colorpicker", name, name);
+	cp->value = &hexColor;
+	cp->width = controlSize;
+	return cp;
+}
+
 GuiToggle *ofxXmlGui::addToggle(string name, bool &ptr) {
 	GuiToggle *slider = (GuiToggle*)currPage->add("toggle", name, name);		
 	slider->value = &ptr;

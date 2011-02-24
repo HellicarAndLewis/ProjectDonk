@@ -28,24 +28,29 @@ public:
 		ofRect(x, y, width, height);
 		
 		float h3 = height/3;
-		ofSetColor(255, 255, 255);
+		float r = ((ival(value)&0xFF0000)>>16);
+		float g = ((ival(value)&0xFF00)>>8);
+		float b = ival(value)&0xFF;
+		
+		
+		ofSetColor(255 - r, 255 - g, 255 - b);
 		ofNoFill();
 		ofRect(x, y, width, height);
 		ofLine(x, y + h3,  x+width, y + h3);
 		ofLine(x, y + h3*2,  x+width, y + h3*2);
 		
 		
-		float c = ((ival(value)&0xFF0000)>>16);
+		float c = r;
 		c /= 255.f;
 		ofLine(x + width*c, y, x + width*c, y+h3);
 		
 		
-		c = ((ival(value)&0xFF00)>>8);
+		c = g;
 		c /= 255.f;
 		ofLine(x + width*c, y+h3, x + width*c, y+h3*2);
 		
 		
-		c = ival(value)&0xFF;
+		c = b;
 		c /= 255.f;
 		ofLine(x + width*c, y+h3*2, x + width*c, y+height);
 		

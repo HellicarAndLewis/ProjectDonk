@@ -1,0 +1,15 @@
+<values>
+    <value controlId="Calibration Mode" value="true"></value>
+    <value controlId="Projection" value="0"></value>
+    <value controlId="Draw Lena" value="true"></value>
+    <value controlId="Lena scale" value="1.488421202"></value>
+    <value controlId="Draw Facets" value="true"></value>
+    <value controlId="Facet Color" value="15923355"></value>
+    <value controlId="Line Width" value="1.000000000"></value>
+    <value controlId="Interaction Area" value="0"></value>
+    <value controlId="Draw Interactive Area" value="false"></value>
+    <value controlId="Interaction x" value="100.000000000"></value>
+    <value controlId="Interaction y" value="100.000000000"></value>
+    <value controlId="Interaction width" value="900.000000000"></value>
+    <value controlId="Interaction height" value="500.000000000"></value>
+</values>

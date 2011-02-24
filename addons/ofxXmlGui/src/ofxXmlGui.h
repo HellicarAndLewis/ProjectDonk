@@ -21,6 +21,7 @@
 #include "GuiDrawable.h"
 #include "GuiTextField.h"
 #include "GuiIntField.h"
+#include "GuiColorPicker.h"
 
 
 /**
@@ -53,6 +54,9 @@ public:
 	
 	/** 2D slider, like a trackpad */
 	GuiSlider2D *addSlider2D(string name, ofPoint &ptr, float minX, float maxX, float minY, float maxY);
+	
+	/** Colour picker, specified by hex value */
+	GuiColorPicker *addColorPicker(string name, int &hexColor);
 	
 	/** Toggle button. */
 	GuiToggle *addToggle(string name, bool &ptr);	
