@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		81313BE71316160E000F5CD2 /* base64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81313BE51316160E000F5CD2 /* base64.cpp */; };
+		81313BEA13161617000F5CD2 /* AsyncHttpLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81313BE813161617000F5CD2 /* AsyncHttpLoader.cpp */; };
 		814B60711300CDF40003229E /* osc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 814B605E1300CDF40003229E /* osc.a */; };
 		814B60751300CDF40003229E /* ofxOscBundle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 814B60671300CDF40003229E /* ofxOscBundle.cpp */; };
 		814B60761300CDF40003229E /* ofxOscMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 814B60691300CDF40003229E /* ofxOscMessage.cpp */; };
@@ -122,6 +124,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		81313BE51316160E000F5CD2 /* base64.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = base64.cpp; sourceTree = "<group>"; };
+		81313BE61316160E000F5CD2 /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
+		81313BE813161617000F5CD2 /* AsyncHttpLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AsyncHttpLoader.cpp; path = net/AsyncHttpLoader.cpp; sourceTree = "<group>"; };
+		81313BE913161617000F5CD2 /* AsyncHttpLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AsyncHttpLoader.h; path = net/AsyncHttpLoader.h; sourceTree = "<group>"; };
 		814B604A1300CDF40003229E /* IpEndpointName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IpEndpointName.h; sourceTree = "<group>"; };
 		814B604B1300CDF40003229E /* NetworkingUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkingUtils.h; sourceTree = "<group>"; };
 		814B604C1300CDF40003229E /* PacketListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PacketListener.h; sourceTree = "<group>"; };
@@ -387,6 +393,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		81313BDF13161604000F5CD2 /* net */ = {
+			isa = PBXGroup;
+			children = (
+				81313BE813161617000F5CD2 /* AsyncHttpLoader.cpp */,
+				81313BE913161617000F5CD2 /* AsyncHttpLoader.h */,
+			);
+			name = net;
+			sourceTree = "<group>";
+		};
 		814B60441300CDF40003229E /* ofxOsc */ = {
 			isa = PBXGroup;
 			children = (
@@ -1000,6 +1015,7 @@
 		EA746B3B1312883D000753DA /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				81313BDF13161604000F5CD2 /* net */,
 				EAB93D911312D5B2009430F8 /* animation */,
 				EA746B3C1312883D000753DA /* app */,
 				EA746B411312883D000753DA /* audio */,
@@ -1070,6 +1086,8 @@
 		EA746B561312883D000753DA /* util */ = {
 			isa = PBXGroup;
 			children = (
+				81313BE51316160E000F5CD2 /* base64.cpp */,
+				81313BE61316160E000F5CD2 /* base64.h */,
 				EA746B571312883D000753DA /* GLHelpers.h */,
 			);
 			path = util;
@@ -1261,6 +1279,8 @@
 				EAB93DB71312D5B2009430F8 /* ofxEasingQuart.cpp in Sources */,
 				EAB93DB81312D5B2009430F8 /* ofxEasingQuint.cpp in Sources */,
 				EAB93DB91312D5B2009430F8 /* ofxEasingSine.cpp in Sources */,
+				81313BE71316160E000F5CD2 /* base64.cpp in Sources */,
+				81313BEA13161617000F5CD2 /* AsyncHttpLoader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

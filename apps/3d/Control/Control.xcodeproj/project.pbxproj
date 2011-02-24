@@ -12,10 +12,10 @@
 		814B60761300CDF40003229E /* ofxOscMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 814B60691300CDF40003229E /* ofxOscMessage.cpp */; };
 		814B60771300CDF40003229E /* ofxOscReceiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 814B606B1300CDF40003229E /* ofxOscReceiver.cpp */; };
 		814B60781300CDF40003229E /* ofxOscSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 814B606D1300CDF40003229E /* ofxOscSender.cpp */; };
+		8180DB931316164200B3C68F /* AsyncHttpLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8180DB8D1316164200B3C68F /* AsyncHttpLoader.cpp */; };
+		8180DB941316164200B3C68F /* base64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8180DB901316164200B3C68F /* base64.cpp */; };
 		81A50A701308D89900E1911C /* donkcontrol.icns in Resources */ = {isa = PBXBuildFile; fileRef = 81A50A491308D80B00E1911C /* donkcontrol.icns */; };
-		81D113641304B18B00946186 /* base64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81D113621304B18B00946186 /* base64.cpp */; };
 		81D1147C13053EC200946186 /* ControlBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81D1147B13053EC200946186 /* ControlBar.cpp */; };
-		81ED08E11303707F003081E9 /* AsyncHttpLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81ED08E01303707F003081E9 /* AsyncHttpLoader.cpp */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
 		E45BE97C0E8CC7DD009D7055 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */; };
 		E45BE97D0E8CC7DD009D7055 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9730E8CC7DD009D7055 /* AudioToolbox.framework */; };
@@ -94,13 +94,14 @@
 		814B606C1300CDF40003229E /* ofxOscReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxOscReceiver.h; sourceTree = "<group>"; };
 		814B606D1300CDF40003229E /* ofxOscSender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxOscSender.cpp; sourceTree = "<group>"; };
 		814B606E1300CDF40003229E /* ofxOscSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxOscSender.h; sourceTree = "<group>"; };
+		8180DB8D1316164200B3C68F /* AsyncHttpLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AsyncHttpLoader.cpp; sourceTree = "<group>"; };
+		8180DB8E1316164200B3C68F /* AsyncHttpLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncHttpLoader.h; sourceTree = "<group>"; };
+		8180DB901316164200B3C68F /* base64.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = base64.cpp; sourceTree = "<group>"; };
+		8180DB911316164200B3C68F /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
+		8180DB921316164200B3C68F /* GLHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLHelpers.h; sourceTree = "<group>"; };
 		81A50A491308D80B00E1911C /* donkcontrol.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = donkcontrol.icns; sourceTree = "<group>"; };
-		81D113621304B18B00946186 /* base64.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = base64.cpp; sourceTree = "<group>"; };
-		81D113631304B18B00946186 /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
 		81D1147A13053EC200946186 /* ControlBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlBar.h; sourceTree = "<group>"; };
 		81D1147B13053EC200946186 /* ControlBar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ControlBar.cpp; sourceTree = "<group>"; };
-		81ED08DF1303707F003081E9 /* AsyncHttpLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncHttpLoader.h; sourceTree = "<group>"; };
-		81ED08E01303707F003081E9 /* AsyncHttpLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AsyncHttpLoader.cpp; sourceTree = "<group>"; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
 		E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
 		E45BE9730E8CC7DD009D7055 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
@@ -264,6 +265,36 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		8180DB871316163100B3C68F /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				8180DB8C1316164200B3C68F /* net */,
+				8180DB8F1316164200B3C68F /* util */,
+			);
+			name = lib;
+			sourceTree = "<group>";
+		};
+		8180DB8C1316164200B3C68F /* net */ = {
+			isa = PBXGroup;
+			children = (
+				8180DB8D1316164200B3C68F /* AsyncHttpLoader.cpp */,
+				8180DB8E1316164200B3C68F /* AsyncHttpLoader.h */,
+			);
+			name = net;
+			path = ../lib/net;
+			sourceTree = SOURCE_ROOT;
+		};
+		8180DB8F1316164200B3C68F /* util */ = {
+			isa = PBXGroup;
+			children = (
+				8180DB901316164200B3C68F /* base64.cpp */,
+				8180DB911316164200B3C68F /* base64.h */,
+				8180DB921316164200B3C68F /* GLHelpers.h */,
+			);
+			name = util;
+			path = ../lib/util;
+			sourceTree = SOURCE_ROOT;
+		};
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
@@ -299,6 +330,7 @@
 				81A50A491308D80B00E1911C /* donkcontrol.icns */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4B69B5B0A3A1756003C02F2 /* ControlDebug.app */,
+				8180DB871316163100B3C68F /* lib */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
 				E4C2422310CC54B6004149E2 /* openFrameworks */,
 				BB4B014C10F69532006C3DED /* addons */,
@@ -312,10 +344,6 @@
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
-				81ED08DF1303707F003081E9 /* AsyncHttpLoader.h */,
-				81ED08E01303707F003081E9 /* AsyncHttpLoader.cpp */,
-				81D113621304B18B00946186 /* base64.cpp */,
-				81D113631304B18B00946186 /* base64.h */,
 				81D1147A13053EC200946186 /* ControlBar.h */,
 				81D1147B13053EC200946186 /* ControlBar.cpp */,
 			);
@@ -496,9 +524,9 @@
 				814B60761300CDF40003229E /* ofxOscMessage.cpp in Sources */,
 				814B60771300CDF40003229E /* ofxOscReceiver.cpp in Sources */,
 				814B60781300CDF40003229E /* ofxOscSender.cpp in Sources */,
-				81ED08E11303707F003081E9 /* AsyncHttpLoader.cpp in Sources */,
-				81D113641304B18B00946186 /* base64.cpp in Sources */,
 				81D1147C13053EC200946186 /* ControlBar.cpp in Sources */,
+				8180DB931316164200B3C68F /* AsyncHttpLoader.cpp in Sources */,
+				8180DB941316164200B3C68F /* base64.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

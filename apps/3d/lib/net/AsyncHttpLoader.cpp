@@ -1,6 +1,5 @@
 /*
  *  AsyncHttpLoader.cpp
- *  Control
  *
  *  Created by Josh Nimoy on 2/9/11.
  *
@@ -15,10 +14,16 @@ using namespace std;
 AsyncHttpLoader::AsyncHttpLoader(){
 	status = 0;
 	timeout = 20;
+	stopping = false;
 }
 
 AsyncHttpLoader::~AsyncHttpLoader(){
-	
+	if(status==1){
+		stopping = true;
+		while(status==1){
+			//ofSleepMillis(1);
+		}
+	}
 }
 
 void AsyncHttpLoader::get(string s,string userpass){
@@ -52,10 +57,22 @@ void* AsyncHttpLoader::threadfunc(void*ptr){
 		session.setTimeout(Poco::Timespan(ths->timeout,0));
 		session.sendRequest(req);
 		istream& rs = session.receiveResponse(ths->response);
+		
+		if(ths->stopping){
+			ths->status = 2;
+			return 0;
+		}
+		
 		while(rs.good()){
 			char c;
-			rs >> c;
+			rs.read(&c,1);
 			if(rs.good())ths->data += c;
+			
+			if(ths->stopping){
+				ths->status = 2;
+				return 0;
+			}
+			
 		}
 	}catch(Exception &err){
 		ths->errorString = err.what();

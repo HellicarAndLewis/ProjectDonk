@@ -1,6 +1,5 @@
 /*
  *  AsyncHttpLoader.h
- *  Control
  *
  *  Created by Josh Nimoy on 2/9/11.
  *
@@ -67,7 +66,7 @@ public:
 		2 = call is finished
 	 
 	 */
-	int status;
+	volatile int status;
 	
 	/**
 		resets the object, among other things
@@ -105,6 +104,8 @@ public:
 		username:password
 	 */
 	string authInfo;
+private:
+	volatile bool stopping;
 };
 
 

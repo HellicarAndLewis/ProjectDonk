@@ -7,6 +7,8 @@
 #include "ofxJSON.h"
 #include "App.h"
 #include "Mode.h"
+#include "BubbleData.h"
+#include <vector>
 
 class testApp : public Donk::App {
 
@@ -45,6 +47,9 @@ private:
 	string nextMode;
 	
 	Donk::Mode *mode;
+	
+	std::vector<Donk::BubbleData*> bubbles;
+	
 };
 
 #endif

@@ -22,6 +22,12 @@ void testApp::setupGraphics() {
 //--------------------------------------------------------------
 void testApp::update(){
 
+	//call update on all the bubbles
+	std::vector<Donk::BubbleData*>::iterator bdit;
+	for(bdit=bubbles.begin();bdit!=bubbles.end();bdit++){
+		(*bdit)->step();
+	}
+	
 	processOsc();
 	
 }
@@ -30,6 +36,29 @@ void testApp::update(){
 void testApp::render() {
 	ofSetHexColor(0xFF0000);
 	ofCircle(mouseX, mouseY, 10);
+	
+	//draw all the bubbles
+	glPushMatrix();
+	int xoff = 0;
+	int yoff = 0;
+	std::vector<Donk::BubbleData*>::iterator bdit;
+	for(bdit=bubbles.begin();bdit!=bubbles.end();bdit++){
+		if((*bdit)->profileImage.width != 0){
+			
+			if(xoff+(*bdit)->profileImage.width>ofGetWidth()){
+				yoff+=50;
+				xoff = 0;
+			}
+			
+			ofSetColor(255,255,255);
+			(*bdit)->profileImage.draw(xoff,yoff);
+		
+			xoff += (*bdit)->profileImage.width;
+			
+		}
+	}
+	glPopMatrix();
+	
 }
 
 void testApp::drawView() {
@@ -41,12 +70,15 @@ void testApp::drawView() {
 	
 	
 	scene->getModel()->drawSolid();
+
+	
+	
 }
 
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
-	
+
 }
 
 //--------------------------------------------------------------
@@ -102,13 +134,14 @@ void testApp::processOsc() {
 			//			cout << "todo: start upcoming mode standby for mode: " << modeName << endl;
 			
 		}else if(m.getAddress()=="/control/mode/swap"){
+			
 			mode->setMode(nextMode);
 			//			cout << "todo: begin transition from current to upcoming mode." << endl;
 			
 		}else if(m.getAddress()=="/control/bubble/new"){
 			
-			Donk::BubbleData bd(m);
-			cout << "todo: do something with new bubble received from " << bd.userName << " in mode " << bd.mode << endl;
+			bubbles.push_back(new Donk::BubbleData(m));
+			//cout << "todo: do something with new bubble received from " << bd.userName << " in mode " << bd.mode << endl;
 			
 		}else if(m.getAddress()=="/control/question/update"){
 			
@@ -123,12 +156,12 @@ void testApp::processOsc() {
 			for(int i=0;i<6;i++)audioData[i] = m.getArgAsFloat(i);
 			
 			cout << "todo: do something with new audio frequency sample: " <<
-			audioData[0] << ' ' <<
-			audioData[1] << ' ' <<
-			audioData[2] << ' ' <<
-			audioData[3] << ' ' <<
-			audioData[4] << ' ' <<
-			audioData[5] << endl;
+				audioData[0] << ' ' <<
+				audioData[1] << ' ' <<
+				audioData[2] << ' ' <<
+				audioData[3] << ' ' <<
+				audioData[4] << ' ' <<
+				audioData[5] << endl;
 		}
 	}
 }
