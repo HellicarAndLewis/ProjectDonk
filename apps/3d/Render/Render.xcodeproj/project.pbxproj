@@ -91,6 +91,7 @@
 		EAB93DB71312D5B2009430F8 /* ofxEasingQuart.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB93DA61312D5B2009430F8 /* ofxEasingQuart.cpp */; };
 		EAB93DB81312D5B2009430F8 /* ofxEasingQuint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB93DA81312D5B2009430F8 /* ofxEasingQuint.cpp */; };
 		EAB93DB91312D5B2009430F8 /* ofxEasingSine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB93DAA1312D5B2009430F8 /* ofxEasingSine.cpp */; };
+		EAFA56BF1316759E00714F88 /* ofxMacKeys.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAFA56BE1316759E00714F88 /* ofxMacKeys.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -360,6 +361,8 @@
 		EAB93DAA1312D5B2009430F8 /* ofxEasingSine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxEasingSine.cpp; sourceTree = "<group>"; };
 		EAB93DAB1312D5B2009430F8 /* ofxEasingSine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxEasingSine.h; sourceTree = "<group>"; };
 		EAB93DAD1312D5B2009430F8 /* Tween.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tween.h; sourceTree = "<group>"; };
+		EAFA56BD1316759E00714F88 /* ofxMacKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxMacKeys.h; path = ../../../addons/ofxMacKeys/ofxMacKeys.h; sourceTree = SOURCE_ROOT; };
+		EAFA56BE1316759E00714F88 /* ofxMacKeys.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxMacKeys.cpp; path = ../../../addons/ofxMacKeys/ofxMacKeys.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -511,6 +514,8 @@
 				EA74695013128472000753DA /* ofxTuioWrapper */,
 				814B60441300CDF40003229E /* ofxOsc */,
 				EA106C8812F6CBE900DC662C /* ofxJSON */,
+				EAFA56BD1316759E00714F88 /* ofxMacKeys.h */,
+				EAFA56BE1316759E00714F88 /* ofxMacKeys.cpp */,
 			);
 			name = addons;
 			sourceTree = "<group>";
@@ -1281,6 +1286,7 @@
 				EAB93DB91312D5B2009430F8 /* ofxEasingSine.cpp in Sources */,
 				81313BE71316160E000F5CD2 /* base64.cpp in Sources */,
 				81313BEA13161617000F5CD2 /* AsyncHttpLoader.cpp in Sources */,
+				EAFA56BF1316759E00714F88 /* ofxMacKeys.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

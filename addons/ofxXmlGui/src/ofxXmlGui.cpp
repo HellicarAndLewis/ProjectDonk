@@ -275,6 +275,25 @@ void ofxXmlGui::enableAutoSave(string file = "values.xml") {
 	}
 }
 
+void ofxXmlGui::saveValues(string file) {
+	if(loadedFromFile) {
+		GuiContainer::saveValues(file);
+	} else if(pages.size()==0) {
+		currPage->saveValues(file);
+	} else {
+		// find basename of xml
+		int dotPos = file.rfind(".");
+		string first;
+		string second;
+		if(dotPos!=-1) {
+			first = file.substr(0, dotPos);
+			second = file.substr(dotPos+1);
+		}
+		for(int i = 0; i < pages.size(); i++) {
+			pages[i]->saveValues(first + "."+pageChooser->opts[i]+"."+second);
+		}
+	}
+}
 
 void ofxXmlGui::disableAutoSave() {
 	if(pages.size()==0) {

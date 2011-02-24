@@ -196,6 +196,12 @@ void ofFbo::setup(int width, int height, int internalformat, int numSamples) {
 	settings.useDepth		= true;
 	settings.useStencil		= true;
 	
+	if(ofGetUsingArbTex()) {
+		settings.textureTarget			= GL_TEXTURE_RECTANGLE_ARB;
+	} else {
+		settings.textureTarget			= GL_TEXTURE_2D;
+	}
+	
 	setup(settings);
 }
 

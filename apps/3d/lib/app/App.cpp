@@ -10,6 +10,7 @@
 #include "GLHelpers.h"
 #include "constants.h"
 #include "Mode.h"
+#include "ofxMacKeys.h"
 
 using namespace util;
 using namespace Donk;
@@ -39,6 +40,7 @@ App::App() {
 	}
 	
 	ofAddListener(ofEvents.keyPressed, this, &App::_keyPressed);
+	ofAddListener(ofEvents.keyReleased, this, &App::_keyReleased);
 	ofAddListener(ofEvents.draw, this, &App::_draw);
 	ofAddListener(ofEvents.update, this, &App::_update);
 	
@@ -72,9 +74,11 @@ void App::drawAllProjectors() {
 		projectorBlend.draw(0, 0);
 	}
 }
+
 void App::_update(ofEventArgs &e) {
-	scene->update();
+	scene->update();	
 }
+
 void App::_draw(ofEventArgs &e) {
 	// just have to have this here for some weird reason
 	// - I think it's a bug in 007, maybe it's me. meh.
@@ -93,7 +97,33 @@ void App::_draw(ofEventArgs &e) {
 
 
 int lastGui = 1;
+bool zedDown = false;
+bool exDown = false;
+bool zooming = false;
+
+void App::_keyReleased(ofKeyEventArgs &e) {
+	switch(e.key) {
+		case '/':
+		case '`':
+			zooming = false;
+			break;
+		case 'x':
+		case 'X':
+			exDown = false;
+			break;
+			
+		case 'z':
+		case 'Z':
+			zedDown = false;
+			break;
+	}
+}
+
+
 void App::_keyPressed(ofKeyEventArgs &e) {
+	
+	float increment = ofxMacShiftKeyDown()?0.1:0.005;
+	
 	switch(e.key) {
 		case ' ':
 			guiEnabled ^= true;
@@ -121,6 +151,49 @@ void App::_keyPressed(ofKeyEventArgs &e) {
 		case 'f':
 		case 'F':
 			ofToggleFullscreen();
+			break;
+		case 'z':
+		case 'Z':
+			zedDown = true;
+			break;
+		case 'x':
+		case 'X':
+			exDown = true;
+			break;
+			
+		case OF_KEY_UP:
+			if(zedDown) scene->projectors[0]->pos.z+=increment;
+			else if(exDown) scene->projectors[0]->pos.y-=increment;
+			else scene->projectors[0]->rot.y -= increment;
+			sceneGui->save();
+			break;
+			
+		case OF_KEY_DOWN:
+			if(zedDown) scene->projectors[0]->pos.z-=increment;
+			else if(exDown) scene->projectors[0]->pos.y+=increment;
+			else scene->projectors[0]->rot.y += increment;
+			sceneGui->save();
+			break;
+		case OF_KEY_LEFT:
+			if(exDown) {
+				// pan left
+				scene->projectors[0]->pos.x+=increment;
+			} else if(!zedDown) {
+				// rotate left
+				scene->projectors[0]->rot.x+=increment;
+			}
+			sceneGui->save();
+			break;
+			
+		case OF_KEY_RIGHT:
+			if(exDown) {
+				// pan right
+				scene->projectors[0]->pos.x-=increment;
+			} else if(!zedDown) {
+				// rotate right
+				scene->projectors[0]->rot.x-=increment;
+			}
+			sceneGui->save();
 			break;
 	}
 }

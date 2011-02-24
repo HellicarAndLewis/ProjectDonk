@@ -118,7 +118,7 @@ public:
 	// void pointToValue(string ctrlId, void *ptr);
 
 	
-	
+	void saveValues(string file = "values.xml");
 	
 private:
 	float controlSize;

@@ -20,6 +20,7 @@ public:
 	void controlChanged(GuiControl *control);
 	void setEnabled(bool enabled);
 	void draw();
+	void save();
 private:
 	ofxXmlGui gui;
 	Scene *scene;

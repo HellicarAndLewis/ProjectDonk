@@ -78,7 +78,7 @@ public:
 	 * Saves xml version of the values of all the controls.
 	 * this can be loaded again with loadValues().
 	 */
-	void saveValues(string file = "values.xml");
+	virtual void saveValues(string file = "values.xml");
 	/**
 	 * Call this to draw the gui and its children.
 	 */

@@ -35,6 +35,7 @@ public:
 	void _update(ofEventArgs &e);
 	void _draw(ofEventArgs &e);
 	void _keyPressed(ofKeyEventArgs &e);
+	void _keyReleased(ofKeyEventArgs &e);
 protected:
 
 	/** 

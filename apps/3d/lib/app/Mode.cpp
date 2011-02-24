@@ -14,7 +14,7 @@ using namespace Donk;
 
 Mode::Mode() {
 	
-	
+	ofLogNotice() << "Mode::Mode()";
 	selectedModeId = 0;
 	currModeName = "";
 	gui = NULL;
@@ -72,7 +72,7 @@ Mode::Mode() {
 	
 	
 	
-	//print();
+	print();
 }
 
 void Mode::saveModeValues(string modeName) {

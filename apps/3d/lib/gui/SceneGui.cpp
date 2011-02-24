@@ -59,6 +59,9 @@ SceneGui::SceneGui(Scene *scene): Enableable() {
 	gui.addListener(this);
 }
 
+void SceneGui::save() {
+	gui.saveValues("settings/cameras.xml");
+}
 void SceneGui::controlChanged(GuiControl *control) {
 	if(control->controlId=="Show 4-up") {
 		viewports->setEnabled(control->boolValue());
