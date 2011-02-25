@@ -15,6 +15,9 @@
 using namespace util;
 using namespace Donk;
 float f = 0;
+
+int whichGui = 0;
+
 App::App() {
 	ofSetLogLevel(OF_LOG_NOTICE);
 
@@ -49,12 +52,29 @@ App::App() {
 	if(settings.getBool("using first screen for gui only", false)) {
 		guiEnabled = true;
 	}
-
+	
+	guiChooser.setup(10, 10, 200);
+	guiChooser.addSegmentedControl(" ", whichGui, "Projector|Mode|Calibration");
+	guiChooser.enable();
+	guiChooser.height = 25;
+	guiChooser.addListener(this);
+	
 	sceneGui->setEnabled(false);
 	modeGui = Mode::getInstance()->getGui();
 	modeGui->enable();
-	interactionGui = new ofxXmlGui();
-	interactionGui->setup(10, 10, 200);
+	calibrationGui = new ofxXmlGui();
+	calibrationGui->setup(10, 35, 200);
+	
+	
+	
+}
+
+void App::controlChanged(GuiControl *control) {
+	if(control->controlId==" ") { // it's the gui chooser! - fire a mouse press
+		ofKeyEventArgs e;
+		e.key = '1' + whichGui;
+		_keyPressed(e);
+	}
 }
 
 void App::drawAllProjectors() {
@@ -97,8 +117,10 @@ void App::_draw(ofEventArgs &e) {
 	glViewport(0, 0, ofGetWidth(), ofGetHeight());
 	ofSetupScreen();
 	
-	ofSetHexColor(0xFF0000);
-	ofDrawBitmapString(ofToString(ofGetFrameRate(), 2),10,ofGetHeight()-10);
+	if(guiEnabled) {
+		ofSetHexColor(0xFF0000);
+		ofDrawBitmapString(ofToString(ofGetFrameRate(), 2),10,ofGetHeight()-10);
+	}
 }
 
 
@@ -136,32 +158,39 @@ void App::_keyPressed(ofKeyEventArgs &e) {
 			if(!guiEnabled) {
 				sceneGui->setEnabled(false);
 				modeGui->disable();
-				interactionGui->disable();
+				calibrationGui->disable();
+				guiChooser.disable();
 			} else {
 				e.key = lastGui;
 				_keyPressed(e);
 			}
 			break;
 		case '1':
+			guiChooser.enable();
+			whichGui = 0;
 			lastGui = '1';
 			guiEnabled = true;
 			sceneGui->setEnabled(true);
 			modeGui->disable();
-			interactionGui->disable();
+			calibrationGui->disable();
 			break;
 		case '2':
+			guiChooser.enable();
+			whichGui = 1;
 			lastGui = '2';
 			guiEnabled = true;
 			sceneGui->setEnabled(false);
 			modeGui->enable();
-			interactionGui->disable();
+			calibrationGui->disable();
 			break;
 		case '3':
+			guiChooser.enable();
+			whichGui = 2;
 			lastGui = '3';
 			guiEnabled = true;
 			sceneGui->setEnabled(false);
 			modeGui->disable();
-			interactionGui->enable();
+			calibrationGui->enable();
 			break;
 		case 'f':
 		case 'F':
@@ -213,6 +242,6 @@ void App::_keyPressed(ofKeyEventArgs &e) {
 	}
 }
 
-ofxXmlGui *App::getInteractionGui() {
-	return interactionGui;
+ofxXmlGui *App::getCalibrationGui() {
+	return calibrationGui;
 }

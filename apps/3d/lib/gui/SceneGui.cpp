@@ -15,7 +15,7 @@ bool show4Up = false;
 SceneGui::SceneGui(Scene *scene): Enableable() {
 	this->scene = scene;
 
-	gui.setup(GUI_PADDING, GUI_PADDING, CAMERA_GUI_WIDTH);	
+	gui.setup(GUI_PADDING, GUI_PADDING+25, CAMERA_GUI_WIDTH);	
 	
 	float x = GUI_PADDING*2 + CAMERA_GUI_WIDTH;
 	

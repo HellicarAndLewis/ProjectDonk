@@ -15,12 +15,11 @@ BubbleProjection::BubbleProjection() {
 void BubbleProjection::draw() {
 	ofClear(0, 100, 0, 0);
 	
-	map<int,ofVec2f>::iterator it;
+	
 	ofSetHexColor(0xFF0000);
-	for(it = touches.begin(); it!=touches.end(); it++) {
-		ofVec2f pos = mapToInteractiveArea((*it).second);
-		ofCircle(pos, 10);
-		printf("%f %f\n", pos.x, pos.y);
+	for(tIt = touches.begin(); tIt!=touches.end(); tIt++) {
+		ofVec2f pos = mapToInteractiveArea((*tIt).second);
+		ofCircle(pos, 30);
 	}
 }
 
@@ -29,11 +28,39 @@ ofRectangle &BubbleProjection::getInteractiveArea() {
 }
 
 void BubbleProjection::touchDown(float x, float y, int touchId) {
-	touches[touchId] = ofVec2f(x, y);
+	
+
+	ofVec2f touchCoords(x, y);
+	
+	// find the closest point to the new touch
+	float minSqrDist = FLT_MAX; // do squares
+	int minTouchId = -1;
+
+	for(tIt = touches.begin(); tIt!=touches.end(); tIt++) {
+		float sqrDist = touchCoords.squareDistance((*tIt).second);
+		if(sqrDist<minSqrDist) {
+			minTouchId = (*tIt).first;
+			minSqrDist = sqrDist;
+		}
+	}
+	
+	// the minimum distance between the 2 closest touches 
+	// in order for it to be a double touch.
+	float doubleTouchDist = 0.1;
+	
+	// add the touch
+	touches[touchId] = touchCoords;
+	// if there's another touch, and it's close enough, call doubleTouchGesture
+	if(minTouchId!=-1 && sqrt(minSqrDist)<doubleTouchDist) { 
+		doubleTouchGesture(touchId, minTouchId);
+		
+	}
+	
 }
 void BubbleProjection::touchMoved(float x, float y, int touchId) {
 	touches[touchId] = ofVec2f(x, y);
 }
+
 void BubbleProjection::touchUp(float x, float y, int touchId) {
 	if(touches.find(touchId)!=touches.end()) {
 		touches.erase(touchId);
@@ -42,5 +69,12 @@ void BubbleProjection::touchUp(float x, float y, int touchId) {
 
 ofVec2f BubbleProjection::mapToInteractiveArea(ofVec2f inPoint) {
 	return ofVec2f(interactiveArea.x + interactiveArea.width * inPoint.x,
-				   interactiveArea.y + interactiveArea.height - interactiveArea.height * inPoint.y);
+				   interactiveArea.y + interactiveArea.height * inPoint.y);
+}
+
+void BubbleProjection::doubleTouchGesture(int touch1Id, int touch2Id) {
+	
+
+	ofVec2f doubleTouchCentre = (touches[touch1Id] + touches[touch2Id])/2;
+	printf("doubleTouchGesture\n");
 }

@@ -165,7 +165,7 @@ ofxXmlGui *Mode::getGui() {
 		
 		gui = new ofxXmlGui();
 		gui->x = 200;
-		gui->setup(10, 10, 200);
+		gui->setup(10, 35, 200);
 		map<string,float>::iterator it;
 		if(currModeName=="")  {
 			currModeName = (*parameters.begin()).first;

@@ -11,7 +11,7 @@ namespace Donk {
 /**
  * \brief Basic app that you inherit from for your app
  */
-class App: public ofBaseApp {
+class App: public ofBaseApp, public GuiListener {
 public:
 
 	/**
@@ -37,6 +37,8 @@ public:
 	void _draw(ofEventArgs &e);
 	void _keyPressed(ofKeyEventArgs &e);
 	void _keyReleased(ofKeyEventArgs &e);
+	
+	void controlChanged(GuiControl *control);
 protected:
 
 	/** 
@@ -48,15 +50,27 @@ protected:
 	
 	// this is an extra gui (on key 3) for 
 	// any interaction stuff you want to add.
-	ofxXmlGui *getInteractionGui();
+	ofxXmlGui *getCalibrationGui();
 	
 private:
 	
 	bool guiEnabled;
 	
+	// this is a little tab at the top of the gui
+	// to allow tabbing between the different guis
+	ofxXmlGui guiChooser;
+	
+	// this is a configurable gui, that you can add to if you wish
+	ofxXmlGui *appGui;
+	
+	// this is for manipulating the projector position.
 	SceneGui *sceneGui;
+
+	// This is for choosing the current mode and setting its parameters
 	ofxXmlGui *modeGui;
-	ofxXmlGui *interactionGui;
+	
+	// everything to do with image and interaction calibration goes here.
+	ofxXmlGui *calibrationGui;
 	
 	void drawAllProjectors();
 	

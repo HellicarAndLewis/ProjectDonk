@@ -1,6 +1,7 @@
 #include "testApp.h"
 #include "BubbleData.h"
 #include "QuestionData.h"
+#include "constants.h"
 
 //--------------------------------------------------------------
 void testApp::setup(){
@@ -12,7 +13,7 @@ void testApp::setup(){
 	// default starting mode
 	nextMode = "buzz";
 	mode->setMode(nextMode);
-	calibrate = false;
+
 }
 
 void testApp::setupGraphics() {
@@ -67,8 +68,7 @@ void testApp::render() {
 	
 	
 	// if we're capturing coords for projection mapping...
-	if(calibrate) {
-		calibrationProjection.setInteractiveArea(projection.getInteractiveArea());
+	if(calibrationProjection.calibrate) {
 		calibrationProjection.render();
 	} else {
 		projection.render();
@@ -83,7 +83,7 @@ void testApp::drawView() {
 			  mode->getValue("Background Blue"));
 	*/
 	
-	if(calibrate) {
+	if(calibrationProjection.calibrate) {
 		
 		calibrationProjection.drawOnModel(scene->getModel());
 		if(calibrationProjection.drawFacets) {
@@ -207,21 +207,11 @@ void testApp::setupKinect() {
 	ofAddListener(ofEvents.touchDown, this, &testApp::touchDown);
 	ofAddListener(ofEvents.touchUp, this, &testApp::touchUp);
 	ofAddListener(ofEvents.touchMoved, this, &testApp::touchMoved);
-	ofxXmlGui *gui = getInteractionGui();
-	gui->addToggle("Calibration Mode", calibrate);
-	gui->addTitle("Projection");
-	gui->addToggle("Draw Lena", calibrationProjection.drawLena);
-	gui->addSlider("Lena scale", calibrationProjection.lenaScale, 0.2, 5);
-	gui->addToggle("Draw Facets", calibrationProjection.drawFacets);
-	gui->addColorPicker("Facet Color", calibrationProjection.facetColor);
-	gui->addSlider("Line Width", calibrationProjection.lineWidth, 1, 10);
-	gui->addTitle("Interaction Area");
-	gui->addToggle("Draw Interactive Area", calibrationProjection.drawInteractiveArea);
-	gui->addSlider("Interaction x", projection.getInteractiveArea().x, 0, PROJECTION_RESOLUTION_WIDTH);
-	gui->addSlider("Interaction y", projection.getInteractiveArea().y, 0, PROJECTION_RESOLUTION_WIDTH);
-	gui->addSlider("Interaction width", projection.getInteractiveArea().width, 0, PROJECTION_RESOLUTION_WIDTH);
-	gui->addSlider("Interaction height", projection.getInteractiveArea().height, 0, PROJECTION_RESOLUTION_HEIGHT);
-	gui->enableAutoSave("settings/interactionSettings.xml");
+
+	calibrationProjection.setInteractiveArea(&projection.getInteractiveArea());
+	calibrationProjection.createGui(getCalibrationGui());
+	
+	
 }
 
 void testApp::touchDown(ofTouchEventArgs &touch) {

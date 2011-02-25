@@ -15,3 +15,5 @@ extern bool  useMSAA;
 
 // how long it takes to fade from one mode to another
 #define FADE_DURATION 1.5
+#define PROJECTION_RESOLUTION_WIDTH 2000
+#define PROJECTION_RESOLUTION_HEIGHT 2000

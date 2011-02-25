@@ -13,8 +13,7 @@
 #include "ofxTuioClient.h"
 #include "CalibrationProjection.h"
 
-#define PROJECTION_RESOLUTION_WIDTH 2000
-#define PROJECTION_RESOLUTION_HEIGHT 2800
+
 
 class testApp : public Donk::App {
 
@@ -66,7 +65,6 @@ private:
 	BubbleProjection projection;
 	CalibrationProjection calibrationProjection;
 	ofxTuioClient tuio;
-	bool calibrate;
 };
 
 #endif
