@@ -101,12 +101,12 @@ void testApp::draw(){
 	cubeshader.setUniform1i("baseMap", 2);
 	
 
-	cubeshader.setUniform1f("EdgeFalloff", 0.2);
+	cubeshader.setUniform1f("EdgeFalloff", 0.02);
 	
 	float* pos = new float[3];
-	pos[0] = 0.8;
-	pos[1] = 0.8;
-	pos[2] = 0.8;
+	pos[0] = 0.3;
+	pos[1] = 0.3;
+	pos[2] = 0.3;
 	cubeshader.setUniform3fv("fresnelValues", pos);
 	
 	float* cpos = new float[3];
