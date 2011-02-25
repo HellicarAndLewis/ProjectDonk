@@ -1,0 +1,14 @@
+<!-- here goes the list of all the parameters that should be accessible
+     and configurable per mode. All the modes should be listed in the 
+	 <parameters> tag, their values will be stored in a separate xml file.
+	 -->
+<parameters>
+	<mode name="buzz"></mode>
+	<mode name="inspiration"></mode>
+	<mode name="interview"></mode>
+	<mode name="question"></mode>
+	<mode name="performance"></mode>
+    <parameter name="Background Red" defaultValue="0" minValue="0" maxValue="255"></parameter>
+    <parameter name="Background Green" defaultValue="0" minValue="0" maxValue="255"></parameter>
+    <parameter name="Background Blue" defaultValue="0" minValue="0" maxValue="255"></parameter>
+</parameters>
