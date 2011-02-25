@@ -77,7 +77,8 @@ namespace Donk{
 	}
 	
 	BubbleData::MediaEntry::MediaEntry(){
-		
+		thumbLoader = NULL;
+		mediaLoader = NULL;
 	}
 	
 	BubbleData::MediaEntry::~MediaEntry(){

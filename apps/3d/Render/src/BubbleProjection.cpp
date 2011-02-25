@@ -41,7 +41,7 @@ void BubbleProjection::update() {
 
 void BubbleProjection::draw() {
 	// clear the FBO
-	ofClear(0, 0, 0, 0);
+	ofClear(0, 50, 0, 0);
 	
 	
 	
@@ -61,6 +61,7 @@ void BubbleProjection::draw() {
 
 /** A bubble was just received */
 void BubbleProjection::bubbleReceived(Donk::BubbleData *bubbleData) {
+	printf("%s %s\n", bubbleData->text.c_str(), bubbleData->userName.c_str());
 }
 
 
