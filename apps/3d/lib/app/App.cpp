@@ -10,9 +10,14 @@
 #include "GLHelpers.h"
 #include "constants.h"
 #include "Mode.h"
+#include "ofxMacKeys.h"
 
 using namespace util;
 using namespace Donk;
+float f = 0;
+
+int whichGui = 0;
+
 App::App() {
 	ofSetLogLevel(OF_LOG_NOTICE);
 
@@ -39,6 +44,7 @@ App::App() {
 	}
 	
 	ofAddListener(ofEvents.keyPressed, this, &App::_keyPressed);
+	ofAddListener(ofEvents.keyReleased, this, &App::_keyReleased);
 	ofAddListener(ofEvents.draw, this, &App::_draw);
 	ofAddListener(ofEvents.update, this, &App::_update);
 	
@@ -46,10 +52,29 @@ App::App() {
 	if(settings.getBool("using first screen for gui only", false)) {
 		guiEnabled = true;
 	}
-
+	
+	guiChooser.setup(10, 10, 200);
+	guiChooser.addSegmentedControl(" ", whichGui, "Projector|Mode|Calibration");
+	guiChooser.enable();
+	guiChooser.height = 25;
+	guiChooser.addListener(this);
+	
 	sceneGui->setEnabled(false);
 	modeGui = Mode::getInstance()->getGui();
 	modeGui->enable();
+	calibrationGui = new ofxXmlGui();
+	calibrationGui->setup(10, 35, 200);
+	
+	
+	
+}
+
+void App::controlChanged(GuiControl *control) {
+	if(control->controlId==" ") { // it's the gui chooser! - fire a mouse press
+		ofKeyEventArgs e;
+		e.key = '1' + whichGui;
+		_keyPressed(e);
+	}
 }
 
 void App::drawAllProjectors() {
@@ -72,9 +97,11 @@ void App::drawAllProjectors() {
 		projectorBlend.draw(0, 0);
 	}
 }
+
 void App::_update(ofEventArgs &e) {
-	scene->update();
+	scene->update();	
 }
+
 void App::_draw(ofEventArgs &e) {
 	// just have to have this here for some weird reason
 	// - I think it's a bug in 007, maybe it's me. meh.
@@ -89,38 +116,132 @@ void App::_draw(ofEventArgs &e) {
 	ofSetupScreen();
 	glViewport(0, 0, ofGetWidth(), ofGetHeight());
 	ofSetupScreen();
+	
+	if(guiEnabled) {
+		ofSetHexColor(0xFF0000);
+		ofDrawBitmapString(ofToString(ofGetFrameRate(), 2),10,ofGetHeight()-10);
+	}
 }
 
 
 int lastGui = 1;
+bool zedDown = false;
+bool exDown = false;
+bool zooming = false;
+
+void App::_keyReleased(ofKeyEventArgs &e) {
+	switch(e.key) {
+		case '/':
+		case '`':
+			zooming = false;
+			break;
+		case 'x':
+		case 'X':
+			exDown = false;
+			break;
+			
+		case 'z':
+		case 'Z':
+			zedDown = false;
+			break;
+	}
+}
+
+
 void App::_keyPressed(ofKeyEventArgs &e) {
+	
+	float increment = ofxMacShiftKeyDown()?0.1:0.005;
+	
 	switch(e.key) {
 		case ' ':
 			guiEnabled ^= true;
 			if(!guiEnabled) {
 				sceneGui->setEnabled(false);
 				modeGui->disable();
+				calibrationGui->disable();
+				guiChooser.disable();
 			} else {
 				e.key = lastGui;
 				_keyPressed(e);
 			}
 			break;
 		case '1':
+			guiChooser.enable();
+			whichGui = 0;
 			lastGui = '1';
 			guiEnabled = true;
 			sceneGui->setEnabled(true);
 			modeGui->disable();
+			calibrationGui->disable();
 			break;
 		case '2':
+			guiChooser.enable();
+			whichGui = 1;
 			lastGui = '2';
 			guiEnabled = true;
 			sceneGui->setEnabled(false);
 			modeGui->enable();
+			calibrationGui->disable();
 			break;
-			
+		case '3':
+			guiChooser.enable();
+			whichGui = 2;
+			lastGui = '3';
+			guiEnabled = true;
+			sceneGui->setEnabled(false);
+			modeGui->disable();
+			calibrationGui->enable();
+			break;
 		case 'f':
 		case 'F':
 			ofToggleFullscreen();
 			break;
+		case 'z':
+		case 'Z':
+			zedDown = true;
+			break;
+		case 'x':
+		case 'X':
+			exDown = true;
+			break;
+			
+		case OF_KEY_UP:
+			if(zedDown) scene->projectors[0]->pos.z+=increment;
+			else if(exDown) scene->projectors[0]->pos.y-=increment;
+			else scene->projectors[0]->rot.y -= increment;
+			sceneGui->save();
+			break;
+			
+		case OF_KEY_DOWN:
+			if(zedDown) scene->projectors[0]->pos.z-=increment;
+			else if(exDown) scene->projectors[0]->pos.y+=increment;
+			else scene->projectors[0]->rot.y += increment;
+			sceneGui->save();
+			break;
+		case OF_KEY_LEFT:
+			if(exDown) {
+				// pan left
+				scene->projectors[0]->pos.x+=increment;
+			} else if(!zedDown) {
+				// rotate left
+				scene->projectors[0]->rot.x+=increment;
+			}
+			sceneGui->save();
+			break;
+			
+		case OF_KEY_RIGHT:
+			if(exDown) {
+				// pan right
+				scene->projectors[0]->pos.x-=increment;
+			} else if(!zedDown) {
+				// rotate right
+				scene->projectors[0]->rot.x-=increment;
+			}
+			sceneGui->save();
+			break;
 	}
+}
+
+ofxXmlGui *App::getCalibrationGui() {
+	return calibrationGui;
 }

@@ -25,14 +25,23 @@ public:
 
 
 	/**
+	 * Called after texture is allocated (in setup)
+	 */
+	virtual void setup() {}
+	
+	virtual void update() {}
+	
+	/**
 	 * implement this to draw your particle system or whatever
 	 */ 
 	virtual void draw() {}
 	
+	
+	
 	/**
 	 * Decide how big you want it.
 	 */
-	void setup(float width, float height);	
+	void allocate(float width, float height);	
 	
 	/**
 	 * Call this with a model to get it to draw

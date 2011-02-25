@@ -14,7 +14,7 @@ using namespace Donk;
 
 Mode::Mode() {
 	
-	
+	ofLogNotice() << "Mode::Mode()";
 	selectedModeId = 0;
 	currModeName = "";
 	gui = NULL;
@@ -72,7 +72,7 @@ Mode::Mode() {
 	
 	
 	
-	//print();
+	print();
 }
 
 void Mode::saveModeValues(string modeName) {
@@ -165,7 +165,7 @@ ofxXmlGui *Mode::getGui() {
 		
 		gui = new ofxXmlGui();
 		gui->x = 200;
-		gui->setup(10, 10, 200);
+		gui->setup(10, 35, 200);
 		map<string,float>::iterator it;
 		if(currModeName=="")  {
 			currModeName = (*parameters.begin()).first;

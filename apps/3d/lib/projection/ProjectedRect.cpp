@@ -9,7 +9,7 @@
 #include "ProjectedRect.h"
 
 
-void ProjectedRect::setup(float width, float height) {
+void ProjectedRect::allocate(float width, float height) {
 	
 	this->width = width;
 	this->height = height;
@@ -19,6 +19,7 @@ void ProjectedRect::setup(float width, float height) {
 	this->width = testImage.getWidth();
 	this->height = testImage.getHeight();
 #endif		
+	setup();
 }
 
 
@@ -59,7 +60,8 @@ void ProjectedRect::drawOnModel(Model *model) {
 	// scale the texture matrix so we can use normalized tex coords
 	glMatrixMode(GL_TEXTURE);
 	glLoadIdentity();
-	glScalef(width, height, 1);
+	glScalef(width, -height, 1);
+	glTranslatef(0, -1, 0);
 	glMatrixMode(GL_MODELVIEW);
 	
 	
