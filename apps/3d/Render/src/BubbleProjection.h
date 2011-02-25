@@ -8,10 +8,16 @@
 #pragma once
 
 #include "ProjectedRect.h"
+#include "BubbleData.h"
 
 class BubbleProjection: public ProjectedRect {
 public:
 	BubbleProjection();
+	/** This gets called straight after allocate() */
+	void setup();
+	
+	/** Called every frame */
+	void update();
 	void draw();
 	
 	/** 
@@ -22,6 +28,16 @@ public:
 	void touchMoved(float x, float y, int touchId);
 	void touchUp(float x, float y, int touchId);
 
+	/** A bubble was just received */
+	void bubbleReceived(Donk::BubbleData *bubbleData);
+	
+	// Other useful methods of the inherited class:
+	// float getWidth();
+	// float getHeight();
+	
+	
+	
+	
 	/** Maps a normalized point to coordinates in the interactive area */
 	ofVec2f mapToInteractiveArea(ofVec2f inPoint);
 	

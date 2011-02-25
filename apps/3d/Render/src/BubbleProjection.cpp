@@ -8,20 +8,63 @@
 
 #include "BubbleProjection.h"
 
+
+
+//----------------------------------------------------------------------------//
+// INITIALIZATION 
+//----------------------------------------------------------------------------//
+
+
 BubbleProjection::BubbleProjection() {
 	interactiveArea = ofRectangle(100,100,900,500);
 }
 
+
+
+
+/** This gets called straight after allocate() */
+void BubbleProjection::setup() {
+	
+	
+}
+
+
+
+//----------------------------------------------------------------------------//
+// MAIN LOOP 
+//----------------------------------------------------------------------------//
+
+/** Called every frame */
+void BubbleProjection::update() {
+	
+}
+
 void BubbleProjection::draw() {
-	ofClear(0, 100, 0, 0);
+	// clear the FBO
+	ofClear(0, 0, 0, 0);
 	
 	
+	
+	// this draws the touches - keep in here for now!
 	ofSetHexColor(0xFF0000);
 	for(tIt = touches.begin(); tIt!=touches.end(); tIt++) {
 		ofVec2f pos = mapToInteractiveArea((*tIt).second);
 		ofCircle(pos, 30);
 	}
 }
+
+
+
+//----------------------------------------------------------------------------//
+// EVENTS 
+//----------------------------------------------------------------------------//
+
+/** A bubble was just received */
+void BubbleProjection::bubbleReceived(Donk::BubbleData *bubbleData) {
+}
+
+
+
 
 ofRectangle &BubbleProjection::getInteractiveArea() {
 	return interactiveArea;

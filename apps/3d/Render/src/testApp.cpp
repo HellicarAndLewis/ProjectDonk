@@ -101,6 +101,10 @@ void testApp::drawView() {
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
+	if(key=='b'||key=='B') {
+		ofxOscMessage m;
+		projection.bubbleReceived(new Donk::BubbleData(m));
+	}
 
 }
 
