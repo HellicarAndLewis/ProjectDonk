@@ -192,6 +192,13 @@ vector<GuiControl*> GuiContainer::getControls() {
 }
 void GuiContainer::draw() {
 	if(!visible) return;
+	bool depthTestWasEnabled = false;
+	if(parent==NULL) {
+		if(glIsEnabled(GL_DEPTH_TEST)) {
+			depthTestWasEnabled = true;
+			glDisable(GL_DEPTH_TEST);
+		}
+	}
 	ofFill();
 	glPushMatrix();
 	glTranslatef(x, y, 0);
@@ -211,6 +218,9 @@ void GuiContainer::draw() {
 		}
 	}
 	glPopMatrix();
+	if(depthTestWasEnabled) {
+		glEnable(GL_DEPTH_TEST);
+	}
 }
 
 
