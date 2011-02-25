@@ -1,0 +1,9 @@
+<properties>
+    <property key="model file" value="scene.obj"></property>
+    <property key="num projectors" value="1"></property>
+    <property key="projector height" value="720"></property>
+    <property key="projector width" value="1280"></property>
+    <property key="using MSAA" value="false"></property>
+    <property key="using first screen for gui only" value="false"></property>
+    <property key="using projector blending" value="false"></property>
+</properties>

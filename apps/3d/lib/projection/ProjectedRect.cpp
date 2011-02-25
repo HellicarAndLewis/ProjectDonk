@@ -9,7 +9,7 @@
 #include "ProjectedRect.h"
 
 
-void ProjectedRect::setup(float width, float height) {
+void ProjectedRect::allocate(float width, float height) {
 	
 	this->width = width;
 	this->height = height;
@@ -19,6 +19,7 @@ void ProjectedRect::setup(float width, float height) {
 	this->width = testImage.getWidth();
 	this->height = testImage.getHeight();
 #endif		
+	setup();
 }
 
 
