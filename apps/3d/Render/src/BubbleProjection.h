@@ -9,6 +9,8 @@
 
 #include "ProjectedRect.h"
 #include "BubbleData.h"
+#include "ofxBullet.h"
+
 
 class BubbleProjection: public ProjectedRect {
 public:
@@ -45,6 +47,10 @@ public:
 	ofRectangle &getInteractiveArea();
 	
 private:
+	
+	// Bullet
+	ofxBullet bullet;
+	
 	ofRectangle interactiveArea;
 
 	/** this gets called (from touchDown) when there is a detected double touch */
