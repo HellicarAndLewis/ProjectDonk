@@ -10,13 +10,16 @@
 #include "ProjectedRect.h"
 #include "BubbleData.h"
 #include "ofxBullet.h"
-
+#include "ContentBubble.h"
 
 class BubbleProjection: public ProjectedRect {
 public:
 	BubbleProjection();
 	/** This gets called straight after allocate() */
 	void setup();
+	
+	// TODO: exit()...
+	// void exit(); <--- I think i might need an exit function....
 	
 	/** Called every frame */
 	void update();
@@ -49,7 +52,13 @@ public:
 private:
 	
 	// Bullet
-	ofxBullet bullet;
+	ofxBullet				bullet;
+	ofLight					light;
+	ofCamera				camera;
+	vector <ContentBubble*> bubbles;
+	
+	
+	
 	
 	ofRectangle interactiveArea;
 

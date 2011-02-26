@@ -34,7 +34,7 @@ static bool removeRigidBody(ofxBulletRigidBody * b) {
 }
 
 ofxBullet::ofxBullet() {
-	world = NULL;
+	world  = NULL;
 	ground = NULL;
 }
 
@@ -68,6 +68,22 @@ void ofxBullet::init() {
 										 overlappingPairCache,
 										 solver,
 										 collisionConfiguration);
+	
+	if(world != NULL) {
+		printf("--- Bullet World Created ---\n");	
+	}
+}
+
+//--------------------------------------------------------------
+void ofxBullet::setGravity(ofVec3f &g) {
+	setGravity(g.x, g.y, g.z);
+}
+
+//--------------------------------------------------------------
+void ofxBullet::setGravity(float x, float y, float z) {
+	if(world != NULL) {
+		world->setGravity(btVector3(x, y, z));	
+	}
 }
 
 //--------------------------------------------------------------
