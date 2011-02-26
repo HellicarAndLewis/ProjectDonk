@@ -101,12 +101,7 @@ ofFbo::Settings::Settings() {
 	numColorbuffers			= 1;
 	useDepth				= true;
 	useStencil				= false;
-	
-	if(ofGetUsingArbTex()) {
-		textureTarget			= GL_TEXTURE_RECTANGLE_ARB;
-	} else {
-		textureTarget			= GL_TEXTURE_2D;
-	}
+	textureTarget			= GL_TEXTURE_RECTANGLE_ARB;
 	internalformat			= GL_RGBA;
 	wrapModeHorizontal		= GL_CLAMP_TO_EDGE;
 	wrapModeVertical		= GL_CLAMP_TO_EDGE;
@@ -196,11 +191,6 @@ void ofFbo::setup(int width, int height, int internalformat, int numSamples) {
 	settings.useDepth		= true;
 	settings.useStencil		= true;
 	
-	if(ofGetUsingArbTex()) {
-		settings.textureTarget			= GL_TEXTURE_RECTANGLE_ARB;
-	} else {
-		settings.textureTarget			= GL_TEXTURE_2D;
-	}
 	
 	setup(settings);
 }
@@ -255,6 +245,12 @@ void ofFbo::setup(Settings settings) {
 	unbind();
 }
 
+void ofFbo::setUseMipmapping(bool enable)
+{
+	settings.useMipmapping = enable;
+	settings.minFilter = GL_LINEAR_MIPMAP_LINEAR;
+}
+
 void ofFbo::setupShadow( int width, int height )
 {
 	int old;
@@ -268,9 +264,10 @@ void ofFbo::setupShadow( int width, int height )
 	
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	
 	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP );
 	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP );
-		
+	
 	glTexImage2D( GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, settings.width, settings.height, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, 0 );
 	glBindTexture( GL_TEXTURE_2D, 0 );
 	
@@ -303,9 +300,14 @@ void ofFbo::createAndAttachTexture(GLenum attachmentPoint) {
 	glBindFramebuffer(GL_FRAMEBUFFER, fboTextures);
 
 	ofTexture *tex = new ofTexture;
+	if(settings.useMipmapping){
+		tex->setUseMipmapping(true);
+	}
+	
 	tex->allocate(settings.width, settings.height, settings.internalformat, settings.textureTarget == GL_TEXTURE_2D ? false : true);
 	tex->setTextureWrap(settings.wrapModeHorizontal, settings.wrapModeVertical);
 	tex->setTextureMinMagFilter(settings.minFilter, settings.maxFilter);
+		
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + attachmentPoint, tex->texData.textureTarget, tex->texData.textureID, 0);
 	textures.push_back(tex);
 
@@ -323,9 +325,12 @@ void ofFbo::createAndAttachTexture(GLenum attachmentPoint) {
 void ofFbo::begin() {
 	bind();
 	ofPushView();
-	glViewport(0, 0, getWidth(), getHeight());
-	ofSetupScreenPerspective(getWidth(), getHeight(), false);
+	ofViewport(0, 0, getWidth(), getHeight(), false);
+	ofSetupScreenPerspective(getWidth(), getHeight(), 0, false);
 }
+
+//void ofViewport(float x = 0, float y = 0, float width = 0, float height = 0, bool invertY = true);
+//void ofSetupScreenPerspective(float width = 0, float height = 0, int orientation = 0, bool vFlip = true, float fov = 60, float nearDist = 0, float farDist = 0);
 
 
 void ofFbo::end() {
@@ -386,10 +391,14 @@ void ofFbo::updateTexture(int attachmentPoint) {
 
 		// restore readbuffer
 		glReadBuffer(readBuffer);
-
+		
 		// restore drawbuffer
 		glPopAttrib();
-
+	}
+	
+	if(settings.useMipmapping){
+		glBindTexture(settings.textureTarget, colorBuffers[attachmentPoint]);
+		glGenerateMipmap(settings.textureTarget);
 	}
 }
 

@@ -45,7 +45,8 @@ public:
 
 	GLuint getDepthBuffer(){ return depthBuffer; }
 	GLuint getStencilBuffer(){ return stencilBuffer; }
-
+	void setUseMipmapping(bool bUseMipmapping);
+	
 protected:
 	struct Settings {
 		int		width;					// width of images attached to fbo
@@ -53,6 +54,7 @@ protected:
 		int		numColorbuffers;		// how many color buffers to create
 		bool	useDepth;				// whether to use depth buffer or not
 		bool	useStencil;				// whether to use stencil buffer or not
+		bool	useMipmapping;				//JG whether should use mipmaps
 		GLenum	textureTarget;			// GL_TEXTURE_2D or GL_TEXTURE_RECTANGLE_ARB
 		GLint	internalformat;			// GL_RGBA, GL_RGBA16F_ARB, GL_RGBA32F_ARB, GL_LUMINANCE32F_ARB etc.
 		int		wrapModeHorizontal;		// GL_REPEAT, GL_MIRRORED_REPEAT, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_BORDER etc.
