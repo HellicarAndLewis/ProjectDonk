@@ -6,6 +6,7 @@ void testApp::setup() {
 	bApplyForce = false;
 	ofSetSphereResolution(4);
 	ofBackground(255,255,255);
+	ofEnableAlphaBlending();
 	ofEnableLighting();
 	glEnable(GL_DEPTH_TEST);
 	
@@ -15,26 +16,25 @@ void testApp::setup() {
 	
 	bullet.init();
 	//bullet.createGround(333);
-	bullet.world->setGravity(btVector3(0, 0, 0));
+	bullet.world->setGravity(btVector3(0, -10, 0));
 	
-	ofVec3f pos(-80, 0, 0);
-	momA = bullet.createSphere(pos, 50, 100);
+	int w = 800;
+	int h = 800;
+	int d = 100;
 	
-	ofVec3f posb(80, 0, 0);
-	momB = bullet.createSphere(posb, 50, 100);
+	ofVec3f pos(0, 0, 0);
+	momA = bullet.createSphere(pos, 1, 0);
+	prevTime = ofGetElapsedTimef();
+	cout << bullet.rigidBodies.size()-1<< endl;
 	
-	btTransform tr;
-	tr.setIdentity();
-	tr.setOrigin(btVector3(btScalar(10.), btScalar(0.), btScalar(0.)));
+	wallA = bullet.createBox(ofVec3f(0,0,-d), ofVec3f(w,h,1), 0);
+	wallB = bullet.createBox(ofVec3f(0,0,d), ofVec3f(w,h,1), 0);
+	wallC = bullet.createBox(ofVec3f(0,h,0), ofVec3f(w,1,d), 0);
+	//bullet.createBox(ofVec3f(w,0,0), ofVec3f(1,h,d), 0);
+	//bullet.createBox(ofVec3f(-w,0,0), ofVec3f(1,h,d), 0);
+	bullet.createBox(ofVec3f(0,-h,0), ofVec3f(w,1,d), 0);
 	
-	ofxBulletRigidBody* anchor = bullet.createSphere(pos, 10, 0);
-	sA = makeSpring(anchor->body,momA->body);
-	
-	tr.setIdentity();
-	tr.setOrigin(btVector3(btScalar(10.), btScalar(0.), btScalar(0.)));
-	
-	ofxBulletRigidBody* anchorB = bullet.createSphere(posb, 10, 0);
-	sB = makeSpring(anchorB->body,momB->body);
+		
 	
 }
 
@@ -46,8 +46,36 @@ void testApp::exit() {
 //--------------------------------------------------------------
 void testApp::update() {
 	
+	float dt = ofGetElapsedTimef()-prevTime;
+	
+	
+	for(int i=0; i<bullet.rigidBodies.size(); i++)
+	{
+	ofVec3f pos =  bullet.rigidBodies[i]->getPosition();
+	if(pos.x > 1000 || pos.x < -1000) bullet.rigidBodies[i]->destroy();
+	}
+	
+	
 	bullet.update();
-	cout << bullet.rigidBodies.size() << endl;
+	
+	for(int i=0; i<bullet.rigidBodies.size(); i++){
+		if(
+		   bullet.rigidBodies[i]->shape->getShapeType() != BOX_SHAPE_PROXYTYPE && 
+		   bullet.rigidBodies[i] != momA) 
+		{
+			float radius = bullet.rigidBodies[i]->radius;
+			if(radius < 100 ) radius+=100*dt;
+			bullet.rigidBodies[i]->setSize(radius);
+		}
+	    
+		
+	}
+	
+	//cout << "rand " <<  ofRandom(8,bullet.rigidBodies.size()-1) << endl;
+	//cout << "bodies: " << bullet.rigidBodies.size() << endl;
+	//cout << "consts: "  << bullet.constraints.size() << endl;
+	
+	prevTime = ofGetElapsedTimef();
 }
 
 //--------------------------------------------------------------
@@ -60,12 +88,19 @@ void testApp::draw() {
 	
 	glPushMatrix();
 	
-	glTranslatef(ofGetWidth()/2, (ofGetHeight()/2)+0, 400);
+	glTranslatef(ofGetWidth()/2, (ofGetHeight()/2)+0, -400);
 	glScalef(SCALE, SCALE, SCALE);
 	//ofRotateX(ofGetMouseY());
 	//ofRotateY(ofGetMouseX());
 	
-	bullet.draw();
+	//bullet.draw();
+	
+	for	(int i=0; i<bullet.rigidBodies.size(); i++) {
+		ofSetColor(200, 200, 205,100);
+		if(bullet.rigidBodies[i]->shape->getShapeType() != BOX_SHAPE_PROXYTYPE)
+			bullet.rigidBodies[i]->draw();
+		
+	}
 	
 	ofSetColor(255, 255, 255);
 	//bullet.drawFloor();
@@ -76,7 +111,7 @@ void testApp::draw() {
 	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_LIGHTING);
 	glColor4f(0, 0, 0, 1);
-	ofDrawBitmapString( "space: add random sphere | x: clear attractions  | z: add attractions", 20, 15);
+	ofDrawBitmapString( "space: add random sphere | x: remove random sphere", 20, 15);
 
 	ofSetColor(255, 0, 0);
 	ofSetWindowTitle(ofToString(ofGetFrameRate(), 1));
@@ -92,48 +127,25 @@ void testApp::keyPressed(int key) {
 	
 	if(key == ' ') {
 		
-		ofVec3f pos(ofRandom(-50, 50), ofRandom(0, 150), ofRandom(-50, 50));
+		ofVec3f pos(ofRandom(-250, 250), ofRandom(-250, 250), 0);
 		
-		ofxBulletRigidBody * b;
-		b = bullet.createSphere(pos, ofRandom(3, 20), 1);
-		if( int(ofRandom(0,2))%2 == 0 ) bullet.addAttractor(b,momA,40);
-		else bullet.addAttractor(b,momB,40);
-
+		ofxBulletRigidBody * b = bullet.createSphere(pos, 10, 1);
+		b->body->setDamping(.2, .9);
+		bullet.addAttractor(b,momA,30);
 	}
 	
 	if( key == 'x')
 	{
-		bullet.clearConstraints();
-		//for	(int i=0; i<bullet.rigidBodies.size(); i++)
-		//	bullet.clearAttractions(bullet.rigidBodies[i]);
-	}
-	
-	if( key == 'z')
-	{
-		for	(int i=0; i<bullet.rigidBodies.size(); i++)
-		{	
-			if( bullet.rigidBodies[i] == momA || bullet.rigidBodies[i] == momB) continue;
-			
-			if( int(ofRandom(0,2))%2 == 0 ) bullet.addAttractor(bullet.rigidBodies[i],momA,20);
-			else bullet.addAttractor(bullet.rigidBodies[i],momB,20);
-		}
-	}
-	
-	if( key == 'q'){
-		
-		//bullet.clearConstraints();
-		//bullet.world->removeConstraint(sA);
-		//bullet.world->removeConstraint(sB);
-		//momA->setSize(1);
-		momA->destroy();
-		momB->destroy();
+		int randBull = ofRandom(0,bullet.rigidBodies.size()-1);
+		if(
+		   bullet.rigidBodies[randBull]->shape->getShapeType() != BOX_SHAPE_PROXYTYPE && 
+		   bullet.rigidBodies[randBull] != momA) 
+			bullet.rigidBodies[randBull]->bDestroy = true;
+			//cout << "rand remove " << randBull << endl;
 		
 	}
 	
-	if(key =='k')
-	{
-	momA->setSize(60);
-	}
+	
 	
 }
 

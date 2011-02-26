@@ -7,9 +7,6 @@
 #include "ofxBullet.h"
 
 
-
-
-
 class ofxBulletDebugDrawer : public btIDebugDraw {
 	
 private:
@@ -93,4 +90,12 @@ public:
 	ofxBulletRigidBody * momB;
 	btGeneric6DofSpringConstraint* sA;
 	btGeneric6DofSpringConstraint* sB;
+	
+	
+	ofxBulletRigidBody * wallA;
+	ofxBulletRigidBody * wallB;
+	ofxBulletRigidBody * wallC;
+	
+	float prevTime;
+
 };
