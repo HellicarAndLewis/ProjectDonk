@@ -40,9 +40,12 @@ public:
 	
 	ofxBullet();
 	~ofxBullet();
+	void destroy();
 	
 	void init();
-	void destroy();
+	void setGravity(ofVec3f &g);
+	void setGravity(float x, float y, float z);
+
 	void update();
 	void draw();
 	void drawFloor();
@@ -51,9 +54,8 @@ public:
 	
 	void createGround(float size);
 	void addBody(ofxBulletRigidBody *b);
-	
-	ofxBulletRigidBody * createSphere(ofVec3f pos, float radius, float mass);
 
+	ofxBulletRigidBody * createSphere(ofVec3f pos, float radius, float mass);
 	ofxBulletRigidBody * createBox(ofVec3f pos, ofVec3f size, float mass);
 	ofxBulletRigidBody * createCone(ofVec3f pos, float radius, float height, float mass);
 	
