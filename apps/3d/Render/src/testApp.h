@@ -40,7 +40,8 @@ public:
 	void touchDown(ofTouchEventArgs &touch);
 	void touchMoved(ofTouchEventArgs &touch);
 	
-private:
+	static testApp* instance;
+//private:
 	/**
 	 osc object for receiving osc messages
 	 */
@@ -59,8 +60,6 @@ private:
 	string nextMode;
 	
 	Donk::Mode *mode;
-	
-	std::vector<Donk::BubbleData*> bubbles;
 	
 	BubbleProjection projection;
 	CalibrationProjection calibrationProjection;

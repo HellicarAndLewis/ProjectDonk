@@ -7,6 +7,7 @@
  */
 
 #include "BubbleProjection.h"
+#include "testApp.h"
 
 
 
@@ -42,7 +43,13 @@ void BubbleProjection::update() {
 void BubbleProjection::draw() {
 	// clear the FBO
 	ofClear(0, 50, 0, 0);
-	
+
+	//draw bubbles
+	glPushMatrix();
+	ofRectangle *rect = testApp::instance->calibrationProjection.rect;
+	glTranslatef(rect->x + rect->width/2,rect->y + rect->height/2,0);
+	Donk::BubbleData::render();
+	glPopMatrix();
 	
 	
 	// this draws the touches - keep in here for now!
@@ -51,6 +58,7 @@ void BubbleProjection::draw() {
 		ofVec2f pos = mapToInteractiveArea((*tIt).second);
 		ofCircle(pos, 30);
 	}
+	
 }
 
 

@@ -1,11 +1,11 @@
 <values>
-    <value controlId="Calibration Mode" value="false"></value>
+    <value controlId="Calibration Mode" value="true"></value>
     <value controlId="Projection" value="0"></value>
     <value controlId="Draw Lena" value="false"></value>
-    <value controlId="Lena scale" value="4.039999962"></value>
+    <value controlId="Lena scale" value="3.029473782"></value>
     <value controlId="Draw Chequerboard" value="false"></value>
     <value controlId="Chequerboard size" value="157.789474487"></value>
-    <value controlId="Chequerboard Color" value="14739199"></value>
+    <value controlId="Chequerboard Color" value="6326374"></value>
     <value controlId="Draw Facets" value="true"></value>
     <value controlId="Facet Color" value="16322052"></value>
     <value controlId="Line Width" value="1.000000000"></value>

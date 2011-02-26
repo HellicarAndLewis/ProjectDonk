@@ -29,9 +29,10 @@ public:
 	float chequerboardSize;
 	void createGui(ofxXmlGui *gui);
 	
+	ofRectangle *rect;
+
 private:
 	
 	ofImage lena;
-	ofRectangle *rect;
 	ofxCoordMapper coordMapper;
 };

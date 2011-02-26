@@ -3,9 +3,10 @@
 #include "QuestionData.h"
 #include "constants.h"
 
+testApp *testApp::instance;
 //--------------------------------------------------------------
 void testApp::setup(){
-	
+	instance = this;
 	setupOsc();
 	setupKinect();
 	setupGraphics();
@@ -28,11 +29,7 @@ void testApp::setupGraphics() {
 //--------------------------------------------------------------
 void testApp::update(){
 
-	//call update on all the bubbles
-	std::vector<Donk::BubbleData*>::iterator bdit;
-	for(bdit=bubbles.begin();bdit!=bubbles.end();bdit++){
-		(*bdit)->step();
-	}
+	Donk::BubbleData::update();
 	
 	processOsc();
 	projection.update();
@@ -40,32 +37,6 @@ void testApp::update(){
 
 
 void testApp::render() {
-	
-	//draw all the bubbles
-	glPushMatrix();
-	int xoff = 0;
-	int yoff = 0;
-	std::vector<Donk::BubbleData*>::iterator bdit;
-	for(bdit=bubbles.begin();bdit!=bubbles.end();bdit++){
-		if((*bdit)->profileImage.width != 0){
-			
-			if(xoff+(*bdit)->profileImage.width>ofGetWidth()){
-				yoff+=50;
-				xoff = 0;
-			}
-			
-			ofSetColor(255,255,255);
-			(*bdit)->profileImage.draw(xoff,yoff);
-		
-			xoff += (*bdit)->profileImage.width;
-			
-		}
-	}
-	glPopMatrix();
-		
-	
-	
-	
 	
 	// if we're capturing coords for projection mapping...
 	if(calibrationProjection.calibrate) {
@@ -204,7 +175,7 @@ void testApp::processOsc() {
 			
 		}else if(m.getAddress()=="/control/bubble/new"){
 			
-			bubbles.push_back(new Donk::BubbleData(m));
+			Donk::BubbleData::add(m);
 			//cout << "todo: do something with new bubble received from " << bd.userName << " in mode " << bd.mode << endl;
 			
 		}else if(m.getAddress()=="/control/question/update"){

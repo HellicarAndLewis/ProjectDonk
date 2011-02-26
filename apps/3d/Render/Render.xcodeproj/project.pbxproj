@@ -155,8 +155,6 @@
 		5FF09D7D13180C67009A416F /* btGeometryUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FF09CC913180C67009A416F /* btGeometryUtil.cpp */; };
 		5FF09D7E13180C67009A416F /* btQuickprof.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FF09CD413180C67009A416F /* btQuickprof.cpp */; };
 		5FF09D7F13180C67009A416F /* ofxBullet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FF09CE213180C67009A416F /* ofxBullet.cpp */; };
-		5FF09D8013180C67009A416F /* ofxBulletHollowSphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FF09CE513180C67009A416F /* ofxBulletHollowSphere.cpp */; };
-		5FF09D8113180C67009A416F /* ofxBulletRBtoRBAttractor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FF09CE713180C67009A416F /* ofxBulletRBtoRBAttractor.cpp */; };
 		5FF09D8213180C67009A416F /* ofxBulletRigidBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FF09CE913180C67009A416F /* ofxBulletRigidBody.cpp */; };
 		81313BE71316160E000F5CD2 /* base64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81313BE51316160E000F5CD2 /* base64.cpp */; };
 		81313BEA13161617000F5CD2 /* AsyncHttpLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81313BE813161617000F5CD2 /* AsyncHttpLoader.cpp */; };
@@ -659,11 +657,6 @@
 		5FF09CDF13180C67009A416F /* cl_platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cl_platform.h; sourceTree = "<group>"; };
 		5FF09CE213180C67009A416F /* ofxBullet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBullet.cpp; sourceTree = "<group>"; };
 		5FF09CE313180C67009A416F /* ofxBullet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBullet.h; sourceTree = "<group>"; };
-		5FF09CE413180C67009A416F /* ofxBulletBaseConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBulletBaseConstraint.h; sourceTree = "<group>"; };
-		5FF09CE513180C67009A416F /* ofxBulletHollowSphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBulletHollowSphere.cpp; sourceTree = "<group>"; };
-		5FF09CE613180C67009A416F /* ofxBulletHollowSphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBulletHollowSphere.h; sourceTree = "<group>"; };
-		5FF09CE713180C67009A416F /* ofxBulletRBtoRBAttractor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBulletRBtoRBAttractor.cpp; sourceTree = "<group>"; };
-		5FF09CE813180C67009A416F /* ofxBulletRBtoRBAttractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBulletRBtoRBAttractor.h; sourceTree = "<group>"; };
 		5FF09CE913180C67009A416F /* ofxBulletRigidBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBulletRigidBody.cpp; sourceTree = "<group>"; };
 		5FF09CEA13180C67009A416F /* ofxBulletRigidBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBulletRigidBody.h; sourceTree = "<group>"; };
 		5FF09CEB13180C67009A416F /* ofxBulletUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBulletUtils.h; sourceTree = "<group>"; };
@@ -1568,11 +1561,6 @@
 			children = (
 				5FF09CE213180C67009A416F /* ofxBullet.cpp */,
 				5FF09CE313180C67009A416F /* ofxBullet.h */,
-				5FF09CE413180C67009A416F /* ofxBulletBaseConstraint.h */,
-				5FF09CE513180C67009A416F /* ofxBulletHollowSphere.cpp */,
-				5FF09CE613180C67009A416F /* ofxBulletHollowSphere.h */,
-				5FF09CE713180C67009A416F /* ofxBulletRBtoRBAttractor.cpp */,
-				5FF09CE813180C67009A416F /* ofxBulletRBtoRBAttractor.h */,
 				5FF09CE913180C67009A416F /* ofxBulletRigidBody.cpp */,
 				5FF09CEA13180C67009A416F /* ofxBulletRigidBody.h */,
 				5FF09CEB13180C67009A416F /* ofxBulletUtils.h */,
@@ -2638,8 +2626,6 @@
 				5FF09D7D13180C67009A416F /* btGeometryUtil.cpp in Sources */,
 				5FF09D7E13180C67009A416F /* btQuickprof.cpp in Sources */,
 				5FF09D7F13180C67009A416F /* ofxBullet.cpp in Sources */,
-				5FF09D8013180C67009A416F /* ofxBulletHollowSphere.cpp in Sources */,
-				5FF09D8113180C67009A416F /* ofxBulletRBtoRBAttractor.cpp in Sources */,
 				5FF09D8213180C67009A416F /* ofxBulletRigidBody.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

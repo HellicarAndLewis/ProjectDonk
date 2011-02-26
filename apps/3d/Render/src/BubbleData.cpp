@@ -7,9 +7,66 @@
  */
 
 #include "BubbleData.h"
+#include <GLUT/GLUT.h>
 
 namespace Donk{
 
+	vector<BubbleData*> Donk::BubbleData::all;
+
+	void BubbleData::add(ofxOscMessage &m){
+		all.push_back(new BubbleData(m));
+	}
+	
+	void BubbleData::render(){
+		//draw all the bubbles
+		glPushMatrix();
+		vector<BubbleData*>::iterator bdit;
+		for(bdit=all.begin();bdit!=all.end();bdit++)(*bdit)->draw();
+		glPopMatrix();
+		
+	}
+	
+	
+	void BubbleData::draw(){
+		if(profileImage.width != 0){
+			ofSetColor(255,255,255);
+			profileImage.bind();
+			float w = profileImage.width;
+			float h = profileImage.height;
+			
+			//draw the circle-masked thumbnail
+			int steps = 60;
+			float inc = TWO_PI/(float)steps;			
+			glBegin(GL_TRIANGLE_FAN);
+			for(int i=0;i<steps;i++){
+				float x = cos(inc*i);
+				float y = sin(inc*i);
+				glTexCoord2f((x+1)*w*0.5,(y+1)*h*0.5);
+				glVertex2f(x*radius,y*radius);
+			}
+			glEnd();
+			profileImage.unbind();
+			
+			//glutWireSphere(radius,10,10);
+			
+			//move to the right, for now.
+			glTranslatef(radius*2,0,0);
+		}
+		
+	}
+	
+	
+	void BubbleData::update(){
+		//call update on all the bubbles
+		vector<BubbleData*>::iterator bdit;
+		for(bdit=all.begin();bdit!=all.end();bdit++){
+			(*bdit)->step();
+		}
+		
+	}
+
+	
+	
 	void BubbleData::step(){
 		if(profileImageLoader!=NULL){
 			if(profileImageLoader->status==2){
@@ -29,6 +86,9 @@ namespace Donk{
 	}
 	
 	BubbleData::BubbleData(ofxOscMessage &m){
+		
+		radius = ofRandomuf()*100+50;
+		
 		int index=0;
 		profileImageLoader = NULL;
 		
