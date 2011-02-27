@@ -59,6 +59,8 @@ public:
 	{
 		glBindTexture(GL_TEXTURE_CUBE_MAP_ARB, 0 );
 	}
+	
+	void updateImages( ofImage pos_x, ofImage pos_y, ofImage pos_z, ofImage neg_x,ofImage neg_y,ofImage neg_z );
 
 	void enableFixedMapping()
 	{
