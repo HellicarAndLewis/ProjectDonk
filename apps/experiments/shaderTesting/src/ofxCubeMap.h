@@ -26,18 +26,18 @@ public:
 	{	
 		ofImage images[6];	
 		bool loaded1 = images[0].loadImage(pos_x);
-		bool loaded2 = images[1].loadImage(neg_x);
-		bool loaded3 = images[2].loadImage(pos_y);
-		bool loaded4 = images[3].loadImage(neg_y);
-		bool loaded5 = images[4].loadImage(pos_z);
+		bool loaded2 = images[1].loadImage(pos_y);
+		bool loaded3 = images[2].loadImage(pos_z);
+		bool loaded4 = images[3].loadImage(neg_x);
+		bool loaded5 = images[4].loadImage(neg_y);
 		bool loaded6 = images[5].loadImage(neg_z);
 		
 
 		loadFromOfImages(images[0],
-						 images[2],
-						 images[4],
 						 images[1],
+						 images[2],
 						 images[3],
+						 images[4],
 						 images[5]);
 		
 	}
