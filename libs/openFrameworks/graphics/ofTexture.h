@@ -32,6 +32,7 @@ public:
 		tex_t			= 0;
 		tex_u			= 0;
 		compressionType = OF_COMPRESS_NONE;
+		bUseMipmapping	= false; 
 	}
 
 	~ofTextureData(){
@@ -56,6 +57,7 @@ public:
 		tex_t			= mom.tex_t;
 		tex_u			= mom.tex_u;
 		compressionType = mom.compressionType;
+		bUseMipmapping	= mom.bUseMipmapping;
 	}
 
 
@@ -73,7 +75,7 @@ public:
 	unsigned int textureID;
 	bool bAllocated;
 	ofTexCompression compressionType;
-
+	bool bUseMipmapping;
 
 	void clear(){
 		// try to free up the texture memory so we don't reallocate
@@ -145,7 +147,8 @@ class ofTexture : public ofBaseDraws{
 	
 	void setTextureWrap(GLint wrapModeHorizontal, GLint wrapModeVertical);
 	void setTextureMinMagFilter(GLint minFilter, GLint maxFilter);
-
+	void setUseMipmapping(bool useMipmapping);
+	
 	void setCompression(ofTexCompression compression);
 
 	bool bAllocated();

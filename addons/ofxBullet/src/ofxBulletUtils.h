@@ -95,7 +95,7 @@ static btVector3 * ofVec3TobtVec3(const ofVec3f * points, int nPts) {
 }
 
 
-static void drawSphere( const ofVec3f &center, float radius, int segments ) {
+static void drawSphere( const ofVec3f &center, float radius, int segments=10 ) {
 	
 	if( segments < 0 ) return;
 	

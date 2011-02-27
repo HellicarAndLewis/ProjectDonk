@@ -11,35 +11,50 @@
 
 
 
-//----------------------------------------------------------------------------//
-// INITIALIZATION 
-//----------------------------------------------------------------------------//
-
-
+//--------------------------------------------------------
 BubbleProjection::BubbleProjection() {
 	interactiveArea = ofRectangle(100,100,900,500);
 }
 
 
 
-
+//--------------------------------------------------------
 /** This gets called straight after allocate() */
 void BubbleProjection::setup() {
 	
+
+	
+	light.setDirectional(false);
+	light.setAmbientColor(ofColor(100, 120, 100));
+	light.setDiffuseColor(ofColor(255, 255, 255));
+	
+	
+	camera.resetTransform();
+	camera.setPosition(ofVec3f(0, 0, 0));
+	camera.orbit(0, 0, 500);
+
+	
+	bullet.init();
+	//bullet.createGround(50);
+	bullet.setGravity(0, 0, 0);
+	bullet.camera = &camera;
+	
 	
 }
 
-
-
-//----------------------------------------------------------------------------//
-// MAIN LOOP 
-//----------------------------------------------------------------------------//
-
+//--------------------------------------------------------
 /** Called every frame */
 void BubbleProjection::update() {
 	
+	for(int i=0; i<bubbles.size(); i++) {
+		bubbles[i]->update();	
+	}
+	
+	bullet.update();
 }
 
+
+//--------------------------------------------------------
 void BubbleProjection::draw() {
 	// clear the FBO
 	ofClear(0, 50, 0, 0);
@@ -57,28 +72,76 @@ void BubbleProjection::draw() {
 	for(tIt = touches.begin(); tIt!=touches.end(); tIt++) {
 		ofVec2f pos = mapToInteractiveArea((*tIt).second);
 		ofCircle(pos, 30);
+		
+	
+		
 	}
+	
+	// center of the app
+	ofVec2f pos(getWidth()/2, getHeight()/2);
+	ofCircle(pos, 10);
+	
+
+	ofEnableLighting();
+	light.enable();
+	camera.begin();
+	light.draw();
+	camera.draw();
+	
+	// ---------------------
+	glPushMatrix();
+	glScaled(SCALE, SCALE, SCALE);
+	
+	for(int i=0; i<bubbles.size(); i++) {
+		bubbles[i]->draw();	
+	}
+	
+	//bullet.drawFloor();
+	
+	// world bounds
+	ofSetRectMode(OF_RECTMODE_CENTER);
+	ofNoFill();
+	ofSetColor(255, 255, 0);
+	ofRect(0, 0, 550, 500);
+	ofSetRectMode(OF_RECTMODE_CORNER);
+	
+	glPopMatrix();
+	// ---------------------
+	
+	
+	light.disable();
+	camera.end();
+	ofDisableLighting();
+	
 	
 }
 
 
 
-//----------------------------------------------------------------------------//
-// EVENTS 
-//----------------------------------------------------------------------------//
-
+//--------------------------------------------------------
 /** A bubble was just received */
 void BubbleProjection::bubbleReceived(Donk::BubbleData *bubbleData) {
 	printf("%s %s\n", bubbleData->text.c_str(), bubbleData->userName.c_str());
+	
+	ofVec3f center(0, 0, 0);
+	ofVec3f startPos(0, 500, 0);
+	float   radius = 50;
+	
+	ContentBubble * bubble = new ContentBubble();
+	bubble->rigidBody = bullet.createSphere(startPos, radius, 1);
+	bubble->createContentBubble();
+	bubble->target.set(ofRandom(-200, 200), ofRandom(-200, 200), 0);
+	bubbles.push_back(bubble);
+	
+	
 }
 
-
-
-
+//--------------------------------------------------------
 ofRectangle &BubbleProjection::getInteractiveArea() {
 	return interactiveArea;
 }
 
+//--------------------------------------------------------
 void BubbleProjection::touchDown(float x, float y, int touchId) {
 	
 
@@ -109,6 +172,8 @@ void BubbleProjection::touchDown(float x, float y, int touchId) {
 	}
 	
 }
+
+//--------------------------------------------------------
 void BubbleProjection::touchMoved(float x, float y, int touchId) {
 	touches[touchId] = ofVec2f(x, y);
 }

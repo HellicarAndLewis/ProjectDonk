@@ -138,11 +138,26 @@ void ofTexture::allocate(int w, int h, int internalGlDataType, bool bUseARBExten
 		glTexImage2D(texData.textureTarget, 0, texData.glTypeInternal, texData.tex_w, texData.tex_h, 0, texData.glTypeInternal, GL_UNSIGNED_BYTE, 0);
 	#endif
 
-	
-	glTexParameterf(texData.textureTarget, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameterf(texData.textureTarget, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	//JG added mipmapping support
 	glTexParameterf(texData.textureTarget, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameterf(texData.textureTarget, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	if(texData.bUseMipmapping){
+		glHint(GL_GENERATE_MIPMAP_HINT, GL_NICEST);
+		glTexParameterf(texData.textureTarget, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameterf(texData.textureTarget, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		glTexParameteri( texData.textureTarget, GL_GENERATE_MIPMAP, GL_TRUE );
+		glGenerateMipmap(texData.textureTarget);
+		GLfloat maxAnisotropy;
+		glGetFloatv( GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &maxAnisotropy );
+		if( maxAnisotropy > 1.0f )
+			glTexParameterf( texData.textureTarget, GL_TEXTURE_MAX_ANISOTROPY_EXT, maxAnisotropy );
+		
+		cout << "tex alloc using mip map with anisotropy " << maxAnisotropy << endl;
+	}
+	else{
+		glTexParameterf(texData.textureTarget, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameterf(texData.textureTarget, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	}
 	
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
@@ -244,11 +259,28 @@ void ofTexture::loadData(void * data, int w, int h, int glDataType){
 		//update the texture image: 
 		glEnable(texData.textureTarget);
 		glBindTexture(texData.textureTarget, (GLuint)texData.textureID);
+	
+		//JG put in mipmapping here - 
+		//Should be combined with SOSO limited mipmapping stuff below... a lot more work than is necessary for quick AF though
+		//Also need to add flag to separate AF from 
+		if(texData.bUseMipmapping){
+			glHint(GL_GENERATE_MIPMAP_HINT, GL_NICEST);
+			glTexParameterf(texData.textureTarget, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameterf(texData.textureTarget, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			glTexParameteri( texData.textureTarget, GL_GENERATE_MIPMAP, GL_TRUE );
+			glGenerateMipmap(texData.textureTarget);
+			 
+			GLfloat maxAnisotropy;
+			glGetFloatv( GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &maxAnisotropy );
+			if( maxAnisotropy > 1.0f )
+				glTexParameterf( texData.textureTarget, GL_TEXTURE_MAX_ANISOTROPY_EXT, maxAnisotropy ); 		
+			//cout << "anisotropy is " << maxAnisotropy << endl;
+		}
+		
  		glTexSubImage2D(texData.textureTarget, 0, 0, 0, w, h, texData.glType, texData.pixelType, data); // MEMO: important to use pixelType here
 		glDisable(texData.textureTarget);
 	}
-	else
-	{
+	else {
 		//SOSOLIMITED: setup mipmaps and use compression
 
 		//need proper tex_u and tex_t positions, with mipmaps they are the nearest power of 2
@@ -500,6 +532,11 @@ void ofTexture::setTextureMinMagFilter(GLint minFilter, GLint maxFilter){
 	glTexParameteri(texData.textureTarget, GL_TEXTURE_MAG_FILTER, maxFilter);
 	glTexParameteri(texData.textureTarget, GL_TEXTURE_MIN_FILTER, minFilter);
 	unbind();
+}
+
+void ofTexture::setUseMipmapping(bool useMipmapping)
+{
+	texData.bUseMipmapping = useMipmapping;
 }
 
 void ofTexture::setCompression(ofTexCompression compression){
