@@ -64,8 +64,8 @@ vec3 refract(vec3 i, vec3 n, float eta)
 	    float diffuse = max(dot(NTrans, lightVec), 0.0);
 
     		// calculate specular component
-	    float specular = max(dot(NTrans, halfAngleVec), 0.0);
-    		specular = pow(specular, 2.0);
+	    float specular = max(dot(NTrans, halfAngleVec), 0.0) * 3.0;
+    		//specular = pow(specular, 2.0);
 		
 	   	// make reflection
 	   	//
@@ -99,10 +99,14 @@ vec3 refract(vec3 i, vec3 n, float eta)
 
 		//------ final pixel -
 		vec3 color = mix(refractColor, reflectColor, fresnelTerm);
-		color.z += 0.1;
-		gl_FragColor = vec4( mix(base_color, color, reflectivity), opacity);
-		if(specular > 0.9) {
-			gl_FragColor *= specular;
+		color.z += 0.1; // slightly blue
+
+		if(specular > length(base_color)) {
+			reflectivity /= specular;
+			gl_FragColor = vec4( mix(base_color, color, reflectivity), opacity);
+			gl_FragColor += (specular/16.0);
+		} else {
+			gl_FragColor = vec4( mix(base_color, color, reflectivity), opacity);
 		}
 
 	//gl_FragColor = vec4(texture2DRect(baseMap, gl_TexCoord[0].xy).rgb + texture2DRect(glossMap, gl_TexCoord[0].xy).rgb, 1);

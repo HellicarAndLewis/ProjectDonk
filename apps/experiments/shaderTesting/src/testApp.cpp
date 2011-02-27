@@ -37,8 +37,8 @@ void testApp::setup(){
 	
 	//cubeMap.enableFixedMapping();
 	
-	xLightPos = -100;
-	yLightPos = -100;
+	xLightPos = -1;
+	yLightPos = -1;
 	zLightPos = 1;
 	inc = true;
 	//hasDrawnTex = false;
@@ -48,18 +48,18 @@ void testApp::setup(){
 void testApp::update(){
 
 	if(inc) {
-		xLightPos += 1;
-		yLightPos += 1;
+		xLightPos += 0.1;
+		yLightPos += 0.1;
 		//zLightPos += 1;
 	} else {
-		xLightPos -= 1;
-		yLightPos -= 1;
+		xLightPos -= 0.1;
+		yLightPos -= 0.1;
 		//zLightPos -= 1;
 	}
 	
-	if(xLightPos > 100) {
+	if(xLightPos > 20) {
 		inc = false;
-	} else if (xLightPos < -100) {
+	} else if (xLightPos < -20) {
 		inc = true;
 	}
 	
@@ -115,7 +115,7 @@ void testApp::draw(){
 	lightPosition[2] = zLightPos;
 	cubeshader.setUniform3fv("lightVector", lightPosition);
 	
-	cubeshader.setUniform1f("reflectAmount", 0.1);
+	cubeshader.setUniform1f("reflectAmount", 0.6f);
 	
 	float* pos = new float[3];
 	pos[0] = 0.5;
@@ -124,9 +124,9 @@ void testApp::draw(){
 	cubeshader.setUniform3fv("fresnelValues", pos);
 	
 	float* cpos = new float[3];
-	cpos[0] = .5f;
-	cpos[1] = .5f;
-	cpos[2] = .5f;
+	cpos[0] = modelview[3];//0.5;
+	cpos[1] = modelview[7];//0.5;
+	cpos[2] = modelview[11];//0.5;
 	cubeshader.setUniform3fv("CameraPos", cpos);
 	
 	float* lPos = new float[3];
