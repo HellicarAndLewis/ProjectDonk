@@ -1,17 +1,17 @@
 <values>
-    <value controlId="Calibration Mode" value="false"></value>
+    <value controlId="Calibration Mode" value="true"></value>
     <value controlId="Projection" value="0"></value>
-    <value controlId="Draw Lena" value="false"></value>
-    <value controlId="Lena scale" value="1.033684254"></value>
+    <value controlId="Draw Lena" value="true"></value>
+    <value controlId="Lena scale" value="0.755789459"></value>
     <value controlId="Draw Chequerboard" value="true"></value>
-    <value controlId="Chequerboard size" value="51.052631378"></value>
-    <value controlId="Chequerboard Color" value="11239628"></value>
-    <value controlId="Draw Facets" value="true"></value>
+    <value controlId="Chequerboard size" value="49.000000000"></value>
+    <value controlId="Chequerboard Color" value="5197772"></value>
+    <value controlId="Draw Facets" value="false"></value>
     <value controlId="Facet Color" value="9165963"></value>
     <value controlId="Line Width" value="3.700000048"></value>
     <value controlId="Interaction Area" value="0"></value>
-    <value controlId="Draw Interactive Area" value="false"></value>
-    <value controlId="Interaction x" value="200.000000000"></value>
+    <value controlId="Draw Interactive Area" value="true"></value>
+    <value controlId="Interaction x" value="1157.894775391"></value>
     <value controlId="Interaction y" value="736.842102051"></value>
     <value controlId="Interaction width" value="1610.526367188"></value>
     <value controlId="Interaction height" value="957.894714355"></value>

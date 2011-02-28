@@ -395,11 +395,11 @@ void ofFbo::updateTexture(int attachmentPoint) {
 		// restore drawbuffer
 		glPopAttrib();
 	}
-	
-	if(settings.useMipmapping){
+	// HAD TO COMMENT IT OUT BECAUSE THE MACHINE WAS CRASHING
+	/*if(settings.useMipmapping){
 		glBindTexture(settings.textureTarget, colorBuffers[attachmentPoint]);
 		glGenerateMipmap(settings.textureTarget);
-	}
+	}*/
 }
 
 

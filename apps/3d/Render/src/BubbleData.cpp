@@ -8,6 +8,7 @@
 
 #include "BubbleData.h"
 #include <GLUT/GLUT.h>
+#include "BubbleProjection.h"
 
 namespace Donk{
 
@@ -60,7 +61,9 @@ namespace Donk{
 		//call update on all the bubbles
 		vector<BubbleData*>::iterator bdit;
 		for(bdit=all.begin();bdit!=all.end();bdit++){
-			(*bdit)->step();
+			if(!(*bdit)->doneLoading()) {
+				(*bdit)->step();
+			}
 		}
 		
 	}
@@ -68,6 +71,7 @@ namespace Donk{
 	
 	
 	void BubbleData::step(){
+		
 		if(profileImageLoader!=NULL){
 			if(profileImageLoader->status==2){
 				ofBuffer buff;
@@ -79,14 +83,31 @@ namespace Donk{
 		}
 		
 		vector<MediaEntry>::iterator mit;
+		bool allMediaLoaded = true;
 		for(mit=media.begin();mit!=media.end();mit++){
 			mit->step();
+			
+			// check to see if we're totally loaded
+			if(mit->thumbImage.width==0 && mit->mediaImage.width==0) {
+				allMediaLoaded = false;
+			}
 		}
+		
+		bool oldLoadingDone = loadingDone;
+		loadingDone = profileImage.width>0 && allMediaLoaded;
+		
+		if(!oldLoadingDone && loadingDone) {
+			// put it in the physics system
+			printf("Done loading %s %s\n", userName.c_str(), text.c_str());
+			BubbleProjection::getInstance()->bubbleReceived(this);
+		}
+		
 		
 	}
 	
 	BubbleData::BubbleData(ofxOscMessage &m){
 		
+		loadingDone = false;
 		radius = ofRandomuf()*100+50;
 		
 		int index=0;
@@ -171,5 +192,7 @@ namespace Donk{
 	}
 	
 	
-
+	bool BubbleData::doneLoading() {
+		return loadingDone;
+	}
 }

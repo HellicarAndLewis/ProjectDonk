@@ -58,6 +58,7 @@ namespace Donk{
 			
 		};
 		
+		bool doneLoading();
 		
 		vector<MediaEntry> media;
 	private:		
@@ -65,6 +66,8 @@ namespace Donk{
 			network loader for profile image
 		 */
 		AsyncHttpLoader *profileImageLoader;
+		bool loadingDone;
+		
 	public:
 		ofImage profileImage;
 		

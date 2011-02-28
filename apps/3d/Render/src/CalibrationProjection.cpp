@@ -75,4 +75,5 @@ void CalibrationProjection::createGui(ofxXmlGui *gui) {
 	gui->addSlider("Interaction width", rect->width, 0, PROJECTION_RESOLUTION_WIDTH);
 	gui->addSlider("Interaction height", rect->height, 0, PROJECTION_RESOLUTION_HEIGHT);
 	gui->enableAutoSave("settings/interactionSettings.xml");
+	calibrate = false;
 }

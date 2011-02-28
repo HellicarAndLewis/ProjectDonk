@@ -13,8 +13,15 @@
 #include "ContentBubble.h"
 
 class BubbleProjection: public ProjectedRect {
-public:
+private:
 	BubbleProjection();
+public:
+	static BubbleProjection *getInstance() {
+		static BubbleProjection *instance = NULL;
+		if(instance==NULL) instance = new BubbleProjection();
+		return instance;
+	}
+	
 	/** This gets called straight after allocate() */
 	void setup();
 	
