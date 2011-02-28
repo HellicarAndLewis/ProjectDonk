@@ -8,6 +8,7 @@
 
 #include "BubbleProjection.h"
 #include "testApp.h"
+#include "Mode.h"
 
 
 
@@ -57,8 +58,31 @@ void BubbleProjection::update() {
 //--------------------------------------------------------
 void BubbleProjection::draw() {
 	// clear the FBO
-	ofClear(0, 50, 0, 0);
-
+	ofClear(0, 0, 0, 0);
+	{
+		using namespace Donk;
+		ofColor topColor(100, 220, 201);
+//						 Mode::getInstance()->getValue("Top BG Red"), 
+//						 Mode::getInstance()->getValue("Top BG Green"), 
+//						 Mode::getInstance()->getValue("Top BG Blue"));
+		
+		ofColor bottomColor(200, 100, 100);
+//						 Mode::getInstance()->getValue("Bottom BG Red"), 
+//						 Mode::getInstance()->getValue("Bottom BG Green"), 
+//						 Mode::getInstance()->getValue("Bottom BG Blue"));
+		
+//		glBegin(GL_QUADS);
+//		ofSetColor(topColor);
+//		glVertex2f(0, 0);
+//		glVertex2f(getWidth(), 0);
+//		ofSetColor(bottomColor);
+//		glVertex2f(getWidth(), getHeight());
+//		glVertex2f(0, getHeight());
+//		glEnd();
+		
+		ofSetColor(255, 0, 0);
+		ofRect(0, 0, 1000, 1000);
+	}
 	//draw bubbles
 	glPushMatrix();
 	ofRectangle *rect = testApp::instance->calibrationProjection.rect;

@@ -8,7 +8,12 @@
 	<mode name="interview"></mode>
 	<mode name="question"></mode>
 	<mode name="performance"></mode>
-    <parameter name="Background Red" defaultValue="0" minValue="0" maxValue="255"></parameter>
-    <parameter name="Background Green" defaultValue="0" minValue="0" maxValue="255"></parameter>
-    <parameter name="Background Blue" defaultValue="0" minValue="0" maxValue="255"></parameter>
+    <parameter name="Top BG Red" defaultValue="0" minValue="0" maxValue="255"></parameter>
+    <parameter name="Top BG Green" defaultValue="0" minValue="0" maxValue="255"></parameter>
+    <parameter name="Top BG Blue" defaultValue="0" minValue="0" maxValue="255"></parameter>
+	
+	<parameter name="Bottom BG Red" defaultValue="0" minValue="0" maxValue="255"></parameter>
+    <parameter name="Bottom BG Green" defaultValue="0" minValue="0" maxValue="255"></parameter>
+    <parameter name="Bottom BG Blue" defaultValue="0" minValue="0" maxValue="255"></parameter>
+	
 </parameters>
