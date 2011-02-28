@@ -47,6 +47,7 @@ public:
 
 	}
 	
+	ofVec3f getBulletPosition();
 	ofVec3f getPosition();
 	void	setPosition(ofVec3f pos, ofVec3f rotDir, float degree) {
 		

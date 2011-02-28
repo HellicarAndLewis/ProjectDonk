@@ -19,7 +19,7 @@ ofxBulletRigidBody::ofxBulletRigidBody() {
 
 //--------------------------------------------------------------
 ofxBulletRigidBody::~ofxBulletRigidBody() {
-
+	
 }
 
 
@@ -33,22 +33,22 @@ void ofxBulletRigidBody::createRigidBody(int mass, const btTransform startTrans)
 	myMotionState = new btDefaultMotionState(startTrans);			
 	
 	/*switch (bodyType) {
-		case 0:
-			myMotionState = new btDefaultMotionState(startTrans);
-			mass = 0;
-			break;
-		case 1:
-			myMotionState = new btDefaultMotionState(startTrans);
-			break;
-		case 2:
-			myMotionState = new MyKinematicMotionState(startTrans);
-			break;
-			
-		default:
-			myMotionState = new btDefaultMotionState(startTrans);			
-			break;
-	}	
-	*/
+	 case 0:
+	 myMotionState = new btDefaultMotionState(startTrans);
+	 mass = 0;
+	 break;
+	 case 1:
+	 myMotionState = new btDefaultMotionState(startTrans);
+	 break;
+	 case 2:
+	 myMotionState = new MyKinematicMotionState(startTrans);
+	 break;
+	 
+	 default:
+	 myMotionState = new btDefaultMotionState(startTrans);			
+	 break;
+	 }	
+	 */
 	
 	btRigidBody::btRigidBodyConstructionInfo rbci(mass, myMotionState, shape, inertia);
 	rbci.m_startWorldTransform = startTrans;	
@@ -61,19 +61,19 @@ void ofxBulletRigidBody::createRigidBody(int mass, const btTransform startTrans)
 }
 
 /*
-//--------------------------------------------------------------
-void ofxBulletRigidBody::createBox(btTransform startTrans, btVector3 boxShape, int mass) {
-	boxSize = boxShape;
-	shape = new btBoxShape(boxShape);
-	createRigidBody(mass, startTrans);
-}
-
-//--------------------------------------------------------------
-void ofxBulletRigidBody::createSphere(btTransform startTrans, int radius, int mass) {
-	this->radius = radius;
-	shape = new btSphereShape(sphereRadius);
-	createRigidBody(mass, startTrans);	
-}*/
+ //--------------------------------------------------------------
+ void ofxBulletRigidBody::createBox(btTransform startTrans, btVector3 boxShape, int mass) {
+ boxSize = boxShape;
+ shape = new btBoxShape(boxShape);
+ createRigidBody(mass, startTrans);
+ }
+ 
+ //--------------------------------------------------------------
+ void ofxBulletRigidBody::createSphere(btTransform startTrans, int radius, int mass) {
+ this->radius = radius;
+ shape = new btSphereShape(sphereRadius);
+ createRigidBody(mass, startTrans);	
+ }*/
 
 //--------------------------------------------------------------
 void ofxBulletRigidBody::create(btDynamicsWorld * world) {
@@ -164,7 +164,7 @@ void ofxBulletRigidBody::create(btDynamicsWorld * world) {
 	
 	// now add it to the world
 	world->addRigidBody(body);
-
+	
 }
 
 //--------------------------------------------------------------
@@ -179,6 +179,17 @@ ofVec3f ofxBulletRigidBody::getPosition() {
 	btDefaultMotionState* myMotionState = (btDefaultMotionState*)body->getMotionState();
 	myMotionState->m_graphicsWorldTrans.getOpenGLMatrix(m);
 	btVector3 org(m[12], m[13], m[14]);
+	org *= SCALE;
+	return ofVec3f(org.x(), org.y(), org.z());
+}
+
+//--------------------------------------------------------------
+ofVec3f ofxBulletRigidBody::getBulletPosition() {
+	if(!isBody()) return 0;
+	btScalar m[16];
+	btDefaultMotionState* myMotionState = (btDefaultMotionState*)body->getMotionState();
+	myMotionState->m_graphicsWorldTrans.getOpenGLMatrix(m);
+	btVector3 org(m[12], m[13], m[14]);
 	return ofVec3f(org.x(), org.y(), org.z());
 }
 
@@ -186,34 +197,34 @@ ofVec3f ofxBulletRigidBody::getPosition() {
 void ofxBulletRigidBody::draw() {
 	
 	/*
-	BOX_SHAPE_PROXYTYPE,
-	TRIANGLE_SHAPE_PROXYTYPE,
-	TETRAHEDRAL_SHAPE_PROXYTYPE,
-	CONVEX_TRIANGLEMESH_SHAPE_PROXYTYPE,
-	CONVEX_HULL_SHAPE_PROXYTYPE,
-	CONVEX_POINT_CLOUD_SHAPE_PROXYTYPE,
-	CUSTOM_POLYHEDRAL_SHAPE_TYPE,
-	//implicit convex shapes
-	IMPLICIT_CONVEX_SHAPES_START_HERE,
-	SPHERE_SHAPE_PROXYTYPE,
-	MULTI_SPHERE_SHAPE_PROXYTYPE,
-	CAPSULE_SHAPE_PROXYTYPE,
-	CONE_SHAPE_PROXYTYPE,
-	CONVEX_SHAPE_PROXYTYPE,
-	CYLINDER_SHAPE_PROXYTYPE,
-	UNIFORM_SCALING_SHAPE_PROXYTYPE,
-	MINKOWSKI_SUM_SHAPE_PROXYTYPE,
-	MINKOWSKI_DIFFERENCE_SHAPE_PROXYTYPE,
-	CUSTOM_CONVEX_SHAPE_TYPE,
+	 BOX_SHAPE_PROXYTYPE,
+	 TRIANGLE_SHAPE_PROXYTYPE,
+	 TETRAHEDRAL_SHAPE_PROXYTYPE,
+	 CONVEX_TRIANGLEMESH_SHAPE_PROXYTYPE,
+	 CONVEX_HULL_SHAPE_PROXYTYPE,
+	 CONVEX_POINT_CLOUD_SHAPE_PROXYTYPE,
+	 CUSTOM_POLYHEDRAL_SHAPE_TYPE,
+	 //implicit convex shapes
+	 IMPLICIT_CONVEX_SHAPES_START_HERE,
+	 SPHERE_SHAPE_PROXYTYPE,
+	 MULTI_SPHERE_SHAPE_PROXYTYPE,
+	 CAPSULE_SHAPE_PROXYTYPE,
+	 CONE_SHAPE_PROXYTYPE,
+	 CONVEX_SHAPE_PROXYTYPE,
+	 CYLINDER_SHAPE_PROXYTYPE,
+	 UNIFORM_SCALING_SHAPE_PROXYTYPE,
+	 MINKOWSKI_SUM_SHAPE_PROXYTYPE,
+	 MINKOWSKI_DIFFERENCE_SHAPE_PROXYTYPE,
+	 CUSTOM_CONVEX_SHAPE_TYPE,
 	 
 	 
 	 //cout << colShape->getShapeType() << endl;
 	 //drawer.drawOpenGL(m, shape, btVector3(1, 0, 0), 0, aabbMin, aabbMax, ofxBulletStaticUtil::ofxVec4ToBtVec4(bodyColor));
 	 
 	 
-	*/
+	 */
 	if(isBody()) {
-	
+		
 		btPolyhedralConvexShape* colShape = (btPolyhedralConvexShape*)body->getCollisionShape();
 		btScalar	m[16];
 		body->getWorldTransform().getOpenGLMatrix(m);
@@ -290,38 +301,38 @@ void ofxBulletRigidBody::draw() {
 		// end move
 		// ----------------------
 		glPopMatrix();
-
+		
 	}
 	
 	
 	
 	
 	/*
-	
-	
-	btPolyhedralConvexShape * shape = (btPolyhedralConvexShape*)psb->getCollisionShape();
-	btScalar	m[16];
-	psb->getWorldTransform().getOpenGLMatrix(m);
-	btVector3 aabbMin,aabbMax;
-	dynamicsWorld->getBroadphase()->getBroadphaseAabb(aabbMin,aabbMax);
-	
-	const btSphereShape* sphereShape = (btSphereShape*)shape;//static_cast<const btSphereShape*>(shape);
-	float radius = sphereShape->getMargin();//radius doesn't include the margin, so draw with margin
-	//drawSphere(radius,10,10);
-	//useWireframeFallback = false;
-	
-	//btScalar m[16];
-	btDefaultMotionState* myMotionState = (btDefaultMotionState*)psb->getMotionState();
-	myMotionState->m_graphicsWorldTrans.getOpenGLMatrix(m);
-	btVector3 org(m[12], m[13], m[14]);
-	ofPoint p(org.x(), org.y(), org.z());
-	
-	
-	glPushMatrix(); 
-	glMultMatrixf(m);
-	ofSphere(0, 0, 0, radius);
-	glPopMatrix();
-	//drawer.drawOpenGL(m, shape, btVector3(1, 0, 0), 0, aabbMin, aabbMax, ofxBulletStaticUtil::ofxVec4ToBtVec4(bodyColor));
-	*/
+	 
+	 
+	 btPolyhedralConvexShape * shape = (btPolyhedralConvexShape*)psb->getCollisionShape();
+	 btScalar	m[16];
+	 psb->getWorldTransform().getOpenGLMatrix(m);
+	 btVector3 aabbMin,aabbMax;
+	 dynamicsWorld->getBroadphase()->getBroadphaseAabb(aabbMin,aabbMax);
+	 
+	 const btSphereShape* sphereShape = (btSphereShape*)shape;//static_cast<const btSphereShape*>(shape);
+	 float radius = sphereShape->getMargin();//radius doesn't include the margin, so draw with margin
+	 //drawSphere(radius,10,10);
+	 //useWireframeFallback = false;
+	 
+	 //btScalar m[16];
+	 btDefaultMotionState* myMotionState = (btDefaultMotionState*)psb->getMotionState();
+	 myMotionState->m_graphicsWorldTrans.getOpenGLMatrix(m);
+	 btVector3 org(m[12], m[13], m[14]);
+	 ofPoint p(org.x(), org.y(), org.z());
+	 
+	 
+	 glPushMatrix(); 
+	 glMultMatrixf(m);
+	 ofSphere(0, 0, 0, radius);
+	 glPopMatrix();
+	 //drawer.drawOpenGL(m, shape, btVector3(1, 0, 0), 0, aabbMin, aabbMax, ofxBulletStaticUtil::ofxVec4ToBtVec4(bodyColor));
+	 */
 	
 }

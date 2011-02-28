@@ -11,11 +11,17 @@
 #include "BubbleData.h"
 #include "ofxBullet.h"
 #include "ContentBubble.h"
+#include "TouchedConstraint.h"
+
+
 
 class BubbleProjection: public ProjectedRect {
+
 private:
 	BubbleProjection();
+	
 public:
+
 	static BubbleProjection *getInstance() {
 		static BubbleProjection *instance = NULL;
 		if(instance==NULL) instance = new BubbleProjection();
@@ -58,14 +64,18 @@ public:
 	
 private:
 	
+	//--------------------------------------------------------
 	// Bullet
-	ofxBullet				bullet;
-	ofCamera				camera;
-	vector <ContentBubble*> bubbles;
+	ofxBullet					bullet;
+	ofCamera					camera; // not using anymore...
+	vector <ContentBubble*>		bubbles;
+	vector <TouchedConstraint*> touchConstraints;
 	
+	//--------------------------------------------------------
+	void addTouchConstraints(ContentBubble * bubble);
+	void removeTouchConstraint(ContentBubble * bubble);
 	
-	
-	
+	//--------------------------------------------------------	
 	ofRectangle interactiveArea;
 
 	/** this gets called (from touchDown) when there is a detected double touch */

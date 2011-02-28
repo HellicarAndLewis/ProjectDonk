@@ -11,39 +11,11 @@
 #include "ofMain.h"
 #include "ofxBullet.h"
 #include "BubbleData.h"
-#include "ofxCubeMap.h" 
 
 //--------------------------------------------------------------
 class ContentBubble {
 	
 public:
-	
-	//---------------------------------
-	unsigned int permTexture;
-	
-	GLUquadricObj *quadratic;
-	
-	ofShader cubeshader;
-	ofxCubeMap cubeMap;
-	
-	ofVec3f sphereCenter;
-	ofEasyCam cam;
-	
-	ofImage permImg;
-	ofImage glossImg;
-	
-	ofTexture permTex, glossTex;
-	
-	ofPixels permPixels;
-	ofPixels glossPixels;
-	
-	float xLightPos,yLightPos,zLightPos;
-	bool inc;
-	
-	bool hasDrawnTex;
-	
-	ofFbo first;
-	ofFbo second;
 	
 	
 	//---------------------------------
@@ -51,16 +23,19 @@ public:
 	btScalar	m[16];
 	ofVec3f		target;
 	ofColor		color;
+	float		radius;
 	Donk::BubbleData *data;
 	
+	
+	float		touchAlpha, touchAlphaTarget;
+	bool		bTouched;
+	
+	//---------------------------------
 	ContentBubble();
-	
-	
 	void createContentBubble();
 	void update();
 	void draw();
 	
-	void drawGlassBubble();
 };
 
 
