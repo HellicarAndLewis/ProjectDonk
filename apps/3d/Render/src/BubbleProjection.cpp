@@ -177,18 +177,15 @@ void BubbleProjection::bubbleReceived(Donk::BubbleData *bubbleData) {
 	printf("%s %s\n", bubbleData->text.c_str(), bubbleData->userName.c_str());
 	
 	ofVec3f center(0, 0, 0);
-	ofVec3f startPos(0, 500, 0);
+	ofVec3f startPos(0, 500, -100);
 	float   radius = 50;
 	
 	ContentBubble * bubble = new ContentBubble();
-//<<<<<<< HEAD
-//=======
-//	bubble->data = bubbleData;
-//	bubble->rigidBody = bullet.createSphere(startPos, radius, 1);
-//	bubble->createContentBubble();
-//>>>>>>> 7543089606eddc11822aab24ea31f2d2a26597c0
+
+	bubble->data = bubbleData;
+	bubble->rigidBody = bullet.createSphere(startPos, radius, 1);
+	bubble->createContentBubble();
 	bubble->target.set(ofRandom(-200, 200), ofRandom(-200, 200), 0);
-	bubble->rigidBody = bullet.createSphere(bubble->target, radius, 1);
 	bubble->createContentBubble();
 	bubbles.push_back(bubble);
 	

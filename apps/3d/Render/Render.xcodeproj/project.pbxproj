@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5FC27C0A13196E13005F76C7 /* ContentBubble.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC27C0913196E13005F76C7 /* ContentBubble.cpp */; };
+		5FC27F40131BCFDD005F76C7 /* ofxCubeMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC27F3E131BCFDD005F76C7 /* ofxCubeMap.cpp */; };
 		5FF09CEC13180C67009A416F /* GL_ShapeDrawer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FF09B4D13180C67009A416F /* GL_ShapeDrawer.cpp */; };
 		5FF09CED13180C67009A416F /* btAxisSweep3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FF09B5613180C67009A416F /* btAxisSweep3.cpp */; };
 		5FF09CEE13180C67009A416F /* btBroadphaseProxy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FF09B5913180C67009A416F /* btBroadphaseProxy.cpp */; };
@@ -282,6 +283,8 @@
 		1F8EEEC5131BC74F00EF55C7 /* OSC.json.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = OSC.json.txt; path = bin/data/settings/OSC.json.txt; sourceTree = "<group>"; };
 		5FC27C0813196E13005F76C7 /* ContentBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentBubble.h; sourceTree = "<group>"; };
 		5FC27C0913196E13005F76C7 /* ContentBubble.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ContentBubble.cpp; sourceTree = "<group>"; };
+		5FC27F3E131BCFDD005F76C7 /* ofxCubeMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxCubeMap.cpp; sourceTree = "<group>"; };
+		5FC27F3F131BCFDD005F76C7 /* ofxCubeMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxCubeMap.h; sourceTree = "<group>"; };
 		5FF09B4D13180C67009A416F /* GL_ShapeDrawer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GL_ShapeDrawer.cpp; sourceTree = "<group>"; };
 		5FF09B4E13180C67009A416F /* GL_ShapeDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GL_ShapeDrawer.h; sourceTree = "<group>"; };
 		5FF09B5113180C67009A416F /* btBulletCollisionCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = btBulletCollisionCommon.h; sourceTree = "<group>"; };
@@ -953,6 +956,8 @@
 		5FC27BFE13196DF1005F76C7 /* BubbleProjection */ = {
 			isa = PBXGroup;
 			children = (
+				5FC27F3E131BCFDD005F76C7 /* ofxCubeMap.cpp */,
+				5FC27F3F131BCFDD005F76C7 /* ofxCubeMap.h */,
 				EAFA578B1316834D00714F88 /* BubbleProjection.h */,
 				EAFA578C1316834D00714F88 /* BubbleProjection.cpp */,
 				5FC27C0813196E13005F76C7 /* ContentBubble.h */,
@@ -2643,6 +2648,7 @@
 				5FF09D7F13180C67009A416F /* ofxBullet.cpp in Sources */,
 				5FF09D8213180C67009A416F /* ofxBulletRigidBody.cpp in Sources */,
 				5FC27C0A13196E13005F76C7 /* ContentBubble.cpp in Sources */,
+				5FC27F40131BCFDD005F76C7 /* ofxCubeMap.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
