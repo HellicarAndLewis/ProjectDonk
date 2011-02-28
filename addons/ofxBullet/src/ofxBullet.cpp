@@ -269,7 +269,8 @@ ofxBulletRigidBody * ofxBullet::createCone(ofVec3f pos, float radius, float heig
 btVector3 ofxBullet::getRayTo(int x, int y, ofCamera * cam) {
 	
 	
-	y = ofMap(y, 0, ofGetHeight(), ofGetHeight(), 0);
+	/*y = ofMap(y, 0, ofGetHeight(), ofGetHeight(), 0);
+	
 	float adjustx = fabs((ofGetWidth()/2)-x);
 	float adjusty = fabs((ofGetHeight()/2)-y);
 	adjustx = ofMap(adjustx, 0, ofGetWidth()/2, 0, ofGetWidth()/5);
@@ -277,7 +278,7 @@ btVector3 ofxBullet::getRayTo(int x, int y, ofCamera * cam) {
 	if (x > ofGetWidth()/2) adjustx = -adjustx;
 	if (y > ofGetHeight()/2) adjusty = -adjusty;
 	x += adjustx; y+= adjusty;
-	
+	*/
 	
 	float top = 1.f;
 	float bottom = -1.f;
@@ -345,7 +346,7 @@ void ofxBullet::mousePressed(int x, int y){
 	
 	if (world != NULL) {
 		
-		btVector3 rayTo   = getRayTo(x, y, camera);
+		btVector3 rayTo(x, y, 0);//   = getRayTo(x, y, camera);
 		ofVec3f campos    = camera->getGlobalPosition();
 		btVector3 rayFrom = btVector3(campos.x, campos.y, campos.z);
 		
@@ -421,7 +422,7 @@ void ofxBullet::mouseDragged(int x, int y){
 		if (p2p) {
 			//keep it at the same picking distance
 			
-			btVector3 newRayTo = getRayTo(x, y, camera);
+			btVector3 newRayTo(x, y, 0);// = getRayTo(x, y, camera);
 			btVector3 rayFrom;
 			btVector3 oldPivotInB = p2p->getPivotInB();
 			btVector3 newPivotB;

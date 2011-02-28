@@ -22,13 +22,6 @@ BubbleProjection::BubbleProjection() {
 /** This gets called straight after allocate() */
 void BubbleProjection::setup() {
 	
-
-	
-	light.setDirectional(false);
-	light.setAmbientColor(ofColor(100, 120, 100));
-	light.setDiffuseColor(ofColor(255, 255, 255));
-	
-	
 	camera.resetTransform();
 	camera.setPosition(ofVec3f(0, 0, 0));
 	camera.orbit(0, 0, 500);
@@ -65,10 +58,11 @@ void BubbleProjection::draw() {
 	float audioReactiveness = Mode::getInstance()->getValue("Background Audio-reactiveness");
 	float volume = AudioData::getInstance()->getVolume(0);
 	float amp = (1.f - audioReactiveness) + audioReactiveness*volume;//1 - volume *(1-audioReactiveness);
-	ofClear(
-			amp*Mode::getInstance()->getValue("Top BG Red"), 
+	ofClear(amp*Mode::getInstance()->getValue("Top BG Red"), 
 			amp*Mode::getInstance()->getValue("Top BG Green"), 
 			amp*Mode::getInstance()->getValue("Top BG Blue"), 255);
+	
+	
 	/*
 		
 		ofColor topColor(
@@ -99,47 +93,18 @@ void BubbleProjection::draw() {
 	//Donk::BubbleData::render();
 	//glPopMatrix();
 	
-	
-	// this draws the touches - keep in here for now!
-	ofSetHexColor(0xFF0000);
-	for(tIt = touches.begin(); tIt!=touches.end(); tIt++) {
-		
-		ofVec2f pos = mapToInteractiveArea((*tIt).second);
-		ofCircle(pos, 30);
-		
-		
-		
-		for(int i=0; i<bubbles.size(); i++) {
-			ofVec3f campos    = camera.getGlobalPosition();
-			ofVec2f p =	bubbles[i]->rigidBody->getPosition() + campos;	
-			ofLine(p, pos);
-		}
-		/*
-		btVector3 rayTo   = bullet.getRayTo(pos.x, pos.y, &camera);
-		ofVec3f campos    = camera.getGlobalPosition();
-		btVector3 rayFrom = btVector3(campos.x, campos.y, campos.z);
-		
-		btCollisionWorld::ClosestRayResultCallback rayCallback(rayFrom, rayTo);
-		bullet.world->rayTest(rayFrom, rayTo, rayCallback);
-		
-		if (rayCallback.hasHit()) {
-			printf("---");
-			btRigidBody * body = btRigidBody::upcast(rayCallback.m_collisionObject);
-		}	
-		*/
-		
-	}
+	// --------------------------------------------
+	// --------------------------------------------
+	// --------------------------------------------
+	ofPushStyle();
+	camera.begin(ofRectangle(0, 0, getWidth(), getHeight()));
 	
 	// center of the app
+	ofNoFill();
+	ofSetColor(255, 255, 0);
 	ofVec2f pos(getWidth()/2, getHeight()/2);
 	ofCircle(pos, 10);
-	
 
-	ofEnableLighting();
-	light.enable();
-	camera.begin();
-	light.draw();
-	camera.draw();
 	
 	// ---------------------
 	glPushMatrix();
@@ -161,11 +126,56 @@ void BubbleProjection::draw() {
 	glPopMatrix();
 	// ---------------------
 	
+
+	// this draws the touches - keep in here for now!
+	ofSetHexColor(0xFF0000);
+	for(tIt = touches.begin(); tIt!=touches.end(); tIt++) {
 	
-	light.disable();
+		ofVec2f pos = mapToInteractiveArea((*tIt).second);
+	//	pos.x = ofMap(pos.x, 0.0, 1.0, -500, 500);
+	//	pos.y = ofMap(pos.y, 0.0, 1.0, -500, 500);;
+		
+		ofCircle(pos, 10);
+		//cout << pos.x << " " << pos.y << endl;
+		//for(int i=0; i<bubbles.size(); i++) {
+		//	ofVec3f campos    = camera.getGlobalPosition();
+		//	ofVec2f p =	bubbles[i]->rigidBody->getPosition() + campos;	
+		//	ofLine(p, pos);
+		//}
+		
+		/*
+		btVector3 rayTo(pos.x, pos.y, 0);//   = bullet.getRayTo(pos.x, pos.y, &camera);
+		ofVec3f campos    = camera.getGlobalPosition();
+		btVector3 rayFrom = btVector3(campos.x, campos.y, campos.z);
+		
+		btCollisionWorld::ClosestRayResultCallback rayCallback(rayFrom, rayTo);
+		bullet.world->rayTest(rayFrom, rayTo, rayCallback);
+		
+		if (rayCallback.hasHit()) {
+			printf("---");
+			btRigidBody * body = btRigidBody::upcast(rayCallback.m_collisionObject);
+			
+			btScalar m[16];
+			btDefaultMotionState* myMotionState = (btDefaultMotionState*)body->getMotionState();
+			myMotionState->m_graphicsWorldTrans.getOpenGLMatrix(m);
+			btVector3 org(m[12], m[13], m[14]);
+			
+			ofVec3f p1(rayTo.getX(), rayTo.getY(), rayTo.getZ());
+			ofVec3f p2(org.x(), org.y(), org.z());
+			ofSetColor(0, 255, 255);
+			ofLine(p1, p2);
+		
+		}	
+		*/
+		
+	}
+	
+	
+	// --------------------------------------------
+	// --------------------------------------------
+	// --------------------------------------------
 	camera.end();
-	ofDisableLighting();
-	
+	ofPopStyle();
 	
 }
 
@@ -250,8 +260,14 @@ void BubbleProjection::touchUp(float x, float y, int touchId) {
 
 //--------------------------------------------------------
 ofVec2f BubbleProjection::mapToInteractiveArea(ofVec2f inPoint) {
-	return ofVec2f(interactiveArea.x + interactiveArea.width * inPoint.x,
-				   interactiveArea.y + interactiveArea.height * inPoint.y);
+	
+	ofVec2f pos = inPoint;
+	pos.x = ofMap(pos.x, 0.0, 1.0, -500, 500);
+	pos.y = ofMap(pos.y, 0.0, 1.0, -500, 500);
+	
+	return pos;
+	//return ofVec2f(interactiveArea.x + interactiveArea.width * inPoint.x,
+	//			   interactiveArea.y + interactiveArea.height * inPoint.y);
 }
 
 //--------------------------------------------------------
