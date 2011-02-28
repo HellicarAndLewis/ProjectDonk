@@ -64,7 +64,7 @@ void BubbleProjection::draw() {
 	// audioReactiveness: 0 is not audio reactive, 1 is fully audio reactive
 	float audioReactiveness = Mode::getInstance()->getValue("Background Audio-reactiveness");
 	float volume = AudioData::getInstance()->getVolume(0);
-	float amp = volume;//1 - volume *(1-audioReactiveness);
+	float amp = (1.f - audioReactiveness) + audioReactiveness*volume;//1 - volume *(1-audioReactiveness);
 	ofClear(
 			amp*Mode::getInstance()->getValue("Top BG Red"), 
 			amp*Mode::getInstance()->getValue("Top BG Green"), 
@@ -181,12 +181,12 @@ void BubbleProjection::bubbleReceived(Donk::BubbleData *bubbleData) {
 	float   radius = 50;
 	
 	ContentBubble * bubble = new ContentBubble();
-<<<<<<< HEAD
-=======
-	bubble->data = bubbleData;
-	bubble->rigidBody = bullet.createSphere(startPos, radius, 1);
-	bubble->createContentBubble();
->>>>>>> 7543089606eddc11822aab24ea31f2d2a26597c0
+//<<<<<<< HEAD
+//=======
+//	bubble->data = bubbleData;
+//	bubble->rigidBody = bullet.createSphere(startPos, radius, 1);
+//	bubble->createContentBubble();
+//>>>>>>> 7543089606eddc11822aab24ea31f2d2a26597c0
 	bubble->target.set(ofRandom(-200, 200), ofRandom(-200, 200), 0);
 	bubble->rigidBody = bullet.createSphere(bubble->target, radius, 1);
 	bubble->createContentBubble();

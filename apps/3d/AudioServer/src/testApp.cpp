@@ -69,7 +69,6 @@ void testApp::update() {
 	audioFps = fps;
 	smoothing = 0.9999 + gui.getControlById("smoothing")->floatValue()*0.0001;
 	exponent = pow(2, gui.getControlById("exponent")->floatValue());
-	printf("Smoothing %f\n", smoothing);
 	audioMutex.unlock();
 }
 //--------------------------------------------------------------

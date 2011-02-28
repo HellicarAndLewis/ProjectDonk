@@ -1,8 +1,9 @@
 <values>
-    <parameter key="Top BG Red" value="142.263168"></parameter>
-    <parameter key="Top BG Green" value="131.526306"></parameter>
-    <parameter key="Top BG Blue" value="126.157898"></parameter>
+    <parameter key="Top BG Red" value="226.815781"></parameter>
+    <parameter key="Top BG Green" value="226.815781"></parameter>
+    <parameter key="Top BG Blue" value="139.578949"></parameter>
     <parameter key="Bottom BG Red" value="118.105263"></parameter>
     <parameter key="Bottom BG Green" value="143.605270"></parameter>
     <parameter key="Bottom BG Blue" value="102.000000"></parameter>
+    <parameter key="Background Audio-reactiveness" value="0.000000"></parameter>
 </values>

@@ -24,7 +24,6 @@ public:
 	void windowResized(int w, int h);
 	void controlChanged(GuiControl *control);
 	void audioReceived (float *buffer, int bufferSize, int nChannels);
-	
 	ofxSoundStream *soundStream;
 	ofxXmlGui gui;
 	float fps;
