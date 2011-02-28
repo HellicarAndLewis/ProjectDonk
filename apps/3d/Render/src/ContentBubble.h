@@ -39,7 +39,10 @@ public:
 	}
 	
 	void update() {
-
+		
+		
+		
+		return;
 		if(rigidBody->isBody()) {
 			
 			rigidBody->body->setDamping(0.76, 0.76);

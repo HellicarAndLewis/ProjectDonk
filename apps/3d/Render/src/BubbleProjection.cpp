@@ -18,8 +18,6 @@ BubbleProjection::BubbleProjection() {
 	interactiveArea = ofRectangle(100,100,900,500);
 }
 
-
-
 //--------------------------------------------------------
 /** This gets called straight after allocate() */
 void BubbleProjection::setup() {
@@ -34,7 +32,7 @@ void BubbleProjection::setup() {
 	camera.resetTransform();
 	camera.setPosition(ofVec3f(0, 0, 0));
 	camera.orbit(0, 0, 500);
-
+	camera.setFov(60);
 	
 	bullet.init();
 	//bullet.createGround(50);
@@ -50,6 +48,8 @@ void BubbleProjection::update() {
 	
 	for(int i=0; i<bubbles.size(); i++) {
 		bubbles[i]->update();	
+		
+		
 	}
 	
 	bullet.update();
@@ -93,20 +93,40 @@ void BubbleProjection::draw() {
 	*/
 	  
 	//draw bubbles
-	glPushMatrix();
-	ofRectangle *rect = testApp::instance->calibrationProjection.rect;
-	glTranslatef(rect->x + rect->width/2,rect->y + rect->height/2,0);
-	Donk::BubbleData::render();
-	glPopMatrix();
+	//glPushMatrix();
+	//ofRectangle *rect = testApp::instance->calibrationProjection.rect;
+	//glTranslatef(rect->x + rect->width/2,rect->y + rect->height/2,0);
+	//Donk::BubbleData::render();
+	//glPopMatrix();
 	
 	
 	// this draws the touches - keep in here for now!
 	ofSetHexColor(0xFF0000);
 	for(tIt = touches.begin(); tIt!=touches.end(); tIt++) {
+		
 		ofVec2f pos = mapToInteractiveArea((*tIt).second);
 		ofCircle(pos, 30);
 		
-	
+		
+		
+		for(int i=0; i<bubbles.size(); i++) {
+			ofVec3f campos    = camera.getGlobalPosition();
+			ofVec2f p =	bubbles[i]->rigidBody->getPosition() + campos;	
+			ofLine(p, pos);
+		}
+		/*
+		btVector3 rayTo   = bullet.getRayTo(pos.x, pos.y, &camera);
+		ofVec3f campos    = camera.getGlobalPosition();
+		btVector3 rayFrom = btVector3(campos.x, campos.y, campos.z);
+		
+		btCollisionWorld::ClosestRayResultCallback rayCallback(rayFrom, rayTo);
+		bullet.world->rayTest(rayFrom, rayTo, rayCallback);
+		
+		if (rayCallback.hasHit()) {
+			printf("---");
+			btRigidBody * body = btRigidBody::upcast(rayCallback.m_collisionObject);
+		}	
+		*/
 		
 	}
 	
@@ -161,10 +181,15 @@ void BubbleProjection::bubbleReceived(Donk::BubbleData *bubbleData) {
 	float   radius = 50;
 	
 	ContentBubble * bubble = new ContentBubble();
+<<<<<<< HEAD
+=======
 	bubble->data = bubbleData;
 	bubble->rigidBody = bullet.createSphere(startPos, radius, 1);
 	bubble->createContentBubble();
+>>>>>>> 7543089606eddc11822aab24ea31f2d2a26597c0
 	bubble->target.set(ofRandom(-200, 200), ofRandom(-200, 200), 0);
+	bubble->rigidBody = bullet.createSphere(bubble->target, radius, 1);
+	bubble->createContentBubble();
 	bubbles.push_back(bubble);
 	
 	
@@ -180,6 +205,8 @@ void BubbleProjection::touchDown(float x, float y, int touchId) {
 	
 
 	ofVec2f touchCoords(x, y);
+	ofVec2f pos = mapToInteractiveArea(touchCoords);
+	bullet.mousePressed(pos.x, pos.y);
 	
 	// find the closest point to the new touch
 	float minSqrDist = FLT_MAX; // do squares
@@ -202,7 +229,6 @@ void BubbleProjection::touchDown(float x, float y, int touchId) {
 	// if there's another touch, and it's close enough, call doubleTouchGesture
 	if(minTouchId!=-1 && sqrt(minSqrDist)<doubleTouchDist) { 
 		doubleTouchGesture(touchId, minTouchId);
-		
 	}
 	
 }
@@ -210,22 +236,29 @@ void BubbleProjection::touchDown(float x, float y, int touchId) {
 //--------------------------------------------------------
 void BubbleProjection::touchMoved(float x, float y, int touchId) {
 	touches[touchId] = ofVec2f(x, y);
+	ofVec2f pos = mapToInteractiveArea(ofVec2f(x, y));
+	bullet.mouseDragged(pos.x, pos.y);
 }
 
+//--------------------------------------------------------
 void BubbleProjection::touchUp(float x, float y, int touchId) {
+
+	ofVec2f pos = mapToInteractiveArea(ofVec2f(x, y));
+	bullet.mouseReleased(pos.x, pos.y);
+
 	if(touches.find(touchId)!=touches.end()) {
 		touches.erase(touchId);
 	}
 }
 
+//--------------------------------------------------------
 ofVec2f BubbleProjection::mapToInteractiveArea(ofVec2f inPoint) {
 	return ofVec2f(interactiveArea.x + interactiveArea.width * inPoint.x,
 				   interactiveArea.y + interactiveArea.height * inPoint.y);
 }
 
+//--------------------------------------------------------
 void BubbleProjection::doubleTouchGesture(int touch1Id, int touch2Id) {
-	
-
 	ofVec2f doubleTouchCentre = (touches[touch1Id] + touches[touch2Id])/2;
 	printf("doubleTouchGesture\n");
 }

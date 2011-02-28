@@ -12,7 +12,8 @@
 
 namespace Donk{
 
-	vector<BubbleData*> Donk::BubbleData::all;
+	ofTrueTypeFont BubbleData::font;
+	vector<BubbleData*> BubbleData::all;
 
 	void BubbleData::add(ofxOscMessage &m){
 		all.push_back(new BubbleData(m));
@@ -48,6 +49,21 @@ namespace Donk{
 			glEnd();
 			profileImage.unbind();
 			
+			if(!font.bLoadedOk){
+				font.loadFont("global/font/Gotham-Bold.otf",50);
+			}
+			
+			ofRectangle textBB = font.getStringBoundingBox(userName, 0,0);
+			glPushMatrix();
+			float s = radius/textBB.width*1.75;
+			glScalef(s,s,s);
+			glTranslated(-textBB.width/2, 0,0.2);
+			ofSetColor(0,0,0);
+			font.drawString(userName,0,0);
+			glTranslatef(2,2,0.2);
+			ofSetColor(255,255,255);
+			font.drawString(userName,0,0);
+			glPopMatrix();
 		}
 		
 	}
