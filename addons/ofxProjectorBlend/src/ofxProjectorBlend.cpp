@@ -52,6 +52,9 @@ ofxProjectorBlend::ofxProjectorBlend()
 #ifdef USE_XML_GUI
 	gui = NULL;
 #endif
+	gamma = 0.5;
+	blendPower = 1;
+	luminance = 0;
 }
 
 void ofxProjectorBlend::setup(int resolutionWidth, 
@@ -62,6 +65,7 @@ void ofxProjectorBlend::setup(int resolutionWidth,
 							  ofxProjectorBlendRotation rotation)
 {
 
+	
 	string l = "horizontal";
 	if(layout==ofxProjectorBlend_Vertical) l = "vertical";
 	
@@ -104,7 +108,15 @@ void ofxProjectorBlend::setup(int resolutionWidth,
 
 void ofxProjectorBlend::begin()
 {
+	
+	
 	fullTexture->begin();
+	
+	
+//	ofViewport(0, 0, fullTexture->getWidth(), fullTexture->getHeight(), true);
+//	ofSetupScreenPerspective(fullTexture->getWidth(), fullTexture->getHeight(), true);
+	
+	
 	ofClear(0,0,0,0);
 	ofPushStyle();
 }
@@ -177,6 +189,7 @@ void ofxProjectorBlend::setShaderDefaults() {
 
 void ofxProjectorBlend::draw(float x, float y)
 {
+	ofSetHexColor(0xFFFFFF);
 	glPushMatrix();
 	glTranslatef(x, y, 0);
 	if(showBlend) {

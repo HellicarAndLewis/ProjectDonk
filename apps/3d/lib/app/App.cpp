@@ -69,7 +69,11 @@ App::App() {
 	projectorBlendGui = new ofxXmlGui();
 	projectorBlendGui->setup(10, 35, 200);
 	projectorBlendGui->disable();
-	
+	projectorBlendGui->addToggle("Show blend", projectorBlend.showBlend);
+	projectorBlendGui->addSlider("Blend Power", projectorBlend.blendPower, 0, 4);
+	projectorBlendGui->addSlider("Gamma", projectorBlend.gamma, 0, 4);
+	projectorBlendGui->addSlider("Luminance", projectorBlend.luminance, 0, 4);
+	projectorBlendGui->enableAutoSave("settings/projectorBlending.xml");
 }
 
 void App::controlChanged(GuiControl *control) {

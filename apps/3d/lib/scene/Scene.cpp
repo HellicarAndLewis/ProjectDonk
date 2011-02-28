@@ -17,7 +17,13 @@ Scene::Scene() {
 	int numProjectors	= settings.getInt("num projectors", 1);
 	int projectorWidth	= settings.getInt("projector width", 1024);
 	int projectorHeight = settings.getInt("projector height", 768);
+
+	bool doingProjectorBlend = settings.getBool("using projector blending", false);
 	
+	// if we're doing projector blending
+	if(doingProjectorBlend) {
+		numProjectors = 1;
+	}
 		
 	
 	for(int i = 0; i < numProjectors; i++) {

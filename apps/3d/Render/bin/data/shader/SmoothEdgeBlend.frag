@@ -55,7 +55,7 @@ vec4 drawSmoothEdges(in vec4 overlap, in float blePow, in float lumCon, in vec3 
 	
 	// use this for testing coordinates
 	vec2 xy = gl_TexCoord[0].xy;
-	
+
 	// use this for getting coordinates out of the texture
 	vec2 texCoord = xy + texCoordOffset;
 	
