@@ -60,7 +60,6 @@ private:
 	
 	// Bullet
 	ofxBullet				bullet;
-	ofLight					light;
 	ofCamera				camera;
 	vector <ContentBubble*> bubbles;
 	
