@@ -60,11 +60,11 @@ void BubbleProjection::draw() {
 	ofClear(0, 50, 0, 0);
 
 	//draw bubbles
-	glPushMatrix();
-	ofRectangle *rect = testApp::instance->calibrationProjection.rect;
-	glTranslatef(rect->x + rect->width/2,rect->y + rect->height/2,0);
-	Donk::BubbleData::render();
-	glPopMatrix();
+	//glPushMatrix();
+	//ofRectangle *rect = testApp::instance->calibrationProjection.rect;
+	//glTranslatef(rect->x + rect->width/2,rect->y + rect->height/2,0);
+	//Donk::BubbleData::render();
+	//glPopMatrix();
 	
 	
 	// this draws the touches - keep in here for now!
