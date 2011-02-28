@@ -108,6 +108,7 @@ ofFbo::Settings::Settings() {
 	minFilter				= GL_LINEAR;
 	maxFilter				= GL_LINEAR;
 	numSamples				= 0;
+	useMipmapping		    = false;
 }
 
 
@@ -326,7 +327,7 @@ void ofFbo::begin() {
 	bind();
 	ofPushView();
 	ofViewport(0, 0, getWidth(), getHeight(), false);
-	ofSetupScreenPerspective(getWidth(), getHeight(), 0, false);
+	ofSetupScreenPerspective(getWidth(), getHeight(), false);
 }
 
 //void ofViewport(float x = 0, float y = 0, float width = 0, float height = 0, bool invertY = true);
