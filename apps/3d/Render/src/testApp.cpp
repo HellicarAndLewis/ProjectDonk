@@ -99,6 +99,9 @@ void testApp::keyPressed(int key){
 		data->media.back().mediaImage.loadImage("lena.png");
 		data->media.back().thumbImage = data->media.back().mediaImage;
 		data->media.back().thumbImage.resize(128, 128);
+
+		data->profileImage.loadImage("lena.png");
+
 		
 		projection->bubbleReceived(data);
 	}

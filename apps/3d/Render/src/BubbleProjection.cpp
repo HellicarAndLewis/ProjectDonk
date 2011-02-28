@@ -128,6 +128,7 @@ void BubbleProjection::bubbleReceived(Donk::BubbleData *bubbleData) {
 	float   radius = 50;
 	
 	ContentBubble * bubble = new ContentBubble();
+	bubble->data = bubbleData;
 	bubble->rigidBody = bullet.createSphere(startPos, radius, 1);
 	bubble->createContentBubble();
 	bubble->target.set(ofRandom(-200, 200), ofRandom(-200, 200), 0);
