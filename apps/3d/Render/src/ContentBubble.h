@@ -10,6 +10,7 @@
 #pragma once
 #include "ofMain.h"
 #include "ofxBullet.h"
+#include "BubbleData.h"
 
 
 //--------------------------------------------------------------
@@ -22,6 +23,7 @@ public:
 	btScalar	m[16];
 	ofVec3f		target;
 	ofColor		color;
+	Donk::BubbleData *data;
 	
 	ContentBubble() {
 		rigidBody = NULL;	
@@ -32,6 +34,7 @@ public:
 		color.r = ofRandom(0, 255);
 		color.g = 100;
 		color.b = 40;
+		color.a = 128;
 		
 	}
 	
@@ -78,13 +81,17 @@ public:
 			
 			ofEnableAlphaBlending();
 			
-			ofSetColor(255, 255, 255);
-			ofFill();
-			drawSphere(ofVec3f(0, 0, 0), radius/3.0);
+			//ofSetColor(255, 255, 255);
+			//ofFill();
+			//drawSphere(ofVec3f(0, 0, 0), radius/3.0);
+			data->radius = radius;
+			data->draw();
 			
 			ofSetColor(color);
 			ofFill();
 			drawSphere(ofVec3f(0, 0, 0), radius, 20);
+			
+			
 			
 			glPopMatrix();
 			

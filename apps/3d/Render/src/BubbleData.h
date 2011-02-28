@@ -58,6 +58,7 @@ namespace Donk{
 			
 		};
 		
+		bool doneLoading();
 		
 		vector<MediaEntry> media;
 	private:		
@@ -65,6 +66,8 @@ namespace Donk{
 			network loader for profile image
 		 */
 		AsyncHttpLoader *profileImageLoader;
+		bool loadingDone;
+		
 	public:
 		ofImage profileImage;
 		
@@ -78,6 +81,7 @@ namespace Donk{
 		void draw(); ///< tells a single bubble instance to draw
 		static void add(ofxOscMessage &m);
 		float radius;///< bubble's radius
+		static ofTrueTypeFont font;
 	};
 	
 }

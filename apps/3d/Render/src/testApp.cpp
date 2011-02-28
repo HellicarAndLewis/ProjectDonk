@@ -6,6 +6,7 @@
 testApp *testApp::instance;
 //--------------------------------------------------------------
 void testApp::setup(){
+	projection = BubbleProjection::getInstance();
 	instance = this;
 	setupOsc();
 	setupKinect();
@@ -14,6 +15,7 @@ void testApp::setup(){
 	// default starting mode
 	nextMode = "buzz";
 	mode->setMode(nextMode);
+	
 
 }
 
@@ -22,7 +24,7 @@ void testApp::setupGraphics() {
 	ofSetFrameRate(60.f);
 	ofBackground(0, 0, 0);
 
-	projection.allocate(PROJECTION_RESOLUTION_WIDTH, PROJECTION_RESOLUTION_HEIGHT);
+	projection->allocate(PROJECTION_RESOLUTION_WIDTH, PROJECTION_RESOLUTION_HEIGHT);
 	calibrationProjection.allocate(PROJECTION_RESOLUTION_WIDTH, PROJECTION_RESOLUTION_HEIGHT);
 	
 }
@@ -32,7 +34,7 @@ void testApp::update(){
 	Donk::BubbleData::update();
 	
 	processOsc();
-	projection.update();
+	projection->update();
 }
 
 
@@ -42,7 +44,7 @@ void testApp::render() {
 	if(calibrationProjection.calibrate) {
 		calibrationProjection.render();
 	} else {
-		projection.render();
+		projection->render();
 	}
 }
 
@@ -64,7 +66,7 @@ void testApp::drawView() {
 			glLineWidth(1);
 		}
 	} else {
-		projection.drawOnModel(scene->getModel());
+		projection->drawOnModel(scene->getModel());
 	}
 	
 }
@@ -97,8 +99,11 @@ void testApp::keyPressed(int key){
 		data->media.back().mediaImage.loadImage("lena.png");
 		data->media.back().thumbImage = data->media.back().mediaImage;
 		data->media.back().thumbImage.resize(128, 128);
+
+		data->profileImage.loadImage("lena.png");
+
 		
-		projection.bubbleReceived(data);
+		projection->bubbleReceived(data);
 	}
 
 }
@@ -176,7 +181,7 @@ void testApp::processOsc() {
 		}else if(m.getAddress()=="/control/bubble/new"){
 			
 			Donk::BubbleData::add(m);
-			//cout << "todo: do something with new bubble received from " << bd.userName << " in mode " << bd.mode << endl;
+			//cout << "todo: do something with new bubble received" << endl;// from " << bd.userName << " in mode " << bd.mode << endl;
 			
 		}else if(m.getAddress()=="/control/question/update"){
 			
@@ -207,18 +212,18 @@ void testApp::setupKinect() {
 	ofAddListener(ofEvents.touchUp, this, &testApp::touchUp);
 	ofAddListener(ofEvents.touchMoved, this, &testApp::touchMoved);
 
-	calibrationProjection.setInteractiveArea(&projection.getInteractiveArea());
+	calibrationProjection.setInteractiveArea(&projection->getInteractiveArea());
 	calibrationProjection.createGui(getCalibrationGui());
 	
 	
 }
 
 void testApp::touchDown(ofTouchEventArgs &touch) {
-	projection.touchDown(touch.x, touch.y, touch.id);
+	projection->touchDown(touch.x, touch.y, touch.id);
 }
 
 void testApp::touchMoved(ofTouchEventArgs &touch) {
-	projection.touchMoved(touch.x, touch.y, touch.id);
+	projection->touchMoved(touch.x, touch.y, touch.id);
 	// e.g.
 	// touches are normalized
 	ofVec2f pos(touch.x, touch.y);
@@ -229,5 +234,5 @@ void testApp::touchMoved(ofTouchEventArgs &touch) {
 }
 
 void testApp::touchUp(ofTouchEventArgs &touch) {
-	projection.touchUp(touch.x, touch.y, touch.id);
+	projection->touchUp(touch.x, touch.y, touch.id);
 }

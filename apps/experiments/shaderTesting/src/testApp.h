@@ -22,14 +22,28 @@ class testApp : public ofBaseApp{
 	void mouseReleased(int x, int y, int button);
 	void windowResized(int w, int h);
 	
+	void renderGluSphereWithTexCoords(float x, float y, float z, float radius);
+	
+	unsigned int permTexture;
+	
+	GLUquadricObj *quadratic;
+	
 	ofShader cubeshader;
 	ofxCubeMap cubeMap;
 	
 	ofVec3f sphereCenter;
 	ofEasyCam cam;
 	
-	ofImage permTex;
-	ofImage glossTex;
+	ofImage permImg;
+	ofImage glossImg;
+	
+	ofTexture permTex, glossTex;
+	
+	ofPixels permPixels;
+	ofPixels glossPixels;
+	
+	float xLightPos,yLightPos,zLightPos;
+	bool inc;
 	
 	bool hasDrawnTex;
 	

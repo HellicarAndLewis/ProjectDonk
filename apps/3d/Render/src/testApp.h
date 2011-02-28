@@ -61,7 +61,7 @@ public:
 	
 	Donk::Mode *mode;
 	
-	BubbleProjection projection;
+	BubbleProjection *projection;
 	CalibrationProjection calibrationProjection;
 	ofxTuioClient tuio;
 };

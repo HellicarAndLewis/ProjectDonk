@@ -60,11 +60,11 @@ void BubbleProjection::draw() {
 	ofClear(0, 50, 0, 0);
 
 	//draw bubbles
-	glPushMatrix();
-	ofRectangle *rect = testApp::instance->calibrationProjection.rect;
-	glTranslatef(rect->x + rect->width/2,rect->y + rect->height/2,0);
-	Donk::BubbleData::render();
-	glPopMatrix();
+	//glPushMatrix();
+	//ofRectangle *rect = testApp::instance->calibrationProjection.rect;
+	//glTranslatef(rect->x + rect->width/2,rect->y + rect->height/2,0);
+	//Donk::BubbleData::render();
+	//glPopMatrix();
 	
 	
 	// this draws the touches - keep in here for now!
@@ -148,6 +148,12 @@ void BubbleProjection::bubbleReceived(Donk::BubbleData *bubbleData) {
 	float   radius = 50;
 	
 	ContentBubble * bubble = new ContentBubble();
+<<<<<<< HEAD
+=======
+	bubble->data = bubbleData;
+	bubble->rigidBody = bullet.createSphere(startPos, radius, 1);
+	bubble->createContentBubble();
+>>>>>>> 7543089606eddc11822aab24ea31f2d2a26597c0
 	bubble->target.set(ofRandom(-200, 200), ofRandom(-200, 200), 0);
 	bubble->rigidBody = bullet.createSphere(bubble->target, radius, 1);
 	bubble->createContentBubble();

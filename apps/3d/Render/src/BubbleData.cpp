@@ -8,10 +8,12 @@
 
 #include "BubbleData.h"
 #include <GLUT/GLUT.h>
+#include "BubbleProjection.h"
 
 namespace Donk{
 
-	vector<BubbleData*> Donk::BubbleData::all;
+	ofTrueTypeFont BubbleData::font;
+	vector<BubbleData*> BubbleData::all;
 
 	void BubbleData::add(ofxOscMessage &m){
 		all.push_back(new BubbleData(m));
@@ -47,10 +49,21 @@ namespace Donk{
 			glEnd();
 			profileImage.unbind();
 			
-			//glutWireSphere(radius,10,10);
+			if(!font.bLoadedOk){
+				font.loadFont("global/font/Gotham-Bold.otf",50);
+			}
 			
-			//move to the right, for now.
-			glTranslatef(radius*2,0,0);
+			ofRectangle textBB = font.getStringBoundingBox(userName, 0,0);
+			glPushMatrix();
+			float s = radius/textBB.width*1.75;
+			glScalef(s,s,s);
+			glTranslated(-textBB.width/2, 0,0.2);
+			ofSetColor(0,0,0);
+			font.drawString(userName,0,0);
+			glTranslatef(2,2,0.2);
+			ofSetColor(255,255,255);
+			font.drawString(userName,0,0);
+			glPopMatrix();
 		}
 		
 	}
@@ -60,7 +73,9 @@ namespace Donk{
 		//call update on all the bubbles
 		vector<BubbleData*>::iterator bdit;
 		for(bdit=all.begin();bdit!=all.end();bdit++){
-			(*bdit)->step();
+			if(!(*bdit)->doneLoading()) {
+				(*bdit)->step();
+			}
 		}
 		
 	}
@@ -68,6 +83,7 @@ namespace Donk{
 	
 	
 	void BubbleData::step(){
+		
 		if(profileImageLoader!=NULL){
 			if(profileImageLoader->status==2){
 				ofBuffer buff;
@@ -79,14 +95,31 @@ namespace Donk{
 		}
 		
 		vector<MediaEntry>::iterator mit;
+		bool allMediaLoaded = true;
 		for(mit=media.begin();mit!=media.end();mit++){
 			mit->step();
+			
+			// check to see if we're totally loaded
+			if(mit->thumbImage.width==0 && mit->mediaImage.width==0) {
+				allMediaLoaded = false;
+			}
 		}
+		
+		bool oldLoadingDone = loadingDone;
+		loadingDone = profileImage.width>0 && allMediaLoaded;
+		
+		if(!oldLoadingDone && loadingDone) {
+			// put it in the physics system
+			printf("Done loading %s %s\n", userName.c_str(), text.c_str());
+			BubbleProjection::getInstance()->bubbleReceived(this);
+		}
+		
 		
 	}
 	
 	BubbleData::BubbleData(ofxOscMessage &m){
 		
+		loadingDone = false;
 		radius = ofRandomuf()*100+50;
 		
 		int index=0;
@@ -171,5 +204,7 @@ namespace Donk{
 	}
 	
 	
-
+	bool BubbleData::doneLoading() {
+		return loadingDone;
+	}
 }
