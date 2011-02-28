@@ -16,7 +16,7 @@
 void testApp::setup(){
 	
 	
-	blender.setup(PROJECTOR_WIDTH, PROJECTOR_HEIGHT, 3, PIXEL_OVERLAP, ofxProjectorBlend_Horizontal, ofxProjectorBlend_RotatedLeft);
+	blender.setup(PROJECTOR_WIDTH, PROJECTOR_HEIGHT, 3, PIXEL_OVERLAP, ofxProjectorBlend_Horizontal, ofxProjectorBlend_NoRotation);
 	blender.gamma = .5;
 	blender.blendPower = 1;
 	blender.luminance = 0;
