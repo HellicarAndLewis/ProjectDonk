@@ -54,18 +54,21 @@ App::App() {
 	}
 	
 	guiChooser.setup(10, 10, 200);
-	guiChooser.addSegmentedControl(" ", whichGui, "Projector|Mode|Calibration");
+	guiChooser.addSegmentedControl(" ", whichGui, "Project|Mode|Calibrate|Blend");
 	guiChooser.enable();
 	guiChooser.height = 25;
 	guiChooser.addListener(this);
 	
-	sceneGui->setEnabled(false);
+	sceneGui->setEnabled(true);
 	modeGui = Mode::getInstance()->getGui();
-	modeGui->enable();
+	modeGui->disable();
 	calibrationGui = new ofxXmlGui();
 	calibrationGui->setup(10, 35, 200);
+	calibrationGui->disable();
 	
-	
+	projectorBlendGui = new ofxXmlGui();
+	projectorBlendGui->setup(10, 35, 200);
+	projectorBlendGui->disable();
 	
 }
 
@@ -160,11 +163,13 @@ void App::_keyPressed(ofKeyEventArgs &e) {
 				modeGui->disable();
 				calibrationGui->disable();
 				guiChooser.disable();
+				projectorBlendGui->disable();
 			} else {
 				e.key = lastGui;
 				_keyPressed(e);
 			}
 			break;
+			
 		case '1':
 			guiChooser.enable();
 			whichGui = 0;
@@ -173,7 +178,9 @@ void App::_keyPressed(ofKeyEventArgs &e) {
 			sceneGui->setEnabled(true);
 			modeGui->disable();
 			calibrationGui->disable();
+			projectorBlendGui->disable();
 			break;
+			
 		case '2':
 			guiChooser.enable();
 			whichGui = 1;
@@ -182,7 +189,9 @@ void App::_keyPressed(ofKeyEventArgs &e) {
 			sceneGui->setEnabled(false);
 			modeGui->enable();
 			calibrationGui->disable();
+			projectorBlendGui->disable();
 			break;
+			
 		case '3':
 			guiChooser.enable();
 			whichGui = 2;
@@ -191,7 +200,20 @@ void App::_keyPressed(ofKeyEventArgs &e) {
 			sceneGui->setEnabled(false);
 			modeGui->disable();
 			calibrationGui->enable();
+			projectorBlendGui->disable();
 			break;
+			
+		case '4':
+			guiChooser.enable();
+			whichGui = 3;
+			lastGui = '4';
+			guiEnabled = true;
+			sceneGui->setEnabled(false);
+			modeGui->disable();
+			calibrationGui->disable();
+			projectorBlendGui->enable();
+			break;
+			
 		case 'f':
 		case 'F':
 			ofToggleFullscreen();

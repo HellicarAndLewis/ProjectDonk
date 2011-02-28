@@ -72,6 +72,8 @@ private:
 	// everything to do with image and interaction calibration goes here.
 	ofxXmlGui *calibrationGui;
 	
+	ofxXmlGui *projectorBlendGui;
+	
 	void drawAllProjectors();
 	
 	ofxProjectorBlend projectorBlend;
