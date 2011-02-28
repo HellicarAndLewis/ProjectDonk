@@ -36,7 +36,8 @@ public:
 	float audioFps;
 	float audioPos;
 	float lastTimeSent;
-	
+	float smoothing;
+	float exponent;
 	
 };
 

@@ -12,7 +12,7 @@
 #include "BubbleProjection.h"
 #include "ofxTuioClient.h"
 #include "CalibrationProjection.h"
-
+#include "AudioData.h"
 
 
 class testApp : public Donk::App {
@@ -64,6 +64,7 @@ public:
 	BubbleProjection *projection;
 	CalibrationProjection calibrationProjection;
 	ofxTuioClient tuio;
+	Donk::AudioData *audioData;
 };
 
 #endif

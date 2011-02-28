@@ -1,14 +1,16 @@
 <values>
-    <value controlId="updateFPS" value="30.890001297"></value>
-    <value controlId="fps" value="30"></value>
-    <value controlId="gain1" value="0.231404960"></value>
-    <value controlId="ch1" value="1018179750"></value>
-    <value controlId="gain2" value="0.371900797"></value>
+    <value controlId="updateFPS" value="38.729999542"></value>
+    <value controlId="smoothing" value="0.730000019"></value>
+    <value controlId="exponent" value="0.219999999"></value>
+    <value controlId="fps" value="38"></value>
+    <value controlId="gain1" value="2.809917450"></value>
+    <value controlId="ch1" value="1054471785"></value>
+    <value controlId="gain2" value="3.471074343"></value>
     <value controlId="gain4" value="0.553719044"></value>
     <value controlId="gain3" value="0.917355359"></value>
     <value controlId="gain6" value="0.330578506"></value>
     <value controlId="gain5" value="0.289256215"></value>
-    <value controlId="ch2" value="1024300238"></value>
+    <value controlId="ch2" value="1057480921"></value>
     <value controlId="ch6" value="934431247"></value>
     <value controlId="ch4" value="989863551"></value>
     <value controlId="ch3" value="992713299"></value>

@@ -1,5 +1,8 @@
 <values>
-    <parameter key="Background Red" value="0.000000"></parameter>
-    <parameter key="Background Green" value="14.763158"></parameter>
-    <parameter key="Background Blue" value="130.184204"></parameter>
+    <parameter key="Top BG Red" value="120.789474"></parameter>
+    <parameter key="Top BG Green" value="72.473686"></parameter>
+    <parameter key="Top BG Blue" value="65.763153"></parameter>
+    <parameter key="Bottom BG Red" value="84.552628"></parameter>
+    <parameter key="Bottom BG Green" value="100.657898"></parameter>
+    <parameter key="Bottom BG Blue" value="108.710526"></parameter>
 </values>

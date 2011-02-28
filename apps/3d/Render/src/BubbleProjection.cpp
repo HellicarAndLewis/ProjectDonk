@@ -8,6 +8,8 @@
 
 #include "BubbleProjection.h"
 #include "testApp.h"
+#include "Mode.h"
+#include "AudioData.h"
 
 
 
@@ -57,8 +59,39 @@ void BubbleProjection::update() {
 //--------------------------------------------------------
 void BubbleProjection::draw() {
 	// clear the FBO
-	ofClear(0, 50, 0, 0);
-
+	using namespace Donk;
+	
+	// audioReactiveness: 0 is not audio reactive, 1 is fully audio reactive
+	float audioReactiveness = Mode::getInstance()->getValue("Background Audio-reactiveness");
+	float volume = AudioData::getInstance()->getVolume(0);
+	float amp = volume;//1 - volume *(1-audioReactiveness);
+	ofClear(
+			amp*Mode::getInstance()->getValue("Top BG Red"), 
+			amp*Mode::getInstance()->getValue("Top BG Green"), 
+			amp*Mode::getInstance()->getValue("Top BG Blue"), 255);
+	/*
+		
+		ofColor topColor(
+						 Mode::getInstance()->getValue("Top BG Red"), 
+						 Mode::getInstance()->getValue("Top BG Green"), 
+						 Mode::getInstance()->getValue("Top BG Blue"));
+		
+		ofColor bottomColor(
+						 Mode::getInstance()->getValue("Bottom BG Red"), 
+						 Mode::getInstance()->getValue("Bottom BG Green"), 
+						 Mode::getInstance()->getValue("Bottom BG Blue"));
+		
+		glBegin(GL_QUADS);
+		ofSetColor(topColor);
+		glVertex2f(0, 0);
+		glVertex2f(getWidth(), 0);
+		ofSetColor(bottomColor);
+		glVertex2f(getWidth(), getHeight());
+		glVertex2f(0, getHeight());
+		glEnd();
+		
+	*/
+	  
 	//draw bubbles
 	//glPushMatrix();
 	//ofRectangle *rect = testApp::instance->calibrationProjection.rect;

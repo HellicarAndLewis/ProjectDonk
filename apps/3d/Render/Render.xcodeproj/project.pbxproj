@@ -223,7 +223,7 @@
 		EA746AD313128676000753DA /* ofxSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA746AD113128676000753DA /* ofxSettings.cpp */; };
 		EA746B581312883D000753DA /* App.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA746B3D1312883D000753DA /* App.cpp */; };
 		EA746B591312883D000753DA /* Mode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA746B3F1312883D000753DA /* Mode.cpp */; };
-		EA746B5A1312883D000753DA /* AudioServerReceiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA746B421312883D000753DA /* AudioServerReceiver.cpp */; };
+		EA746B5A1312883D000753DA /* AudioData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA746B421312883D000753DA /* AudioData.cpp */; };
 		EA746B5B1312883D000753DA /* SceneGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA746B471312883D000753DA /* SceneGui.cpp */; };
 		EA746B5C1312883D000753DA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA746B4A1312883D000753DA /* main.cpp */; };
 		EA746B5D1312883D000753DA /* ProjectedRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA746B4D1312883D000753DA /* ProjectedRect.cpp */; };
@@ -280,6 +280,7 @@
 
 /* Begin PBXFileReference section */
 		1F08342C1317D1D400BC166F /* general.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = general.xml; path = bin/data/settings/general.xml; sourceTree = "<group>"; };
+		1F8EEEC5131BC74F00EF55C7 /* OSC.json.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = OSC.json.txt; path = bin/data/settings/OSC.json.txt; sourceTree = "<group>"; };
 		5FC27C0813196E13005F76C7 /* ContentBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentBubble.h; sourceTree = "<group>"; };
 		5FC27C0913196E13005F76C7 /* ContentBubble.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ContentBubble.cpp; sourceTree = "<group>"; };
 		5FC27F3E131BCFDD005F76C7 /* ofxCubeMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxCubeMap.cpp; sourceTree = "<group>"; };
@@ -858,8 +859,8 @@
 		EA746B3E1312883D000753DA /* App.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = App.h; sourceTree = "<group>"; };
 		EA746B3F1312883D000753DA /* Mode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Mode.cpp; sourceTree = "<group>"; };
 		EA746B401312883D000753DA /* Mode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mode.h; sourceTree = "<group>"; };
-		EA746B421312883D000753DA /* AudioServerReceiver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioServerReceiver.cpp; sourceTree = "<group>"; };
-		EA746B431312883D000753DA /* AudioServerReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioServerReceiver.h; sourceTree = "<group>"; };
+		EA746B421312883D000753DA /* AudioData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioData.cpp; sourceTree = "<group>"; };
+		EA746B431312883D000753DA /* AudioData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioData.h; sourceTree = "<group>"; };
 		EA746B441312883D000753DA /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
 		EA746B461312883D000753DA /* Enableable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enableable.h; sourceTree = "<group>"; };
 		EA746B471312883D000753DA /* SceneGui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneGui.cpp; sourceTree = "<group>"; };
@@ -1736,6 +1737,7 @@
 			isa = PBXGroup;
 			children = (
 				1F08342C1317D1D400BC166F /* general.xml */,
+				1F8EEEC5131BC74F00EF55C7 /* OSC.json.txt */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				EA746BFA1312ABB5000753DA /* parameters.xml */,
 				E4B69B5B0A3A1756003C02F2 /* RenderDebug.app */,
@@ -2245,8 +2247,8 @@
 		EA746B411312883D000753DA /* audio */ = {
 			isa = PBXGroup;
 			children = (
-				EA746B421312883D000753DA /* AudioServerReceiver.cpp */,
-				EA746B431312883D000753DA /* AudioServerReceiver.h */,
+				EA746B421312883D000753DA /* AudioData.cpp */,
+				EA746B431312883D000753DA /* AudioData.h */,
 			);
 			path = audio;
 			sourceTree = "<group>";
@@ -2471,7 +2473,7 @@
 				EA746AD313128676000753DA /* ofxSettings.cpp in Sources */,
 				EA746B581312883D000753DA /* App.cpp in Sources */,
 				EA746B591312883D000753DA /* Mode.cpp in Sources */,
-				EA746B5A1312883D000753DA /* AudioServerReceiver.cpp in Sources */,
+				EA746B5A1312883D000753DA /* AudioData.cpp in Sources */,
 				EA746B5B1312883D000753DA /* SceneGui.cpp in Sources */,
 				EA746B5C1312883D000753DA /* main.cpp in Sources */,
 				EA746B5D1312883D000753DA /* ProjectedRect.cpp in Sources */,
