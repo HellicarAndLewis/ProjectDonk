@@ -48,10 +48,6 @@ namespace Donk{
 			glEnd();
 			profileImage.unbind();
 			
-			//glutWireSphere(radius,10,10);
-			
-			//move to the right, for now.
-			glTranslatef(radius*2,0,0);
 		}
 		
 	}
