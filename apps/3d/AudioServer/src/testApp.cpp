@@ -67,6 +67,9 @@ void testApp::update() {
 	//}
 	audioMutex.lock();
 	audioFps = fps;
+	smoothing = 0.9999 + gui.getControlById("smoothing")->floatValue()*0.0001;
+	exponent = pow(2, gui.getControlById("exponent")->floatValue());
+	printf("Smoothing %f\n", smoothing);
 	audioMutex.unlock();
 }
 //--------------------------------------------------------------
@@ -85,10 +88,12 @@ void testApp::audioReceived(float *buffer, int bufferSize, int nChannels) {
 			if(absSignal>volumes[channel]) {
 				volumes[channel] = absSignal;
 			} else {
-				volumes[channel] *= 0.99995;
+				volumes[channel] *= smoothing;
 			}
 		}
-		meters[channel] = volumes[channel]*gains[channel];
+		// clip 
+		meters[channel] = MIN(volumes[channel]*gains[channel], 1);
+		meters[channel] = pow(meters[channel], exponent);
 	}
 	
 	// how long in seconds we've gone forward in time
@@ -107,7 +112,7 @@ void testApp::audioReceived(float *buffer, int bufferSize, int nChannels) {
 			ofxOscMessage m;
 			m.setAddress("/audio");
 			for(int i = 0; i < NUM_AUDIO_CHANNELS; i++) {
-				m.addFloatArg(volumes[i]*gains[i]);
+				m.addFloatArg(pow(MIN(volumes[i]*gains[i], 1), exponent));
 			}	
 		
 			osc.sendMessage(m);
