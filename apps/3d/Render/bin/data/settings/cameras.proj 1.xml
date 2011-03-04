@@ -1,10 +1,10 @@
 <values>
-    <value controlId="Show 4-up" value="false"></value>
+    <value controlId="Show 4-up" value="true"></value>
     <value controlId="enabled" value="true"></value>
-    <value controlId="fov" value="53.052631378"></value>
-    <value controlId="xy position" value="-0.210526466,2.000000000"></value>
-    <value controlId="z position" value="7.368421555"></value>
-    <value controlId="xy rotation" value="3.789474487,-7.199996948"></value>
+    <value controlId="fov" value="67.263153076"></value>
+    <value controlId="xy position" value="-0.105262756,2.000000000"></value>
+    <value controlId="z position" value="4.000000000"></value>
+    <value controlId="xy rotation" value="0.000000000,0.000000000"></value>
     <value controlId="z rotation" value="0.000000000"></value>
     <value controlId="Rotate then position" value="true"></value>
 </values>

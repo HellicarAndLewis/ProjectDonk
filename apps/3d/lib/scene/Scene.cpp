@@ -9,7 +9,7 @@
 #include "Scene.h"
 #include "ofxSettings.h"
 
-Scene::Scene() {
+Scene::Scene(int w, int h) {
 	
 	
 	
@@ -23,6 +23,10 @@ Scene::Scene() {
 	// if we're doing projector blending
 	if(doingProjectorBlend) {
 		numProjectors = 1;
+
+		projectorWidth = w;
+		projectorHeight = h;
+		//printf("%d %d\n", projectorWidth, projectorHeight);
 	}
 		
 	

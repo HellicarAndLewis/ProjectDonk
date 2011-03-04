@@ -55,14 +55,14 @@
 #ifdef USE_SIMPLE_GUI
 #include "ofxSimpleGuiToo.h"
 #endif
-
+/*
 #define USE_XML_GUI
 
 #ifdef USE_XML_GUI
 #include "ofxXmlGui.h"
-#endif
+#endif*/
 
-// not implemented yet!
+
 enum ofxProjectorBlendLayout {
 	ofxProjectorBlend_Horizontal = 1,
 	ofxProjectorBlend_Vertical = 2,
@@ -99,9 +99,29 @@ class ofxProjectorBlend
 	//void draw(float x, float y, float w, float h);
 	void draw(float x = 0, float y = 0);
 	
+	
+	// this is how big the area to draw to is.
 	float getCanvasWidth();
 	float getCanvasHeight();
 
+	
+	/** 
+	 * This is how big all the projector resolutions would be
+	 * if laid out horizontally, next to eachother. This is
+	 * essentially the output resolution (regardless of rotation
+	 * and orientation.) - the output to set your project to.
+	 *
+	 * On a mac, if you want multiple screens doing fullscreen, 
+	 * you need to put your screens next to eachother with the
+	 * main one (the one with the menu) on the left hand side.
+	 * If you don't, you'll only get the first screen.
+	 */
+	float getDisplayWidth();
+	float getDisplayHeight();
+	
+	
+	/** This changes your app's window size to the correct output size */
+	void setWindowToDisplaySize();
 	
 	bool showBlend;
 	
@@ -125,6 +145,9 @@ class ofxProjectorBlend
 	float singleChannelWidth;
 	float singleChannelHeight;
 
+	float displayWidth;
+	float displayHeight;
+	
 	float pixelOverlap;
 	int numProjectors;
 	ofxProjectorBlendLayout layout;
@@ -132,6 +155,8 @@ class ofxProjectorBlend
 	ofShader* blendShader;
 	ofFbo* fullTexture;
 	void setShaderDefaults();
+	
+
 };
 
 #endif

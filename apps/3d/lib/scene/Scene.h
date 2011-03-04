@@ -10,8 +10,14 @@
  */
 class Scene: public ofScene3d {
 public:
-	/** Loads the scene from XML */
-	Scene();
+	
+	/** 
+	 * Loads the scene from XML. If using 
+	 * projector edge blending, pass in 
+	 * the total projection area here, 
+	 * otherwise it's ignored.
+	 */
+	Scene(int w = 0, int h = 0);
 	
 	~Scene();
 	/**

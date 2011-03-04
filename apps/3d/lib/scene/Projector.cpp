@@ -79,13 +79,20 @@ void Projector::begin() {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	
-	gluPerspective(fov, width/height, nc, fc);
+	float aspect = width/height;
+	aspect = ofGetWindowSize().x/ofGetWindowSize().y;
+	gluPerspective(fov, aspect, nc, fc);
 	
 	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(ofMatrix4x4::getInverseOf(getGlobalTransformMatrix()).getPtr());
-	glViewport(x, ofGetHeight() - (height+y), width, height);
+	//glViewport(x, ofGetHeight() - (height+y), width, height);
 	
+	
+	glViewport(x, height, width, height);
+	
+	//glViewport(x, y, width, height);
+	//printf("x: %f   Y: %f   w: %f   h: %f  \n", x, y, width, height);
 }
 
 void Projector::end() {

@@ -23,8 +23,7 @@ App::App() {
 
 	usingProjectorBlend = settings.getBool("using projector blending");
 
-	scene		= new Scene();
-	sceneGui	= new SceneGui(scene);
+	
 	
 	if(usingProjectorBlend) {	
 		projectorBlend.setup(
@@ -40,8 +39,12 @@ App::App() {
 								ofxProjectorBlend_RotatedRight:ofxProjectorBlend_NoRotation
 						
 		);
-		ofSetWindowShape(projectorBlend.getCanvasWidth(), projectorBlend.getCanvasHeight());
+		projectorBlend.setWindowToDisplaySize();
+		scene		= new Scene(projectorBlend.getCanvasWidth(), projectorBlend.getCanvasHeight());
+	} else {
+		scene		= new Scene();
 	}
+	sceneGui	= new SceneGui(scene);
 	
 	ofAddListener(ofEvents.keyPressed, this, &App::_keyPressed);
 	ofAddListener(ofEvents.keyReleased, this, &App::_keyReleased);
@@ -95,13 +98,39 @@ void App::drawAllProjectors() {
 	for(int i = 0; i < scene->projectors.size(); i++) {
 		if(scene->projectors[i]->enabled) {
 			scene->projectors[i]->begin();
+			if(usingProjectorBlend) {
+				glViewport(0, 0, projectorBlend.getCanvasWidth(), projectorBlend.getCanvasHeight());
+			} else {
+				// don't know if we need this (it was originally inside drawView()
+				// for non-projector blending. it was breaking the projector blend.
+				glViewport(0, 0, ofGetWidth(), ofGetHeight());
+			}
+			
+			
 			this->drawView();
+			
 			scene->projectors[i]->end();
 		}
 	}
+	
 	if(usingProjectorBlend) {
+		
 		projectorBlend.end();
+		
+		//ofViewport(0, 0, ofGetWidth(), ofGetHeight());
+		
+		
+		
+		// turn everything upside down!?
+		//glPushMatrix();
+		//glTranslatef(0, projectorBlend.getCanvasHeight(), 0);
+		//glScalef(1, -1, 1);
+		
 		projectorBlend.draw(0, 0);
+		//glPopMatrix();
+	} else {
+		ofViewport(0, 0, ofGetWidth(), ofGetHeight());
+		ofSetupScreen();
 	}
 }
 
@@ -119,10 +148,9 @@ void App::_draw(ofEventArgs &e) {
 
 		
 /*	ScopedGLCapability depth(GL_DEPTH_TEST, false);*/
-	glViewport(0, 0, ofGetWidth(), ofGetHeight());
-	ofSetupScreen();
-	glViewport(0, 0, ofGetWidth(), ofGetHeight());
-	ofSetupScreen();
+	
+	//glViewport(0, 0, ofGetWidth(), ofGetHeight());
+	//ofSetupScreen();
 	
 	if(guiEnabled) {
 		ofSetHexColor(0xFF0000);

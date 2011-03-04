@@ -98,7 +98,10 @@ void ofxProjectorBlend::setup(int resolutionWidth,
 	} else {
 		ofLog(OF_LOG_ERROR, "ofxProjectorBlend: You have used an invalid ofxProjectorBlendLayout in ofxProjectorBlend::setup()");
 	}
-
+	
+	displayWidth = resolutionWidth*numProjectors;
+	displayHeight = resolutionHeight;
+	
 	fullTexture = new ofFbo();
 	fullTexture->setup(fullTextureWidth, fullTextureHeight, GL_RGB);
 	
@@ -112,15 +115,23 @@ void ofxProjectorBlend::begin()
 	
 	fullTexture->begin();
 	
-	
-//	ofViewport(0, 0, fullTexture->getWidth(), fullTexture->getHeight(), true);
-//	ofSetupScreenPerspective(fullTexture->getWidth(), fullTexture->getHeight(), true);
-	
-	
 	ofClear(0,0,0,0);
 	ofPushStyle();
 }
 
+
+float ofxProjectorBlend::getDisplayWidth() {
+	return displayWidth;
+}
+float ofxProjectorBlend::getDisplayHeight() {
+	return displayHeight;
+}
+
+
+/** This changes your app's window size to the correct output size */
+void ofxProjectorBlend::setWindowToDisplaySize() {
+	ofSetWindowShape(getDisplayWidth(), getDisplayHeight());
+}
 
 float ofxProjectorBlend::getCanvasWidth()
 {

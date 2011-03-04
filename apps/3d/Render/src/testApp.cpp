@@ -38,6 +38,8 @@ void testApp::update(){
 	
 	processOsc();
 	projection->update();
+	
+	ofSetWindowTitle(ofToString(ofGetFrameRate(), 2) + "fps,  " + ofToString(ofGetWindowSize().x) + "x"+ofToString(ofGetWindowSize().y));
 }
 
 

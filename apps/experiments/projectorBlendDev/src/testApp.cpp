@@ -21,8 +21,6 @@ void testApp::setup(){
 	blender.blendPower = 1;
 	blender.luminance = 0;
 	
-	gui = blender.getGui();
-	gui->enable();
 }
 
 //--------------------------------------------------------------
@@ -73,6 +71,10 @@ void testApp::draw(){
 	ofSetColor(0, 0, 0);
 	ofDrawBitmapString("SPACE - toggle show blend\n[g/G] - adjust gamma\n[p/P] - adjust blend power\n[l/L] adjust luminance", 15, 35);
 	
+	float a = ofMap(mouseX, 0, ofGetWidth(), 0, blender.getCanvasWidth());
+	float b = ofMap(mouseY, 0, ofGetHeight(), 0, blender.getCanvasHeight());
+	ofSetHexColor(0xFF0000);
+	ofCircle(a, b, 10);
 	//call when you are finished drawing
 	blender.end();
 	

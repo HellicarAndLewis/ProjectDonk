@@ -56,7 +56,7 @@ void ProjectedRect::render() {
 
 void ProjectedRect::drawOnModel(Model *model) {
 	
-	glViewport(0, 0, ofGetWidth(), ofGetHeight());
+	//glViewport(0, 0, ofGetWidth()*2, ofGetHeight()*2);
 	// scale the texture matrix so we can use normalized tex coords
 	glMatrixMode(GL_TEXTURE);
 	glPushMatrix();
