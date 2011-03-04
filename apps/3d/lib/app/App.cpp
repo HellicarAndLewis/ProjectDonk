@@ -20,7 +20,12 @@ int whichGui = 0;
 
 App::App() {
 	ofSetLogLevel(OF_LOG_NOTICE);
-
+	
+	ofAddListener(ofEvents.keyPressed, this, &App::_keyPressed);
+	ofAddListener(ofEvents.keyReleased, this, &App::_keyReleased);
+	ofAddListener(ofEvents.draw, this, &App::_draw);
+	ofAddListener(ofEvents.update, this, &App::_update);
+	
 	usingProjectorBlend = settings.getBool("using projector blending");
 
 	
@@ -46,10 +51,7 @@ App::App() {
 	}
 	sceneGui	= new SceneGui(scene);
 	
-	ofAddListener(ofEvents.keyPressed, this, &App::_keyPressed);
-	ofAddListener(ofEvents.keyReleased, this, &App::_keyReleased);
-	ofAddListener(ofEvents.draw, this, &App::_draw);
-	ofAddListener(ofEvents.update, this, &App::_update);
+	
 	
 	guiEnabled = true;
 	if(settings.getBool("using first screen for gui only", false)) {

@@ -147,6 +147,8 @@ public:
 	
 	bool hasTexCoords();
 	
+	int getNumPoints();
+	ofVec3f *getPoints();
 private:
 	
 	bool bHasTexCoords;
@@ -162,6 +164,7 @@ private:
 	ofVbo vbo;
 	void loadVbo();
 	int vboCoordCount;
+	ofVec3f *coords;
 };
 
 

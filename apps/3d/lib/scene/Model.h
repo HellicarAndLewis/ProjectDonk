@@ -29,6 +29,7 @@ public:
 		disableWhite = true;
 		draw();
 		disableWhite = false;
+		
 	}
 	void drawSolid() {
 		solid = true;
@@ -40,6 +41,17 @@ public:
 	void customDraw() {
 		if(!disableWhite) glColor3f(1,1,1);
 		model.draw(solid);
+		
+		/*
+		ofVec3f *verts = model.getPoints();
+		int numVerts = model.getNumPoints();
+		
+		for(int i = 0; i < numVerts; i++) {
+			ofSetHexColor(i*2);
+			ofCircle(verts[i], 0.1);
+		}
+		*/
+		
 	}
 	void drawModel() {
 		model.draw(true);

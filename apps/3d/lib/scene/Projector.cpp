@@ -90,7 +90,6 @@ void Projector::begin() {
 	
 	
 	glViewport(x, height, width, height);
-	
 	//glViewport(x, y, width, height);
 	//printf("x: %f   Y: %f   w: %f   h: %f  \n", x, y, width, height);
 }

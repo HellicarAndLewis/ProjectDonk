@@ -180,7 +180,7 @@ void ofxOBJModel::loadVbo() {
 			
 		}
 	}
-	ofVec3f *coords = new ofVec3f[count];
+	coords = new ofVec3f[count];
 	ofVec3f *normals = NULL;
 	ofVec2f *texCoords = NULL;
 	if(hasNormals()) normals = new ofVec3f[count];
@@ -228,7 +228,7 @@ void ofxOBJModel::loadVbo() {
 	if(normals!=NULL) vbo.setNormalData(normals, count, GL_STATIC_DRAW_ARB);
 	if(texCoords!=NULL) vbo.setTexCoordData(texCoords, count, GL_STATIC_DRAW_ARB);
 	
-	delete [] coords;
+	//delete [] coords;
 	if(normals!=NULL) delete [] normals;
 	if(texCoords!=NULL) delete [] texCoords;
 	vboCoordCount = count;
@@ -629,3 +629,15 @@ void ObjFace::getBounds(ofPoint *min, ofPoint *max) {
 		if(points[i].z<min->z) min->z = points[i].z;
 	}
 }
+
+
+int ofxOBJModel::getNumPoints() {
+	return vboCoordCount;
+}
+
+ofVec3f *ofxOBJModel::getPoints() {
+	return coords;
+}
+
+
+
