@@ -26,10 +26,9 @@ void ContentBubble::createContentBubble() {
 	touchAlphaTarget = 0;
 	touchAlpha		 = 0;
 	
-	/*
+	
 	
 	ofDisableArbTex();
-	
 	//cout << glGetString(GL_EXTENSIONS) << endl;
 	ofEnableNormalizedTexCoords();
 	
@@ -44,11 +43,7 @@ void ContentBubble::createContentBubble() {
 	gluQuadricNormals(quadratic, GLU_SMOOTH);	// Create Smooth Normals ( NEW )
 	gluQuadricTexture(quadratic, GL_TRUE);	
 	
-	sphereCenter = ofVec3f(0, 0, 0);
-	cam.setTarget(sphereCenter);
-	cam.setDistance(300);
-	
-	cubeshader.setup("shader/bubble/fresnel_refraction.vs", "shader/bubble/fresnel_refraction.fs");
+	shader.setup("shader/bubble/fresnel_refraction.vs", "shader/bubble/fresnel_refraction.fs");
 	
 	cubeMap.loadImages("shader/bubble/skybox/berkeley_positive_x.png",
 					   "shader/bubble/skybox/berkeley_positive_y.png",
@@ -58,12 +53,7 @@ void ContentBubble::createContentBubble() {
 					   "shader/bubble/skybox/berkeley_negative_z.png");
 	
 	//cubeMap.enableFixedMapping();
-	
-	xLightPos = -1;
-	yLightPos = -1;
-	zLightPos = 1;
-	inc = true;
-	//hasDrawnTex = false;*/
+	//hasDrawnTex = false;
 	
 }
 
@@ -92,7 +82,6 @@ void ContentBubble::update() {
 	else	     touchAlphaTarget = 0;
 	
 }
-
 
 //--------------------------------------------------------------
 void ContentBubble::draw() {
@@ -129,11 +118,93 @@ void ContentBubble::draw() {
 		
 		ofSetColor(color);
 		ofFill();
-		drawSphere(ofVec3f(0, 0, 0), radius, 20);
+		//drawSphere(ofVec3f(0, 0, 0), radius, 20);
+		renderSphere();
 		
 		glPopMatrix();
 		
 	}
+}
+
+void ContentBubble::renderSphere()
+{
+	
+	glEnable(GL_TEXTURE_CUBE_MAP_ARB);
+	glEnable(GL_NORMALIZE);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
+	
+	float modelview[16];
+	glGetFloatv(GL_MODELVIEW_MATRIX, modelview);
+	
+	shader.begin();
+	
+	glActiveTexture(GL_TEXTURE0);
+	unsigned int texId1 = permImg.getTextureReference().getTextureData().textureID;
+	unsigned int texTarget1 = permImg.getTextureReference().getTextureData().textureTarget;  
+	glBindTexture(texTarget1, texId1);
+	
+	glActiveTexture(GL_TEXTURE1);
+	unsigned int texId2 = glossImg.getTextureReference().getTextureData().textureID;
+	unsigned int texTarget2 = glossImg.getTextureReference().getTextureData().textureTarget;  
+	glBindTexture(texTarget2, texId2);
+	
+	glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_CUBE_MAP_ARB, cubeMap.textureObject);
+	
+	shader.setUniform1i("glossMap", 0);
+	shader.setUniform1i("baseMap", 1);
+	shader.setUniform1i("environmentMap", 2);
+	
+	shader.setUniform1f("EdgeFalloff", 0.2f);
+	
+	float* eyeVector = new float[3];
+	eyeVector[0] = ofGetWidth()/2;
+	eyeVector[1] = ofGetHeight()/2;
+	eyeVector[2] = 1;
+	shader.setUniform3fv("eyeVector", eyeVector);
+	
+	float* lpos = new float[3];
+	lpos[0] = lightPosition.x;
+	lpos[1] = lightPosition.y;
+	lpos[2] = lightPosition.z;
+	shader.setUniform3fv("lightVector", lpos);
+	
+	shader.setUniform1f("reflectAmount", 0.6f);
+	
+	float* pos = new float[3];
+	pos[0] = 0.5;
+	pos[1] = 0.5;
+	pos[2] = 0.5;
+	shader.setUniform3fv("fresnelValues", pos);
+	
+	float* cpos = new float[3];
+	cpos[0] = modelview[3];//0.5;
+	cpos[1] = modelview[7];//0.5;
+	cpos[2] = modelview[11];//0.5;
+	shader.setUniform3fv("CameraPos", cpos);
+	
+	float* lPos = new float[3];
+	lPos[0] = 0.5;
+	lPos[1] = 0.5;
+	lPos[2] = 0.5;
+	shader.setUniform3fv("IoR_Values", lPos);
+	
+	//shader.setUniform4mat("ModelWorld4x4", mat);
+	shader.setUniform4mat("ModelWorld4x4", &modelview[0]);
+	gluSphere(quadratic, rigidBody->boxSize.getX(), rigidBody->boxSize.getX(), rigidBody->boxSize.getX());
+	shader.end();
+	
+	
+	glDisable(GL_CULL_FACE);
+	glDisable(GL_NORMALIZE);
+	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_TEXTURE_CUBE_MAP_ARB);
+	
+	delete pos;
+	delete lPos;
+	delete eyeVector;
+	delete lpos;
 }
 
 

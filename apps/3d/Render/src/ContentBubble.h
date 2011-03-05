@@ -11,6 +11,7 @@
 #include "ofMain.h"
 #include "ofxBullet.h"
 #include "BubbleData.h"
+#include "ofxCubeMap.h"
 
 //--------------------------------------------------------------
 class ContentBubble {
@@ -29,6 +30,16 @@ public:
 	
 	float		touchAlpha, touchAlphaTarget;
 	bool		bTouched;
+	
+	GLUquadricObj *quadratic;
+	ofImage permImg, glossImg;
+	ofVec3f	lightPosition;
+	ofShader shader;
+	ofxCubeMap cubeMap;
+	
+	void renderSphere();
+	void setLightPosition(ofVec3f position) { lightPosition = position; }
+	
 	
 	//---------------------------------
 	ContentBubble();

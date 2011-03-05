@@ -1,0 +1,7 @@
+{
+
+"osc_listen_port": 1234,
+"tuio_listen_port": 3333,
+"audio_osc_port": 12345
+}
+
