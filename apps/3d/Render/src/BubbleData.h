@@ -12,6 +12,7 @@
 #include <vector>
 #include <string>
 #include "AsyncHttpLoader.h"
+#include "ofxCubeMap.h"
 
 using namespace std;
 
@@ -82,6 +83,15 @@ namespace Donk{
 		static void add(ofxOscMessage &m);
 		float radius;///< bubble's radius
 		static ofTrueTypeFont font;
+		
+		void renderSphere();
+		
+		GLUquadricObj *quadratic;
+		ofImage permImg, glossImg;
+		ofVec3f	lightPosition;
+		ofShader shader;
+		ofxCubeMap cubeMap;
+		
 	};
 	
 }

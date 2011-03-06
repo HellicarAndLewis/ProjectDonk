@@ -37,7 +37,7 @@ public:
 	ofShader shader;
 	ofxCubeMap cubeMap;
 	
-	void renderSphere();
+	void renderSphere() {}
 	void setLightPosition(ofVec3f position) { lightPosition = position; }
 	
 	

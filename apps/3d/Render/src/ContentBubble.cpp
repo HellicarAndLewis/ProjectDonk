@@ -32,9 +32,9 @@ void ContentBubble::createContentBubble() {
 	//cout << glGetString(GL_EXTENSIONS) << endl;
 	ofEnableNormalizedTexCoords();
 	
-	permImg.loadImage("shader/bubble/texturing.jpg");
+	permImg.loadImage("shader/texturing.jpg");
 	permImg.setImageType(OF_IMAGE_COLOR);
-	glossImg.loadImage("shader/bubble/permutationTexture.jpg");
+	glossImg.loadImage("shader/permutationTexture.jpg");
 	glossImg.setImageType(OF_IMAGE_COLOR);
 	
 	ofEnableArbTex();
@@ -43,14 +43,14 @@ void ContentBubble::createContentBubble() {
 	gluQuadricNormals(quadratic, GLU_SMOOTH);	// Create Smooth Normals ( NEW )
 	gluQuadricTexture(quadratic, GL_TRUE);	
 	
-	shader.setup("shader/bubble/fresnel_refraction.vs", "shader/bubble/fresnel_refraction.fs");
+	shader.setup("shader/fresnel_refraction.vs", "shader/fresnel_refraction.fs");
 	
-	cubeMap.loadImages("shader/bubble/skybox/berkeley_positive_x.png",
-					   "shader/bubble/skybox/berkeley_positive_y.png",
-					   "shader/bubble/skybox/berkeley_positive_z.png",
-					   "shader/bubble/skybox/berkeley_negative_x.png",
-					   "shader/bubble/skybox/berkeley_negative_y.png",
-					   "shader/bubble/skybox/berkeley_negative_z.png");
+	cubeMap.loadImages("shader/skybox/berkeley_positive_x.png",
+					   "shader/skybox/berkeley_positive_y.png",
+					   "shader/skybox/berkeley_positive_z.png",
+					   "shader/skybox/berkeley_negative_x.png",
+					   "shader/skybox/berkeley_negative_y.png",
+					   "shader/skybox/berkeley_negative_z.png");
 	
 	//cubeMap.enableFixedMapping();
 	//hasDrawnTex = false;
@@ -118,7 +118,7 @@ void ContentBubble::draw() {
 		
 		ofSetColor(color);
 		ofFill();
-		//drawSphere(ofVec3f(0, 0, 0), radius, 20);
+		drawSphere(ofVec3f(0, 0, 0), radius, 20);
 		renderSphere();
 		
 		glPopMatrix();
@@ -126,13 +126,14 @@ void ContentBubble::draw() {
 	}
 }
 
-void ContentBubble::renderSphere()
+/*void ContentBubble::renderSphere()
 {
 	
-	glEnable(GL_TEXTURE_CUBE_MAP_ARB);
+	glEnable(GL_TEXTURE_CUBE_MAP);
 	glEnable(GL_NORMALIZE);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
+	glEnable(GL_TEXTURE_2D);
 	
 	float modelview[16];
 	glGetFloatv(GL_MODELVIEW_MATRIX, modelview);
@@ -190,22 +191,28 @@ void ContentBubble::renderSphere()
 	lPos[2] = 0.5;
 	shader.setUniform3fv("IoR_Values", lPos);
 	
-	//shader.setUniform4mat("ModelWorld4x4", mat);
 	shader.setUniform4mat("ModelWorld4x4", &modelview[0]);
-	gluSphere(quadratic, rigidBody->boxSize.getX(), rigidBody->boxSize.getX(), rigidBody->boxSize.getX());
+	//gluSphere(quadratic, rigidBody->boxSize.getX(), rigidBody->boxSize.getX(), rigidBody->boxSize.getX());
+	gluSphere(quadratic, 100, 30, 30);
 	shader.end();
 	
 	
 	glDisable(GL_CULL_FACE);
 	glDisable(GL_NORMALIZE);
 	glDisable(GL_DEPTH_TEST);
-	glDisable(GL_TEXTURE_CUBE_MAP_ARB);
+	glDisable(GL_TEXTURE_CUBE_MAP);
+	glDisable(GL_TEXTURE_2D);
+	
+	glActiveTexture(GL_TEXTURE0);
 	
 	delete pos;
 	delete lPos;
 	delete eyeVector;
 	delete lpos;
-}
+	
+	//gluSphere(quadratic, 100, 30, 30);
+	
+}*/
 
 
 

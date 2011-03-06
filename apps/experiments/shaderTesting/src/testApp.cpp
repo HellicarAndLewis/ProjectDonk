@@ -147,7 +147,7 @@ void testApp::draw(){
 	glDisable(GL_CULL_FACE);
 	glDisable(GL_NORMALIZE);
 	glDisable(GL_DEPTH_TEST);
-	glDisable(GL_TEXTURE_CUBE_MAP_ARB);
+	//glDisable(GL_TEXTURE_CUBE_MAP_ARB);
 	
 	delete pos;
 	delete lPos;
