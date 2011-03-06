@@ -99,7 +99,7 @@ int ofShader::getGeometryMaxOutputCount() {
 
 bool ofShader::checkShaderLinkStatus(GLuint shader, GLenum type) {
 	GLint status;
-	glGetProgramiv(shader, GL_LINK_STATUS, &status);
+	//glGetProgramiv(shader, GL_LINK_STATUS, &status);
 	if(status == GL_TRUE)
 		ofLog(OF_LOG_VERBOSE, nameForType(type) + " shader linked.");
 	else if (status == GL_FALSE) {

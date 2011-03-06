@@ -47,17 +47,17 @@ public:
 	void bindMulti( int pos )
 	{
 		glActiveTexture(GL_TEXTURE0 + pos );
-		glBindTexture(GL_TEXTURE_CUBE_MAP_ARB, textureObject);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, textureObject);
 	}
 
 	void bind()
 	{
-		glBindTexture(GL_TEXTURE_CUBE_MAP_ARB, textureObject);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, textureObject);
 	}
 
 	void unbind()
 	{
-		glBindTexture(GL_TEXTURE_CUBE_MAP_ARB, 0 );
+		glBindTexture(GL_TEXTURE_CUBE_MAP, 0 );
 	}
 	
 	void updateImages( ofImage pos_x, ofImage pos_y, ofImage pos_z, ofImage neg_x,ofImage neg_y,ofImage neg_z );

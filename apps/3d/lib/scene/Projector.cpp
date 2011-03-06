@@ -95,6 +95,6 @@ void Projector::begin() {
 }
 
 void Projector::end() {
-	ofPopView();
+	//ofPopView();
 	isActive = false;
 }
