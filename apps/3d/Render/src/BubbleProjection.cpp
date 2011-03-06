@@ -268,14 +268,14 @@ void BubbleProjection::draw() {
 	
 	for(int i=0; i<bubbles.size(); i++) {
 	
-		bubbles[i]->pushBubble();
 		
 		bubbles[i]->drawTwitterData();
 		
+		
+		bubbles[i]->pushBubble();
 		beginSphere();
 		bubbles[i]->draw();	
 		endSphere();
-		
 		bubbles[i]->popBubble();
 		
 		

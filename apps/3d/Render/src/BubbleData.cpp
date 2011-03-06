@@ -15,10 +15,12 @@ namespace Donk{
 	ofTrueTypeFont BubbleData::font;
 	vector<BubbleData*> BubbleData::all;
 
+	//--------------------------------------------------------
 	void BubbleData::add(ofxOscMessage &m){
 		all.push_back(new BubbleData(m));
 	}
 	
+	//--------------------------------------------------------
 	void BubbleData::render(){
 		//draw all the bubbles
 		glPushMatrix();
@@ -28,9 +30,12 @@ namespace Donk{
 		
 	}
 	
-	
-	void BubbleData::draw(){
+	//--------------------------------------------------------
+	void BubbleData::draw() {
+		
 		if(profileImage.width != 0){
+			
+			
 			ofSetColor(255,255,255);
 			profileImage.bind();
 			float w = profileImage.width;
@@ -66,13 +71,14 @@ namespace Donk{
 			glTranslatef(2,2,0.2);
 			ofSetColor(255,255,255);
 			font.drawString(userName,0,0);
-			//profileImage.unbind();
+			//profileImage.unbind();			
 			glPopMatrix();
+
 		}
 		
 	}
 	
-	
+	//--------------------------------------------------------
 	void BubbleData::update(){
 		//call update on all the bubbles
 		vector<BubbleData*>::iterator bdit;
@@ -84,8 +90,7 @@ namespace Donk{
 		
 	}
 
-	
-	
+	//--------------------------------------------------------
 	void BubbleData::step(){
 		
 		if(profileImageLoader!=NULL){
@@ -121,6 +126,7 @@ namespace Donk{
 		
 	}
 	
+	//--------------------------------------------------------
 	BubbleData::BubbleData(ofxOscMessage &m){
 		
 		loadingDone = false;
@@ -170,20 +176,24 @@ namespace Donk{
 		
 	}
 
+	//--------------------------------------------------------
 	BubbleData::~BubbleData(){
 		if(profileImageLoader!=NULL)delete profileImageLoader;
 	}
 	
+	//--------------------------------------------------------
 	BubbleData::MediaEntry::MediaEntry(){
 		thumbLoader = NULL;
 		mediaLoader = NULL;
 	}
 	
+	//--------------------------------------------------------
 	BubbleData::MediaEntry::~MediaEntry(){
 		if(thumbLoader!=NULL)delete thumbLoader;
 		if(mediaLoader!=NULL)delete mediaLoader;
 	}
 	
+	//--------------------------------------------------------
 	void BubbleData::MediaEntry::step(){
 		
 		if(thumbLoader!=NULL){
@@ -208,7 +218,7 @@ namespace Donk{
 		
 	}
 	
-	
+	//--------------------------------------------------------
 	bool BubbleData::doneLoading() {
 		return loadingDone;
 	}
