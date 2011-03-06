@@ -22,6 +22,7 @@ public:
 	//---------------------------------
 	ofxBulletRigidBody * rigidBody;
 	btScalar			 m[16];
+	float				 billboadMatrix[16];
 	ofVec3f				 target, pos;
 	ofColor				 color;
 	float			     radius;

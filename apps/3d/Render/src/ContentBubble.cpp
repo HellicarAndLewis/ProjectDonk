@@ -96,6 +96,18 @@ void ContentBubble::pushBubble() {
 		glTranslatef(0, 0, 0);
 		glMultMatrixf(m);
 		
+		// create the billboar matrix
+		for (int i=0; i<16; i++) {
+			billboadMatrix[i] = m[i];
+		}
+		for(int i=0; i<3; i++ ) {
+			for(int j=0; j<3; j++ ) {
+				if ( i==j ) billboadMatrix[i*4+j] = 1.0;
+				else		billboadMatrix[i*4+j] = 0.0;
+			}
+		}
+		
+		
 	}
 	
 }
@@ -110,11 +122,16 @@ void ContentBubble::popBubble() {
 
 //--------------------------------------------------------------
 void ContentBubble::drawTwitterData() {
+	glPushMatrix();
+	glTranslatef(0, 0, 0);
+	glMultMatrixf(billboadMatrix);
+	
 	// the sphere and twitter icon
 	if(data) {
-		data->radius = radius;
+		data->radius = radius/1.6;
 		data->draw();
 	}
+	glPopMatrix();
 }
 
 //--------------------------------------------------------------
