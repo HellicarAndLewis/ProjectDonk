@@ -105,7 +105,7 @@ void ContentBubble::pushBubble() {
 		for (int i=0; i<16; i++) {
 			billboadMatrix[i] = m[i];
 		}
-		
+
 		// ripped from here
 		// http://www.lighthouse3d.com/opengl/billboarding/index.php?billCheat
 		for(int i=0; i<3; i++ ) {
