@@ -178,7 +178,7 @@
 		E45BE9830E8CC7DD009D7055 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9790E8CC7DD009D7055 /* OpenGL.framework */; };
 		E45BE9840E8CC7DD009D7055 /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE97A0E8CC7DD009D7055 /* QuickTime.framework */; };
 		E4B69E210A3A1BDC003C02F2 /* testApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */; };
-		E4C2422B10CC554B004149E2 /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2421E10CC549C004149E2 /* openFrameworksDebug.a */; };
+		E4C2422B10CC554B004149E2 /* openFrameworks.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2421E10CC549C004149E2 /* openFrameworks.a */; };
 		E4C2424710CC5A17004149E2 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424410CC5A17004149E2 /* AppKit.framework */; };
 		E4C2424810CC5A17004149E2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424510CC5A17004149E2 /* Cocoa.framework */; };
 		E4C2424910CC5A17004149E2 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424610CC5A17004149E2 /* IOKit.framework */; };
@@ -921,7 +921,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E4C2422B10CC554B004149E2 /* openFrameworksDebug.a in Frameworks */,
+				E4C2422B10CC554B004149E2 /* openFrameworks.a in Frameworks */,
 				E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */,
 				E45BE97C0E8CC7DD009D7055 /* ApplicationServices.framework in Frameworks */,
 				E45BE97D0E8CC7DD009D7055 /* AudioToolbox.framework in Frameworks */,
@@ -959,16 +959,26 @@
 		5FC27BFE13196DF1005F76C7 /* BubbleProjection */ = {
 			isa = PBXGroup;
 			children = (
+				8196445E13062409008A111C /* BubbleData.h */,
+				8196445F13062409008A111C /* BubbleData.cpp */,
 				5F08C882131C42F800666F87 /* TouchedConstraint.cpp */,
 				5F08C883131C42F800666F87 /* TouchedConstraint.h */,
-				5FC27F3E131BCFDD005F76C7 /* ofxCubeMap.cpp */,
-				5FC27F3F131BCFDD005F76C7 /* ofxCubeMap.h */,
 				EAFA578B1316834D00714F88 /* BubbleProjection.h */,
 				EAFA578C1316834D00714F88 /* BubbleProjection.cpp */,
 				5FC27C0813196E13005F76C7 /* ContentBubble.h */,
 				5FC27C0913196E13005F76C7 /* ContentBubble.cpp */,
 			);
 			name = BubbleProjection;
+			sourceTree = "<group>";
+		};
+		5FDBD62413240A2100A02A05 /* ofxCubeMap */ = {
+			isa = PBXGroup;
+			children = (
+				5FC27F3E131BCFDD005F76C7 /* ofxCubeMap.cpp */,
+				5FC27F3F131BCFDD005F76C7 /* ofxCubeMap.h */,
+			);
+			name = ofxCubeMap;
+			path = src;
 			sourceTree = "<group>";
 		};
 		5FF09B4B13180C67009A416F /* ofxBullet */ = {
@@ -1701,6 +1711,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				5FDBD62413240A2100A02A05 /* ofxCubeMap */,
 				1F37C4FC1318170D00AE17C7 /* ofxMacKeys */,
 				5FF09B4B13180C67009A416F /* ofxBullet */,
 				EAFA57E11316873F00714F88 /* ofxCoordMapper */,
@@ -1762,8 +1773,6 @@
 				5FC27BFE13196DF1005F76C7 /* BubbleProjection */,
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
 				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
-				8196445E13062409008A111C /* BubbleData.h */,
-				8196445F13062409008A111C /* BubbleData.cpp */,
 				81A509A21308C42E00E1911C /* QuestionData.h */,
 				81A509A31308C42E00E1911C /* QuestionData.cpp */,
 			);
@@ -1773,7 +1782,7 @@
 		E4C2421710CC549C004149E2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E4C2421E10CC549C004149E2 /* openFrameworksDebug.a */,
+				E4C2421E10CC549C004149E2 /* openFrameworks.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2381,6 +2390,7 @@
 			isa = PBXProject;
 			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "Render" */;
 			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				English,
@@ -2405,10 +2415,10 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		E4C2421E10CC549C004149E2 /* openFrameworksDebug.a */ = {
+		E4C2421E10CC549C004149E2 /* openFrameworks.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = openFrameworksDebug.a;
+			path = openFrameworks.a;
 			remoteRef = E4C2421D10CC549C004149E2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};

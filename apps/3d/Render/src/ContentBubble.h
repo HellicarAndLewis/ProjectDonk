@@ -21,30 +21,25 @@ public:
 	
 	//---------------------------------
 	ofxBulletRigidBody * rigidBody;
-	btScalar	m[16];
-	ofVec3f		target;
-	ofColor		color;
-	float		radius;
-	Donk::BubbleData *data;
+	btScalar			 m[16];
+	ofVec3f				 target, pos;
+	ofColor				 color;
+	float			     radius;
+	Donk::BubbleData *   data;
 	
+	float				 touchAlpha, touchAlphaTarget;
+	bool				 bTouched;
 	
-	float		touchAlpha, touchAlphaTarget;
-	bool		bTouched;
-	
-	GLUquadricObj *quadratic;
-	ofImage permImg, glossImg;
-	ofVec3f	lightPosition;
-	ofShader shader;
-	ofxCubeMap cubeMap;
-	
-	void renderSphere() {}
-	void setLightPosition(ofVec3f position) { lightPosition = position; }
-	
-	
-	//---------------------------------
+	// ---------------------------------
 	ContentBubble();
 	void createContentBubble();
 	void update();
+	
+	void pushBubble();
+	void popBubble();
+	
+	void drawTwitterData();
+	void drawHighLight();
 	void draw();
 	
 };

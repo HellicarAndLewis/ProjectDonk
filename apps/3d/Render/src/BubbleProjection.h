@@ -71,6 +71,27 @@ private:
 	vector <ContentBubble*>		bubbles;
 	vector <TouchedConstraint*> touchConstraints;
 	
+	// Sphere rendering...
+	// not sure if these are dynamic for each bubble
+	// from what I have seen they are all fixed vaues
+	//--------------------------------------------------------
+	GLint						currentActiveTex;
+	float						currentCoords[4];
+	float						eyeVector[3];
+	float						lpos[3];
+	float						pos[3];
+	float						cpos[3];
+	float						lPos[3];
+	
+	ofImage						permImg, glossImg;
+	ofVec3f						lightPosition;
+	ofShader					shader;
+	ofxCubeMap					cubeMap;
+	int							loadSphereShader();
+	void						beginSphere();
+	void						endSphere();
+	void						setLightPosition(ofVec3f position) { lightPosition = position; }
+
 	//--------------------------------------------------------
 	void addTouchConstraints(ContentBubble * bubble);
 	void removeTouchConstraint(ContentBubble * bubble);
