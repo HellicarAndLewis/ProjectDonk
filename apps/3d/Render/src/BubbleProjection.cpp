@@ -22,12 +22,12 @@ BubbleProjection::BubbleProjection() {
 /** This gets called straight after allocate() */
 void BubbleProjection::setup() {
 	/*
-	camera.resetTransform();
-	camera.setPosition(ofVec3f(0, 0, 0));
-	camera.orbit(0, 0, 500);
-	camera.setFov(60);
-	*/
-
+	 camera.resetTransform();
+	 camera.setPosition(ofVec3f(0, 0, 0));
+	 camera.orbit(0, 0, 500);
+	 camera.setFov(60);
+	 */
+	
 	bullet.init();
 	bullet.setGravity(0, 0, 0);
 	bullet.camera = &camera;
@@ -41,39 +41,39 @@ void BubbleProjection::update() {
 	
 	for(int i=0; i<bubbles.size(); i++) {
 		bubbles[i]->update();	
-	
+		
 		if(touches.size() == 0) {
 			bubbles[i]->bTouched = false;			
 		}
 		
 	}
 	
-		
-		/*
-		btVector3 rayTo(pos.x, pos.y, 0);
-		btVector3 rayFrom = btVector3(campos.x, campos.y, campos.z);
-		
-		btCollisionWorld::ClosestRayResultCallback rayCallback(rayFrom, rayTo);
-		bullet.world->rayTest(rayFrom, rayTo, rayCallback);
-		
-		if (rayCallback.hasHit()) {
-			printf("---");
-			btRigidBody * body = btRigidBody::upcast(rayCallback.m_collisionObject);
-			
-			btScalar m[16];
-			btDefaultMotionState* myMotionState = (btDefaultMotionState*)body->getMotionState();
-			myMotionState->m_graphicsWorldTrans.getOpenGLMatrix(m);
-			btVector3 org(m[12], m[13], m[14]);
-			
-			ofVec3f p1(rayTo.getX(), rayTo.getY(), rayTo.getZ());
-			ofVec3f p2(org.x(), org.y(), org.z());
-			ofSetColor(0, 255, 255);
-			ofLine(p1, p2);
-			
-		}
-	}
 	
-	*/
+	/*
+	 btVector3 rayTo(pos.x, pos.y, 0);
+	 btVector3 rayFrom = btVector3(campos.x, campos.y, campos.z);
+	 
+	 btCollisionWorld::ClosestRayResultCallback rayCallback(rayFrom, rayTo);
+	 bullet.world->rayTest(rayFrom, rayTo, rayCallback);
+	 
+	 if (rayCallback.hasHit()) {
+	 printf("---");
+	 btRigidBody * body = btRigidBody::upcast(rayCallback.m_collisionObject);
+	 
+	 btScalar m[16];
+	 btDefaultMotionState* myMotionState = (btDefaultMotionState*)body->getMotionState();
+	 myMotionState->m_graphicsWorldTrans.getOpenGLMatrix(m);
+	 btVector3 org(m[12], m[13], m[14]);
+	 
+	 ofVec3f p1(rayTo.getX(), rayTo.getY(), rayTo.getZ());
+	 ofVec3f p2(org.x(), org.y(), org.z());
+	 ofSetColor(0, 255, 255);
+	 ofLine(p1, p2);
+	 
+	 }
+	 }
+	 
+	 */
 	
 	bullet.update();
 }
@@ -95,28 +95,28 @@ void BubbleProjection::draw() {
 	
 	
 	/*
-		
-		ofColor topColor(
-						 Mode::getInstance()->getValue("Top BG Red"), 
-						 Mode::getInstance()->getValue("Top BG Green"), 
-						 Mode::getInstance()->getValue("Top BG Blue"));
-		
-		ofColor bottomColor(
-						 Mode::getInstance()->getValue("Bottom BG Red"), 
-						 Mode::getInstance()->getValue("Bottom BG Green"), 
-						 Mode::getInstance()->getValue("Bottom BG Blue"));
-		
-		glBegin(GL_QUADS);
-		ofSetColor(topColor);
-		glVertex2f(0, 0);
-		glVertex2f(getWidth(), 0);
-		ofSetColor(bottomColor);
-		glVertex2f(getWidth(), getHeight());
-		glVertex2f(0, getHeight());
-		glEnd();
-		
-	*/
-
+	 
+	 ofColor topColor(
+	 Mode::getInstance()->getValue("Top BG Red"), 
+	 Mode::getInstance()->getValue("Top BG Green"), 
+	 Mode::getInstance()->getValue("Top BG Blue"));
+	 
+	 ofColor bottomColor(
+	 Mode::getInstance()->getValue("Bottom BG Red"), 
+	 Mode::getInstance()->getValue("Bottom BG Green"), 
+	 Mode::getInstance()->getValue("Bottom BG Blue"));
+	 
+	 glBegin(GL_QUADS);
+	 ofSetColor(topColor);
+	 glVertex2f(0, 0);
+	 glVertex2f(getWidth(), 0);
+	 ofSetColor(bottomColor);
+	 glVertex2f(getWidth(), getHeight());
+	 glVertex2f(0, getHeight());
+	 glEnd();
+	 
+	 */
+	
 	// center of the app
 	ofNoFill();
 	ofSetColor(0, 255, 0);
@@ -136,7 +136,7 @@ void BubbleProjection::draw() {
 	//camera.begin(ofRectangle(0, 0, getWidth(), getHeight()));
 	
 	
-
+	
 	// ---------------------
 	// Bubbles
 	// ---------------------
@@ -152,15 +152,15 @@ void BubbleProjection::draw() {
 	glPopMatrix();
 	// ---------------------
 	
-
+	
 	// this draws the touches - keep in here for now!
 	for(tIt = touches.begin(); tIt!=touches.end(); tIt++) {
-	
+		
 		ofVec2f pos = mapToInteractiveArea((*tIt).second);
 		ofFill();
 		ofSetColor(0, 0, 255);
 		ofCircle(pos, 30);
-	
+		
 		//cout << pos.x << " " << pos.y << endl;
 		//for(int i=0; i<bubbles.size(); i++) {
 		//	ofVec3f campos    = camera.getGlobalPosition();
@@ -193,7 +193,7 @@ void BubbleProjection::bubbleReceived(Donk::BubbleData *bubbleData) {
 	float   radius = 80;
 	
 	ContentBubble * bubble = new ContentBubble();
-
+	
 	bubble->data	  = bubbleData;
 	bubble->radius    = radius;
 	bubble->rigidBody = bullet.createSphere(startPos, radius, 1);
@@ -234,7 +234,7 @@ void BubbleProjection::removeTouchConstraint(ContentBubble * bubble) {
 			printf("remove this cont\n");
 		}
 	}
-		   
+	
 	if(removeInd != -1) {
 		touchConstraints[removeInd]->destroy();
 		delete touchConstraints[removeInd];
@@ -249,14 +249,14 @@ void BubbleProjection::removeTouchConstraint(ContentBubble * bubble) {
 //--------------------------------------------------------
 void BubbleProjection::touchDown(float x, float y, int touchId) {
 	
-
+	
 	ofVec2f touchCoords(x, y);
 	ofVec2f pos = mapToInteractiveArea(touchCoords);
 	
 	
 	
 	for(int i=0; i<bubbles.size(); i++) {
-
+		
 		ofVec2f p1  = pos;
 		ofVec2f p2  = bubbles[i]->rigidBody->getPosition();
 		float	dis = p1.distance(p2);
@@ -273,7 +273,7 @@ void BubbleProjection::touchDown(float x, float y, int touchId) {
 	// find the closest point to the new touch
 	float minSqrDist = FLT_MAX; // do squares
 	int minTouchId = -1;
-
+	
 	for(tIt = touches.begin(); tIt!=touches.end(); tIt++) {
 		float sqrDist = touchCoords.squareDistance((*tIt).second);
 		if(sqrDist<minSqrDist) {
@@ -325,7 +325,7 @@ void BubbleProjection::touchMoved(float x, float y, int touchId) {
 
 //--------------------------------------------------------
 void BubbleProjection::touchUp(float x, float y, int touchId) {
-
+	
 	ofVec2f pos = mapToInteractiveArea(ofVec2f(x, y));
 	
 	for(int i=0; i<bubbles.size(); i++) {
@@ -346,13 +346,13 @@ void BubbleProjection::touchUp(float x, float y, int touchId) {
 //--------------------------------------------------------
 ofVec2f BubbleProjection::mapToInteractiveArea(ofVec2f inPoint) {
 	/*
-	ofVec2f pos = inPoint;
-	pos.x = ofMap(pos.x, 0.0, 1.0, -500, 500);
-	pos.y = ofMap(pos.y, 0.0, 1.0, -500, 500);
-	
-	printf("%f %f\n", pos.x, pos.y);
-	return pos;
-	*/
+	 ofVec2f pos = inPoint;
+	 pos.x = ofMap(pos.x, 0.0, 1.0, -500, 500);
+	 pos.y = ofMap(pos.y, 0.0, 1.0, -500, 500);
+	 
+	 printf("%f %f\n", pos.x, pos.y);
+	 return pos;
+	 */
 	return ofVec2f(interactiveArea.x + interactiveArea.width  * inPoint.x,
 				   interactiveArea.y + interactiveArea.height * inPoint.y);
 }
