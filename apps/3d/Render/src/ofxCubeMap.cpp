@@ -12,6 +12,14 @@
 
 void ofxCubeMap::loadFromOfImages( ofImage pos_x, ofImage pos_y, ofImage pos_z, ofImage neg_x,ofImage neg_y,ofImage neg_z)
 {	
+	
+	
+	GLint currentActiveTex;
+	glGetIntegerv(GL_ACTIVE_TEXTURE, &currentActiveTex);
+	float currentCoords[4];
+	glGetFloatv(GL_CURRENT_TEXTURE_COORDS, &currentCoords[0]);
+	
+	cout << currentActiveTex << " " << currentCoords[0] << " " << currentCoords[1] << " " << currentCoords[2] << " " << currentCoords[3] << " " << endl;
 
 	//create a texture object
 	glGenTextures(1, &textureObject);
@@ -36,12 +44,12 @@ void ofxCubeMap::loadFromOfImages( ofImage pos_x, ofImage pos_y, ofImage pos_z, 
 	data_pz = pos_z.getPixels();
 	data_nz = neg_z.getPixels();
 	
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB, 0, GL_RGB, img_size, img_size, 0, GL_RGB, GL_UNSIGNED_BYTE, data_px); // postive x
+/*	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB, 0, GL_RGB, img_size, img_size, 0, GL_RGB, GL_UNSIGNED_BYTE, data_px); // postive x
 	glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB, 0, GL_RGB, img_size, img_size, 0, GL_RGB, GL_UNSIGNED_BYTE, data_nx); // negative x
 	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB, 0, GL_RGB, img_size, img_size, 0, GL_RGB, GL_UNSIGNED_BYTE, data_py); // postive y
 	glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB, 0, GL_RGB, img_size, img_size, 0, GL_RGB, GL_UNSIGNED_BYTE, data_ny); // negative y
 	glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB, 0, GL_RGB, img_size, img_size, 0, GL_RGB, GL_UNSIGNED_BYTE, data_nz); // negative z
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB, 0, GL_RGB, img_size, img_size, 0, GL_RGB, GL_UNSIGNED_BYTE, data_pz); // positive z
+	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB, 0, GL_RGB, img_size, img_size, 0, GL_RGB, GL_UNSIGNED_BYTE, data_pz); // positive z*/
 	
 	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, GL_RGB, img_size, img_size, 0, GL_RGB, GL_UNSIGNED_BYTE, data_px); // postive x
 	glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, GL_RGB, img_size, img_size, 0, GL_RGB, GL_UNSIGNED_BYTE, data_nx); // negative x
@@ -56,6 +64,8 @@ void ofxCubeMap::loadFromOfImages( ofImage pos_x, ofImage pos_y, ofImage pos_z, 
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);		// Set far filtering mode
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);     // Set near filtering mode 
 
+	glDisable(GL_TEXTURE_CUBE_MAP);
+	
 	/*delete data_px;
 	delete data_nx;
 	delete data_py;
@@ -63,6 +73,10 @@ void ofxCubeMap::loadFromOfImages( ofImage pos_x, ofImage pos_y, ofImage pos_z, 
 	delete data_pz;
 	delete data_nz;*/
 
+	glGetIntegerv(GL_ACTIVE_TEXTURE, &currentActiveTex);
+	glGetFloatv(GL_CURRENT_TEXTURE_COORDS, &currentCoords[0]);
+	
+	cout << currentActiveTex << " " << currentCoords[0] << " " << currentCoords[1] << " " << currentCoords[2] << " " << currentCoords[3] << " " << endl;
 
 }
 

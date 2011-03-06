@@ -63,7 +63,7 @@ namespace Donk{
 			glTranslatef(2,2,0.2);
 			ofSetColor(255,255,255);
 			font.drawString(userName,0,0);
-			profileImage.unbind();
+			//profileImage.unbind();
 			
 			renderSphere();
 			
@@ -75,7 +75,16 @@ namespace Donk{
 	void BubbleData::renderSphere()
 	{
 		
-		//glEnable(GL_TEXTURE_CUBE_MAP);
+		
+		GLint currentActiveTex;
+		glGetIntegerv(GL_ACTIVE_TEXTURE, &currentActiveTex);
+		float currentCoords[4];
+		glGetFloatv(GL_CURRENT_TEXTURE_COORDS, &currentCoords[0]);
+		
+		cout << currentActiveTex << " " << currentCoords[0] << " " << currentCoords[1] << " " << currentCoords[2] << " " << currentCoords[3] << " " << endl;
+		
+		glEnableClientState(GL_NORMAL_ARRAY);
+		
 		glEnable(GL_NORMALIZE);
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_CULL_FACE);
@@ -86,22 +95,23 @@ namespace Donk{
 		
 		shader.begin();
 		
-		glActiveTexture(GL_TEXTURE0);
+		glActiveTexture(GL_TEXTURE8);
 		unsigned int texId1 = permImg.getTextureReference().getTextureData().textureID;
 		unsigned int texTarget1 = permImg.getTextureReference().getTextureData().textureTarget;  
 		glBindTexture(texTarget1, texId1);
 		
-		glActiveTexture(GL_TEXTURE1);
+		glActiveTexture(GL_TEXTURE9);
 		unsigned int texId2 = glossImg.getTextureReference().getTextureData().textureID;
 		unsigned int texTarget2 = glossImg.getTextureReference().getTextureData().textureTarget;  
 		glBindTexture(texTarget2, texId2);
 		
-		glActiveTexture(GL_TEXTURE2);
+		glEnable(GL_TEXTURE_CUBE_MAP);
+		glActiveTexture(GL_TEXTURE10);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMap.textureObject);
 		
-		shader.setUniform1i("glossMap", 0);
-		shader.setUniform1i("baseMap", 1);
-		shader.setUniform1i("environmentMap", 2);
+		shader.setUniform1i("glossMap", 1);
+		shader.setUniform1i("baseMap", 2);
+		shader.setUniform1i("environmentMap", 3);
 		
 		shader.setUniform1f("EdgeFalloff", 0.2f);
 		
@@ -139,22 +149,40 @@ namespace Donk{
 		
 		shader.setUniform4mat("ModelWorld4x4", &modelview[0]);
 		//gluSphere(quadratic, rigidBody->boxSize.getX(), rigidBody->boxSize.getX(), rigidBody->boxSize.getX());
+		gluSphere(quadratic, 100, 20, 20);
+		
+		shader.end();
 		
 		glDisable(GL_CULL_FACE);
 		glDisable(GL_NORMALIZE);
 		glDisable(GL_DEPTH_TEST);
-		//glDisable(GL_TEXTURE_CUBE_MAP);
+		
+		glActiveTexture(GL_TEXTURE10);
+		glDisable(GL_TEXTURE_CUBE_MAP);
+		glDisable(GL_TEXTURE_CUBE_MAP_ARB);
+		
+		glActiveTexture(GL_TEXTURE9);
 		glDisable(GL_TEXTURE_2D);
 		
-		shader.end();
+		glActiveTexture(GL_TEXTURE8);
+		glDisable(GL_TEXTURE_2D);
+		
+		glDisableClientState(GL_NORMAL_ARRAY);
+		
+		//Reset texture 0
 		glActiveTexture(GL_TEXTURE0);
+		//glEnable(GL_TEXTURE_2D);
 		
 		delete pos;
 		delete lPos;
 		delete eyeVector;
 		delete lpos;
+		 
 		
-		//gluSphere(quadratic, 100, 30, 30);
+		glGetIntegerv(GL_ACTIVE_TEXTURE, &currentActiveTex);
+		glGetFloatv(GL_CURRENT_TEXTURE_COORDS, &currentCoords[0]);
+		cout << currentActiveTex << " " << currentCoords[0] << " " << currentCoords[1] << " " << currentCoords[2] << " " << currentCoords[3] << " " << endl;
+		
 		
 	}
 	
@@ -258,7 +286,7 @@ namespace Donk{
 		
 		ofDisableArbTex();
 		//cout << glGetString(GL_EXTENSIONS) << endl;
-		ofEnableNormalizedTexCoords();
+		//ofEnableNormalizedTexCoords();
 		
 		permImg.loadImage("shader/texturing.jpg");
 		permImg.setImageType(OF_IMAGE_COLOR);

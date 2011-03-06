@@ -28,7 +28,7 @@ void ContentBubble::createContentBubble() {
 	
 	
 	
-	ofDisableArbTex();
+	/*ofDisableArbTex();
 	//cout << glGetString(GL_EXTENSIONS) << endl;
 	ofEnableNormalizedTexCoords();
 	
@@ -50,7 +50,7 @@ void ContentBubble::createContentBubble() {
 					   "shader/skybox/berkeley_positive_z.png",
 					   "shader/skybox/berkeley_negative_x.png",
 					   "shader/skybox/berkeley_negative_y.png",
-					   "shader/skybox/berkeley_negative_z.png");
+					   "shader/skybox/berkeley_negative_z.png"); */
 	
 	//cubeMap.enableFixedMapping();
 	//hasDrawnTex = false;

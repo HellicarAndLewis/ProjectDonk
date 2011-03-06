@@ -13,6 +13,7 @@
 #include <string>
 #include "AsyncHttpLoader.h"
 #include "ofxCubeMap.h"
+#include <GLUT/glut.h>
 
 using namespace std;
 
