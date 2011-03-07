@@ -103,6 +103,13 @@ void testApp::drawView() {
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
 	
+	if(key == 'q') mode->setMode("buzz");
+	if(key == 'w') mode->setMode("inspiration");
+	if(key == 'e') mode->setMode("interview");
+	if(key == 'r') mode->setMode("question");
+	if(key == 't') mode->setMode("performance");
+	
+	
 	if(key=='b'||key=='B') {
 		ofxOscMessage m;
 		Donk::BubbleData *data = new Donk::BubbleData(m);
