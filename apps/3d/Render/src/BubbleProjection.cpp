@@ -15,12 +15,15 @@
 
 //--------------------------------------------------------
 BubbleProjection::BubbleProjection() {
-	interactiveArea = ofRectangle(100,100,900,500);
+	interactiveArea     = ofRectangle(100,100,900,500);
+	activeInteraction   = NULL;
+	previousInteraction = NULL;
 }
 
 //--------------------------------------------------------
 /** This gets called straight after allocate() */
 void BubbleProjection::setup() {	
+	
 	bullet.init();
 	bullet.setGravity(0, 0, 0);
 	bullet.camera = &camera;
@@ -28,6 +31,46 @@ void BubbleProjection::setup() {
 	if(loadSphereShader()) {
 		printf("Sphere shader loaded\n");
 	}
+	
+	
+	// setup all the interaction modes
+	interactions.push_back(new InteractionBuzz());
+	interactions.push_back(new InteractionInspiration());
+	interactions.push_back(new InteractionInterview());
+	interactions.push_back(new InteractionChoice());
+	interactions.push_back(new InteractionPerformance());
+	
+	for (int i=0; i<interactions.size(); i++) {
+		interactions[i]->bullet = &bullet;
+		interactions[i]->setup();
+	}
+	
+	// just for testing...
+	// we will get an event that tells us the mode
+	activeInteraction   = interactions[0];
+	
+	// we have a ref to the previous interaction
+	// so that we can have one animated out as the 
+	// next one animates in.
+	previousInteraction = NULL;
+	
+}
+
+//--------------------------------------------------------
+void BubbleProjection::interactionModeChange(string modeName) {
+	printf("The New Interaction Mode: %s\n", modeName.c_str());	
+	
+	if(activeInteraction) {
+		activeInteraction->animatedOut();
+		previousInteraction = activeInteraction;
+	}
+	
+	// still need to add the rest...
+	int mode = -1;
+	if(modeName == "inspiration")	   mode = MODE_INSPIRATION;
+	else if(modeName == "interview")   mode = MODE_INTERVIEW;
+	
+	if(mode != -1) activeInteraction = interactions[mode];
 	
 }
 
@@ -60,7 +103,6 @@ int BubbleProjection::loadSphereShader() {
 	
 	return status;
 }
-
 
 //--------------------------------------------------------------
 void BubbleProjection::beginSphere(){
@@ -185,6 +227,13 @@ void BubbleProjection::endSphere() {
 /** Called every frame */
 void BubbleProjection::update() {
 	
+	
+	if(previousInteraction) previousInteraction->update();
+	if(activeInteraction)   activeInteraction->update();
+	
+	// the content bubbles...
+	// this will proball be gone since
+	// we now have classes for each interaction
 	for(int i=0; i<bubbles.size(); i++) {
 		bubbles[i]->update();	
 		
@@ -193,6 +242,7 @@ void BubbleProjection::update() {
 		}
 		
 	}
+	
 	
 	
 	/*
@@ -228,9 +278,9 @@ void BubbleProjection::update() {
 //--------------------------------------------------------
 void BubbleProjection::draw() {
 	
-	// clear the FBO
 	ofEnableAlphaBlending();
 	
+	// clear the FBO
 	// audioReactiveness: 0 is not audio reactive, 1 is fully audio reactive
 	float audioReactiveness = Donk::Mode::getInstance()->getValue("Background Audio-reactiveness");
 	float volume = Donk::AudioData::getInstance()->getVolume(0);
@@ -251,6 +301,12 @@ void BubbleProjection::draw() {
 	//Donk::BubbleData::render();
 	//glPopMatrix();
 	
+	
+	// --------------------------------------------
+	if(previousInteraction) previousInteraction->draw();
+	if(activeInteraction)   activeInteraction->draw();
+	
+	
 	// --------------------------------------------
 	// --------------------------------------------
 	// --------------------------------------------
@@ -268,7 +324,8 @@ void BubbleProjection::draw() {
 	
 	for(int i=0; i<bubbles.size(); i++) {
 	
-		
+		// we draw out here bc icon 
+		// needs to face the camera.
 		bubbles[i]->drawTwitterData();
 		
 		
@@ -298,7 +355,7 @@ void BubbleProjection::draw() {
 		ofSetColor(255, 0, 255);
 		ofCircle(pos, 30);
 		
-		cout << pos.x << " " << pos.y << endl;
+		//cout << pos.x << " " << pos.y << endl;
 		//for(int i=0; i<bubbles.size(); i++) {
 		//	ofVec3f campos    = camera.getGlobalPosition();
 		//	ofVec2f p =	bubbles[i]->rigidBody->getPosition() + campos;	
@@ -354,7 +411,8 @@ void BubbleProjection::addTouchConstraints(ContentBubble * bubble) {
 	TouchedConstraint * touchCon = new TouchedConstraint();
 	touchCon->setTouchBody(bullet.world, bubble->rigidBody->body);
 	touchConstraints.push_back(touchCon);
-	printf("Constraint Made: %p\n", bubble);
+	
+	//printf("Constraint Made: %p\n", bubble);
 	
 }
 
@@ -380,7 +438,7 @@ void BubbleProjection::removeTouchConstraint(ContentBubble * bubble) {
 		touchConstraints.erase(touchConstraints.begin() + removeInd);
 	}
 	
-	printf("Touch Constraint Size:%i\n", (int)touchConstraints.size());
+	//printf("Touch Constraint Size:%i\n", (int)touchConstraints.size());
 }
 
 
@@ -483,14 +541,6 @@ void BubbleProjection::touchUp(float x, float y, int touchId) {
 
 //--------------------------------------------------------
 ofVec2f BubbleProjection::mapToInteractiveArea(ofVec2f inPoint) {
-	/*
-	 ofVec2f pos = inPoint;
-	 pos.x = ofMap(pos.x, 0.0, 1.0, -500, 500);
-	 pos.y = ofMap(pos.y, 0.0, 1.0, -500, 500);
-	 
-	 printf("%f %f\n", pos.x, pos.y);
-	 return pos;
-	 */
 	return ofVec2f(interactiveArea.x + interactiveArea.width  * inPoint.x,
 				   interactiveArea.y + interactiveArea.height * inPoint.y);
 }

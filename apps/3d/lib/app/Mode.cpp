@@ -9,6 +9,7 @@
 #include "Mode.h"
 #include "ofxXmlSettings.h"
 #include "constants.h"
+#include "testApp.h"
 
 using namespace Donk;
 
@@ -143,7 +144,9 @@ void Mode::setMode(string modeName) {
 		tweens[parameterNames[i]]->tween(parameters[modeName][parameterNames[i]], FADE_DURATION);
 	}
 	
-
+	// not sure if this is the best place for this
+	// I could not figure out where to put it. HAHA
+	testApp::instance->projection->interactionModeChange(modeName);
 	
 }
 

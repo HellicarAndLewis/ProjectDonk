@@ -13,7 +13,11 @@
 #include "ContentBubble.h"
 #include "TouchedConstraint.h"
 
-
+#include "InteractionBuzz.h"
+#include "InteractionInspiration.h"
+#include "InteractionInterview.h"
+#include "InteractionChoice.h"
+#include "InteractionPerformance.h"
 
 class BubbleProjection: public ProjectedRect {
 
@@ -46,14 +50,13 @@ public:
 	void touchMoved(float x, float y, int touchId);
 	void touchUp(float x, float y, int touchId);
 
-	/** A bubble was just received */
+	//--------------------------------------------------------
 	void bubbleReceived(Donk::BubbleData *bubbleData);
-	
+	void interactionModeChange(string modeName); 
+
 	// Other useful methods of the inherited class:
 	// float getWidth();
 	// float getHeight();
-	
-	
 	
 	
 	/** Maps a normalized point to coordinates in the interactive area */
@@ -70,6 +73,12 @@ private:
 	ofCamera					camera; // not using anymore...
 	vector <ContentBubble*>		bubbles;
 	vector <TouchedConstraint*> touchConstraints;
+	
+	//--------------------------------------------------------
+	// Interactions
+	vector <BaseInteraction*>	interactions;
+	BaseInteraction *			activeInteraction;
+	BaseInteraction *			previousInteraction;
 	
 	// Sphere rendering...
 	// not sure if these are dynamic for each bubble
