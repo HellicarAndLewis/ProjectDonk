@@ -143,7 +143,7 @@ void BubbleProjection::bubbleReceived(Donk::BubbleData *bubbleData) {
 	
 	ofVec3f center(getWidth()/2, 0, 0);
 	ofVec3f startPos(center.x + ofRandom(-300, 300), getHeight(), ofRandom(-100, 100));
-	float   radius = ofRandomuf()*60+40;
+	float   radius = 80;
 	
 	ContentBubble * bubble = new ContentBubble();
 	

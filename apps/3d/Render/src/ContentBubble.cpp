@@ -15,6 +15,8 @@ ofTrueTypeFont ContentBubble::font;
 ContentBubble::ContentBubble() {
 	rigidBody = NULL;
 	bTouched  = false;
+	rotateY = 0;
+	rotateYTarget = 0;
 }
 
 //--------------------------------------------------------------
@@ -55,8 +57,14 @@ void ContentBubble::update() {
 	}
 	
 	touchAlpha += (touchAlphaTarget-touchAlpha) * 0.1;
-	if(bTouched) touchAlphaTarget = 90;
-	else	     touchAlphaTarget = 0;
+	rotateY += (rotateYTarget-rotateY) * 0.05;
+	if(bTouched){
+		touchAlphaTarget = 90;
+		rotateYTarget = 180;
+	}else{
+		touchAlphaTarget = 0;
+		rotateYTarget = 0;
+	}
 	
 }
 
@@ -107,12 +115,13 @@ void ContentBubble::drawTwitterData() {
 	glPushMatrix();
 	glMultMatrixf(billboadMatrix);
 	
+	glRotatef(rotateY,0,1,0);
 	// the twitter icon and text
 	if(data) {
 		//if no twitter icon, don't draw.
 		if(data->profileImage.width != 0){
 			
-			float data_radius = radius*0.8;
+			float data_radius = radius*0.9;
 			
 			//lazyload the font
 			if(!font.bLoadedOk){
