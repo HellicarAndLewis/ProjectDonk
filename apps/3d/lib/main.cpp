@@ -26,7 +26,6 @@ int main( ){
 	HEIGHT = settings.getInt("projector height", HEIGHT);
 	
 	useMSAA = settings.getBool("using MSAA", false);
-    
 	ofAppGlutWindow window;
 	
 	if(useMSAA) {

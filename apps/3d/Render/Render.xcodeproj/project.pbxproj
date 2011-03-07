@@ -252,7 +252,6 @@
 		EAB93DB91312D5B2009430F8 /* ofxEasingSine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB93DAA1312D5B2009430F8 /* ofxEasingSine.cpp */; };
 		EAFA56BF1316759E00714F88 /* ofxMacKeys.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAFA56BE1316759E00714F88 /* ofxMacKeys.cpp */; };
 		EAFA578D1316834D00714F88 /* BubbleProjection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAFA578C1316834D00714F88 /* BubbleProjection.cpp */; };
-		EAFA57E41316873F00714F88 /* ofxCoordMapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAFA57E21316873F00714F88 /* ofxCoordMapper.cpp */; };
 		EAFA581E13168B3B00714F88 /* CalibrationProjection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAFA581D13168B3B00714F88 /* CalibrationProjection.cpp */; };
 /* End PBXBuildFile section */
 
@@ -292,6 +291,7 @@
 		1FEBF35C1324F06F001D9100 /* Light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Light.h; sourceTree = "<group>"; };
 		1FEBF5201324FE5F001D9100 /* fresnel_refraction.fs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fresnel_refraction.fs; path = bin/data/shader/fresnel_refraction.fs; sourceTree = "<group>"; };
 		1FEBF5211324FE5F001D9100 /* fresnel_refraction.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fresnel_refraction.vs; path = bin/data/shader/fresnel_refraction.vs; sourceTree = "<group>"; };
+		1FEBF8D713254487001D9100 /* general.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = general.xml; path = bin/data/settings/general.xml; sourceTree = "<group>"; };
 		5F586E16132541B8000E5FB7 /* TouchedConstraint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TouchedConstraint.cpp; sourceTree = "<group>"; };
 		5F586E17132541B8000E5FB7 /* TouchedConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchedConstraint.h; sourceTree = "<group>"; };
 		5FC27C0813196E13005F76C7 /* ContentBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentBubble.h; sourceTree = "<group>"; };
@@ -735,7 +735,7 @@
 		E45BE9770E8CC7DD009D7055 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		E45BE9790E8CC7DD009D7055 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		E45BE97A0E8CC7DD009D7055 /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
-		E4B69B5B0A3A1756003C02F2 /* RenderDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RenderDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4B69B5B0A3A1756003C02F2 /* Render.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Render.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = testApp.cpp; path = src/testApp.cpp; sourceTree = SOURCE_ROOT; };
 		E4B69E1F0A3A1BDC003C02F2 /* testApp.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = testApp.h; path = src/testApp.h; sourceTree = SOURCE_ROOT; };
 		E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = "openFrameworks-Info.plist"; sourceTree = "<group>"; };
@@ -934,8 +934,6 @@
 		EAFA56BE1316759E00714F88 /* ofxMacKeys.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxMacKeys.cpp; path = ../../../addons/ofxMacKeys/ofxMacKeys.cpp; sourceTree = SOURCE_ROOT; };
 		EAFA578B1316834D00714F88 /* BubbleProjection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BubbleProjection.h; sourceTree = "<group>"; };
 		EAFA578C1316834D00714F88 /* BubbleProjection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BubbleProjection.cpp; sourceTree = "<group>"; };
-		EAFA57E21316873F00714F88 /* ofxCoordMapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxCoordMapper.cpp; sourceTree = "<group>"; };
-		EAFA57E31316873F00714F88 /* ofxCoordMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxCoordMapper.h; sourceTree = "<group>"; };
 		EAFA581C13168B3B00714F88 /* CalibrationProjection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalibrationProjection.h; sourceTree = "<group>"; };
 		EAFA581D13168B3B00714F88 /* CalibrationProjection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CalibrationProjection.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1820,7 +1818,6 @@
 				5FDBD62413240A2100A02A05 /* ofxCubeMap */,
 				1F37C4FC1318170D00AE17C7 /* ofxMacKeys */,
 				5FF09B4B13180C67009A416F /* ofxBullet */,
-				EAFA57E11316873F00714F88 /* ofxCoordMapper */,
 				EA746AD013128676000753DA /* ofxSettings */,
 				EA7469F31312865B000753DA /* ofxOBJModel */,
 				EA7469F71312865B000753DA /* ofxProjectorBlend */,
@@ -1859,7 +1856,8 @@
 			isa = PBXGroup;
 			children = (
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
-				E4B69B5B0A3A1756003C02F2 /* RenderDebug.app */,
+				1FEBF8D713254487001D9100 /* general.xml */,
+				E4B69B5B0A3A1756003C02F2 /* Render.app */,
 				5F586E37132541EA000E5FB7 /* data */,
 				EA746B3B1312883D000753DA /* lib */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
@@ -2456,16 +2454,6 @@
 			path = easing;
 			sourceTree = "<group>";
 		};
-		EAFA57E11316873F00714F88 /* ofxCoordMapper */ = {
-			isa = PBXGroup;
-			children = (
-				EAFA57E21316873F00714F88 /* ofxCoordMapper.cpp */,
-				EAFA57E31316873F00714F88 /* ofxCoordMapper.h */,
-			);
-			name = ofxCoordMapper;
-			path = ../../../addons/ofxCoordMapper;
-			sourceTree = SOURCE_ROOT;
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2485,7 +2473,7 @@
 			);
 			name = Render;
 			productName = myOFApp;
-			productReference = E4B69B5B0A3A1756003C02F2 /* RenderDebug.app */;
+			productReference = E4B69B5B0A3A1756003C02F2 /* Render.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -2614,7 +2602,6 @@
 				81313BEA13161617000F5CD2 /* AsyncHttpLoader.cpp in Sources */,
 				EAFA56BF1316759E00714F88 /* ofxMacKeys.cpp in Sources */,
 				EAFA578D1316834D00714F88 /* BubbleProjection.cpp in Sources */,
-				EAFA57E41316873F00714F88 /* ofxCoordMapper.cpp in Sources */,
 				EAFA581E13168B3B00714F88 /* CalibrationProjection.cpp in Sources */,
 				5FF09CEC13180C67009A416F /* GL_ShapeDrawer.cpp in Sources */,
 				5FF09CED13180C67009A416F /* btAxisSweep3.cpp in Sources */,

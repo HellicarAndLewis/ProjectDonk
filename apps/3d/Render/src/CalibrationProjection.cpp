@@ -10,7 +10,6 @@
 #include "constants.h"
 
 CalibrationProjection::CalibrationProjection() {
-	coordMapper.setup();
 	drawInteractiveArea = false;
 	drawFacets = false;
 	drawLena = false;
@@ -23,6 +22,7 @@ CalibrationProjection::CalibrationProjection() {
 	lena.loadImage("lena.png");
 	lena.setAnchorPercent(0.5, 0.5);
 	calibrate = false;
+	calibrationPointsInset = 0;
 }
 
 void CalibrationProjection::draw() {
@@ -48,16 +48,32 @@ void CalibrationProjection::draw() {
 	   
 	   
 	if(drawInteractiveArea) {
-		ofSetHexColor(0xFFFFFF);
-		coordMapper.getCoordTexture()->draw(rect->x, rect->y, rect->width, rect->height);
-		ofSetHexColor(0x0000FF);
-		ofCircle(rect->x, rect->y, 10);
-		ofCircle(rect->x+rect->width, rect->y, 10);
-		ofCircle(rect->x+rect->width, rect->y+rect->height, 10);
-		ofCircle(rect->x, rect->y+rect->height, 10);
+		ofSetHexColor(0x990000);
+		ofRect(*rect);
 		
+		
+		float hInset = rect->width*calibrationPointsInset;
+		float vInset = rect->height*calibrationPointsInset;
+		drawCrossHair(rect->x+hInset, rect->y+vInset);
+		drawCrossHair(rect->x+rect->width - hInset, rect->y+vInset);
+		drawCrossHair(rect->x+hInset, rect->y + rect->height - vInset);
+		drawCrossHair(rect->x+rect->width - hInset, rect->y + rect->height - vInset);
 	}
 	
+}
+
+void CalibrationProjection::drawCrossHair(float x, float y) {
+	float rad = getWidth()/80;
+	glLineWidth(6);
+	ofSetHexColor(0xFFFFFF);
+	ofNoFill();
+	ofCircle(x, y, rad);
+	ofSetHexColor(0x00FF00);
+	rad *= 0.68;
+	ofLine(x-rad, y, x+rad, y);
+	ofLine(x, y-rad, x, y+rad);
+	ofFill();
+	glLineWidth(1);
 }
 
 void CalibrationProjection::setInteractiveArea(ofRectangle *rect) {
@@ -81,6 +97,7 @@ void CalibrationProjection::createGui(ofxXmlGui *gui) {
 	gui->addSlider("Interaction y", rect->y, 0, PROJECTION_RESOLUTION_WIDTH);
 	gui->addSlider("Interaction width", rect->width, 0, PROJECTION_RESOLUTION_WIDTH);
 	gui->addSlider("Interaction height", rect->height, 0, PROJECTION_RESOLUTION_HEIGHT);
+	gui->addSlider("calibration points inset", calibrationPointsInset, 0, 0.4);
 	gui->enableAutoSave("settings/interactionSettings.xml");
 	calibrate = false;
 }

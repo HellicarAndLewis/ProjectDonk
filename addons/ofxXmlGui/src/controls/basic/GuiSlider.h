@@ -10,6 +10,16 @@
 
 #include "GuiControl.h"
 
+
+// this lets you use alt key
+// for slowing down the rate
+// of change of slider
+//#define USE_MAC_MODIFIERS
+
+#ifdef USE_MAC_MODIFIERS
+#include "ofxMacKeys.h"
+#endif
+
 class GuiSlider: public GuiControl {
 public:
 	
@@ -109,15 +119,35 @@ public:
 	
 	bool touchDown(int _x, int _y, int touchId) {
 		
+
 		if(vertical) {
 			float val = 1 - (_y-y)/height;
+
+#ifdef USE_MAC_MODIFIERS
+			if(ofxMacAltKeyDown()) {
+				float f = val*(max-min) + min;
+				fval(value) = f * 0.0 1 + fval(value) * 0.99;
+			} else {
+				fval(value) = val*(max-min) + min;
+			}
+#else
 			fval(value) = val*(max-min) + min;
+#endif
 			if(stepped) {
 				fval(value) = round(fval(value));
 			}
 		} else {
 			float val = (_x-x)/width;
+#ifdef USE_MAC_MODIFIERS
+			if(ofxMacAltKeyDown()) {
+				float f = val*(max-min) + min;
+				fval(value) = f * 0.01 + fval(value) * 0.99;
+			} else {
+				fval(value) = val*(max-min) + min;
+			}
+#else
 			fval(value) = val*(max-min) + min;
+#endif
 			if(stepped) {
 				fval(value) = round(fval(value));
 			}

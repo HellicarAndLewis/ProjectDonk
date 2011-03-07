@@ -222,9 +222,11 @@ void ofxOBJModel::loadVbo() {
 			}
 		}
 	}
+	
 	vbo.clear();
 	
 	vbo.setVertexData(coords, count, GL_STATIC_DRAW_ARB);
+	
 	if(normals!=NULL) vbo.setNormalData(normals, count, GL_STATIC_DRAW_ARB);
 	if(texCoords!=NULL) vbo.setTexCoordData(texCoords, count, GL_STATIC_DRAW_ARB);
 	
@@ -337,6 +339,12 @@ void ofxOBJModel::draw(bool drawSolid) {
 	}
 }
 
+void ofxOBJModel::drawFlat() {
+	for(int i = 0; i < meshes.size(); i++) {
+		meshes[i]->drawFlat();
+	}
+	
+}
 
 
 vector<string> ofxOBJModel::getMeshNames() {
@@ -402,6 +410,12 @@ void ObjMesh::draw(bool drawSolid) {
 	}
 }
 
+void ObjMesh::drawFlat() {
+	for(int i = 0; i < faces.size(); i++) {
+		faces[i]->drawFlat();
+	}
+	
+}
 
 void ObjMesh::getBounds(ofPoint *minPoint, ofPoint *maxPoint) {
 	minPoint->x = minPoint->y = minPoint->z = FLT_MAX;
@@ -558,6 +572,32 @@ ofRectangle ObjFace::get2DRect() {
 	rect.width = maxX - minX;
 	rect.height = maxY - minY;
 	return rect;
+}
+
+
+void ObjFace::drawFlat() {
+	
+	if(points.size()==3) {
+		glBegin(GL_TRIANGLES);
+	} else if(points.size()==4) {
+		glBegin(GL_QUADS);
+	} else {
+		glBegin(GL_POLYGON);
+	}
+	
+	bool hasNormals = points.size()==normals.size();
+	bool hasTexCoords = points.size()==texCoords.size();
+	
+	for(int i = 0; i < points.size(); i++) {
+		if(hasNormals) glNormal3f(normals[i].x, normals[i].y, normals[i].z);
+		if(hasTexCoords) {
+			//glColor3f(texCoords[i].x, texCoords[i].y, 0);
+			glTexCoord2f(texCoords[i].x, texCoords[i].y);
+		}
+		
+		glVertex3f(points[i].x, points[i].y, 0);
+	}
+	glEnd();
 }
 
 

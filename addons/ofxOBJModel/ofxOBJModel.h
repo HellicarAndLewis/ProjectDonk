@@ -33,6 +33,8 @@ public:
 	
 	void draw(bool drawSolid = true);
 	
+	void drawFlat();
+	
 	/**
 	 * Changes the direction of all the vertices. 
 	 * i.e. clockwise to anti-clockwise
@@ -73,6 +75,9 @@ public:
 	void getBounds(ofPoint *minPoint, ofPoint *maxPoint);
 	
 	void draw(bool drawSolid = true);
+	
+	// removes all z coords and draws the model flat
+	void drawFlat();
 	
 	// this moves the whole mesh by the specified amount
 	void translate(float dx, float dy, float dz);
@@ -139,7 +144,7 @@ public:
 	 * Draw all the meshes.
 	 */
 	void draw(bool drawSolid = true);
-	
+	void drawFlat();
 	
 	ofVbo *getVbo();
 	

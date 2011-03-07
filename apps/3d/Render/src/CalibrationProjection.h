@@ -9,7 +9,6 @@
 #pragma once
 
 #include "ProjectedRect.h"
-#include "ofxCoordMapper.h"
 #include "ofxXmlGui.h"
 
 class CalibrationProjection: public ProjectedRect {
@@ -17,6 +16,8 @@ public:
 	bool calibrate;
 	CalibrationProjection();
 	void draw();
+
+	
 	void setInteractiveArea(ofRectangle *rect);
 	bool drawInteractiveArea;
 	bool drawFacets;
@@ -28,11 +29,9 @@ public:
 	float lenaScale;
 	float chequerboardSize;
 	void createGui(ofxXmlGui *gui);
-	
+	float calibrationPointsInset;
 	ofRectangle *rect;
-
 private:
-	
+	void drawCrossHair(float x, float y);
 	ofImage lena;
-	ofxCoordMapper coordMapper;
 };

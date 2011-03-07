@@ -157,6 +157,9 @@ void App::_draw(ofEventArgs &e) {
 	// - I think it's a bug in 007, maybe it's me. meh.
 	glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
 	glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, 0);
+	
+	
+	
 	this->render();
 	drawAllProjectors();
 

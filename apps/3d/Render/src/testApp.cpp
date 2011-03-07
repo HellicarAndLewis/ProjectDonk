@@ -63,6 +63,7 @@ void testApp::drawView() {
 	
 	if(calibrationProjection.calibrate) {
 		
+		
 		calibrationProjection.drawOnModel(scene->getModel());
 		if(calibrationProjection.drawFacets) {
 			glLineWidth(calibrationProjection.lineWidth);
@@ -70,6 +71,10 @@ void testApp::drawView() {
 			scene->getModel()->drawOutline();
 			glLineWidth(1);
 		}
+	
+		
+		
+		
 	} else {
 		
 		ofSetColor(mode->getValue("Background Red"), 

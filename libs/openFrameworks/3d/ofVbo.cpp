@@ -46,6 +46,7 @@ void ofVbo::setVertexData(const ofVec3f * verts, int total, int usage) {
 	glBindBufferARB(GL_ARRAY_BUFFER_ARB, vertId);
 	vertData = (float*)&verts[0].x;
 	glBufferDataARB(GL_ARRAY_BUFFER_ARB, total * sizeof(ofVec3f), vertData, usage);
+	glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
 }
 
 //--------------------------------------------------------------
@@ -62,6 +63,7 @@ void ofVbo::setColorData(const ofColor * colors, int total, int usage) {
 	
 	glBindBufferARB(GL_ARRAY_BUFFER_ARB, colorId);
 	glBufferDataARB(GL_ARRAY_BUFFER_ARB, total * sizeof(ofColor), &colors[0].r, usage);	
+	glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
 }
 
 //--------------------------------------------------------------
@@ -77,7 +79,8 @@ void ofVbo::setNormalData(const ofVec3f * normals, int total, int usage) {
 	}
 	
 	glBindBufferARB(GL_ARRAY_BUFFER_ARB, normalId);
-	glBufferDataARB(GL_ARRAY_BUFFER_ARB, total * sizeof(ofVec3f), &normals[0].x, usage);	
+	glBufferDataARB(GL_ARRAY_BUFFER_ARB, total * sizeof(ofVec3f), &normals[0].x, usage);
+	glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
 }
 
 //--------------------------------------------------------------
@@ -94,6 +97,7 @@ void ofVbo::setTexCoordData(const ofVec2f * texCoords, int total, int usage) {
 	
 	glBindBufferARB(GL_ARRAY_BUFFER_ARB, texCoordId);
 	glBufferDataARB(GL_ARRAY_BUFFER_ARB, total * sizeof(ofVec2f), &texCoords[0].x, usage);	
+	glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
 }
 
 
@@ -112,6 +116,7 @@ void ofVbo::setIndexData(const GLuint * indices, int total, int usage){
 	glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, indexId);
 	indexData = (GLuint*)indices;
 	glBufferDataARB(GL_ELEMENT_ARRAY_BUFFER_ARB, sizeof(GLuint) * total, indexData, usage); 
+	glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, 0);
 }
 
 /*
