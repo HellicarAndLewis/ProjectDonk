@@ -16,12 +16,16 @@ ContentBubble::ContentBubble() {
 	rigidBody = NULL;
 	bTouched  = false;
 	rotateY = 0;
+	touchID = -1;
+	distanceToTarget = 10000; // so i dont call sqrt() so much.
+	
 	rotateYTarget = 0;
 	if(ofRandomuf()>0.5){
 		rotateYDirection = 180;
 	}else{
 		rotateYDirection = -180;
 	}
+	alpha = 255;
 }
 
 //--------------------------------------------------------------
@@ -49,7 +53,8 @@ void ContentBubble::gotoTarget() {
 		rigidBody->body->setDamping(0.99, 0.99); // <-- add some crazy damping
 		
 		ofVec3f frc = target - rigidBody->getBulletPosition();
-		float d = ABS(frc.length());
+		distanceToTarget = frc.length();
+		float d = ABS(distanceToTarget);
 		d *= 20.0;
 		frc.normalize();
 		frc *= d;
@@ -65,7 +70,17 @@ void ContentBubble::gotoTarget() {
 void ContentBubble::goOffScreen() {
 	if(rigidBody->isBody()) {
 		
-		// nothing yet
+		rigidBody->body->setDamping(0.99, 0.99); // <-- add some crazy damping
+		
+		ofVec3f frc = offScreenTaget - rigidBody->getBulletPosition();
+		distanceToTarget = frc.length();
+		float d = ABS(distanceToTarget);
+		d *= 20.0;
+		frc.normalize();
+		frc *= d;
+		
+		rigidBody->body->clearForces();
+		rigidBody->body->applyCentralForce(btVector3(frc.x, frc.y, frc.z));
 		
 	}
 }
@@ -150,7 +165,7 @@ void ContentBubble::drawTwitterData() {
 			}
 			
 			//draw twitter icon as a disk
-			ofSetColor(255,255,255);
+			ofSetColor(255,255,255, alpha);
 			data->profileImage.bind();
 			float w = data->profileImage.width;
 			float h = data->profileImage.height;
@@ -173,10 +188,10 @@ void ContentBubble::drawTwitterData() {
 			float s = data_radius/textBB.width*1.75;
 			glScalef(s,s,s);
 			glTranslated(-textBB.width/2, 0,0.2);
-			ofSetColor(0,0,0);
+			ofSetColor(0,0,0, alpha);
 			font.drawString(data->userName,0,0);
 			glTranslatef(2,2,0.2);
-			ofSetColor(255,255,255);
+			ofSetColor(255,255,255, alpha);
 			font.drawString(data->userName,0,0);
 			data->profileImage.unbind();			
 			glPopMatrix();
@@ -205,7 +220,7 @@ void ContentBubble::drawHighLight() {
 		float y = sin(i*inc);
 		glColor4f(1,1,1,touchAlpha/255.0);
 		glVertex2f(x*radius,y*radius);
-		glColor4f(1,1,1, 0);
+		glColor4f(1,1,1,0);
 		glVertex2f(x*rad_extend,y*rad_extend);
 		
 	}
@@ -221,7 +236,7 @@ void ContentBubble::draw() {
 	//drawSphere(target, 3, 10);
 	
 	// the main bubble sphere
-	ofSetColor(color);
+	ofSetColor(color, alpha);
 	ofFill();
 	drawSphere(ofVec3f(0, 0, 0), radius, 60);
 }

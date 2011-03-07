@@ -23,13 +23,17 @@ void InteractionBuzz::newBubbleRecieved(Donk::BubbleData * data) {
 	bubble->rigidBody = bullet->createSphere(startPos, radius, 1);
 	bubble->createContentBubble();
 	bubble->target.set(center.x + ofRandom(-300, 300), ofRandom(500, interactiveRect.height-300), 0);
+	
+	bubble->offScreenTaget.x = bubble->target.x;
+	bubble->offScreenTaget.y = -300;
+	
 	bubbles.push_back(bubble);
 };
 
 //--------------------------------------------------------
 void InteractionBuzz::update() {
 	
-	
+	bool bAllOffFadedOut = true;
 	
 	for(int i=0; i<bubbles.size(); i++) {
 		
@@ -38,18 +42,37 @@ void InteractionBuzz::update() {
 		}
 		
 		if(!bubbles[i]->bTouched) {
+			
 			if(bAnimateIn) {
+				if(bubbles[i]->alpha <= 255) bubbles[i]->alpha += 10;
 				bubbles[i]->gotoTarget();
 			}
-			else if(bAnimateOut) {
-				bubbles[i]->goOffScreen();
+			
+			else if(bAnimateOut && !bDoneAnimatingOut) {
+				if(bubbles[i]->alpha > 0) {
+					bubbles[i]->alpha -= 10;
+					bAllOffFadedOut = false;
+				}
+				// bubbles[i]->goOffScreen();
 			}
+			
 		}
 		
 		
 		bubbles[i]->update();
 
 	}	
+	
+	if(bAllOffFadedOut && bAnimateOut) {
+		bDoneAnimatingOut = true;
+		for(int i=0; i<bubbles.size(); i++) {
+			bubbles[i]->rigidBody->body->setActivationState(DISABLE_SIMULATION);
+		}
+		
+	}
+	
+	
+	
 }
 
 //--------------------------------------------------------
@@ -78,7 +101,8 @@ void InteractionBuzz::animatedOut() {
 	bAnimateIn  = false;
 	bAnimateOut = true;
 	
-	bAnimationDone = false;
+	bDoneAnimatingOut = false;
+	bDoneAnimatingIn  = true;
 }
 
 //--------------------------------------------------------
@@ -86,7 +110,12 @@ void InteractionBuzz::animatedIn() {
 	bAnimateIn  = true;
 	bAnimateOut = false;
 	
-	bAnimationDone = false;
+	bDoneAnimatingOut = true;
+	bDoneAnimatingIn  = false;
+	
+	for(int i=0; i<bubbles.size(); i++) {
+		bubbles[i]->rigidBody->body->setActivationState(DISABLE_DEACTIVATION);
+	}
 }
 
 

@@ -23,13 +23,18 @@ public:
 	ofxBulletRigidBody * rigidBody;
 	btScalar			 m[16];
 	float				 billboadMatrix[16];
+	
 	ofVec3f				 target, pos;
+	ofVec3f				 offScreenTaget;
+	float				 distanceToTarget;
+	float				 alpha;
 	ofColor				 color;
 	float			     radius;
 	Donk::BubbleData *   data;
 	
 	float				 touchAlpha, touchAlphaTarget;
 	bool				 bTouched;
+	int					 touchID;
 	
 	// ---------------------------------
 	ContentBubble();

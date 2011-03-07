@@ -34,7 +34,6 @@ public:
 	ofRectangle	interactiveRect;
 	bool		bDoneAnimatingOut, bDoneAnimatingIn;
 	bool		bAnimateOut, bAnimateIn;
-	bool		bAnimationDone;
 	int			nTouches;
 	
 	BaseInteraction()  {
@@ -45,7 +44,6 @@ public:
 		bDoneAnimatingIn  = false;
 		bAnimateOut		  = false;
 		bAnimateIn		  = false;
-		bAnimationDone	  = false;
 	}
 	
 	~BaseInteraction() {}

@@ -82,7 +82,8 @@ void BubbleProjection::update() {
 		
 		previousInteraction->nTouches = touches.size();
 		previousInteraction->update();
-		if(previousInteraction->bAnimationDone) {
+		if(previousInteraction->bDoneAnimatingOut && previousInteraction->bAnimateOut) {
+			printf("done animating out: %i\n", previousInteraction->mode);
 			previousInteraction = NULL;
 		}
 		
@@ -239,7 +240,7 @@ void BubbleProjection::addTouchConstraints(ContentBubble * bubble) {
 	touchCon->setTouchBody(bullet.world, bubble->rigidBody->body);
 	touchConstraints.push_back(touchCon);
 	
-	//printf("Constraint Made: %p\n", bubble);
+	printf("Constraint Made: %p\n", bubble);
 	
 }
 
@@ -248,6 +249,7 @@ void BubbleProjection::removeTouchConstraint(ContentBubble * bubble) {
 	
 	if(bubble == NULL) return;
 	
+	bubble->touchID = -1;
 	TouchedConstraint * touchCon = NULL;
 	int					removeInd = -1;
 	for (int i=0; i<touchConstraints.size(); i++) {
@@ -272,24 +274,39 @@ void BubbleProjection::removeTouchConstraint(ContentBubble * bubble) {
 //--------------------------------------------------------
 void BubbleProjection::touchDown(float x, float y, int touchId) {
 	
+	cout << touchId << endl;
 	
 	ofVec2f touchCoords(x, y);
 	ofVec2f pos = mapToInteractiveArea(touchCoords);
 	
 	
 	if(activeInteraction) {
+		
+		// first we check to see if any bubbles are using 
+		// the touchID. if not then we can make a constraint
+		bool bTouchedIDUsed = false;
 		for(int i=0; i<activeInteraction->bubbles.size(); i++) {
-			
 			ContentBubble * bubble = activeInteraction->bubbles[i];
-			ofVec2f p1  = pos;
-			ofVec2f p2  = bubble->rigidBody->getPosition();
-			float	dis = p1.distance(p2);
-			if(dis < bubble->radius + 50) {
-				addTouchConstraints(bubble);
-				bubble->bTouched = true;
+			if (bubble->touchID == touchId) {
+				bTouchedIDUsed = true;
 			}
-			else {
-				bubble->bTouched = false;			
+		}
+		
+		if(!bTouchedIDUsed) {
+			for(int i=0; i<activeInteraction->bubbles.size(); i++) {
+				
+				ContentBubble * bubble = activeInteraction->bubbles[i];
+				ofVec2f p1  = pos;
+				ofVec2f p2  = bubble->rigidBody->getPosition();
+				float	dis = p1.distance(p2);
+				if(dis < bubble->radius + 50) {
+					bubble->touchID = touchId;
+					addTouchConstraints(bubble);
+					bubble->bTouched = true;
+				}
+				else {
+					bubble->bTouched = false;			
+				}
 			}
 		}
 	}
@@ -328,18 +345,33 @@ void BubbleProjection::touchMoved(float x, float y, int touchId) {
 	
 	
 	if(activeInteraction) {
+		
+		// first we check to see if any bubbles are using 
+		// the touchID. if not then we can make a constraint
+		bool bTouchedIDUsed = false;
+		
 		for(int i=0; i<activeInteraction->bubbles.size(); i++) {
-			
 			ContentBubble * bubble = activeInteraction->bubbles[i];
-			
-			ofVec2f p1  = pos;
-			ofVec2f p2  = bubble->rigidBody->getPosition();
-			float	dis = p1.distance(p2);
-			if(dis < bubble->radius+50 && !bubble->bTouched) {
-				addTouchConstraints(bubble);
-				bubble->bTouched = true;
+			if (bubble->touchID == touchId) {
+				bTouchedIDUsed = true;
 			}
-			
+		}
+		
+		
+		for(int i=0; i<activeInteraction->bubbles.size(); i++) {
+		
+			ContentBubble * bubble = activeInteraction->bubbles[i];
+
+			if(!bTouchedIDUsed) {
+				ofVec2f p1  = pos;
+				ofVec2f p2  = bubble->rigidBody->getPosition();
+				float	dis = p1.distance(p2);
+				if(dis < bubble->radius+50 && !bubble->bTouched) {
+					bubble->touchID = touchId;
+					addTouchConstraints(bubble);
+					bubble->bTouched = true;
+				}
+			}
 			
 			
 			// update the interaction touch constraints
