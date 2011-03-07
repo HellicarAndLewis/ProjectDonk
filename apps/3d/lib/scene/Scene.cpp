@@ -44,6 +44,7 @@ Scene::Scene(int w, int h) {
 	// create a new model and add it to the scene
 	model = new Model();
 	addNode(*model);
+	addNode(light);
 }
 
 
@@ -58,4 +59,8 @@ void Scene::update() {
 	for(int i = 0; i < projectors.size(); i++) {
 		projectors[i]->update();
 	}
+}
+
+Light *Scene::getLight() {
+	return &light;
 }

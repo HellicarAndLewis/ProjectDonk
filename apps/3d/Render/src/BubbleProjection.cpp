@@ -10,6 +10,7 @@
 #include "testApp.h"
 #include "Mode.h"
 #include "AudioData.h"
+#include "App.h"
 
 
 
@@ -27,12 +28,7 @@ void BubbleProjection::setup() {
 	bullet.init();
 	bullet.setGravity(0, 0, 0);
 	bullet.camera = &camera;
-	
-	if(loadSphereShader()) {
-		printf("Sphere shader loaded\n");
-	}
-	
-	
+		
 	// setup all the interaction modes
 	interactions.push_back(new InteractionBuzz());
 	interactions.push_back(new InteractionInspiration());
@@ -75,156 +71,6 @@ void BubbleProjection::interactionModeChange(string modeName) {
 }
 
 //--------------------------------------------------------
-int BubbleProjection::loadSphereShader() {
-	
-	int status = 0;
-	// try setting up the gl stuff
-	ofDisableArbTex();
-	
-	permImg.loadImage("shader/texturing.jpg");
-	permImg.setImageType(OF_IMAGE_COLOR);
-	glossImg.loadImage("shader/permutationTexture.jpg");
-	glossImg.setImageType(OF_IMAGE_COLOR);
-	ofEnableArbTex();
-	
-	//quadratic = gluNewQuadric();			// Create A Pointer To The Quadric Object ( NEW )
-	//gluQuadricNormals(quadratic, GLU_SMOOTH);	// Create Smooth Normals ( NEW )
-	//gluQuadricTexture(quadratic, GL_TRUE);	
-	
-	status = shader.setup("shader/fresnel_refraction.vs", "shader/fresnel_refraction.fs");
-	
-	cubeMap.loadImages("shader/skybox/berkeley_positive_x.png",
-					   "shader/skybox/berkeley_positive_y.png",
-					   "shader/skybox/berkeley_positive_z.png",
-					   "shader/skybox/berkeley_negative_x.png",
-					   "shader/skybox/berkeley_negative_y.png",
-					   "shader/skybox/berkeley_negative_z.png");
-	
-	
-	return status;
-}
-
-//--------------------------------------------------------------
-void BubbleProjection::beginSphere(){
-	
-	//GLint currentActiveTex;
-	glGetIntegerv(GL_ACTIVE_TEXTURE, &currentActiveTex);
-	//float currentCoords[4];
-	glGetFloatv(GL_CURRENT_TEXTURE_COORDS, &currentCoords[0]);
-	
-	//cout << currentActiveTex << " " << currentCoords[0] << " " << currentCoords[1] << " " << currentCoords[2] << " " << currentCoords[3] << " " << endl;
-	
-	glEnableClientState(GL_NORMAL_ARRAY);
-	
-	glEnable(GL_NORMALIZE);
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
-	glEnable(GL_TEXTURE_2D);
-	
-	float modelview[16];
-	glGetFloatv(GL_MODELVIEW_MATRIX, modelview);
-	
-	shader.begin();
-	
-	glActiveTexture(GL_TEXTURE8);
-	unsigned int texId1 = permImg.getTextureReference().getTextureData().textureID;
-	unsigned int texTarget1 = permImg.getTextureReference().getTextureData().textureTarget;  
-	glBindTexture(texTarget1, texId1);
-	
-	glActiveTexture(GL_TEXTURE9);
-	unsigned int texId2 = glossImg.getTextureReference().getTextureData().textureID;
-	unsigned int texTarget2 = glossImg.getTextureReference().getTextureData().textureTarget;  
-	glBindTexture(texTarget2, texId2);
-	
-	glEnable(GL_TEXTURE_CUBE_MAP);
-	glActiveTexture(GL_TEXTURE10);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMap.textureObject);
-	
-	shader.setUniform1i("glossMap", 1);
-	shader.setUniform1i("baseMap", 2);
-	shader.setUniform1i("environmentMap", 3);
-	
-	shader.setUniform1f("EdgeFalloff", 0.2f);
-	
-	//float* eyeVector = new float[3];
-	eyeVector[0] = ofGetWidth()/2;
-	eyeVector[1] = ofGetHeight()/2;
-	eyeVector[2] = 1;
-	shader.setUniform3fv("eyeVector", eyeVector);
-	
-	//float* lpos = new float[3];
-	lpos[0] = lightPosition.x;
-	lpos[1] = lightPosition.y;
-	lpos[2] = lightPosition.z;
-	shader.setUniform3fv("lightVector", lpos);
-	
-	shader.setUniform1f("reflectAmount", 0.6f);
-	
-	//float* pos = new float[3];
-	pos[0] = 0.5;
-	pos[1] = 0.5;
-	pos[2] = 0.5;
-	shader.setUniform3fv("fresnelValues", pos);
-	
-	//float* cpos = new float[3];
-	cpos[0] = modelview[3];//0.5;
-	cpos[1] = modelview[7];//0.5;
-	cpos[2] = modelview[11];//0.5;
-	shader.setUniform3fv("CameraPos", cpos);
-	
-	//float* lPos = new float[3];
-	lPos[0] = 0.5;
-	lPos[1] = 0.5;
-	lPos[2] = 0.5;
-	shader.setUniform3fv("IoR_Values", lPos);
-	
-	shader.setUniform4mat("ModelWorld4x4", &modelview[0]);
-	// gluSphere(quadratic, rigidBody->boxSize.getX(), rigidBody->boxSize.getX(), rigidBody->boxSize.getX());
-	// gluSphere(quadratic, 100, 20, 20);
-}
-
-//--------------------------------------------------------------
-void BubbleProjection::endSphere() {
-	
-	shader.end();
-	
-	glDisable(GL_CULL_FACE);
-	glDisable(GL_NORMALIZE);
-	glDisable(GL_DEPTH_TEST);
-	
-	glActiveTexture(GL_TEXTURE10);
-	glDisable(GL_TEXTURE_CUBE_MAP);
-	glDisable(GL_TEXTURE_CUBE_MAP_ARB);
-	
-	glActiveTexture(GL_TEXTURE9);
-	glDisable(GL_TEXTURE_2D);
-	
-	glActiveTexture(GL_TEXTURE8);
-	glDisable(GL_TEXTURE_2D);
-	
-	glDisableClientState(GL_NORMAL_ARRAY);
-	
-	//Reset texture 0
-	glActiveTexture(GL_TEXTURE0);
-	//glEnable(GL_TEXTURE_2D);
-	
-	// global to content bubble now
-	/*delete pos;
-	 delete lPos;
-	 delete eyeVector;
-	 delete lpos;
-	 */
-	
-	glGetIntegerv(GL_ACTIVE_TEXTURE, &currentActiveTex);
-	glGetFloatv(GL_CURRENT_TEXTURE_COORDS, &currentCoords[0]);
-	// cout << currentActiveTex << " " << currentCoords[0] << " " << currentCoords[1] << " " << currentCoords[2] << " " << currentCoords[3] << " " << endl;
-	
-	
-}
-
-
-//--------------------------------------------------------
-/** Called every frame */
 void BubbleProjection::update() {
 	
 	
@@ -242,8 +88,6 @@ void BubbleProjection::update() {
 		}
 		
 	}
-	
-	
 	
 	/*
 	 btVector3 rayTo(pos.x, pos.y, 0);
@@ -272,6 +116,7 @@ void BubbleProjection::update() {
 	 */
 	
 	bullet.update();
+	bubbleShader.update();
 }
 
 
@@ -285,14 +130,28 @@ void BubbleProjection::draw() {
 	float audioReactiveness = Donk::Mode::getInstance()->getValue("Background Audio-reactiveness");
 	float volume = Donk::AudioData::getInstance()->getVolume(0);
 	float amp = (1.f - audioReactiveness) + audioReactiveness*volume;//1 - volume *(1-audioReactiveness);
-	ofClear(amp*Donk::Mode::getInstance()->getValue("Top BG Red"), 
+
+	// we're doing background colour in testApp on the actual sculpture itself
+	/*ofClear(amp*Donk::Mode::getInstance()->getValue("Top BG Red"), 
 			amp*Donk::Mode::getInstance()->getValue("Top BG Green"), 
-			amp*Donk::Mode::getInstance()->getValue("Top BG Blue"), 255);
+			amp*Donk::Mode::getInstance()->getValue("Top BG Blue"), 255);*/
 	
-	// center of the app
-	ofNoFill();
-	ofSetColor(0, 255, 0);
-	ofCircle(getWidth()/2, getHeight()/2, 10);
+	// empty the texture
+	ofClear(0, 0, 0, 0);
+	
+	// draw center of the app
+	if(((Donk::App*)ofGetAppPtr())->guiEnabled){
+		glLineWidth(3);
+		ofNoFill();
+		ofSetColor(255, 0, 0,128);
+		glBegin(GL_LINES);
+		glVertex2f(getWidth()/2-10, getHeight()/2);
+		glVertex2f(getWidth()/2+10, getHeight()/2);
+		glVertex2f(getWidth()/2, getHeight()/2-10);
+		glVertex2f(getWidth()/2, getHeight()/2+10);
+		glEnd();
+	}
+	
 	
 	//draw bubbles
 	//glPushMatrix();
@@ -306,72 +165,52 @@ void BubbleProjection::draw() {
 	if(previousInteraction) previousInteraction->draw();
 	if(activeInteraction)   activeInteraction->draw();
 	
-	
-	// --------------------------------------------
-	// --------------------------------------------
-	// --------------------------------------------
-	//ofPushStyle();
-	//camera.begin(ofRectangle(0, 0, getWidth(), getHeight()));
-	
-	
-	
+
 	// ---------------------
 	// Bubbles
 	// ---------------------
 	glPushMatrix();
 	glTranslatef(0, 0, 0);
-	//glScalef(SCALE, SCALE, SCALE);
-	
 	for(int i=0; i<bubbles.size(); i++) {
 	
-		// we draw out here bc icon 
-		// needs to face the camera.
+		// billboarded layers
+		bubbles[i]->drawHighLight();
 		bubbles[i]->drawTwitterData();
-		
-		
+
+		//shader sphere
 		bubbles[i]->pushBubble();
-		beginSphere();
-		bubbles[i]->draw();	
-		endSphere();
+		bubbleShader.begin();
+		bubbles[i]->draw();
+		bubbleShader.end();
 		bubbles[i]->popBubble();
 		
 		
 	}
-
-	
-	
-	//bullet.drawFloor();
 	glPopMatrix();
-	// ---------------------
 	
 	
-	
-	
-	// this draws the touches - keep in here for now!
+	// draw touches
 	for(tIt = touches.begin(); tIt!=touches.end(); tIt++) {
 		
 		ofVec2f pos = mapToInteractiveArea((*tIt).second);
-		ofFill();
-		ofSetColor(255, 0, 255);
-		ofCircle(pos, 30);
-		
-		//cout << pos.x << " " << pos.y << endl;
-		//for(int i=0; i<bubbles.size(); i++) {
-		//	ofVec3f campos    = camera.getGlobalPosition();
-		//	ofVec2f p =	bubbles[i]->rigidBody->getPosition() + campos;	
-		//	ofLine(p, pos);
-		//}
-		
-		
-		
+		//ofFill();
+		ofSetColor(0,255,0,128);
+		ofNoFill();
+		glLineWidth(10);
+		glPushMatrix();
+		glTranslatef(pos.x,pos.y,0);
+		glBegin(GL_LINES);
+		glVertex2f(-20,   0);
+		glVertex2f( 20,   0);
+		glVertex2f(  0, -20);
+		glVertex2f(  0,  20);
+		glEnd();
+		glPopMatrix();
+		// cout << "touch " << pos.x << " " << pos.y << endl;
 	}
 	
-	
-	// --------------------------------------------
-	// --------------------------------------------
-	// --------------------------------------------
-	//camera.end();
-	//ofPopStyle();
+	glLineWidth(1);	
+
 	
 }
 
@@ -394,7 +233,6 @@ void BubbleProjection::bubbleReceived(Donk::BubbleData *bubbleData) {
 	bubble->createContentBubble();
 	bubble->target.set(center.x + ofRandom(-300, 300), ofRandom(500, getHeight()-300), 0);
 	bubbles.push_back(bubble);
-	
 	
 }
 

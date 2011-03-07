@@ -3,6 +3,7 @@
 #include "Projector.h"
 #include "Model.h"
 #include "ofScene3d.h"
+#include "Light.h"
 
 /**
  * \brief Represents the real world setup of physical surfaces, 
@@ -28,8 +29,9 @@ public:
 	void update();
 	
 	vector<Projector*> projectors;
+	Light *getLight();
 	
 private:
-	
+	Light light;
 	Model *model;
 };

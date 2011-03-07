@@ -18,7 +18,6 @@ void testApp::setup(){
 	// default starting mode
 	nextMode = "buzz";
 	mode->setMode(nextMode);
-	
 
 }
 
@@ -40,6 +39,7 @@ void testApp::update(){
 	projection->update();
 	
 	ofSetWindowTitle(ofToString(ofGetFrameRate(), 2) + "fps,  " + ofToString(ofGetWindowSize().x) + "x"+ofToString(ofGetWindowSize().y));
+	
 }
 
 
@@ -71,6 +71,24 @@ void testApp::drawView() {
 			glLineWidth(1);
 		}
 	} else {
+		
+		ofSetColor(mode->getValue("Background Red"), 
+							  mode->getValue("Background Green"), 
+							  mode->getValue("Background Blue"));
+		
+		
+		scene->getLight()->setPosition(ofVec3f(mode->getValue("light x"), 
+								  mode->getValue("light y"), 
+								  mode->getValue("light z")));
+		glShadeModel(GL_FLAT);
+		ofEnableLighting();
+		scene->getLight()->enable();
+		scene->getModel()->drawSolid();
+		
+		
+		
+		glShadeModel(GL_SMOOTH);
+		ofDisableLighting();
 		projection->drawOnModel(scene->getModel());
 	}
 	

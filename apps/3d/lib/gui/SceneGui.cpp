@@ -11,17 +11,15 @@
 #include "constants.h"
 
 float a = 0;
-bool show4Up = false;
+
 SceneGui::SceneGui(Scene *scene): Enableable() {
 	this->scene = scene;
 
-	gui.setup(GUI_PADDING, GUI_PADDING+25, CAMERA_GUI_WIDTH);	
+	gui.setup(GUI_PADDING, GUI_PADDING+50, CAMERA_GUI_WIDTH);	
 	
-	float x = GUI_PADDING*2 + CAMERA_GUI_WIDTH;
 	
-	viewports	= new ofxFourUpDisplay(scene, ofRectangle(x, GUI_PADDING, 
-														  settings.getInt("projector width") - x - GUI_PADDING,
-														  ofGetHeight() - GUI_PADDING*2));
+	
+	
 	
 	
 	for(int i = 0; i < scene->projectors.size(); i++) {
@@ -29,7 +27,7 @@ SceneGui::SceneGui(Scene *scene): Enableable() {
 		gui.addPage(scene->projectors[i]->name);
 		
 		// add this to every page. It won't kill it!
-		gui.addToggle("Show 4-up", show4Up);
+
 		gui.addToggle("enabled", scene->projectors[i]->enabled);
 		gui.addSlider("fov", scene->projectors[i]->fov, 0, 180);
 
@@ -50,7 +48,7 @@ SceneGui::SceneGui(Scene *scene): Enableable() {
 	// disable() hides the elements as well as disabling the oF events
 	// so we need to call show() to show the elements if we draw them.
 	gui.show();
-	viewports->setEnabled(gui.getControlById("Show 4-up")->boolValue());
+	
 	if(enabled) {
 		gui.enable();
 	} else {
@@ -64,10 +62,8 @@ void SceneGui::save() {
 }
 
 void SceneGui::controlChanged(GuiControl *control) {
-	if(control->controlId=="Show 4-up") {
-		viewports->setEnabled(control->boolValue());
-	}
 }
+void SceneGui::draw() { gui.draw(); }
 
 void SceneGui::setEnabled(bool enabled) {
 	this->enabled = enabled;
@@ -76,9 +72,9 @@ void SceneGui::setEnabled(bool enabled) {
 	} else {
 		gui.disable();
 	}
-	if(enabled && gui.getControlById("Show 4-up")->boolValue()) {
+	/*if(enabled && gui.getControlById("Show 4-up")->boolValue()) {
 		viewports->setEnabled(true);
 	} else {
 		viewports->setEnabled(false);
-	}
+	}*/
 }

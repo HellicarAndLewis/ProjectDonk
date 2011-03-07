@@ -14,7 +14,6 @@
 #include "CalibrationProjection.h"
 #include "AudioData.h"
 
-
 class testApp : public Donk::App {
 
 public:
@@ -65,6 +64,7 @@ public:
 	CalibrationProjection calibrationProjection;
 	ofxTuioClient tuio;
 	Donk::AudioData *audioData;
+	
 };
 
 #endif

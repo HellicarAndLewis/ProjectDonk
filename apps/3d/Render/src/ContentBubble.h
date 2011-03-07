@@ -42,7 +42,14 @@ public:
 	void drawTwitterData();
 	void drawHighLight();
 	void draw();
+	static ofTrueTypeFont font;
 	
+	/**
+	  for 2d layer to flip around when selected
+	 */
+	float rotateYTarget;
+	float rotateY;
+	float rotateYDirection;
 };
 
 

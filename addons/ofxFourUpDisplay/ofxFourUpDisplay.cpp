@@ -187,3 +187,4 @@ void ofxFourUpDisplay::mouseReleased(ofMouseEventArgs &m) {
 
 
 
+bool ofxFourUpDisplay::isEnabled() { return enabled; }
