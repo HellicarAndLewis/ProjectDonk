@@ -918,7 +918,7 @@
 		EAFA578C1316834D00714F88 /* BubbleProjection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BubbleProjection.cpp; sourceTree = "<group>"; };
 		EAFA57E21316873F00714F88 /* ofxCoordMapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxCoordMapper.cpp; sourceTree = "<group>"; };
 		EAFA57E31316873F00714F88 /* ofxCoordMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxCoordMapper.h; sourceTree = "<group>"; };
-		EAFA581C13168B3B00714F88 /* CalibrationProjection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalibrationProjection.h; path = ../Render/src/CalibrationProjection.h; sourceTree = "<group>"; };
+		EAFA581C13168B3B00714F88 /* CalibrationProjection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalibrationProjection.h; sourceTree = "<group>"; };
 		EAFA581D13168B3B00714F88 /* CalibrationProjection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CalibrationProjection.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1778,6 +1778,7 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				EAFA581C13168B3B00714F88 /* CalibrationProjection.h */,
 				EAFA581D13168B3B00714F88 /* CalibrationProjection.cpp */,
 				5FC27BFE13196DF1005F76C7 /* BubbleProjection */,
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
@@ -2241,7 +2242,6 @@
 		EA746B3B1312883D000753DA /* lib */ = {
 			isa = PBXGroup;
 			children = (
-				EAFA581C13168B3B00714F88 /* CalibrationProjection.h */,
 				81313BDF13161604000F5CD2 /* net */,
 				EAB93D911312D5B2009430F8 /* animation */,
 				EA746B3C1312883D000753DA /* app */,

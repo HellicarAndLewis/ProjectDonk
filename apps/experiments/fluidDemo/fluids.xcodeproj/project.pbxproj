@@ -12,7 +12,7 @@
 		4BF8CE751323C05A0032E8AB /* MSAFluidSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BF8CE6C1323C05A0032E8AB /* MSAFluidSolver.cpp */; };
 		4BF8CE761323C05A0032E8AB /* Particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BF8CE6E1323C05A0032E8AB /* Particle.cpp */; };
 		4BF8CE771323C05A0032E8AB /* ParticleSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BF8CE701323C05A0032E8AB /* ParticleSystem.cpp */; };
-		E4C2422B10CC554B004149E2 /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2421E10CC549C004149E2 /* openFrameworksDebug.a */; };
+		E4C2422B10CC554B004149E2 /* openFrameworks.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2421E10CC549C004149E2 /* openFrameworks.a */; };
 		E4C2443910CC7693004149E2 /* openFrameworks-Info.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */; };
 		EA158F0112D5D16500F34EF3 /* ofxOBJModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA158EFF12D5D16500F34EF3 /* ofxOBJModel.cpp */; };
 		EA15912012D6037B00F34EF3 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA15911912D6037B00F34EF3 /* tinyxml.cpp */; };
@@ -216,7 +216,6 @@
 		EA6F397A130D76D1001548D6 /* ofxOscReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxOscReceiver.h; sourceTree = "<group>"; };
 		EA6F397B130D76D1001548D6 /* ofxOscSender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxOscSender.cpp; sourceTree = "<group>"; };
 		EA6F397C130D76D1001548D6 /* ofxOscSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxOscSender.h; sourceTree = "<group>"; };
-		EA6F3CB9130D9DB8001548D6 /* general.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = general.xml; path = bin/data/settings/general.xml; sourceTree = "<group>"; };
 		EA6F3D61130E9AB0001548D6 /* ofxCoordMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxCoordMapper.h; path = ../../../addons/ofxCoordMapper/ofxCoordMapper.h; sourceTree = SOURCE_ROOT; };
 		EA6F3D62130E9AB0001548D6 /* ofxCoordMapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxCoordMapper.cpp; path = ../../../addons/ofxCoordMapper/ofxCoordMapper.cpp; sourceTree = SOURCE_ROOT; };
 		EAC12C1812E6F94F0071CE8E /* testApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = testApp.cpp; sourceTree = "<group>"; };
@@ -241,7 +240,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E4C2422B10CC554B004149E2 /* openFrameworksDebug.a in Frameworks */,
+				E4C2422B10CC554B004149E2 /* openFrameworks.a in Frameworks */,
 				EAF9774F12E45B8D0009DBBE /* GLUT.framework in Frameworks */,
 				EAF9775012E45B8D0009DBBE /* AppKit.framework in Frameworks */,
 				EAF9775112E45B8D0009DBBE /* Cocoa.framework in Frameworks */,
@@ -287,7 +286,6 @@
 			children = (
 				E4B69B5B0A3A1756003C02F2 /* emptyExampleDebug.app */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
-				EA6F3CB9130D9DB8001548D6 /* general.xml */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
 				E4C2422310CC54B6004149E2 /* openFrameworks */,
 				BB4B014C10F69532006C3DED /* addons */,
@@ -320,7 +318,7 @@
 		E4C2421710CC549C004149E2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E4C2421E10CC549C004149E2 /* openFrameworksDebug.a */,
+				E4C2421E10CC549C004149E2 /* openFrameworks.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -755,8 +753,9 @@
 /* Begin PBXProject section */
 		E4B69B4C0A3A1720003C02F2 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "emptyExample" */;
+			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "fluids" */;
 			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				English,
@@ -781,10 +780,10 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		E4C2421E10CC549C004149E2 /* openFrameworksDebug.a */ = {
+		E4C2421E10CC549C004149E2 /* openFrameworks.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = openFrameworksDebug.a;
+			path = openFrameworks.a;
 			remoteRef = E4C2421D10CC549C004149E2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1188,7 +1187,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "emptyExample" */ = {
+		E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "fluids" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E4B69B4E0A3A1720003C02F2 /* Debug */,

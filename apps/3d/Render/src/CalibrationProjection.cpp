@@ -50,7 +50,14 @@ void CalibrationProjection::draw() {
 	if(drawInteractiveArea) {
 		ofSetHexColor(0xFFFFFF);
 		coordMapper.getCoordTexture()->draw(rect->x, rect->y, rect->width, rect->height);
+		ofSetHexColor(0x0000FF);
+		ofCircle(rect->x, rect->y, 10);
+		ofCircle(rect->x+rect->width, rect->y, 10);
+		ofCircle(rect->x+rect->width, rect->y+rect->height, 10);
+		ofCircle(rect->x, rect->y+rect->height, 10);
+		
 	}
+	
 }
 
 void CalibrationProjection::setInteractiveArea(ofRectangle *rect) {
@@ -77,3 +84,4 @@ void CalibrationProjection::createGui(ofxXmlGui *gui) {
 	gui->enableAutoSave("settings/interactionSettings.xml");
 	calibrate = false;
 }
+
