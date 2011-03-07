@@ -6,7 +6,7 @@
     <property key="projector height" value="800"></property>
     <property key="projector overlap" value="100"></property>
     <property key="projector width" value="1000"></property>
-    <property key="using MSAA" value="false"></property>
+    <property key="using MSAA" value="true"></property>
     <property key="using first screen for gui only" value="false"></property>
     <property key="using projector blending" value="false"></property>
 </properties>

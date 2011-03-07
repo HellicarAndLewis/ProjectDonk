@@ -191,7 +191,7 @@ void ofFbo::setup(int width, int height, int internalformat, int numSamples) {
 	settings.numSamples		= numSamples;
 	settings.useDepth		= true;
 	settings.useStencil		= true;
-	
+	settings.useMipmapping  = true;
 	
 	setup(settings);
 }
@@ -249,7 +249,11 @@ void ofFbo::setup(Settings settings) {
 void ofFbo::setUseMipmapping(bool enable)
 {
 	settings.useMipmapping = enable;
-	settings.minFilter = GL_LINEAR_MIPMAP_LINEAR;
+	if(enable) {
+		settings.minFilter = GL_LINEAR_MIPMAP_LINEAR;
+	} else {
+		settings.minFilter = GL_LINEAR;
+	}
 }
 
 void ofFbo::setupShadow( int width, int height )
