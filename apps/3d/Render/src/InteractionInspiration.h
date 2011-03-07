@@ -15,10 +15,15 @@ class InteractionInspiration : public BaseInteraction {
 	
 public:
 	
-	vector <ContentBubble*> bubbles;
-
 	InteractionInspiration() {
 		mode = MODE_INSPIRATION;
 	}
 	
+	//--------------------------------------------------------
+	void update();
+	void newBubbleRecieved(Donk::BubbleData * data);
+	void drawContent();
+	void drawSphere(BubbleShader * shader);
+	void animatedOut();
+	void animatedIn();	
 };

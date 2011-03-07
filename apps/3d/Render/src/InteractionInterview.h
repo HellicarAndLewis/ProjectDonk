@@ -19,4 +19,11 @@ public:
 		mode = MODE_INTERVIEW;
 	}
 	
+	//--------------------------------------------------------
+	void update();
+	void newBubbleRecieved(Donk::BubbleData * data);
+	void drawContent();
+	void drawSphere(BubbleShader * shader);
+	void animatedOut();
+	void animatedIn();	
 };

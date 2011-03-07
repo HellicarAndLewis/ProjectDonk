@@ -11,6 +11,9 @@
 #include "BubbleData.h"
 #include "ofxBullet.h"
 #include "ContentBubble.h"
+#include "BubbleData.h"
+#include "BubbleShader.h"
+#include "TouchedConstraint.h"
 
 enum {
 	MODE_BUZZ		 = 0,
@@ -25,21 +28,36 @@ class BaseInteraction {
 
 public:
 	
+	vector <ContentBubble*>		bubbles;
 	ofxBullet * bullet;
 	int			mode;
+	ofRectangle	interactiveRect;
+	bool		bDoneAnimatingOut, bDoneAnimatingIn;
+	bool		bAnimateOut, bAnimateIn;
+	bool		bAnimationDone;
+	int			nTouches;
 	
 	BaseInteraction()  {
-		bullet = NULL;
-		mode   = -1;
+		bullet			  = NULL;
+		mode			  = -1;
+		nTouches		  = 0;
+		bDoneAnimatingOut = false;
+		bDoneAnimatingIn  = false;
+		bAnimateOut		  = false;
+		bAnimateIn		  = false;
+		bAnimationDone	  = false;
 	}
 	
 	~BaseInteraction() {}
 	
-	virtual void animatedOut() {}
-	virtual void animatedIn()  {}
-	
 	virtual void setup()  {}
-	virtual void update() {};
 	virtual void draw()   {};
-
+	
+	virtual void update()								    = 0;
+	virtual void drawContent()								= 0;
+	virtual void drawSphere(BubbleShader * shader)			= 0;
+	virtual void newBubbleRecieved(Donk::BubbleData * data) = 0;
+	virtual void animatedOut()								= 0;
+	virtual void animatedIn()								= 0;
+	
 };

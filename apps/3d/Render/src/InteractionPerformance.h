@@ -20,4 +20,11 @@ public:
 		mode = MODE_PERFORMANCE;
 	}
 	
+	//--------------------------------------------------------
+	void update();
+	void newBubbleRecieved(Donk::BubbleData * data);
+	void drawContent();
+	void drawSphere(BubbleShader * shader);
+	void animatedOut();
+	void animatedIn();	
 };

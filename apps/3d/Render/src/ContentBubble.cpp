@@ -43,9 +43,7 @@ void ContentBubble::createContentBubble() {
 }
 
 //--------------------------------------------------------------
-void ContentBubble::update() {
-	
-	
+void ContentBubble::gotoTarget() {
 	if(rigidBody->isBody()) {
 		
 		rigidBody->body->setDamping(0.99, 0.99); // <-- add some crazy damping
@@ -59,7 +57,22 @@ void ContentBubble::update() {
 		rigidBody->body->clearForces();
 		rigidBody->body->applyCentralForce(btVector3(frc.x, frc.y, frc.z));
 		
+		// printf("taget\n");
 	}
+}
+
+//--------------------------------------------------------------
+void ContentBubble::goOffScreen() {
+	if(rigidBody->isBody()) {
+		
+		// nothing yet
+		
+	}
+}
+
+
+//--------------------------------------------------------------
+void ContentBubble::update() {
 	
 	touchAlpha += (touchAlphaTarget-touchAlpha) * 0.1;
 	rotateY += (rotateYTarget-rotateY) * 0.05;

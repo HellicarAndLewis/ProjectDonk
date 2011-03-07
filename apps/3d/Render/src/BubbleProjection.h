@@ -71,7 +71,6 @@ private:
 	// Bullet
 	ofxBullet					bullet;
 	ofCamera					camera; // not using anymore...
-	vector <ContentBubble*>		bubbles;
 	vector <TouchedConstraint*> touchConstraints;
 	
 	//--------------------------------------------------------

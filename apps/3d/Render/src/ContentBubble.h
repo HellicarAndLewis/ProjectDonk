@@ -35,6 +35,8 @@ public:
 	ContentBubble();
 	void createContentBubble();
 	void update();
+	void gotoTarget();
+	void goOffScreen();
 	
 	void pushBubble();
 	void popBubble();
