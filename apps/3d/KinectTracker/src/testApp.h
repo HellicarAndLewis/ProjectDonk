@@ -53,6 +53,7 @@ public:
 	int tuioPort;
 	
 	void setupGui();
+	float inset;
 };
 
 #endif	
