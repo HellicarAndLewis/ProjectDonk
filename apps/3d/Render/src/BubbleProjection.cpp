@@ -16,22 +16,70 @@
 
 //--------------------------------------------------------
 BubbleProjection::BubbleProjection() {
-	interactiveArea = ofRectangle(100,100,900,500);
+	interactiveArea     = ofRectangle(100,100,900,500);
+	activeInteraction   = NULL;
+	previousInteraction = NULL;
 }
 
 //--------------------------------------------------------
 /** This gets called straight after allocate() */
 void BubbleProjection::setup() {	
+	
 	bullet.init();
 	bullet.setGravity(0, 0, 0);
 	bullet.camera = &camera;
+		
+	// setup all the interaction modes
+	interactions.push_back(new InteractionBuzz());
+	interactions.push_back(new InteractionInspiration());
+	interactions.push_back(new InteractionInterview());
+	interactions.push_back(new InteractionChoice());
+	interactions.push_back(new InteractionPerformance());
+	
+	for (int i=0; i<interactions.size(); i++) {
+		interactions[i]->bullet = &bullet;
+		interactions[i]->setup();
+	}
+	
+	// just for testing...
+	// we will get an event that tells us the mode
+	activeInteraction   = interactions[0];
+	
+	// we have a ref to the previous interaction
+	// so that we can have one animated out as the 
+	// next one animates in.
+	previousInteraction = NULL;
 	
 }
 
 //--------------------------------------------------------
-/** Called every frame */
+void BubbleProjection::interactionModeChange(string modeName) {
+	printf("The New Interaction Mode: %s\n", modeName.c_str());	
+	
+	if(activeInteraction) {
+		activeInteraction->animatedOut();
+		previousInteraction = activeInteraction;
+	}
+	
+	// still need to add the rest...
+	int mode = -1;
+	if(modeName == "inspiration")	   mode = MODE_INSPIRATION;
+	else if(modeName == "interview")   mode = MODE_INTERVIEW;
+	
+	if(mode != -1) activeInteraction = interactions[mode];
+	
+}
+
+//--------------------------------------------------------
 void BubbleProjection::update() {
 	
+	
+	if(previousInteraction) previousInteraction->update();
+	if(activeInteraction)   activeInteraction->update();
+	
+	// the content bubbles...
+	// this will proball be gone since
+	// we now have classes for each interaction
 	for(int i=0; i<bubbles.size(); i++) {
 		bubbles[i]->update();	
 		
@@ -40,7 +88,33 @@ void BubbleProjection::update() {
 		}
 		
 	}
-		
+	
+	/*
+	 btVector3 rayTo(pos.x, pos.y, 0);
+	 btVector3 rayFrom = btVector3(campos.x, campos.y, campos.z);
+	 
+	 btCollisionWorld::ClosestRayResultCallback rayCallback(rayFrom, rayTo);
+	 bullet.world->rayTest(rayFrom, rayTo, rayCallback);
+	 
+	 if (rayCallback.hasHit()) {
+	 printf("---");
+	 btRigidBody * body = btRigidBody::upcast(rayCallback.m_collisionObject);
+	 
+	 btScalar m[16];
+	 btDefaultMotionState* myMotionState = (btDefaultMotionState*)body->getMotionState();
+	 myMotionState->m_graphicsWorldTrans.getOpenGLMatrix(m);
+	 btVector3 org(m[12], m[13], m[14]);
+	 
+	 ofVec3f p1(rayTo.getX(), rayTo.getY(), rayTo.getZ());
+	 ofVec3f p2(org.x(), org.y(), org.z());
+	 ofSetColor(0, 255, 255);
+	 ofLine(p1, p2);
+	 
+	 }
+	 }
+	 
+	 */
+	
 	bullet.update();
 	bubbleShader.update();
 }
@@ -49,9 +123,9 @@ void BubbleProjection::update() {
 //--------------------------------------------------------
 void BubbleProjection::draw() {
 	
-	// clear the FBO
 	ofEnableAlphaBlending();
 	
+	// clear the FBO
 	// audioReactiveness: 0 is not audio reactive, 1 is fully audio reactive
 	float audioReactiveness = Donk::Mode::getInstance()->getValue("Background Audio-reactiveness");
 	float volume = Donk::AudioData::getInstance()->getVolume(0);
@@ -80,11 +154,26 @@ void BubbleProjection::draw() {
 	
 	
 	//draw bubbles
+	//glPushMatrix();
+	//ofRectangle *rect = testApp::instance->calibrationProjection.rect;
+	//glTranslatef(rect->x + rect->width/2,rect->y + rect->height/2,0);
+	//Donk::BubbleData::render();
+	//glPopMatrix();
+	
+	
+	// --------------------------------------------
+	if(previousInteraction) previousInteraction->draw();
+	if(activeInteraction)   activeInteraction->draw();
+	
+
+	// ---------------------
+	// Bubbles
+	// ---------------------
 	glPushMatrix();
 	glTranslatef(0, 0, 0);
 	for(int i=0; i<bubbles.size(); i++) {
-		
-		//billboarded layers
+	
+		// billboarded layers
 		bubbles[i]->drawHighLight();
 		bubbles[i]->drawTwitterData();
 
@@ -97,7 +186,6 @@ void BubbleProjection::draw() {
 		
 		
 	}
-	//bullet.drawFloor();
 	glPopMatrix();
 	
 	
@@ -118,23 +206,11 @@ void BubbleProjection::draw() {
 		glVertex2f(  0,  20);
 		glEnd();
 		glPopMatrix();
-		
-		cout << "touch " << pos.x << " " << pos.y << endl;
-		//for(int i=0; i<bubbles.size(); i++) {
-		//	ofVec3f campos    = camera.getGlobalPosition();
-		//	ofVec2f p =	bubbles[i]->rigidBody->getPosition() + campos;	
-		//	ofLine(p, pos);
-		//}
-		
+		// cout << "touch " << pos.x << " " << pos.y << endl;
 	}
 	
 	glLineWidth(1);	
-	
-	// --------------------------------------------
-	// --------------------------------------------
-	// --------------------------------------------
-	//camera.end();
-	//ofPopStyle();
+
 	
 }
 
@@ -173,7 +249,8 @@ void BubbleProjection::addTouchConstraints(ContentBubble * bubble) {
 	TouchedConstraint * touchCon = new TouchedConstraint();
 	touchCon->setTouchBody(bullet.world, bubble->rigidBody->body);
 	touchConstraints.push_back(touchCon);
-	printf("Constraint Made: %p\n", bubble);
+	
+	//printf("Constraint Made: %p\n", bubble);
 	
 }
 
@@ -199,7 +276,7 @@ void BubbleProjection::removeTouchConstraint(ContentBubble * bubble) {
 		touchConstraints.erase(touchConstraints.begin() + removeInd);
 	}
 	
-	printf("Touch Constraint Size:%i\n", (int)touchConstraints.size());
+	//printf("Touch Constraint Size:%i\n", (int)touchConstraints.size());
 }
 
 
@@ -302,16 +379,6 @@ void BubbleProjection::touchUp(float x, float y, int touchId) {
 
 //--------------------------------------------------------
 ofVec2f BubbleProjection::mapToInteractiveArea(ofVec2f inPoint) {
-	
-	/*
-	 ofVec2f pos = inPoint;
-	 pos.x = ofMap(pos.x, 0.0, 1.0, -500, 500);
-	 pos.y = ofMap(pos.y, 0.0, 1.0, -500, 500);
-	 
-	 printf("%f %f\n", pos.x, pos.y);
-	 return pos;
-	 */
-
 	return ofVec2f(interactiveArea.x + interactiveArea.width  * inPoint.x,
 				   interactiveArea.y + interactiveArea.height * inPoint.y);
 }

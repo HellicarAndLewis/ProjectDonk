@@ -14,7 +14,11 @@
 #include "TouchedConstraint.h"
 #include "BubbleShader.h"
 
-
+#include "InteractionBuzz.h"
+#include "InteractionInspiration.h"
+#include "InteractionInterview.h"
+#include "InteractionChoice.h"
+#include "InteractionPerformance.h"
 
 class BubbleProjection: public ProjectedRect {
 
@@ -47,9 +51,10 @@ public:
 	void touchMoved(float x, float y, int touchId);
 	void touchUp(float x, float y, int touchId);
 
-	/** A bubble was just received */
+	//--------------------------------------------------------
 	void bubbleReceived(Donk::BubbleData *bubbleData);
-	
+	void interactionModeChange(string modeName); 
+
 	// Other useful methods of the inherited class:
 	// float getWidth();
 	// float getHeight();	
@@ -69,8 +74,15 @@ private:
 	vector <ContentBubble*>		bubbles;
 	vector <TouchedConstraint*> touchConstraints;
 	
-	BubbleShader bubbleShader;
+	//--------------------------------------------------------
+	// Interactions
+	vector <BaseInteraction*>	interactions;
+	BaseInteraction *			activeInteraction;
+	BaseInteraction *			previousInteraction;
 	
+	// Sphere rendering
+	//--------------------------------------------------------
+	BubbleShader				bubbleShader;
 	
 	//--------------------------------------------------------
 	void addTouchConstraints(ContentBubble * bubble);

@@ -102,6 +102,7 @@ void testApp::drawView() {
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
+	
 	if(key=='b'||key=='B') {
 		ofxOscMessage m;
 		Donk::BubbleData *data = new Donk::BubbleData(m);
