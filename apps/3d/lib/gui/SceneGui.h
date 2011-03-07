@@ -24,5 +24,5 @@ public:
 private:
 	ofxXmlGui gui;
 	Scene *scene;
-	ofxFourUpDisplay *viewports;
+	
 };

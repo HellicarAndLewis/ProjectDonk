@@ -13,7 +13,7 @@ void ProjectedRect::allocate(float width, float height) {
 	
 	this->width = width;
 	this->height = height;
-	fbo.setup(width, height, GL_RGB);
+	fbo.setup(width, height, GL_RGBA);
 #ifdef TEST_IMAGE
 	testImage.loadImage("global/img/UV.jpeg");
 	this->width = testImage.getWidth();

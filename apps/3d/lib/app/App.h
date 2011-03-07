@@ -57,6 +57,7 @@ protected:
 	
 private:
 	
+	ofxFourUpDisplay *viewports;
 	
 	// this is a little tab at the top of the gui
 	// to allow tabbing between the different guis

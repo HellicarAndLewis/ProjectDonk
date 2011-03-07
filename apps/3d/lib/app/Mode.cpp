@@ -66,6 +66,7 @@ Mode::Mode() {
 	// create all the tween objects
 	for(int i = 0; i < parameterNames.size(); i++) {
 		tweens[parameterNames[i]] = new Tween();
+		tweens[parameterNames[i]]->setType(EASE_CUBIC, EASE_OUT);
 		tweens[parameterNames[i]]->setValue(parameterDefaults[parameterNames[i]]);
 	}
 	
@@ -165,7 +166,7 @@ ofxXmlGui *Mode::getGui() {
 		
 		gui = new ofxXmlGui();
 		gui->x = 200;
-		gui->setup(10, 35, 200);
+		gui->setup(10, 60, 200);
 		map<string,float>::iterator it;
 		if(currModeName=="")  {
 			currModeName = (*parameters.begin()).first;

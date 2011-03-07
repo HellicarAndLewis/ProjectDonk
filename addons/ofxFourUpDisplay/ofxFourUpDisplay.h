@@ -38,6 +38,7 @@ public:
 	
 	void toggle();
 	void setEnabled(bool enabled);
+	bool isEnabled();
 	
 private:
 	

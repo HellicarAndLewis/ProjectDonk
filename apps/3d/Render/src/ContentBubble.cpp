@@ -59,7 +59,7 @@ void ContentBubble::update() {
 	touchAlpha += (touchAlphaTarget-touchAlpha) * 0.1;
 	rotateY += (rotateYTarget-rotateY) * 0.05;
 	if(bTouched){
-		touchAlphaTarget = 90;
+		touchAlphaTarget = 160;
 		rotateYTarget = 180;
 	}else{
 		touchAlphaTarget = 0;
@@ -178,7 +178,6 @@ void ContentBubble::drawHighLight() {
 	// little touch outline...
 	ofEnableAlphaBlending();
 	float rad_extend = radius + 100;
-	
 	//draw circular hailo
 	glBegin(GL_TRIANGLE_STRIP);
 	int steps = 30;

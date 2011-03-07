@@ -56,10 +56,14 @@ void BubbleProjection::draw() {
 	float audioReactiveness = Donk::Mode::getInstance()->getValue("Background Audio-reactiveness");
 	float volume = Donk::AudioData::getInstance()->getVolume(0);
 	float amp = (1.f - audioReactiveness) + audioReactiveness*volume;//1 - volume *(1-audioReactiveness);
-	ofClear(amp*Donk::Mode::getInstance()->getValue("Top BG Red"), 
-			amp*Donk::Mode::getInstance()->getValue("Top BG Green"), 
-			amp*Donk::Mode::getInstance()->getValue("Top BG Blue"), 255);
 
+	// we're doing background colour in testApp on the actual sculpture itself
+	/*ofClear(amp*Donk::Mode::getInstance()->getValue("Top BG Red"), 
+			amp*Donk::Mode::getInstance()->getValue("Top BG Green"), 
+			amp*Donk::Mode::getInstance()->getValue("Top BG Blue"), 255);*/
+	
+	// empty the texture
+	ofClear(0, 0, 0, 0);
 	
 	// draw center of the app
 	if(((Donk::App*)ofGetAppPtr())->guiEnabled){
