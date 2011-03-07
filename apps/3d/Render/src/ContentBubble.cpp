@@ -17,6 +17,11 @@ ContentBubble::ContentBubble() {
 	bTouched  = false;
 	rotateY = 0;
 	rotateYTarget = 0;
+	if(ofRandomuf()>0.5){
+		rotateYDirection = 180;
+	}else{
+		rotateYDirection = -180;
+	}
 }
 
 //--------------------------------------------------------------
@@ -60,7 +65,7 @@ void ContentBubble::update() {
 	rotateY += (rotateYTarget-rotateY) * 0.05;
 	if(bTouched){
 		touchAlphaTarget = 160;
-		rotateYTarget = 180;
+		rotateYTarget = rotateYDirection;
 	}else{
 		touchAlphaTarget = 0;
 		rotateYTarget = 0;

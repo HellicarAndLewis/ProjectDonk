@@ -49,6 +49,7 @@ public:
 	 */
 	float rotateYTarget;
 	float rotateY;
+	float rotateYDirection;
 };
 
 
