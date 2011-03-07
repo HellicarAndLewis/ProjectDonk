@@ -11,7 +11,7 @@
 #include "ofMain.h"
 #include "Particle.h"
 
-#define MAX_PARTICLES		50000
+#define MAX_PARTICLES		500 //50000
 
 using namespace MSA;
 
@@ -22,11 +22,14 @@ public:
 	
     float posArray[MAX_PARTICLES * 2 * 2];
     float colArray[MAX_PARTICLES * 3 * 2];
+	float heightArray[MAX_PARTICLES  * 2 * 2];
 	ofVec2f				windowSize;
 	ofVec2f				invWindowSize;
 	const FluidSolver	*solver;
 	
     int curIndex;
+	
+	ofImage starImage;
 	
     Particle particles[MAX_PARTICLES];
 	

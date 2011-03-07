@@ -21,8 +21,11 @@ public:
     float	alpha;
     float	mass;
 	
+	bool	hasInited;
+	
+	Particle();
     void init(float x, float y);
     void update( const FluidSolver &solver, const ofVec2f &windowSize, const ofVec2f &invWindowSize );
-	void updateVertexArrays( bool drawingFluid, const ofVec2f &invWindowSize, int i, float* posBuffer, float* colBuffer);
+	void updateVertexArrays( bool drawingFluid, const ofVec2f &invWindowSize, int i, float* posBuffer, float* colBuffer, float* heightBuffer);
 };
 

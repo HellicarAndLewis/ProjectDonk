@@ -9,8 +9,11 @@ void testApp::setup() {
 	// setup fluid stuff
 	fluidSolver.setup(100, 100);
     fluidSolver.enableRGB(true);
-	fluidSolver.setFadeSpeed(0.00001);
-	fluidSolver.setDeltaT(0.15).setColorDiffusion(0);
+	//fluidSolver.setFadeSpeed(0.000001);
+	fluidSolver.setFadeSpeed(0.f);
+	//fluidSolver.setFadeSpeed(1.0);
+	fluidSolver.setDeltaT(0.15);
+	fluidSolver.setColorDiffusion(0);
 	fluidSolver.setVisc(0.00015);
 	fluidDrawer.setup( &fluidSolver );
 	particleSystem.setFluidSolver( &fluidSolver );
@@ -21,7 +24,7 @@ void testApp::setup() {
 	drawParticles		= true;
 	
 	ofSetFrameRate(60);
-	ofBackground(0, 0, 0);
+	ofBackground(1, 1, 1);//ofBackground(0, 0, 0);
 	ofSetVerticalSync(false);
 	
 	windowResized(ofGetWidth(), ofGetHeight());		// force this at start (cos I don't think it is called)
@@ -43,7 +46,8 @@ void testApp::fadeToColor(float r, float g, float b, float speed) {
 
 // add force and dye to fluid, and create particles
 void testApp::addToFluid( ofVec2f pos, ofVec2f vel, bool addColor, bool addForce ) {
-    //float speed = vel.x * vel.x  + vel.y * vel.y * getWindowAspectRatio() * getWindowAspectRatio();    // balance the x and y components of speed with the screen aspect ratio
+    //float speed = vel.x * vel.x  + vel.y * vel.y * getWindowAspectRatio() * getWindowAspectRatio();    
+	//balance the x and y components of speed with the screen aspect ratio
 	float aspectRatio = ofGetWidth()/ofGetHeight();
 	float speed = vel.x * vel.x  + vel.y * vel.y * aspectRatio * aspectRatio;
     if(speed > 0) {
@@ -58,24 +62,20 @@ void testApp::addToFluid( ofVec2f pos, ofVec2f vel, bool addColor, bool addForce
 		if(addColor) {
 			ofColor drawColor;
 			drawColor.setHsb((ofGetFrameNum() % 360 ) / 360.0f, 1, 1);
-			//			Color drawColor;
-			//			drawColor.setHSV(( getElapsedFrames() % 360 ) / 360.0f, 1, 1 );
-			
+
 			fluidSolver.addColorAtIndex(index, drawColor * colorMult);
-			
-			if( drawParticles )
-				particleSystem.addParticles( pos * ofVec2f( ofGetWindowSize() ), 10 );
 		}
 		
-		if(addForce)
-			fluidSolver.addForceAtIndex(index, vel * velocityMult);
+		particleSystem.addParticles( pos * ofVec2f( ofGetWindowSize() ), 10 );
+		fluidSolver.addForceAtIndex(index, vel * velocityMult);
 		
     }
 }
 
 
 void testApp::update(){
-	if(resizeFluid) 	{
+	if(resizeFluid)
+	{
 		
 		//float hwRatio = ofGetHeight()/ofGetWidth();
 		float hwRatio = 1200/800;
@@ -90,8 +90,8 @@ void testApp::update(){
 
 void testApp::draw(){
 //	if( drawFluid ) {
-//		glColor3f(1, 1, 1);
-//		fluidDrawer.draw(0, 0, ofGetWidth(), ofGetHeight());
+		glColor3f(1, 1, 1);
+		fluidDrawer.draw(0, 0, ofGetWidth(), ofGetHeight());
 	//} else {
 	//if( ofGetFrameNum()%5==0) fadeToColor( 0, 0, 0, 0.1f );
 	//}
@@ -106,54 +106,7 @@ void testApp::windowResized(int w, int h) {
 
 
 void testApp::keyPressed  (int key){ 
-    switch(key) {
-		case '1':
-			fluidDrawer.setDrawMode(MSA::kFluidDrawColor);
-			break;
-			
-		case '2':
-			fluidDrawer.setDrawMode(MSA::kFluidDrawMotion);
-			break;
-			
-		case '3':
-			fluidDrawer.setDrawMode(MSA::kFluidDrawSpeed);
-			break;
-			
-		case '4':
-			fluidDrawer.setDrawMode(MSA::kFluidDrawVectors);
-			break;
-			
-		case '0':
-			addForces ^= true;
-			break;
-			
-		case 'd':
-			drawFluid ^= true;
-			break;
-			
-		case 'p':
-			drawParticles ^= true;
-			break;
-			
-		case 'f':
-			ofToggleFullscreen();
-			break;
-			
-		case 'r':
-			fluidSolver.reset();
-			break;
-			
-		case 'b': {
-			//Timer timer;
-			const int ITERS = 3000;
-			//timer.start();
-			for( int i = 0; i < ITERS; ++i ) fluidSolver.update();
-			//timer.stop();
-			//cout << ITERS << " iterations took " << timer.getSeconds() << " seconds." << std::endl;
-		}
-			break;
-			
-    }
+
 }
 
 
@@ -174,10 +127,11 @@ void testApp::mousePressed(int x, int y, int button)
 		ofVec2f mouseNorm = ofVec2f( eventPos ) / ofVec2f(ofGetWidth(), ofGetHeight());
 		ofVec2f mouseVel = ofVec2f( eventPos - pMouse ) / ofVec2f(ofGetWidth(), ofGetHeight());
 		//addToFluid( mouseNorm, mouseVel, false, true );
-		//addToFluid( mouseNorm, mouseVel, true, true );
+		//addToFluid( eventPos, mouseVel, true, true );
 		mouseVel *= 100.f;
-		ofVec2f vel(0, -2000.f);
-		fluidSolver.addForceAtPos(eventPos, vel);
+		ofVec2f vel(0, -10.f);
+
+		fluidSolver.addForceAtIndex(fluidSolver.getIndexForPos(eventPos), vel * 10);
 		pMouse = eventPos;
 	}
 }	
@@ -186,8 +140,8 @@ void testApp::mouseDragged(int x, int y, int button)
 {
 
 	ofVec2f eventPos = ofVec2f(x, y);
-	ofVec2f mouseNorm = ofVec2f( eventPos ) / ofVec2f(ofGetWidth(), ofGetHeight());
-	ofVec2f mouseVel = ofVec2f( eventPos - pMouse ) / ofVec2f(ofGetWidth(), ofGetHeight());
+	ofVec2f mouseNorm(eventPos.x/ofGetWidth(), eventPos.y/ofGetHeight());
+	ofVec2f mouseVel = ofVec2f( (eventPos.x - pMouse.x) / ofGetWidth(), (eventPos.y - pMouse.y) / ofGetHeight());
 	//addToFluid( mouseNorm, mouseVel, false, true );
 	addToFluid( mouseNorm, mouseVel, true, true );
 	pMouse = eventPos;
