@@ -18,7 +18,7 @@ void testApp::setup(){
 	tuioServer.start((char*)tuioHost.c_str(), tuioPort);
 	tuioServer.setVerbose(true);
 	
-	
+	inset = 0;	
 	
 }
 
@@ -50,6 +50,7 @@ void testApp::setupGui() {
 	
 	// put 2 and 3 under and to the right of kinect
 	c = gui.addButton("2")->size(20, 20)->right(gui.getControlById("1"));
+	gui.addSlider("Inset", inset, 0, 0.4)->right(c)->width = 100;
 	gui.addButton("3")->size(20, 20)->under(c);
 	
 	
