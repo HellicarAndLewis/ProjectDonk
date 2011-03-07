@@ -14,6 +14,6 @@ extern bool  useMSAA;
 #define CAMERA_GUI_WIDTH 200
 
 // how long it takes to fade from one mode to another
-#define FADE_DURATION 1.5
+#define FADE_DURATION 4.5
 #define PROJECTION_RESOLUTION_WIDTH 2000
 #define PROJECTION_RESOLUTION_HEIGHT 2000

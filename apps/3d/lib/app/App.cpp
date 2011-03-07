@@ -15,11 +15,13 @@
 using namespace util;
 using namespace Donk;
 float f = 0;
-
+bool show4Up = false;
 int whichGui = 0;
 
 App::App() {
 	ofSetLogLevel(OF_LOG_NOTICE);
+	
+	float x = GUI_PADDING*2 + CAMERA_GUI_WIDTH;
 	
 	ofAddListener(ofEvents.keyPressed, this, &App::_keyPressed);
 	ofAddListener(ofEvents.keyReleased, this, &App::_keyReleased);
@@ -60,6 +62,7 @@ App::App() {
 	
 	guiChooser.setup(10, 10, 200);
 	guiChooser.addSegmentedControl(" ", whichGui, "Project|Mode|Calibrate|Blend");
+	guiChooser.addToggle("Show 4-up", show4Up);
 	guiChooser.enable();
 	guiChooser.height = 25;
 	guiChooser.addListener(this);
@@ -68,17 +71,22 @@ App::App() {
 	modeGui = Mode::getInstance()->getGui();
 	modeGui->disable();
 	calibrationGui = new ofxXmlGui();
-	calibrationGui->setup(10, 35, 200);
+	calibrationGui->setup(10, 60, 200);
 	calibrationGui->disable();
 	
 	projectorBlendGui = new ofxXmlGui();
-	projectorBlendGui->setup(10, 35, 200);
+	projectorBlendGui->setup(10, 60, 200);
 	projectorBlendGui->disable();
 	projectorBlendGui->addToggle("Show blend", projectorBlend.showBlend);
 	projectorBlendGui->addSlider("Blend Power", projectorBlend.blendPower, 0, 4);
 	projectorBlendGui->addSlider("Gamma", projectorBlend.gamma, 0, 4);
 	projectorBlendGui->addSlider("Luminance", projectorBlend.luminance, 0, 4);
 	projectorBlendGui->enableAutoSave("settings/projectorBlending.xml");
+	viewports	= new ofxFourUpDisplay(scene, ofRectangle(x, GUI_PADDING, 
+														  settings.getInt("projector width") - x - GUI_PADDING,
+														  ofGetHeight() - GUI_PADDING*2));
+	
+	viewports->setEnabled(show4Up);//gui.getControlById("Show 4-up")->boolValue());
 }
 
 void App::controlChanged(GuiControl *control) {
@@ -138,6 +146,10 @@ void App::drawAllProjectors() {
 
 void App::_update(ofEventArgs &e) {
 	scene->update();	
+	// [en|dis]able 4up if needed
+	if(show4Up!=viewports->isEnabled()) {
+		viewports->setEnabled(show4Up);
+	}
 }
 
 void App::_draw(ofEventArgs &e) {
@@ -148,15 +160,12 @@ void App::_draw(ofEventArgs &e) {
 	this->render();
 	drawAllProjectors();
 
-		
-/*	ScopedGLCapability depth(GL_DEPTH_TEST, false);*/
-	
-	//glViewport(0, 0, ofGetWidth(), ofGetHeight());
-	//ofSetupScreen();
-	
 	if(guiEnabled) {
-		ofSetHexColor(0xFF0000);
-		ofDrawBitmapString(ofToString(ofGetFrameRate(), 2),10,ofGetHeight()-10);
+		guiChooser.draw();
+		if(whichGui==0) sceneGui->draw();
+		else if(whichGui==1) modeGui->draw();
+		else if(whichGui==2) calibrationGui->draw();
+		else if(whichGui==3) projectorBlendGui->draw();
 	}
 }
 
@@ -189,6 +198,7 @@ void App::_keyPressed(ofKeyEventArgs &e) {
 	
 	float increment = ofxMacShiftKeyDown()?0.1:0.005;
 	
+	printf("Key pressed %c\n", e.key);
 	switch(e.key) {
 		case ' ':
 			guiEnabled ^= true;

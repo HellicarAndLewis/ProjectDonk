@@ -39,6 +39,9 @@ public:
 	void _keyReleased(ofKeyEventArgs &e);
 	
 	void controlChanged(GuiControl *control);
+	
+	bool guiEnabled;
+
 protected:
 
 	/** 
@@ -54,7 +57,7 @@ protected:
 	
 private:
 	
-	bool guiEnabled;
+	ofxFourUpDisplay *viewports;
 	
 	// this is a little tab at the top of the gui
 	// to allow tabbing between the different guis

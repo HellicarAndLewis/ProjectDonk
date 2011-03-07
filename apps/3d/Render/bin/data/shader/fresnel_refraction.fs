@@ -51,6 +51,7 @@ vec3 refract(vec3 i, vec3 n, float eta)
 		// figure out light position
 		vec3 lVec = normalize(lightVector);
 
+	
 	    // compute the view depth for the thin film
 	    vec2 viewDepth = vec2((1.0 / dot(NTrans, CameraPos)) * reflectAmount);
     

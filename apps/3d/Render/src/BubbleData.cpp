@@ -12,7 +12,6 @@
 
 namespace Donk{
 
-	ofTrueTypeFont BubbleData::font;
 	vector<BubbleData*> BubbleData::all;
 
 	//--------------------------------------------------------
@@ -20,63 +19,6 @@ namespace Donk{
 		all.push_back(new BubbleData(m));
 	}
 	
-	//--------------------------------------------------------
-	void BubbleData::render(){
-		//draw all the bubbles
-		glPushMatrix();
-		vector<BubbleData*>::iterator bdit;
-		for(bdit=all.begin();bdit!=all.end();bdit++)(*bdit)->draw();
-		glPopMatrix();
-		
-	}
-	
-	//--------------------------------------------------------
-	void BubbleData::draw() {
-		
-		if(profileImage.width != 0){
-			
-			
-			ofSetColor(255,255,255);
-			profileImage.bind();
-			float w = profileImage.width;
-			float h = profileImage.height;
-			
-			//draw the circle-masked thumbnail
-			int steps = 60;
-			float inc = TWO_PI/(float)steps;			
-			glBegin(GL_TRIANGLE_FAN);
-			for(int i=0;i<steps;i++){
-				float x = cos(inc*i);
-				float y = sin(inc*i);
-				glTexCoord2f((x+1)*w*0.5,(y+1)*h*0.5);
-				glVertex2f(x*radius,y*radius);
-			}
-			glEnd();
-			profileImage.unbind();
-			
-			if(!font.bLoadedOk){
-				font.loadFont("global/font/Gotham-Bold.otf",50);
-				if(font.bLoadedOk) {
-				printf("--- font is loaded ---\n");	
-				}
-			}
-			
-			ofRectangle textBB = font.getStringBoundingBox(userName, 0,0);
-			glPushMatrix();
-			float s = radius/textBB.width*1.75;
-			glScalef(s,s,s);
-			glTranslated(-textBB.width/2, 0,0.2);
-			ofSetColor(0,0,0);
-			font.drawString(userName,0,0);
-			glTranslatef(2,2,0.2);
-			ofSetColor(255,255,255);
-			font.drawString(userName,0,0);
-			//profileImage.unbind();			
-			glPopMatrix();
-
-		}
-		
-	}
 	
 	//--------------------------------------------------------
 	void BubbleData::update(){
@@ -130,7 +72,6 @@ namespace Donk{
 	BubbleData::BubbleData(ofxOscMessage &m){
 		
 		loadingDone = false;
-		radius = ofRandomuf()*100+50;
 		
 		int index=0;
 		profileImageLoader = NULL;

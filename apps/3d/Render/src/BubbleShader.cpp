@@ -70,7 +70,7 @@ void BubbleShader::update(){
 		inc = true;
 	}
 	
-	cout << xLightPos << " " << yLightPos << " " << zLightPos << endl;	
+	//cout << xLightPos << " " << yLightPos << " " << zLightPos << endl;	
 }
 
 //------------------------------------------------------------------------------------------------
@@ -128,7 +128,10 @@ void BubbleShader::begin(){
 	cubeshader.setUniform1i("baseMap", 1);
 	cubeshader.setUniform1i("environmentMap", 2);
 	
-	cubeshader.setUniform1f("EdgeFalloff", 0.2f);
+	
+	// marek bumped up the edge fall off - when I turned on GL_RGBA instead
+	// of GL_RGB, everything looked a little dull (from 0.2f)
+	cubeshader.setUniform1f("EdgeFalloff", 0.6f);
 	
 	float* eyeVector = new float[3];
 	eyeVector[0] = ofGetWidth()/2;
@@ -169,6 +172,11 @@ void BubbleShader::begin(){
 	//renderGluSphereWithTexCoords(900, 1000, 200, 50);
 	//renderGluSphereWithTexCoords(800, 800, 10, 50);
 		
+	
+	
+
+	
+	
 	delete pos;
 	delete lPos;
 	delete eyeVector;

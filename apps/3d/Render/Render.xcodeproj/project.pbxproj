@@ -283,6 +283,9 @@
 /* Begin PBXFileReference section */
 		1F08342C1317D1D400BC166F /* general.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = general.xml; path = bin/data/settings/general.xml; sourceTree = "<group>"; };
 		1F8EEEC5131BC74F00EF55C7 /* OSC.json.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = OSC.json.txt; path = bin/data/settings/OSC.json.txt; sourceTree = "<group>"; };
+		1FEBF35C1324F06F001D9100 /* Light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Light.h; sourceTree = "<group>"; };
+		1FEBF5201324FE5F001D9100 /* fresnel_refraction.fs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fresnel_refraction.fs; path = bin/data/shader/fresnel_refraction.fs; sourceTree = "<group>"; };
+		1FEBF5211324FE5F001D9100 /* fresnel_refraction.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fresnel_refraction.vs; path = bin/data/shader/fresnel_refraction.vs; sourceTree = "<group>"; };
 		5F08C882131C42F800666F87 /* TouchedConstraint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TouchedConstraint.cpp; sourceTree = "<group>"; };
 		5F08C883131C42F800666F87 /* TouchedConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchedConstraint.h; sourceTree = "<group>"; };
 		5FC27C0813196E13005F76C7 /* ContentBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentBubble.h; sourceTree = "<group>"; };
@@ -714,7 +717,7 @@
 		E45BE9770E8CC7DD009D7055 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		E45BE9790E8CC7DD009D7055 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		E45BE97A0E8CC7DD009D7055 /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
-		E4B69B5B0A3A1756003C02F2 /* RenderDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RenderDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4B69B5B0A3A1756003C02F2 /* Render.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Render.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = testApp.cpp; path = src/testApp.cpp; sourceTree = SOURCE_ROOT; };
 		E4B69E1F0A3A1BDC003C02F2 /* testApp.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = testApp.h; path = src/testApp.h; sourceTree = SOURCE_ROOT; };
 		E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = "openFrameworks-Info.plist"; sourceTree = "<group>"; };
@@ -1761,7 +1764,9 @@
 				1F8EEEC5131BC74F00EF55C7 /* OSC.json.txt */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				EA746BFA1312ABB5000753DA /* parameters.xml */,
-				E4B69B5B0A3A1756003C02F2 /* RenderDebug.app */,
+				1FEBF5201324FE5F001D9100 /* fresnel_refraction.fs */,
+				1FEBF5211324FE5F001D9100 /* fresnel_refraction.vs */,
+				E4B69B5B0A3A1756003C02F2 /* Render.app */,
 				EA746B3B1312883D000753DA /* lib */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
 				E4C2422310CC54B6004149E2 /* openFrameworks */,
@@ -2301,6 +2306,7 @@
 				EA746B531312883D000753DA /* Projector.h */,
 				EA746B541312883D000753DA /* Scene.cpp */,
 				EA746B551312883D000753DA /* Scene.h */,
+				1FEBF35C1324F06F001D9100 /* Light.h */,
 			);
 			path = scene;
 			sourceTree = "<group>";
@@ -2385,7 +2391,7 @@
 			);
 			name = Render;
 			productName = myOFApp;
-			productReference = E4B69B5B0A3A1756003C02F2 /* RenderDebug.app */;
+			productReference = E4B69B5B0A3A1756003C02F2 /* Render.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
