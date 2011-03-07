@@ -31,33 +31,6 @@ void ContentBubble::createContentBubble() {
 		m[i]			  = 0;
 	}
 	
-	/*ofDisableArbTex();
-	 //cout << glGetString(GL_EXTENSIONS) << endl;
-	 ofEnableNormalizedTexCoords();
-	 
-	 permImg.loadImage("shader/texturing.jpg");
-	 permImg.setImageType(OF_IMAGE_COLOR);
-	 glossImg.loadImage("shader/permutationTexture.jpg");
-	 glossImg.setImageType(OF_IMAGE_COLOR);
-	 
-	 ofEnableArbTex();
-	 
-	 quadratic=gluNewQuadric();			// Create A Pointer To The Quadric Object ( NEW )
-	 gluQuadricNormals(quadratic, GLU_SMOOTH);	// Create Smooth Normals ( NEW )
-	 gluQuadricTexture(quadratic, GL_TRUE);	
-	 
-	 shader.setup("shader/fresnel_refraction.vs", "shader/fresnel_refraction.fs");
-	 
-	 cubeMap.loadImages("shader/skybox/berkeley_positive_x.png",
-	 "shader/skybox/berkeley_positive_y.png",
-	 "shader/skybox/berkeley_positive_z.png",
-	 "shader/skybox/berkeley_negative_x.png",
-	 "shader/skybox/berkeley_negative_y.png",
-	 "shader/skybox/berkeley_negative_z.png"); */
-	
-	//cubeMap.enableFixedMapping();
-	//hasDrawnTex = false;
-	
 }
 
 //--------------------------------------------------------------

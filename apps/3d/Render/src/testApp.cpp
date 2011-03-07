@@ -18,7 +18,6 @@ void testApp::setup(){
 	// default starting mode
 	nextMode = "buzz";
 	mode->setMode(nextMode);
-	
 
 }
 
@@ -40,6 +39,7 @@ void testApp::update(){
 	projection->update();
 	
 	ofSetWindowTitle(ofToString(ofGetFrameRate(), 2) + "fps,  " + ofToString(ofGetWindowSize().x) + "x"+ofToString(ofGetWindowSize().y));
+	
 }
 
 

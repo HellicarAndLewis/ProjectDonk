@@ -12,6 +12,7 @@
 #include "ofxBullet.h"
 #include "ContentBubble.h"
 #include "TouchedConstraint.h"
+#include "BubbleShader.h"
 
 
 
@@ -51,10 +52,7 @@ public:
 	
 	// Other useful methods of the inherited class:
 	// float getWidth();
-	// float getHeight();
-	
-	
-	
+	// float getHeight();	
 	
 	/** Maps a normalized point to coordinates in the interactive area */
 	ofVec2f mapToInteractiveArea(ofVec2f inPoint);
@@ -71,27 +69,9 @@ private:
 	vector <ContentBubble*>		bubbles;
 	vector <TouchedConstraint*> touchConstraints;
 	
-	// Sphere rendering...
-	// not sure if these are dynamic for each bubble
-	// from what I have seen they are all fixed vaues
-	//--------------------------------------------------------
-	GLint						currentActiveTex;
-	float						currentCoords[4];
-	float						eyeVector[3];
-	float						lpos[3];
-	float						pos[3];
-	float						cpos[3];
-	float						lPos[3];
+	BubbleShader bubbleShader;
 	
-	ofImage						permImg, glossImg;
-	ofVec3f						lightPosition;
-	ofShader					shader;
-	ofxCubeMap					cubeMap;
-	int							loadSphereShader();
-	void						beginSphere();
-	void						endSphere();
-	void						setLightPosition(ofVec3f position) { lightPosition = position; }
-
+	
 	//--------------------------------------------------------
 	void addTouchConstraints(ContentBubble * bubble);
 	void removeTouchConstraint(ContentBubble * bubble);

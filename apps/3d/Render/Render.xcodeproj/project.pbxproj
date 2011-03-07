@@ -159,6 +159,7 @@
 		5FF09D7E13180C67009A416F /* btQuickprof.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FF09CD413180C67009A416F /* btQuickprof.cpp */; };
 		5FF09D7F13180C67009A416F /* ofxBullet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FF09CE213180C67009A416F /* ofxBullet.cpp */; };
 		5FF09D8213180C67009A416F /* ofxBulletRigidBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FF09CE913180C67009A416F /* ofxBulletRigidBody.cpp */; };
+		810A07CA1324A5C7008AEE7A /* BubbleShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 810A07C91324A5C7008AEE7A /* BubbleShader.cpp */; };
 		81313BE71316160E000F5CD2 /* base64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81313BE51316160E000F5CD2 /* base64.cpp */; };
 		81313BEA13161617000F5CD2 /* AsyncHttpLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81313BE813161617000F5CD2 /* AsyncHttpLoader.cpp */; };
 		814B60711300CDF40003229E /* osc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 814B605E1300CDF40003229E /* osc.a */; };
@@ -178,7 +179,7 @@
 		E45BE9830E8CC7DD009D7055 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9790E8CC7DD009D7055 /* OpenGL.framework */; };
 		E45BE9840E8CC7DD009D7055 /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE97A0E8CC7DD009D7055 /* QuickTime.framework */; };
 		E4B69E210A3A1BDC003C02F2 /* testApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */; };
-		E4C2422B10CC554B004149E2 /* openFrameworks.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2421E10CC549C004149E2 /* openFrameworks.a */; };
+		E4C2422B10CC554B004149E2 /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2421E10CC549C004149E2 /* openFrameworksDebug.a */; };
 		E4C2424710CC5A17004149E2 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424410CC5A17004149E2 /* AppKit.framework */; };
 		E4C2424810CC5A17004149E2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424510CC5A17004149E2 /* Cocoa.framework */; };
 		E4C2424910CC5A17004149E2 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424610CC5A17004149E2 /* IOKit.framework */; };
@@ -670,6 +671,8 @@
 		5FF09CE913180C67009A416F /* ofxBulletRigidBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBulletRigidBody.cpp; sourceTree = "<group>"; };
 		5FF09CEA13180C67009A416F /* ofxBulletRigidBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBulletRigidBody.h; sourceTree = "<group>"; };
 		5FF09CEB13180C67009A416F /* ofxBulletUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBulletUtils.h; sourceTree = "<group>"; };
+		810A07C81324A5C7008AEE7A /* BubbleShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BubbleShader.h; sourceTree = "<group>"; };
+		810A07C91324A5C7008AEE7A /* BubbleShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BubbleShader.cpp; sourceTree = "<group>"; };
 		81313BE51316160E000F5CD2 /* base64.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = base64.cpp; sourceTree = "<group>"; };
 		81313BE61316160E000F5CD2 /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
 		81313BE813161617000F5CD2 /* AsyncHttpLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AsyncHttpLoader.cpp; path = net/AsyncHttpLoader.cpp; sourceTree = "<group>"; };
@@ -912,7 +915,7 @@
 		EAFA578C1316834D00714F88 /* BubbleProjection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BubbleProjection.cpp; sourceTree = "<group>"; };
 		EAFA57E21316873F00714F88 /* ofxCoordMapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxCoordMapper.cpp; sourceTree = "<group>"; };
 		EAFA57E31316873F00714F88 /* ofxCoordMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxCoordMapper.h; sourceTree = "<group>"; };
-		EAFA581C13168B3B00714F88 /* CalibrationProjection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalibrationProjection.h; sourceTree = "<group>"; };
+		EAFA581C13168B3B00714F88 /* CalibrationProjection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalibrationProjection.h; path = ../Render/src/CalibrationProjection.h; sourceTree = "<group>"; };
 		EAFA581D13168B3B00714F88 /* CalibrationProjection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CalibrationProjection.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -921,7 +924,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E4C2422B10CC554B004149E2 /* openFrameworks.a in Frameworks */,
+				E4C2422B10CC554B004149E2 /* openFrameworksDebug.a in Frameworks */,
 				E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */,
 				E45BE97C0E8CC7DD009D7055 /* ApplicationServices.framework in Frameworks */,
 				E45BE97D0E8CC7DD009D7055 /* AudioToolbox.framework in Frameworks */,
@@ -959,6 +962,8 @@
 		5FC27BFE13196DF1005F76C7 /* BubbleProjection */ = {
 			isa = PBXGroup;
 			children = (
+				810A07C81324A5C7008AEE7A /* BubbleShader.h */,
+				810A07C91324A5C7008AEE7A /* BubbleShader.cpp */,
 				8196445E13062409008A111C /* BubbleData.h */,
 				8196445F13062409008A111C /* BubbleData.cpp */,
 				5F08C882131C42F800666F87 /* TouchedConstraint.cpp */,
@@ -1768,7 +1773,6 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				EAFA581C13168B3B00714F88 /* CalibrationProjection.h */,
 				EAFA581D13168B3B00714F88 /* CalibrationProjection.cpp */,
 				5FC27BFE13196DF1005F76C7 /* BubbleProjection */,
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
@@ -1782,7 +1786,7 @@
 		E4C2421710CC549C004149E2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E4C2421E10CC549C004149E2 /* openFrameworks.a */,
+				E4C2421E10CC549C004149E2 /* openFrameworksDebug.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2232,6 +2236,7 @@
 		EA746B3B1312883D000753DA /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				EAFA581C13168B3B00714F88 /* CalibrationProjection.h */,
 				81313BDF13161604000F5CD2 /* net */,
 				EAB93D911312D5B2009430F8 /* animation */,
 				EA746B3C1312883D000753DA /* app */,
@@ -2415,10 +2420,10 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		E4C2421E10CC549C004149E2 /* openFrameworks.a */ = {
+		E4C2421E10CC549C004149E2 /* openFrameworksDebug.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = openFrameworks.a;
+			path = openFrameworksDebug.a;
 			remoteRef = E4C2421D10CC549C004149E2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -2664,6 +2669,7 @@
 				5FC27C0A13196E13005F76C7 /* ContentBubble.cpp in Sources */,
 				5FC27F40131BCFDD005F76C7 /* ofxCubeMap.cpp in Sources */,
 				5F08C884131C42F800666F87 /* TouchedConstraint.cpp in Sources */,
+				810A07CA1324A5C7008AEE7A /* BubbleShader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

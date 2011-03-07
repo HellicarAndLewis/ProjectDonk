@@ -25,161 +25,7 @@ void BubbleProjection::setup() {
 	bullet.setGravity(0, 0, 0);
 	bullet.camera = &camera;
 	
-	if(loadSphereShader()) {
-		printf("Sphere shader loaded\n");
-	}
-	
 }
-
-//--------------------------------------------------------
-int BubbleProjection::loadSphereShader() {
-	
-	int status = 0;
-	// try setting up the gl stuff
-	ofDisableArbTex();
-	
-	permImg.loadImage("shader/texturing.jpg");
-	permImg.setImageType(OF_IMAGE_COLOR);
-	glossImg.loadImage("shader/permutationTexture.jpg");
-	glossImg.setImageType(OF_IMAGE_COLOR);
-	ofEnableArbTex();
-	
-	//quadratic = gluNewQuadric();			// Create A Pointer To The Quadric Object ( NEW )
-	//gluQuadricNormals(quadratic, GLU_SMOOTH);	// Create Smooth Normals ( NEW )
-	//gluQuadricTexture(quadratic, GL_TRUE);	
-	
-	status = shader.setup("shader/fresnel_refraction.vs", "shader/fresnel_refraction.fs");
-	
-	cubeMap.loadImages("shader/skybox/berkeley_positive_x.png",
-					   "shader/skybox/berkeley_positive_y.png",
-					   "shader/skybox/berkeley_positive_z.png",
-					   "shader/skybox/berkeley_negative_x.png",
-					   "shader/skybox/berkeley_negative_y.png",
-					   "shader/skybox/berkeley_negative_z.png");
-	
-	
-	return status;
-}
-
-
-//--------------------------------------------------------------
-void BubbleProjection::beginSphere(){
-	
-	//GLint currentActiveTex;
-	glGetIntegerv(GL_ACTIVE_TEXTURE, &currentActiveTex);
-	//float currentCoords[4];
-	glGetFloatv(GL_CURRENT_TEXTURE_COORDS, &currentCoords[0]);
-	
-	//cout << currentActiveTex << " " << currentCoords[0] << " " << currentCoords[1] << " " << currentCoords[2] << " " << currentCoords[3] << " " << endl;
-	
-	glEnableClientState(GL_NORMAL_ARRAY);
-	
-	glEnable(GL_NORMALIZE);
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
-	glEnable(GL_TEXTURE_2D);
-	
-	float modelview[16];
-	glGetFloatv(GL_MODELVIEW_MATRIX, modelview);
-	
-	shader.begin();
-	
-	glActiveTexture(GL_TEXTURE8);
-	unsigned int texId1 = permImg.getTextureReference().getTextureData().textureID;
-	unsigned int texTarget1 = permImg.getTextureReference().getTextureData().textureTarget;  
-	glBindTexture(texTarget1, texId1);
-	
-	glActiveTexture(GL_TEXTURE9);
-	unsigned int texId2 = glossImg.getTextureReference().getTextureData().textureID;
-	unsigned int texTarget2 = glossImg.getTextureReference().getTextureData().textureTarget;  
-	glBindTexture(texTarget2, texId2);
-	
-	glEnable(GL_TEXTURE_CUBE_MAP);
-	glActiveTexture(GL_TEXTURE10);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMap.textureObject);
-	
-	shader.setUniform1i("glossMap", 1);
-	shader.setUniform1i("baseMap", 2);
-	shader.setUniform1i("environmentMap", 3);
-	
-	shader.setUniform1f("EdgeFalloff", 0.2f);
-	
-	//float* eyeVector = new float[3];
-	eyeVector[0] = ofGetWidth()/2;
-	eyeVector[1] = ofGetHeight()/2;
-	eyeVector[2] = 1;
-	shader.setUniform3fv("eyeVector", eyeVector);
-	
-	//float* lpos = new float[3];
-	lpos[0] = lightPosition.x;
-	lpos[1] = lightPosition.y;
-	lpos[2] = lightPosition.z;
-	shader.setUniform3fv("lightVector", lpos);
-	
-	shader.setUniform1f("reflectAmount", 0.6f);
-	
-	//float* pos = new float[3];
-	pos[0] = 0.5;
-	pos[1] = 0.5;
-	pos[2] = 0.5;
-	shader.setUniform3fv("fresnelValues", pos);
-	
-	//float* cpos = new float[3];
-	cpos[0] = modelview[3];//0.5;
-	cpos[1] = modelview[7];//0.5;
-	cpos[2] = modelview[11];//0.5;
-	shader.setUniform3fv("CameraPos", cpos);
-	
-	//float* lPos = new float[3];
-	lPos[0] = 0.5;
-	lPos[1] = 0.5;
-	lPos[2] = 0.5;
-	shader.setUniform3fv("IoR_Values", lPos);
-	
-	shader.setUniform4mat("ModelWorld4x4", &modelview[0]);
-	// gluSphere(quadratic, rigidBody->boxSize.getX(), rigidBody->boxSize.getX(), rigidBody->boxSize.getX());
-	// gluSphere(quadratic, 100, 20, 20);
-}
-
-//--------------------------------------------------------------
-void BubbleProjection::endSphere() {
-	
-	shader.end();
-	
-	glDisable(GL_CULL_FACE);
-	glDisable(GL_NORMALIZE);
-	glDisable(GL_DEPTH_TEST);
-	
-	glActiveTexture(GL_TEXTURE10);
-	glDisable(GL_TEXTURE_CUBE_MAP);
-	glDisable(GL_TEXTURE_CUBE_MAP_ARB);
-	
-	glActiveTexture(GL_TEXTURE9);
-	glDisable(GL_TEXTURE_2D);
-	
-	glActiveTexture(GL_TEXTURE8);
-	glDisable(GL_TEXTURE_2D);
-	
-	glDisableClientState(GL_NORMAL_ARRAY);
-	
-	//Reset texture 0
-	glActiveTexture(GL_TEXTURE0);
-	//glEnable(GL_TEXTURE_2D);
-	
-	// global to content bubble now
-	/*delete pos;
-	 delete lPos;
-	 delete eyeVector;
-	 delete lpos;
-	 */
-	
-	glGetIntegerv(GL_ACTIVE_TEXTURE, &currentActiveTex);
-	glGetFloatv(GL_CURRENT_TEXTURE_COORDS, &currentCoords[0]);
-	// cout << currentActiveTex << " " << currentCoords[0] << " " << currentCoords[1] << " " << currentCoords[2] << " " << currentCoords[3] << " " << endl;
-	
-	
-}
-
 
 //--------------------------------------------------------
 /** Called every frame */
@@ -193,35 +39,9 @@ void BubbleProjection::update() {
 		}
 		
 	}
-	
-	
-	/*
-	 btVector3 rayTo(pos.x, pos.y, 0);
-	 btVector3 rayFrom = btVector3(campos.x, campos.y, campos.z);
-	 
-	 btCollisionWorld::ClosestRayResultCallback rayCallback(rayFrom, rayTo);
-	 bullet.world->rayTest(rayFrom, rayTo, rayCallback);
-	 
-	 if (rayCallback.hasHit()) {
-	 printf("---");
-	 btRigidBody * body = btRigidBody::upcast(rayCallback.m_collisionObject);
-	 
-	 btScalar m[16];
-	 btDefaultMotionState* myMotionState = (btDefaultMotionState*)body->getMotionState();
-	 myMotionState->m_graphicsWorldTrans.getOpenGLMatrix(m);
-	 btVector3 org(m[12], m[13], m[14]);
-	 
-	 ofVec3f p1(rayTo.getX(), rayTo.getY(), rayTo.getZ());
-	 ofVec3f p2(org.x(), org.y(), org.z());
-	 ofSetColor(0, 255, 255);
-	 ofLine(p1, p2);
-	 
-	 }
-	 }
-	 
-	 */
-	
+		
 	bullet.update();
+	bubbleShader.update();
 }
 
 
@@ -267,27 +87,20 @@ void BubbleProjection::draw() {
 	//glScalef(SCALE, SCALE, SCALE);
 	
 	for(int i=0; i<bubbles.size(); i++) {
-	
 		
 		bubbles[i]->drawTwitterData();
 		
-		
 		bubbles[i]->pushBubble();
-		beginSphere();
-		bubbles[i]->draw();	
-		endSphere();
+		bubbleShader.begin();
+		bubbles[i]->draw();
+		bubbleShader.end();
 		bubbles[i]->popBubble();
 		
-		
 	}
-
-	
 	
 	//bullet.drawFloor();
 	glPopMatrix();
 	// ---------------------
-	
-	
 	
 	
 	// this draws the touches - keep in here for now!
@@ -304,8 +117,6 @@ void BubbleProjection::draw() {
 		//	ofVec2f p =	bubbles[i]->rigidBody->getPosition() + campos;	
 		//	ofLine(p, pos);
 		//}
-		
-		
 		
 	}
 	
@@ -483,6 +294,7 @@ void BubbleProjection::touchUp(float x, float y, int touchId) {
 
 //--------------------------------------------------------
 ofVec2f BubbleProjection::mapToInteractiveArea(ofVec2f inPoint) {
+	
 	/*
 	 ofVec2f pos = inPoint;
 	 pos.x = ofMap(pos.x, 0.0, 1.0, -500, 500);
@@ -491,6 +303,7 @@ ofVec2f BubbleProjection::mapToInteractiveArea(ofVec2f inPoint) {
 	 printf("%f %f\n", pos.x, pos.y);
 	 return pos;
 	 */
+
 	return ofVec2f(interactiveArea.x + interactiveArea.width  * inPoint.x,
 				   interactiveArea.y + interactiveArea.height * inPoint.y);
 }
