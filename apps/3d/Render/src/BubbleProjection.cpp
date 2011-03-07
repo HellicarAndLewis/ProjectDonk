@@ -10,6 +10,7 @@
 #include "testApp.h"
 #include "Mode.h"
 #include "AudioData.h"
+#include "App.h"
 
 
 
@@ -58,60 +59,63 @@ void BubbleProjection::draw() {
 	ofClear(amp*Donk::Mode::getInstance()->getValue("Top BG Red"), 
 			amp*Donk::Mode::getInstance()->getValue("Top BG Green"), 
 			amp*Donk::Mode::getInstance()->getValue("Top BG Blue"), 255);
+
 	
-	// center of the app
-	ofNoFill();
-	ofSetColor(0, 255, 0);
-	ofCircle(getWidth()/2, getHeight()/2, 10);
+	// draw center of the app
+	if(((Donk::App*)ofGetAppPtr())->guiEnabled){
+		glLineWidth(3);
+		ofNoFill();
+		ofSetColor(255, 0, 0,128);
+		glBegin(GL_LINES);
+		glVertex2f(getWidth()/2-10, getHeight()/2);
+		glVertex2f(getWidth()/2+10, getHeight()/2);
+		glVertex2f(getWidth()/2, getHeight()/2-10);
+		glVertex2f(getWidth()/2, getHeight()/2+10);
+		glEnd();
+	}
+	
 	
 	//draw bubbles
-	//glPushMatrix();
-	//ofRectangle *rect = testApp::instance->calibrationProjection.rect;
-	//glTranslatef(rect->x + rect->width/2,rect->y + rect->height/2,0);
-	//Donk::BubbleData::render();
-	//glPopMatrix();
-	
-	// --------------------------------------------
-	// --------------------------------------------
-	// --------------------------------------------
-	//ofPushStyle();
-	//camera.begin(ofRectangle(0, 0, getWidth(), getHeight()));
-	
-	
-	
-	// ---------------------
-	// Bubbles
-	// ---------------------
 	glPushMatrix();
 	glTranslatef(0, 0, 0);
-	//glScalef(SCALE, SCALE, SCALE);
-	
 	for(int i=0; i<bubbles.size(); i++) {
 		
+		//billboarded layers
+		bubbles[i]->drawHighLight();
 		bubbles[i]->drawTwitterData();
-		
+
+		//shader sphere
 		bubbles[i]->pushBubble();
 		bubbleShader.begin();
 		bubbles[i]->draw();
 		bubbleShader.end();
 		bubbles[i]->popBubble();
 		
+		
 	}
-	
 	//bullet.drawFloor();
 	glPopMatrix();
-	// ---------------------
 	
 	
-	// this draws the touches - keep in here for now!
+	// draw touches
 	for(tIt = touches.begin(); tIt!=touches.end(); tIt++) {
 		
 		ofVec2f pos = mapToInteractiveArea((*tIt).second);
-		ofFill();
-		ofSetColor(255, 0, 255);
-		ofCircle(pos, 30);
+		//ofFill();
+		ofSetColor(0,255,0,128);
+		ofNoFill();
+		glLineWidth(10);
+		glPushMatrix();
+		glTranslatef(pos.x,pos.y,0);
+		glBegin(GL_LINES);
+		glVertex2f(-20,   0);
+		glVertex2f( 20,   0);
+		glVertex2f(  0, -20);
+		glVertex2f(  0,  20);
+		glEnd();
+		glPopMatrix();
 		
-		cout << pos.x << " " << pos.y << endl;
+		cout << "touch " << pos.x << " " << pos.y << endl;
 		//for(int i=0; i<bubbles.size(); i++) {
 		//	ofVec3f campos    = camera.getGlobalPosition();
 		//	ofVec2f p =	bubbles[i]->rigidBody->getPosition() + campos;	
@@ -120,6 +124,7 @@ void BubbleProjection::draw() {
 		
 	}
 	
+	glLineWidth(1);	
 	
 	// --------------------------------------------
 	// --------------------------------------------
@@ -138,7 +143,7 @@ void BubbleProjection::bubbleReceived(Donk::BubbleData *bubbleData) {
 	
 	ofVec3f center(getWidth()/2, 0, 0);
 	ofVec3f startPos(center.x + ofRandom(-300, 300), getHeight(), ofRandom(-100, 100));
-	float   radius = 80;
+	float   radius = ofRandomuf()*60+40;
 	
 	ContentBubble * bubble = new ContentBubble();
 	
@@ -148,7 +153,6 @@ void BubbleProjection::bubbleReceived(Donk::BubbleData *bubbleData) {
 	bubble->createContentBubble();
 	bubble->target.set(center.x + ofRandom(-300, 300), ofRandom(500, getHeight()-300), 0);
 	bubbles.push_back(bubble);
-	
 	
 }
 

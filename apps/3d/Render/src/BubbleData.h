@@ -80,12 +80,7 @@ namespace Donk{
 		void step();
 		static vector<BubbleData*> all;
 		static void update();
-		static void render();///< tells everyone to render
-		void draw(); ///< tells a single bubble instance to draw
-		static void add(ofxOscMessage &m);
-		float radius;///< bubble's radius
-		static ofTrueTypeFont font;
-		
+		static void add(ofxOscMessage &m);		
 	};
 	
 }

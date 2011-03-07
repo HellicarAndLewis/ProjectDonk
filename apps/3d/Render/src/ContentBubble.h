@@ -42,7 +42,8 @@ public:
 	void drawTwitterData();
 	void drawHighLight();
 	void draw();
-	
+	static ofTrueTypeFont font;
+
 };
 
 
