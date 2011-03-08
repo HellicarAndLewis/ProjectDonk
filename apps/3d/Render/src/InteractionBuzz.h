@@ -9,6 +9,10 @@
 
 #pragma once
 #include "BaseInteraction.h"
+#include "BuzzContainerBubble.h"
+
+#define BUZZ_TYPE_CONTAINER 0
+#define BUZZ_TYPE_BUBBLE	1
 
 class InteractionBuzz : public BaseInteraction {
 	
@@ -26,5 +30,14 @@ public:
 	void drawContent();
 	void drawSphere(BubbleShader * shader);
 	void animatedOut();
-	void animatedIn();							 
+	void animatedIn();	
+	
+	void doubleTouched(ofVec2f touchpos);
+	
+	//--------------------------------------------------------
+	void createContainerBubble(Donk::BubbleData * data);
+	
+	//--------------------------------------------------------
+	vector<int> bubbleTypes;
+	
 };

@@ -47,12 +47,12 @@ void BubbleProjection::setup() {
 	// just for testing...
 	// we will get an event that tells us the mode
 	
-	activeInteraction   = interactions[MODE_INSPIRATION];
+	activeInteraction   = interactions[MODE_BUZZ];//INSPIRATION];
 	
 	
 	// this is just for testing - need to get a bunch of bubbles on screen
 	if(DEBUG_INTERATIONS) {
-		for (int i=0; i<20; i++) {
+		for (int i=0; i<3; i++) {
 			ofxOscMessage m;
 			Donk::BubbleData *data = new Donk::BubbleData(m);
 			data->mode = "inspiration";

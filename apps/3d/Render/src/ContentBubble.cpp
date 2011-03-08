@@ -28,6 +28,8 @@ ContentBubble::ContentBubble() {
 		rotateYDirection = -180;
 	}
 	alpha = 255;
+	
+	bAlive = false;
 }
 
 //--------------------------------------------------------------
@@ -46,6 +48,7 @@ void ContentBubble::createContentBubble() {
 		m[i]			  = 0;
 	}
 	
+	bAlive = true;
 }
 
 //--------------------------------------------------------------

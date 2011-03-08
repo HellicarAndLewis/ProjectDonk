@@ -36,6 +36,8 @@ public:
 	bool				 bTouched, bDoubleTouched;
 	int					 touchID;
 	
+	bool				 bAlive;
+	
 	// ---------------------------------
 	ContentBubble();
 	
@@ -52,9 +54,9 @@ public:
 	void pushBubble();
 	void popBubble();
 	
-	void drawTwitterData();
-	void drawHighLight();
-	void draw();
+	virtual void drawTwitterData();
+	virtual void drawHighLight();
+	virtual void draw();
 	static ofTrueTypeFont font;
 	
 	/**
