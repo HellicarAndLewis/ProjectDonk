@@ -3,6 +3,9 @@
 #include "QuestionData.h"
 #include "constants.h"
 
+// for testing
+bool bDidFakeSecondTouch = false;
+
 testApp *testApp::instance;
 //--------------------------------------------------------------
 void testApp::setup(){
@@ -16,9 +19,8 @@ void testApp::setup(){
 	setupGraphics();
 	mode = Donk::Mode::getInstance();
 	// default starting mode
-	nextMode = "buzz";
+	nextMode = "inspiration";
 	mode->setMode(nextMode);
-
 }
 
 void testApp::setupGraphics() {
@@ -110,6 +112,7 @@ void testApp::keyPressed(int key){
 	if(key == 't') mode->setMode("performance");
 	
 	
+	
 	if(key=='b'||key=='B') {
 		ofxOscMessage m;
 		Donk::BubbleData *data = new Donk::BubbleData(m);
@@ -142,6 +145,7 @@ void testApp::keyPressed(int key){
 		projection->bubbleReceived(data);
 	}
 
+
 }
 
 //--------------------------------------------------------------
@@ -156,11 +160,26 @@ void testApp::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void testApp::mouseDragged(int x, int y, int button){
+	
 	ofTouchEventArgs t;
 	t.x = (float)x/ofGetWidth();
 	t.y = (float)y/ofGetHeight();
 	t.id = button;
 	touchMoved(t);
+	
+	if(ofxMacShiftKeyDown()) {
+		
+		t.id ++;
+		float pct = 40.0 * ((float)x/(float)ofGetWidth());
+		t.x = (float)(x-pct)/ofGetWidth();
+		t.y = (float)y/ofGetHeight();
+		if(!bDidFakeSecondTouch) {
+			touchDown(t);
+			bDidFakeSecondTouch = true;
+		}
+		else touchMoved(t);
+		
+	}
 }
 
 //--------------------------------------------------------------
@@ -170,6 +189,14 @@ void testApp::mousePressed(int x, int y, int button){
 	t.y = (float)y/ofGetHeight();
 	t.id = button;
 	touchDown(t);
+	
+	if(ofxMacShiftKeyDown()) {
+		t.id = 1;
+		t.x = (float)(x-50.0)/ofGetWidth();
+		t.y = (float)y/ofGetHeight();
+ 		touchDown(t);
+		bDidFakeSecondTouch = true;
+	}
 }
 
 //--------------------------------------------------------------
@@ -179,6 +206,14 @@ void testApp::mouseReleased(int x, int y, int button){
 	t.y = (float)y/ofGetHeight();
 	t.id = button;
 	touchUp(t);
+	
+	if(bDidFakeSecondTouch) {
+		t.id ++;
+		t.x = (float)(x-50.0)/ofGetWidth();
+		t.y = (float)y/ofGetHeight();
+ 		touchUp(t);
+		bDidFakeSecondTouch = false;
+	}
 }
 
 //--------------------------------------------------------------

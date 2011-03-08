@@ -9,6 +9,7 @@
 
 #include "InteractionInspiration.h"
 
+
 //--------------------------------------------------------
 void InteractionInspiration::newBubbleRecieved(Donk::BubbleData * data) { 
 	ofVec3f center(interactiveRect.width/2, 0, 0);
@@ -22,14 +23,56 @@ void InteractionInspiration::newBubbleRecieved(Donk::BubbleData * data) {
 	bubble->rigidBody = bullet->createSphere(startPos, radius, 1);
 	bubble->createContentBubble();
 	bubble->target.set(center.x + ofRandom(-300, 300), ofRandom(500, interactiveRect.height-300), 0);
+	
+	bubble->offScreenTaget.x = bubble->target.x;
+	bubble->offScreenTaget.y = -300;
+	
 	bubbles.push_back(bubble);
 };
 
 //--------------------------------------------------------
 void InteractionInspiration::update() {
+	
+	bool bAllOffFadedOut = true;
+	
 	for(int i=0; i<bubbles.size(); i++) {
-		bubbles[i]->update();	
+		
+		if(nTouches == 0) {
+			bubbles[i]->bTouched = false;			
+		}
+		
+		if(!bubbles[i]->bTouched) {
+			
+			if(bAnimateIn) {
+				if(bubbles[i]->alpha <= 255) bubbles[i]->alpha += 10;
+				bubbles[i]->gotoTarget();
+			}
+			
+			else if(bAnimateOut && !bDoneAnimatingOut) {
+				if(bubbles[i]->alpha > 0) {
+					bubbles[i]->alpha -= 10;
+					bAllOffFadedOut = false;
+				}
+				// bubbles[i]->goOffScreen();
+			}
+			
+		}
+		
+		
+		bubbles[i]->update();
+		
 	}	
+	
+	if(bAllOffFadedOut && bAnimateOut) {
+		bDoneAnimatingOut = true;
+		for(int i=0; i<bubbles.size(); i++) {
+			bubbles[i]->rigidBody->body->setActivationState(DISABLE_SIMULATION);
+		}
+		
+	}
+	
+	
+	
 }
 
 //--------------------------------------------------------
@@ -74,3 +117,5 @@ void InteractionInspiration::animatedIn() {
 		bubbles[i]->rigidBody->body->setActivationState(DISABLE_DEACTIVATION);
 	}
 }
+
+

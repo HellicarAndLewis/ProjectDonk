@@ -13,6 +13,7 @@
 #include "App.h"
 
 
+#define DEBUG_INTERATIONS 1
 
 //--------------------------------------------------------
 BubbleProjection::BubbleProjection() {
@@ -45,8 +46,48 @@ void BubbleProjection::setup() {
 	
 	// just for testing...
 	// we will get an event that tells us the mode
-	activeInteraction   = interactions[MODE_BUZZ];
+	
+	activeInteraction   = interactions[MODE_INSPIRATION];
+	
+	
+	// this is just for testing - need to get a bunch of bubbles on screen
+	if(DEBUG_INTERATIONS) {
+		for (int i=0; i<20; i++) {
+			ofxOscMessage m;
+			Donk::BubbleData *data = new Donk::BubbleData(m);
+			data->mode = "inspiration";
+			data->id = "39A5D49FE5";
+			switch((int)ofRandom(5)) {
+				case 0: data->text = "This is test 1"; break;
+				case 1: data->text = "Bubble bubble bubble"; break;
+				case 2: data->text = "Project donk here"; break;
+				case 3: data->text = "Who is this Maroon 5 band anyway?"; break;
+				case 4: data->text = "MMmmm... brown sticky liquid!"; break;
+			}
+			switch((int)ofRandom(5)) {
+				case 0: data->userName = "mazbox"; break;
+				case 1: data->userName = "cokeMe!"; break;
+				case 2: data->userName = "DeadSaxon"; break;
+				case 3: data->userName = "bluntInstrument"; break;
+				case 4: data->userName = "timeteam"; break;
+			}
+			
+			
+			data->media.push_back(Donk::BubbleData::MediaEntry());
+			data->media.back().mediaImage.loadImage("lena.png");
+			data->media.back().thumbImage = data->media.back().mediaImage;
+			data->media.back().thumbImage.resize(128, 128);
+			
+			data->profileImage.loadImage("lena.png");
+			
+			// now add to the active interaction
+			activeInteraction->newBubbleRecieved(data);
+		}
+		
+	}
+	
 	activeInteraction->animatedIn();
+	
 	
 	// we have a ref to the previous interaction
 	// so that we can have one animated out as the 
@@ -176,11 +217,12 @@ void BubbleProjection::draw() {
 	 */
 	
 	// draw touches
+	int touchInc = 0;
 	for(tIt = touches.begin(); tIt!=touches.end(); tIt++) {
 		
 		ofVec2f pos = mapToInteractiveArea((*tIt).second);
 		//ofFill();
-		ofSetColor(0,255,0,128);
+		ofSetColor(255.0, (touchInc%2)*255.0, 0, 128);
 		ofNoFill();
 		glLineWidth(10);
 		glPushMatrix();
@@ -192,6 +234,10 @@ void BubbleProjection::draw() {
 		glVertex2f(  0,  20);
 		glEnd();
 		glPopMatrix();
+		
+		ofSetColor(255, 0, 0);
+		ofDrawBitmapString(ofToString(touchInc), pos.x, pos.y);
+		touchInc ++;
 		// cout << "touch " << pos.x << " " << pos.y << endl;
 	}
 	
@@ -341,6 +387,7 @@ void BubbleProjection::touchDown(float x, float y, int touchId) {
 
 //--------------------------------------------------------
 void BubbleProjection::touchMoved(float x, float y, int touchId) {
+	
 	touches[touchId] = ofVec2f(x, y);
 	ofVec2f pos = mapToInteractiveArea(ofVec2f(x, y));
 	

@@ -13,6 +13,7 @@
 #include "ofxTuioClient.h"
 #include "CalibrationProjection.h"
 #include "AudioData.h"
+#include "ofxMacKeys.h"
 
 class testApp : public Donk::App {
 
