@@ -38,7 +38,15 @@ void InteractionInspiration::update() {
 	for(int i=0; i<bubbles.size(); i++) {
 		
 		if(nTouches == 0) {
-			bubbles[i]->bTouched = false;			
+			
+			if(bubbles[i]->bDoubleTouched) {
+				printf("Double Touched Off!\n");
+				bubbles[i]->setRadius(90);
+			}
+			
+			bubbles[i]->bTouched	   = false;
+			bubbles[i]->bDoubleTouched = false;
+			
 		}
 		
 		if(!bubbles[i]->bTouched) {
@@ -116,6 +124,26 @@ void InteractionInspiration::animatedIn() {
 	for(int i=0; i<bubbles.size(); i++) {
 		bubbles[i]->rigidBody->body->setActivationState(DISABLE_DEACTIVATION);
 	}
+}
+
+//--------------------------------------------------------
+void InteractionInspiration::doubleTouched(ofVec2f touchpos) {
+	
+	for(int i=0; i<bubbles.size(); i++) {
+		
+		ContentBubble * bubble = bubbles[i];
+		ofVec2f p1  = touchpos;
+		ofVec2f p2  = bubble->rigidBody->getPosition();
+		float	dis = p1.distance(p2);
+		
+		if(dis < bubble->radius + 10.0) {
+			bubble->setRadius(120);
+			bubble->doubleTouched();
+			printf("hit this bubble: %p\n", bubble);
+			break;
+		}
+	}
+	
 }
 
 

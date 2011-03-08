@@ -29,15 +29,21 @@ public:
 	float				 distanceToTarget;
 	float				 alpha;
 	ofColor				 color;
-	float			     radius;
+	float			     radius, originalRadius;
 	Donk::BubbleData *   data;
 	
 	float				 touchAlpha, touchAlphaTarget;
-	bool				 bTouched;
+	bool				 bTouched, bDoubleTouched;
 	int					 touchID;
 	
 	// ---------------------------------
 	ContentBubble();
+	
+	// ---------------------------------
+	void doubleTouched();
+	void setRadius(float r);
+	
+	// ---------------------------------
 	void createContentBubble();
 	void update();
 	void gotoTarget();

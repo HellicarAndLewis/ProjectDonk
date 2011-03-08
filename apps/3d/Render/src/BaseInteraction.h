@@ -50,7 +50,9 @@ public:
 	
 	virtual void setup()  {}
 	virtual void draw()   {};
+	virtual void doubleTouched(ofVec2f touchpos) {}
 	
+	// required!
 	virtual void update()								    = 0;
 	virtual void drawContent()								= 0;
 	virtual void drawSphere(BubbleShader * shader)			= 0;

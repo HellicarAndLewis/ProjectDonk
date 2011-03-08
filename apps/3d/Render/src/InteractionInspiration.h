@@ -26,4 +26,7 @@ public:
 	void drawSphere(BubbleShader * shader);
 	void animatedOut();
 	void animatedIn();	
+	
+	void doubleTouched(ofVec2f touchpos);
+	
 };

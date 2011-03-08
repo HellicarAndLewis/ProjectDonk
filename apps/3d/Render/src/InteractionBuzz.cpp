@@ -12,8 +12,9 @@
 
 //--------------------------------------------------------
 void InteractionBuzz::newBubbleRecieved(Donk::BubbleData * data) { 
+	
 	ofVec3f center(interactiveRect.width/2, 0, 0);
-	ofVec3f startPos(center.x + ofRandom(-300, 300), interactiveRect.height, ofRandom(-100, 100));
+	ofVec3f startPos(center.x + ofRandom(-300, 300), interactiveRect.height, ofRandom(-200, 100));
 	float   radius = 80;
 	
 	ContentBubble * bubble = new ContentBubble();
@@ -22,10 +23,11 @@ void InteractionBuzz::newBubbleRecieved(Donk::BubbleData * data) {
 	bubble->radius    = radius;
 	bubble->rigidBody = bullet->createSphere(startPos, radius, 1);
 	bubble->createContentBubble();
-	bubble->target.set(center.x + ofRandom(-300, 300), ofRandom(500, interactiveRect.height-300), 0);
+	bubble->target.set(center.x + ofRandom(-300, 300), ofRandom(500, interactiveRect.height-500), 0);
 	
 	bubble->offScreenTaget.x = bubble->target.x;
 	bubble->offScreenTaget.y = -300;
+	bubble->originalRadius	 = radius;
 	
 	bubbles.push_back(bubble);
 };

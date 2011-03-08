@@ -431,6 +431,7 @@ void BubbleProjection::touchMoved(float x, float y, int touchId) {
 					break;
 				}
 			}
+			
 		}
 		
 		
@@ -471,6 +472,13 @@ ofVec2f BubbleProjection::mapToInteractiveArea(ofVec2f inPoint) {
 
 //--------------------------------------------------------
 void BubbleProjection::doubleTouchGesture(int touch1Id, int touch2Id) {
-	ofVec2f doubleTouchCentre = (touches[touch1Id] + touches[touch2Id])/2;
+	
+	ofVec2f doubleTouchCenter = (touches[touch1Id] + touches[touch2Id])/2;
+	doubleTouchCenter = mapToInteractiveArea(doubleTouchCenter);
+	
+	if(activeInteraction) {
+		activeInteraction->doubleTouched(doubleTouchCenter);	
+	}
+	
 	printf("doubleTouchGesture\n");
 }

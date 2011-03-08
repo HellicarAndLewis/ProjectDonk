@@ -13,13 +13,15 @@ ofTrueTypeFont ContentBubble::font;
 
 //--------------------------------------------------------------
 ContentBubble::ContentBubble() {
-	rigidBody = NULL;
-	bTouched  = false;
-	rotateY = 0;
-	touchID = -1;
-	distanceToTarget = 10000; // so i dont call sqrt() so much.
 	
-	rotateYTarget = 0;
+	rigidBody		 = NULL;
+	bTouched		 = false;
+	bDoubleTouched	 = false;
+	rotateY			 = 0;
+	touchID			 = -1;
+	distanceToTarget = 10000; // so i dont call sqrt() so much.
+	rotateYTarget	 = 0;
+	
 	if(ofRandomuf()>0.5){
 		rotateYDirection = 180;
 	}else{
@@ -85,13 +87,26 @@ void ContentBubble::goOffScreen() {
 	}
 }
 
+//--------------------------------------------------------------
+void ContentBubble::doubleTouched() {
+	bDoubleTouched = true;	
+}
+
+//--------------------------------------------------------------
+void ContentBubble::setRadius(float r) {
+	
+	btSphereShape * sphereShape = (btSphereShape*)rigidBody->body->getCollisionShape();
+	sphereShape->setUnscaledRadius(r);
+	radius = r;
+	
+}
 
 //--------------------------------------------------------------
 void ContentBubble::update() {
 	
 	touchAlpha += (touchAlphaTarget-touchAlpha) * 0.1;
 	rotateY += (rotateYTarget-rotateY) * 0.05;
-	if(bTouched){
+	if(bDoubleTouched){
 		touchAlphaTarget = 160;
 		rotateYTarget = rotateYDirection;
 	}else{
@@ -100,7 +115,6 @@ void ContentBubble::update() {
 	}
 	
 }
-
 
 //--------------------------------------------------------------
 void ContentBubble::pushBubble() {
@@ -204,6 +218,7 @@ void ContentBubble::drawTwitterData() {
 
 //--------------------------------------------------------------
 void ContentBubble::drawHighLight() {
+	
 	glPushMatrix();
 	glMultMatrixf(billboadMatrix);
 
@@ -218,7 +233,12 @@ void ContentBubble::drawHighLight() {
 	for(int i=0;i<steps+1;i++){
 		float x = cos(i*inc);
 		float y = sin(i*inc);
-		glColor4f(1,1,1,touchAlpha/255.0);
+		
+		if(bDoubleTouched) {
+			glColor4f(1, 0, 0, touchAlpha/255.0);
+		} else {
+			glColor4f(1,1,1, touchAlpha/255.0);
+		}
 		glVertex2f(x*radius,y*radius);
 		glColor4f(1,1,1,0);
 		glVertex2f(x*rad_extend,y*rad_extend);
