@@ -161,6 +161,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1F7C9CED1326546D00DE8E55 /* ofxPlanarKinectGui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxPlanarKinectGui.h; sourceTree = "<group>"; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
 		E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
 		E45BE9730E8CC7DD009D7055 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
@@ -1181,11 +1182,12 @@
 		EAC6874B12FC36350035589C /* ofxPlanarKinect */ = {
 			isa = PBXGroup;
 			children = (
+				1F7C9CED1326546D00DE8E55 /* ofxPlanarKinectGui.h */,
 				EA8D706B1301B263002DE381 /* ofxPlanarKinectGui.cpp */,
+				EAC6874C12FC36350035589C /* ofxPlanarKinect.h */,
 				EAC688D412FC68CB0035589C /* ofxPlanarKinect.cpp */,
 				EA8D705E1301B174002DE381 /* ofxPlanarKinectVision.cpp */,
 				EAC688BC12FC668E0035589C /* ofxPlanarKinectWarper.h */,
-				EAC6874C12FC36350035589C /* ofxPlanarKinect.h */,
 			);
 			name = ofxPlanarKinect;
 			path = ../../../addons/ofxPlanarKinect;

@@ -7,9 +7,10 @@
  *  Effectively it turns a surface into a multitouch input device.
  *
  */
-
+#pragma once
 #include "ofMain.h"
 #include "ofxPlanarKinectWarper.h"
+#include "ofxPlanarKinectGui.h"
 #define SLICE_SELECTION 1
 #define THRESHOLD_SETTING 0
 
@@ -18,7 +19,9 @@
 #define BOTTOM_RIGHT_CORNER 2
 #define BOTTOM_LEFT_CORNER 3
 
-class ofxPlanarKinect: public ofRectangle, public ofBaseDraws {
+
+
+class ofxPlanarKinect {
 
 public:
 	ofxPlanarKinect();	
@@ -29,17 +32,20 @@ public:
 	void update(unsigned char *pixels);	
 	
 	
-	// gui/ofBaseDraws stuff
-	float getHeight();
-	float getWidth();
+	// add these as drawables to your gui.
+	ofxPlanarKinectGuiElement &getSliceChooser();
+	ofxPlanarKinectGuiElement &getThresholdControl();
+	
 	
 	void draw();
 	void draw(float x,float y);	
 	void draw(float x,float y,float w, float h);
 	void mousePressed(float x, float y, int button);
 	void mouseReleased(float x, float y, int button);
-	void mouseDragged(float x, float y, int button);	
+	void mouseDragged(float x, float y, int button);
 	
+	// delete this stuff
+	float x, y, width, height;
 	/** calibrated blobs */
 	vector<ofVec2f> blobs;
 	
@@ -58,8 +64,12 @@ public:
 	void moveThreshold(float increment);
 	
 	void captureThreshold();
+	float inset;
 	
+	float lpf;
+	float timeFilter;
 	
+	bool fillHoles;
 private:
 	
 	/** uncalibrated blobs */
@@ -81,6 +91,7 @@ private:
 	
 	/** the start point in 'pixels' of the row of interest */
 	unsigned char *slice;
+	unsigned char *lastSlice;
 	
 	/** This is which row of pixels we slice from */
 	int sliceY;
@@ -101,10 +112,10 @@ private:
 	/** dimensions of the kinect camera */
 	float kinectWidth;
 	float kinectHeight;
-	/** if the mouse is being pressed */
-	bool mouseIsDown;
-
-	ofVec2f lastMouse;
+	
 	ofxPlanarKinectWarper warper;
+	
+	SliceChooser sliceChooser;
+	ThresholdControl thresholdControl;
 
 };

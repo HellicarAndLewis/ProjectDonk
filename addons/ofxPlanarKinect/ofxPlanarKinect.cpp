@@ -14,15 +14,13 @@
 #include "ofxPlanarKinect.h"
 
 ofxPlanarKinect::ofxPlanarKinect() {
-	
+	inset = 0;
 	// should really pass the kinect in here
 	kinectWidth = 640;
 	kinectHeight = 480;
 	
-	lastMouse = ofVec2f(-1, -1);
 	pixels = NULL;
 	depthGraph = NULL;
-	mouseIsDown = false;
 	width = 640;
 	height = 480;
 	threshold = new float[(int)kinectWidth];
@@ -37,6 +35,10 @@ ofxPlanarKinect::ofxPlanarKinect() {
 	outputQuad[1] = ofVec2f(1,0);
 	outputQuad[2] = ofVec2f(1,1);
 	outputQuad[3] = ofVec2f(0,1);
+	lpf = 0.9;
+	timeFilter = 0.5;
+	fillHoles = false;
+	lastSlice = new unsigned char[(int)kinectWidth];
 }
 
 ofxPlanarKinect::~ofxPlanarKinect() {
@@ -69,6 +71,8 @@ void ofxPlanarKinect::setup() {
 	
 	// load settings from a file if it exists.
 	loadSettings();	
+	sliceChooser.setup(&sliceY, &camImg, kinectHeight);
+	thresholdControl.setup(kinectWidth, &blobs, &sliceImg, depthGraph, numDepthGraphPoints, &rawBlobs, threshold);
 }
 
 
@@ -99,7 +103,7 @@ void ofxPlanarKinect::update(unsigned char *pixels) {
 	int pos = 0;
 	float scale = 1*width/kinectWidth;
 	for(int i = 0; i < kinectWidth; i+=ofxPlanarKinect_depthGraphResolution) {
-		depthGraph[pos] = ofVec2f(x + i*scale, y+ofMap(slice[i], 0, 255, 0, height));
+		depthGraph[pos] = ofVec2f(i, slice[i]);
 		pos++;
 	}
 }
@@ -176,4 +180,11 @@ void ofxPlanarKinect::loadSettings() {
 	} else {
 		ofLog(OF_LOG_ERROR, "Could not load planar kinect settings. Maybe this is a first run?\n");
 	}
+}
+
+ofxPlanarKinectGuiElement &ofxPlanarKinect::getSliceChooser() {
+	return sliceChooser;
+}
+ofxPlanarKinectGuiElement &ofxPlanarKinect::getThresholdControl() {
+	return thresholdControl;
 }

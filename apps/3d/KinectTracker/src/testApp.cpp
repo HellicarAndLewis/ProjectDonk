@@ -17,8 +17,7 @@ void testApp::setup(){
 	
 	tuioServer.start((char*)tuioHost.c_str(), tuioPort);
 	tuioServer.setVerbose(true);
-	
-	inset = 0;	
+	planarKinect.guiMode = 1;
 	
 }
 
@@ -31,9 +30,10 @@ void testApp::setupGui() {
 	gui.setLayoutType(LAYOUT_ABSOLUTE);
 	GuiControl *k = gui.addTitle("Kinect Input");
 	k->set(10, 10, 320, 20);
-	k = gui.addDrawable("kinect", planarKinect)->under(k)->size(320, 240);
-	
-	k = gui.addSegmentedControl("Mode", planarKinect.guiMode, "Draw Threshold|Select Slice")->under(k, 10)->size(320,20);	
+	gui.addTitle("Threshold")->right(k)->size(320, 20);
+	k = gui.addDrawable("kinect", planarKinect.getSliceChooser())->under(k)->size(320, 240);
+	gui.addDrawable("threshold control", planarKinect.getThresholdControl())->right(k)->size(320, 240);
+	//k = gui.addSegmentedControl("Mode", planarKinect.guiMode, "Draw Threshold|Select Slice")->under(k, 10)->size(320,20);	
 	
 	
 	// put 1   2
@@ -50,12 +50,12 @@ void testApp::setupGui() {
 	
 	// put 2 and 3 under and to the right of kinect
 	c = gui.addButton("2")->size(20, 20)->right(gui.getControlById("1"));
-	gui.addSlider("Inset", inset, 0, 0.4)->right(c)->width = 100;
+	gui.addSlider("Inset", planarKinect.inset, 0, 0.4)->right(c)->width = 100;
 	gui.addButton("3")->size(20, 20)->under(c);
 	
 	
 	// do threshold controls.
-	c = gui.addTitle("Threshold Controls")->underRight(gui.getControlById("Mode"));
+	c = gui.addTitle("Threshold Controls")->underRight(gui.getControlById("kinect"));
 	c = gui.addButton("Capture Background")->under(c);
 	gui.addButton("down")->size(30, 20)->under(c);
 	gui.addButton("up")->size(30, 20)->underRight(c);
@@ -70,6 +70,9 @@ void testApp::setupGui() {
 	gui.enableAutoSave("trackerSettings.xml");
 	gui.addListener((GuiListener*)this);
 	
+	c = gui.addSlider("Distance Filter", planarKinect.lpf, 0.0, 1.0)->under(gui.getControlById("threshold control"));
+	c = gui.addSlider("Time Filter", planarKinect.timeFilter, 0.0, 1.0)->under(c);
+	gui.addToggle("Fill Holes", planarKinect.fillHoles)->under(c);
 	gui.enable();
 	
 }
@@ -84,7 +87,7 @@ void testApp::update(){
 	 blobTracker.track(planarKinect.blobs);
 	tuioServer.run();
 	
-	ofSetWindowTitle("KinectTracker - "+ofToString(ofGetWidth()) + "x"+ofToString(ofGetHeight()));
+	ofSetWindowTitle("KinectTracker - "+ofToString(ofGetWidth()) + "x"+ofToString(ofGetHeight()) + " - " +ofToString(ofGetFrameRate(), 2)+"fps" );
 }
 
 //--------------------------------------------------------------
