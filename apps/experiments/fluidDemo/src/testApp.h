@@ -6,6 +6,8 @@
 
 #include "ofMain.h"
 
+#define NUM_EMITTERS 6
+
 using namespace MSA;
 
 class testApp : public ofBaseApp{
@@ -18,8 +20,6 @@ public:
 	void mousePressed(int x, int y, int button);
 	void mouseMoved(int x, int y );
 	void mouseDragged(int x, int y, int button);
-	
-	void windowResized(int w, int h);
 	
 	void fadeToColor(float r, float g, float b, float speed);
 	void addToFluid(ofVec2f pos, ofVec2f vel, bool addColor, bool addForce);
@@ -35,6 +35,9 @@ public:
 	ParticleSystem		particleSystem;
 	ofVec2f				pMouse;
 	bool				addForces;
+	
+	ofVec2f				forceEmitters[6];
+	int					currentEmitter;
 	
 };
 

@@ -21,7 +21,7 @@ public:
     float	alpha;
     float	mass;
 	
-	bool	hasInited;
+	bool	incAlpha;
 	
 	Particle();
     void init(float x, float y);

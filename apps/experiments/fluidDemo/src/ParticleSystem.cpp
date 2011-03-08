@@ -34,13 +34,13 @@ void ParticleSystem::setWindowSize( ofVec2f winSize )
 void ParticleSystem::updateAndDraw( bool drawingFluid ){
 
 	
-	for(int i=0; i<MAX_PARTICLES; i++) {
+	for(int i=0; i<MAX_PARTICLES - 1; i++) {
 		if(particles[i].alpha > 0) {
 			particles[i].update( *solver, windowSize, invWindowSize );
 			
 			//cout << particles[i].radius << endl;
 			//particles[i].updateVertexArrays( drawingFluid, invWindowSize, i, posArray, colArray);
-			particles[i].updateVertexArrays( true, invWindowSize, i, posArray, colArray, heightArray);
+			particles[i].updateVertexArrays( false, invWindowSize, i, posArray, colArray, heightArray);
 		}
 	}
 	
@@ -151,17 +151,20 @@ void ParticleSystem::updateAndDraw( bool drawingFluid ){
 void ParticleSystem::addParticles( const ofVec2f &pos, int count ){
 	for(int i=0; i<count; i++)
 		//addParticle( pos + Rand::randofVec2f() * 15 );
-		addParticle( pos + ofVec2f(ofRandom(2), ofRandom(2)) );
+		addParticle( pos + ofVec2f(ofRandom(20), ofRandom(20)) );
 }
 
 
 void ParticleSystem::addParticle( const ofVec2f &pos ) {
 	
-	if(curIndex >= 500) return;
+	if(curIndex < MAX_PARTICLES) 
+	{
+		particles[curIndex].init( pos.x, pos.y );
+		curIndex++;
+	}
 	
-	particles[curIndex].init( pos.x, pos.y );
-	curIndex++;
-	if(curIndex >= MAX_PARTICLES) {
+	if(curIndex == MAX_PARTICLES) {
 		curIndex = 0;
+		//return;
 	}
 }

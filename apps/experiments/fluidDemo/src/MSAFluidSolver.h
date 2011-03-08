@@ -291,7 +291,7 @@ namespace MSA {
 	
 	//-------- add force
 	inline void FluidSolver::addForceAtIndex(int index, const ofVec2f &force) {
-		cout << " adding force " << uv[index] << " " << ofGetFrameNum() << endl;
+		//cout << " adding force " << uv[index] << " " << ofGetFrameNum() << endl;
 		uv[index] += force;
 		cout << " adding force " << uv[index] << endl;
 	}

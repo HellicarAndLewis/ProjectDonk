@@ -11,25 +11,22 @@
 
 using namespace MSA;
 
-//static const float MOMENTUM = 0.5f;
-//static const float FLUID_FORCE = 0.6f;
-
-static const float MOMENTUM = -0.7f;
+static const float MOMENTUM = 0.62f;
 static const float FLUID_FORCE = 0.6f;
 
 Particle::Particle() {
-	hasInited = false;
+	incAlpha = true;
 }
 
 void Particle::init(float x, float y) {
 
-	hasInited = true;
+	incAlpha = true;
 	
 	pos.set(x, y);
-	vel.set(ofRandom(0.5), ofRandom(0.5));//vel.set(0, 0);
+	vel.set(0, 0);//vel.set(ofRandom(0.5), ofRandom(0.5));
 	radius = 5;
-	alpha  = ofRandom(1.f)+0.1; //Rand::randFloat( 0.3f, 1 );
-	mass = ofRandom(1.f)+0.1; //Rand::randFloat( 0.1f, 1 );
+	alpha = 0.1; //Rand::randFloat( 0.3f, 1 );
+	mass = ofRandom(0.3f)+0.1; //Rand::randFloat( 0.1f, 1 );
 
 }
 
@@ -42,35 +39,22 @@ void Particle::update( const FluidSolver &solver, const ofVec2f &windowSize, con
 	vel = solver.getVelocityAtPos( pos * invWindowSize ) * (mass * FLUID_FORCE ) * windowSize + vel * MOMENTUM;
 	pos += vel;	
 	
-	// bounce of edges
-	/*if( pos.x < 0 ) {
-		pos.x = 0;
-		vel.x *= -1;
-	}
-	else if( pos.x > windowSize.x ) {
-		pos.x = windowSize.x;
-		vel.x *= -1;
-	}
-	
-	if( pos.y < 0 ) {
-		pos.y = 0;
-		vel.y *= -1;
-	}
-	else if( pos.y > windowSize.y ) {
-		pos.y = windowSize.y;
-		vel.y *= -1;
-	}*/
-	
 	// hackish way to make particles glitter when the slow down a lot
-	if( vel.lengthSquared() < 1 ) {
-		//vel += Rand::randofVec2f() * 0.5f;
-		vel += ofVec2f(ofRandom(0.5), ofRandom(0.5));
-	}
+	/*if( vel.lengthSquared() < 1 ) {
+		vel += ofVec2f(ofRandom(-0.5, 0.5), ofRandom(-0.5, 0.0));
+	}*/
 	
 	// fade out a bit (and kill if alpha == 0);
 	
-	//alpha *= 0.99f;
-	if( alpha < 0.1f )
+	if( incAlpha ) {
+		alpha /= 0.996f;
+		if(alpha > 0.95) {
+			incAlpha = false;
+		}
+	} else {
+		alpha *= 0.996;
+	}
+	if( alpha < 0.01f )
 		alpha = 0;
 }
 
