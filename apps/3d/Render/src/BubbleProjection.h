@@ -72,7 +72,8 @@ private:
 	ofxBullet					bullet;
 	ofCamera					camera; // not using anymore...
 	vector <TouchedConstraint*> touchConstraints;
-	
+	float						touchPadding;
+
 	//--------------------------------------------------------
 	// Interactions
 	vector <BaseInteraction*>	interactions;

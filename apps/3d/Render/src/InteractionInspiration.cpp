@@ -55,9 +55,22 @@ void InteractionInspiration::drawSphere(BubbleShader * shader) {
 
 //--------------------------------------------------------
 void InteractionInspiration::animatedOut() {
+	bAnimateIn  = false;
+	bAnimateOut = true;
+	
+	bDoneAnimatingOut = false;
+	bDoneAnimatingIn  = true;
 }
 
 //--------------------------------------------------------
 void InteractionInspiration::animatedIn() {
+	bAnimateIn  = true;
+	bAnimateOut = false;
 	
+	bDoneAnimatingOut = true;
+	bDoneAnimatingIn  = false;
+	
+	for(int i=0; i<bubbles.size(); i++) {
+		bubbles[i]->rigidBody->body->setActivationState(DISABLE_DEACTIVATION);
+	}
 }
