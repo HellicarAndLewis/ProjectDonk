@@ -68,7 +68,8 @@ void Particle::update( const FluidSolver &solver, const ofVec2f &windowSize, con
 	}
 	
 	// fade out a bit (and kill if alpha == 0);
-	alpha *= 0.99f;
+	
+	//alpha *= 0.99f;
 	if( alpha < 0.1f )
 		alpha = 0;
 }

@@ -63,11 +63,13 @@ void testApp::addToFluid( ofVec2f pos, ofVec2f vel, bool addColor, bool addForce
 			ofColor drawColor;
 			drawColor.setHsb((ofGetFrameNum() % 360 ) / 360.0f, 1, 1);
 
-			fluidSolver.addColorAtIndex(index, drawColor * colorMult);
+			//fluidSolver.addColorAtIndex(index, drawColor * colorMult);
 		}
 		
 		particleSystem.addParticles( pos * ofVec2f( ofGetWindowSize() ), 10 );
-		fluidSolver.addForceAtIndex(index, vel * velocityMult);
+		if(particleSystem.curIndex < 500) {
+			fluidSolver.addForceAtIndex(index, vel * velocityMult);
+		}
 		
     }
 }

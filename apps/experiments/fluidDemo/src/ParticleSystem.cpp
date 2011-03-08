@@ -156,6 +156,9 @@ void ParticleSystem::addParticles( const ofVec2f &pos, int count ){
 
 
 void ParticleSystem::addParticle( const ofVec2f &pos ) {
+	
+	if(curIndex >= 500) return;
+	
 	particles[curIndex].init( pos.x, pos.y );
 	curIndex++;
 	if(curIndex >= MAX_PARTICLES) {
