@@ -21,6 +21,7 @@ ContentBubble::ContentBubble() {
 	touchID			 = -1;
 	distanceToTarget = 10000; // so i dont call sqrt() so much.
 	rotateYTarget	 = 0;
+	targetForce		= 20.f;
 	
 	if(ofRandomuf()>0.5){
 		rotateYDirection = 180;
@@ -60,7 +61,7 @@ void ContentBubble::gotoTarget() {
 		ofVec3f frc = target - rigidBody->getBulletPosition();
 		distanceToTarget = frc.length();
 		float d = ABS(distanceToTarget);
-		d *= 20.0;
+		d *= targetForce;
 		frc.normalize();
 		frc *= d;
 		

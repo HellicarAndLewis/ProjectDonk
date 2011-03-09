@@ -8,7 +8,6 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofVectorMath.h"
 
 class ofxKinectCalibration {
 public:

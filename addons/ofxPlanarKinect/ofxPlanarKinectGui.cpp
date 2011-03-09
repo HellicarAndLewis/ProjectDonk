@@ -46,15 +46,21 @@ float ofxPlanarKinectGuiElement::getHeight() { return height; }
 void SliceChooser::draw() {
 	camImg->draw(x,y,width,height);
 	
-	ofSetHexColor(0xFF0000);
 	ofNoFill();
+	ofSetHexColor(0x00FF00);
+	float bottom = y + ((*sliceY)+2)*height/kinectHeight;
+	float top = bottom - (*interactionDepth)*height/kinectHeight;
+	ofRect(x, top, width, bottom - top);
+	ofSetHexColor(0xFF0000);
+	
 	ofRect(x, y + ((*sliceY)-1)*height/kinectHeight, width, 3);
 	ofFill();
 }
 
 
 
-void SliceChooser::setup(int *sliceY, ofTexture *camImg, float kinectHeight) {
+void SliceChooser::setup(int *sliceY, ofTexture *camImg, float kinectHeight, int *interactionDepth) {
+	this->interactionDepth = interactionDepth;
 	this->sliceY = sliceY;
 	this->camImg = camImg;
 	this->kinectHeight = kinectHeight;
@@ -103,7 +109,7 @@ void ThresholdControl::draw() {
 	glBegin(GL_LINE_STRIP);
 	for(int i = 0 ; i < numDepthGraphPoints; i++) {
 		//glVertex2f(depthGraph[i].x, depthGraph[i].y);
-		float yy = ofMap(depthGraph[i].y, 0, 255, y, y+height);
+		float yy = ofMap(depthGraph[i].y, 0, 1, y, y+height);
 		float xx = ofMap(i, 0, numDepthGraphPoints, x, x+width);
 		glVertex2f(xx,yy);
 	}
@@ -112,7 +118,7 @@ void ThresholdControl::draw() {
 	
 	glBegin(GL_LINE_STRIP);
 	for(int i = 0; i < kinectWidth; i++) {
-		float yy = ofMap(threshold[i], 0, 255, y, y+height);
+		float yy = ofMap(threshold[i], 0, 1, y, y+height);
 		float xx = ofMap(i, 0, kinectWidth, x, x+width);
 		glVertex2f(xx,yy);
 		
@@ -123,7 +129,7 @@ void ThresholdControl::draw() {
 	for(int i = 0; i < rawBlobs->size(); i++) {
 		ofCircle(
 				 x + ofMap(rawBlobs->at(i).x, 0, kinectWidth, 0, width),
-				 y + ofMap(rawBlobs->at(i).y, 0, 255, 0, height), 7);
+				 y + ofMap(rawBlobs->at(i).y, 0, 1, 0, height), 7);
 	}
 }
 
@@ -132,12 +138,12 @@ void ThresholdControl::mousePressed(float x, float y, int button) {
 	mouseIsDown = inside(x,y);
 	if(mouseIsDown) {
 		int fromOffset = ofMap(x, this->x, this->x+this->width, 0, kinectWidth);
-		float fromThreshold = (y - this->y)*255.f/height;
+		float fromThreshold = (y - this->y)*1.f/height;
 		if((lastMouse.x==-1 && lastMouse.y==-1) || lastMouse.x==x) {
 			threshold[fromOffset] = fromThreshold;
 		} else {
 			int toOffset = ofMap(lastMouse.x, this->x, this->x+this->width, 0, kinectWidth);
-			float toThreshold = (lastMouse.y - this->y)*255.f/height;
+			float toThreshold = (lastMouse.y - this->y)*1.f/height;
 			// order them correctly if needed
 			if(toOffset<fromOffset) {
 				// swap offset
@@ -221,7 +227,7 @@ void ofxPlanarKinect::draw(float x,float y,float w, float h) {
 		
 		glBegin(GL_LINE_STRIP);
 		for(int i = 0; i < kinectWidth; i++) {
-			float yy = ofMap(threshold[i], 0, 255, y, y+height);
+			float yy = ofMap(threshold[i], 0, 1, y, y+height);
 			float xx = ofMap(i, 0, kinectWidth, x, x+width);
 			glVertex2f(xx,yy);
 			
@@ -232,7 +238,7 @@ void ofxPlanarKinect::draw(float x,float y,float w, float h) {
 		for(int i = 0; i < rawBlobs.size(); i++) {
 			ofCircle(
 					 x + ofMap(rawBlobs[i].x, 0, kinectWidth, 0, width),
-					 y + ofMap(rawBlobs[i].y, 0, 255, 0, height), 7);
+					 y + ofMap(rawBlobs[i].y, 0, 1, 0, height), 7);
 		}
 	}
 }
@@ -241,46 +247,6 @@ void ofxPlanarKinect::draw(float x,float y,float w, float h) {
 void ofxPlanarKinect::mousePressed(float x, float y, int button) {
 	sliceChooser.mousePressed(x, y, button);
 	thresholdControl.mousePressed(x, y, button);
-	/*
-	mouseIsDown = inside(x,y);
-	if(mouseIsDown) {
-		if(guiMode==SLICE_SELECTION) {
-			sliceY = (y - this->y)*kinectHeight/height;
-		} else {
-			int fromOffset = ofMap(x, this->x, this->x+this->width, 0, kinectWidth);
-			float fromThreshold = (y - this->y)*255.f/height;
-			if((lastMouse.x==-1 && lastMouse.y==-1) || lastMouse.x==x) {
-				threshold[fromOffset] = fromThreshold;
-			} else {
-				int toOffset = ofMap(lastMouse.x, this->x, this->x+this->width, 0, kinectWidth);
-				float toThreshold = (lastMouse.y - this->y)*255.f/height;
-				// order them correctly if needed
-				if(toOffset<fromOffset) {
-					// swap offset
-					int t = toOffset;
-					toOffset = fromOffset;
-					fromOffset = t;
-					
-					float f = toThreshold;
-					toThreshold = fromThreshold;
-					fromThreshold = f;
-				}
-				
-				// helps with the left and right edges
-				if(toOffset>kinectWidth-4) toOffset = kinectWidth - 1;
-				if(fromOffset<3) fromOffset = 0;
-				
-				
-				// draw a line of thresholds going from previous mouse to curr mouse
-				for(int i = fromOffset; i <= toOffset; i++) {
-					threshold[i] = ofMap(i, fromOffset, toOffset, fromThreshold, toThreshold);
-				}
-			}
-			
-		}
-	}
-	lastMouse = ofVec2f(x, y);
-	 */
 }
 
 void ofxPlanarKinect::mouseReleased(float x, float y, int button) {

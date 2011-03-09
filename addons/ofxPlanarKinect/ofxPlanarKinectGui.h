@@ -38,9 +38,10 @@ public:
 	void mouseReleased(float x, float y, int button);
 	void mouseDragged(float x, float y, int button);
 	
-	void setup(int *sliceY, ofTexture *camImg, float kinectHeight);
+	void setup(int *sliceY, ofTexture *camImg, float kinectHeight, int *interactionDepth);
 	// pointer to where we take the slice from
 	int *sliceY;
+	int *interactionDepth;
 	
 	// pointer to the camera's image
 	ofTexture *camImg;

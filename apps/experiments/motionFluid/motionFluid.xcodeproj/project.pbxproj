@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4B2762781316628D00F86DDF /* BrownianObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B2762771316628D00F86DDF /* BrownianObject.cpp */; };
+		81D3D1291326CBF0006160EC /* Champagne.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81D3D1281326CBF0006160EC /* Champagne.cpp */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
 		E45BE97C0E8CC7DD009D7055 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */; };
 		E45BE97D0E8CC7DD009D7055 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9730E8CC7DD009D7055 /* AudioToolbox.framework */; };
@@ -60,6 +61,8 @@
 /* Begin PBXFileReference section */
 		4B2762761316628D00F86DDF /* BrownianObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrownianObject.h; sourceTree = "<group>"; };
 		4B2762771316628D00F86DDF /* BrownianObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BrownianObject.cpp; sourceTree = "<group>"; };
+		81D3D1271326CBF0006160EC /* Champagne.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Champagne.h; sourceTree = "<group>"; };
+		81D3D1281326CBF0006160EC /* Champagne.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Champagne.cpp; sourceTree = "<group>"; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
 		E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
 		E45BE9730E8CC7DD009D7055 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
@@ -153,6 +156,8 @@
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
 				4B2762761316628D00F86DDF /* BrownianObject.h */,
 				4B2762771316628D00F86DDF /* BrownianObject.cpp */,
+				81D3D1271326CBF0006160EC /* Champagne.h */,
+				81D3D1281326CBF0006160EC /* Champagne.cpp */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -202,6 +207,7 @@
 			isa = PBXProject;
 			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "motionFluid" */;
 			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				English,
@@ -259,6 +265,7 @@
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* testApp.cpp in Sources */,
 				4B2762781316628D00F86DDF /* BrownianObject.cpp in Sources */,
+				81D3D1291326CBF0006160EC /* Champagne.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

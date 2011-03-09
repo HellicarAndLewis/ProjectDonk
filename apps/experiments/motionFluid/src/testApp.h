@@ -3,7 +3,7 @@
 
 
 #include "ofMain.h"
-#include "BrownianObject.h"
+#include "Champagne.h"
 
 class testApp : public ofBaseApp{
 
@@ -21,17 +21,8 @@ class testApp : public ofBaseApp{
 	void mouseReleased(int x, int y, int button);
 	void windowResized(int w, int h);
 	
-	vector<BrownianObject*> particles;
+	Champagne champ;
 	
-	void createObjectAtPoint(ofVec3f point);
-	
-	ofCamera cam;
-	ofLight	light;
-	bool drawSphere;
-	
-	vector<ofVec3f> disturbingObjects;
-	
-	ofVec3f emitter;
 };
  
 

@@ -13,7 +13,11 @@ public:
 	
 	void setup();
 	void update();
-	void draw();
+	
+	// instead of using the normal draw() we have to use
+	// a custom event draw() because we need it to draw
+	// ontop of the gui.
+	void _draw(ofEventArgs &args);
 	
 	void keyPressed(int key);
 	void keyReleased(int key);
@@ -53,6 +57,14 @@ public:
 	int tuioPort;
 	
 	void setupGui();
+	
+	/** 
+	 * This is the location of the gui element
+	 * that draws the tuio points. It's used
+	 * for drawing the offset
+	 */
+	ofRectangle tuioRect;
+	float updateTime;
 };
 
 #endif	

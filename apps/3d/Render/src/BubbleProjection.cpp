@@ -94,6 +94,7 @@ void BubbleProjection::setup() {
 	// next one animates in.
 	previousInteraction = NULL;
 	
+	champagne.setup();
 }
 
 //--------------------------------------------------------
@@ -138,6 +139,7 @@ void BubbleProjection::update() {
 	
 	bullet.update();
 	bubbleShader.update();
+	champagne.update();
 }
 
 
@@ -173,6 +175,8 @@ void BubbleProjection::draw() {
 		glEnd();
 	}
 	
+	champagne.draw();
+
 	
 	//draw bubbles
 	//glPushMatrix();
@@ -191,6 +195,7 @@ void BubbleProjection::draw() {
 		activeInteraction->drawContent();
 		activeInteraction->drawSphere(&bubbleShader);
 	}
+	
 	
 	/*
 	 // ---------------------

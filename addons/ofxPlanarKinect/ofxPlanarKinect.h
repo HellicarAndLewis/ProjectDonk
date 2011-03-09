@@ -29,7 +29,7 @@ public:
 	
 	void setup();	
 	
-	void update(unsigned char *pixels);	
+	void update(float *distances);	
 	
 	
 	// add these as drawables to your gui.
@@ -70,6 +70,8 @@ public:
 	float timeFilter;
 	
 	bool fillHoles;
+	float cropLeft, cropRight;
+	int interactionDepth;
 private:
 	
 	/** uncalibrated blobs */
@@ -89,9 +91,22 @@ private:
 	/** current frame (this gets dynamically allocated and copied to every frame */
 	unsigned char *pixels;
 	
-	/** the start point in 'pixels' of the row of interest */
-	unsigned char *slice;
-	unsigned char *lastSlice;
+	/** Same as above but in floats */
+	float *currFrame;
+	
+	/** 
+	 * The region infront of slice that can be interacted with 
+	 * (represented by the green box on the left, specified by 
+	 * interactionDepth and sliceY.) Not to be confused with 
+	 * interactiveArea in Render.
+	 */
+	float *interactionArea;
+	
+	/** the start point in 'pixels' of the row of interest - actually a pointer in currFrame */
+	float *slice;
+	float *lastSlice;
+	
+	
 	
 	/** This is which row of pixels we slice from */
 	int sliceY;
@@ -117,5 +132,6 @@ private:
 	
 	SliceChooser sliceChooser;
 	ThresholdControl thresholdControl;
+	
 
 };

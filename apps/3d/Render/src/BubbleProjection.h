@@ -20,6 +20,8 @@
 #include "InteractionChoice.h"
 #include "InteractionPerformance.h"
 
+#include "Champagne.h"
+
 class BubbleProjection: public ProjectedRect {
 
 private:
@@ -99,4 +101,7 @@ private:
 	
 	/** Convenience so you don't have to keep typing it */
 	map<int,ofVec2f>::iterator tIt;
+	
+	/** champagne bubbles */
+	Champagne champagne;
 };

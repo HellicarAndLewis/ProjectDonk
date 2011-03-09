@@ -35,6 +35,7 @@
 #include "GuiPanner.h"
 #include "GuiContainer.h"
 #include "GuiDrawable.h"
+#include "GuiIntSlider.h"
 
 
 #define BEGIN_REGISTRY() static bool firstCall = true; if(0) {}
@@ -55,6 +56,7 @@ BEGIN_REGISTRY()
 	REGISTER("drawable", GuiDrawable)
 	REGISTER("title", GuiTitle)
 	REGISTER("slider", GuiSlider)
+	REGISTER("intslider", GuiIntSlider)
 	REGISTER("toggle", GuiToggle)
 	REGISTER("knob", GuiKnob)
 	REGISTER("text", GuiText)
