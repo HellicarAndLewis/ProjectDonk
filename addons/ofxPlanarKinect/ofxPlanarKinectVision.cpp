@@ -67,7 +67,7 @@ void ofxPlanarKinect::preprocessSlice() {
 	// loop through each row of pixels
 	for(int i = sliceY - interactionDepth; i < sliceY; i++) {
 		for(int j = 0; j < kinectWidth; j++) {
-			intArea[iai] = interactionArea[iai]>threshold[j]?255:0;
+			intArea[iai] = interactionArea[iai]>threshold[j]?(254.f*interactionArea[iai]+1):0;
 			iai++;
 		}
 	}
@@ -79,8 +79,7 @@ void ofxPlanarKinect::preprocessSlice() {
 	}
 	
 	cvImage.setFromPixels(intArea, kinectWidth, interactionDepth);
-	
-	
+	delete [] intArea;
 	
 }
 
@@ -145,8 +144,36 @@ void ofxPlanarKinect::findBlobs() {
 		for(int i = 1; i < 10; i++) {
 			if(valuesToMax[i]>maxY) maxY = valuesToMax[i];
 		}
-		finalCoord.y = maxY;
+		/*
+		// try an average
+		float ff = 0;
+		for(int i = 0; i < 10; i++) {
+			ff += valuesToMax[i];
+		}
 		
+		
+		
+		float average = ff/10.f;
+		
+		float total = 0;
+		int averageCount = 0;
+		for(int i = 0; i < 10; i++) {
+			if(valuesToMax[i] > thresholdComparer) {
+				averageCount++;
+				total += valuesToMax[i];
+			}
+		}
+		
+		if(averageCount>0) {
+			average = total/averageCount;
+		}
+			
+		printf("Averaged %d pixels\n", averageCount);
+		
+		
+		finalCoord.y = average;
+		*/
+		finalCoord.y = maxY;
 		rawBlobs.push_back(finalCoord);
 	}
 	

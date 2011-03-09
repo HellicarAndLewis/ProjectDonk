@@ -108,7 +108,7 @@ void testApp::update(){
 	tuioServer.run();
 	
 	updateTime = (ofGetElapsedTimef() - start)*1000.f;
-	ofSetWindowTitle("KinectTracker - " +ofToString(ofGetFrameRate(), 2)+"fps - Update Time: "+ofToString(updateTime, 0) +"ms");
+	ofSetWindowTitle("KinectTracker - " +ofToString(ofGetFrameRate(), 0)+"fps - Update Time: "+ofToString(updateTime, 0) +"ms");
 }
 
 //--------------------------------------------------------------

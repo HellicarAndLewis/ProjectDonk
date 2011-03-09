@@ -55,7 +55,7 @@ void testApp::windowResized(int w, int h){
 
 void testApp::httpGet(string url) {
 	char data[1024];
-	FILE *fp = popen("ls", "");
+	FILE *fp = popen("ps aux | grep Kinect", "r");
 	if (fp == NULL) {
 		httpResponse("Error getting data\n");
 	} else {		
@@ -63,6 +63,8 @@ void testApp::httpGet(string url) {
 		while (fgets(data, 1024, fp) != NULL) {
 			s += string(data);
 		}
+		
+		//system("/ProjectDonk/apps/3d/KinectTracker/bin/KinectTracker.app/Contents/MacOS/KinectTracker");
 		httpResponse(s);
 		pclose(fp);
 	}

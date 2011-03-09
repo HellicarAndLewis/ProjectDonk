@@ -25,7 +25,7 @@
     <value controlId="Fill Holes" value="true"></value>
     <value controlId="Crop Left" value="0.021428572"></value>
     <value controlId="Crop Right" value="0.942857146"></value>
-    <value controlId="Interaction Depth" value="73"></value>
+    <value controlId="Interaction Depth" value="107"></value>
     <value controlId="cv image" value="0"></value>
     <value controlId="blobs" value=""></value>
     <value controlId="Min hand width" value="5"></value>
