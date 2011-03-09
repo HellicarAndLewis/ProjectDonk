@@ -72,6 +72,9 @@ void testApp::setupGui() {
 		
 	c = gui.addSlider("Distance Filter", planarKinect.lpf, 0.0, 1.0)->under(gui.getControlById("threshold control"));
 	c = gui.addSlider("Time Filter", planarKinect.timeFilter, 0.0, 1.0)->under(c);
+	c = gui.addSlider("Crop Left", planarKinect.cropLeft, 0.0, 1.0)->under(c);
+	c = gui.addSlider("Crop Right", planarKinect.cropRight, 0.0, 1.0)->under(c);
+	
 	gui.addToggle("Fill Holes", planarKinect.fillHoles)->under(c);
 	gui.enableAutoSave("trackerSettings.xml");
 	gui.addListener((GuiListener*)this);
@@ -85,13 +88,15 @@ void testApp::setupGui() {
 //--------------------------------------------------------------
 void testApp::update(){
 	
+	float start = ofGetElapsedTimef();
 	kinect.update();
 
 	planarKinect.update(kinect.getDepthPixels(), kinect.getDistancePixels());
-	 blobTracker.track(planarKinect.blobs);
+	blobTracker.track(planarKinect.blobs);
 	tuioServer.run();
 	
-	ofSetWindowTitle("KinectTracker - "+ofToString(ofGetWidth()) + "x"+ofToString(ofGetHeight()) + " - " +ofToString(ofGetFrameRate(), 2)+"fps" );
+	updateTime = (ofGetElapsedTimef() - start)*1000.f;
+	ofSetWindowTitle("KinectTracker - " +ofToString(ofGetFrameRate(), 2)+"fps - Update Time: "+ofToString(updateTime, 2) +"ms");
 }
 
 //--------------------------------------------------------------
@@ -109,6 +114,7 @@ void testApp::_draw(ofEventArgs &args){
 	ofSetColor(255, 255, 255);
 	ofRect(r);
 	ofFill();
+	
 }
 
 

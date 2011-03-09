@@ -70,6 +70,7 @@ public:
 	float timeFilter;
 	
 	bool fillHoles;
+	float cropLeft, cropRight;
 private:
 	
 	/** uncalibrated blobs */
@@ -117,5 +118,6 @@ private:
 	
 	SliceChooser sliceChooser;
 	ThresholdControl thresholdControl;
+	
 
 };

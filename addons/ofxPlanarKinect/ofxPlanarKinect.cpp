@@ -23,6 +23,8 @@ ofxPlanarKinect::ofxPlanarKinect() {
 	depthGraph = NULL;
 	width = 640;
 	height = 480;
+	cropLeft = 0;
+	cropRight = 1;
 	threshold = new float[(int)kinectWidth];
 	for(int i = 0; i < kinectWidth; i++) {
 		threshold[i] = 128;
@@ -126,7 +128,8 @@ void ofxPlanarKinect::update(unsigned char *pixels, float *distances) {
 	for(int i = 0; i < kinectWidth; i++) {
 		slice[i] = ofMap(distances[offset + i], 400, 0, 0, 1, true);
 	}
-	for(int i = 635; i < 640; i++) slice[i] = 0.2;
+	for(int i = 0; i < kinectWidth*cropLeft; i++) slice[i] = 0.0;
+	for(int i = kinectWidth*cropRight; i < kinectWidth; i++) slice[i] = 0.0;
 	//slice = this->pixels + offset;
 	
 	// load the preview texture

@@ -64,6 +64,7 @@ public:
 	 * for drawing the offset
 	 */
 	ofRectangle tuioRect;
+	float updateTime;
 };
 
 #endif	
