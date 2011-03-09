@@ -30,6 +30,7 @@ public:
 	float				 alpha;
 	ofColor				 color;
 	float			     radius, originalRadius;
+	float				 targetForce;
 	Donk::BubbleData *   data;
 	
 	float				 touchAlpha, touchAlphaTarget;

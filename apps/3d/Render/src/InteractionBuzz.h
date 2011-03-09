@@ -11,8 +11,9 @@
 #include "BaseInteraction.h"
 #include "BuzzContainerBubble.h"
 
-#define BUZZ_TYPE_CONTAINER 0
-#define BUZZ_TYPE_BUBBLE	1
+#define BUZZ_TYPE_CONTAINER		0
+#define BUZZ_TYPE_BUBBLE_IN		1
+#define BUZZ_TYPE_BUBBLE_OUT	2
 
 class InteractionBuzz : public BaseInteraction {
 	
@@ -36,8 +37,9 @@ public:
 	
 	//--------------------------------------------------------
 	void createContainerBubble(Donk::BubbleData * data);
-	
+	//void clearContainerBubble(int index);
+
 	//--------------------------------------------------------
 	vector<int> bubbleTypes;
-	
+	map<int,int> bubbleToContIndex;
 };
