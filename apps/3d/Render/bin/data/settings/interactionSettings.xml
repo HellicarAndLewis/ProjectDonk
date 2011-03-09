@@ -1,5 +1,5 @@
 <values>
-    <value controlId="Calibration Mode" value="true"></value>
+    <value controlId="Calibration Mode" value="false"></value>
     <value controlId="Projection" value="0"></value>
     <value controlId="Draw Lena" value="true"></value>
     <value controlId="Lena scale" value="2.322105408"></value>
@@ -11,7 +11,7 @@
     <value controlId="Line Width" value="1.189473629"></value>
     <value controlId="Interaction Area" value="0"></value>
     <value controlId="Draw Interactive Area" value="true"></value>
-    <value controlId="Interaction x" value="210.526321411"></value>
+    <value controlId="Interaction x" value="200.000000000"></value>
     <value controlId="Interaction y" value="1000.000000000"></value>
     <value controlId="Interaction width" value="1747.368408203"></value>
     <value controlId="Interaction height" value="936.842102051"></value>

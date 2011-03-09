@@ -23,7 +23,7 @@ BrownianObject::BrownianObject(ofVec2f initialLocation, float initialRadius, boo
 
 void BrownianObject::update()
 {
-	age-=0.002f;
+	age-=0.001f;
 	position += velocity;
 	float br = 0.01;
 	if(xmoveLimited) {
