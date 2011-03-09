@@ -46,15 +46,21 @@ float ofxPlanarKinectGuiElement::getHeight() { return height; }
 void SliceChooser::draw() {
 	camImg->draw(x,y,width,height);
 	
-	ofSetHexColor(0xFF0000);
 	ofNoFill();
+	ofSetHexColor(0x00FF00);
+	float bottom = y + ((*sliceY)+2)*height/kinectHeight;
+	float top = bottom - (*interactionDepth)*height/kinectHeight;
+	ofRect(x, top, width, bottom - top);
+	ofSetHexColor(0xFF0000);
+	
 	ofRect(x, y + ((*sliceY)-1)*height/kinectHeight, width, 3);
 	ofFill();
 }
 
 
 
-void SliceChooser::setup(int *sliceY, ofTexture *camImg, float kinectHeight) {
+void SliceChooser::setup(int *sliceY, ofTexture *camImg, float kinectHeight, int *interactionDepth) {
+	this->interactionDepth = interactionDepth;
 	this->sliceY = sliceY;
 	this->camImg = camImg;
 	this->kinectHeight = kinectHeight;

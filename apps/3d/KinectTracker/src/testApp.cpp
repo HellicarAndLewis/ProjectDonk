@@ -74,6 +74,7 @@ void testApp::setupGui() {
 	c = gui.addSlider("Time Filter", planarKinect.timeFilter, 0.0, 1.0)->under(c);
 	c = gui.addSlider("Crop Left", planarKinect.cropLeft, 0.0, 1.0)->under(c);
 	c = gui.addSlider("Crop Right", planarKinect.cropRight, 0.0, 1.0)->under(c);
+	c = gui.addSlider("Interaction Depth", planarKinect.interactionDepth, 1, 200)->under(c);
 	
 	gui.addToggle("Fill Holes", planarKinect.fillHoles)->under(c);
 	gui.enableAutoSave("trackerSettings.xml");
@@ -91,12 +92,12 @@ void testApp::update(){
 	float start = ofGetElapsedTimef();
 	kinect.update();
 
-	planarKinect.update(kinect.getDepthPixels(), kinect.getDistancePixels());
+	planarKinect.update(kinect.getDistancePixels());
 	blobTracker.track(planarKinect.blobs);
 	tuioServer.run();
 	
 	updateTime = (ofGetElapsedTimef() - start)*1000.f;
-	ofSetWindowTitle("KinectTracker - " +ofToString(ofGetFrameRate(), 2)+"fps - Update Time: "+ofToString(updateTime, 2) +"ms");
+	ofSetWindowTitle("KinectTracker - " +ofToString(ofGetFrameRate(), 2)+"fps - Update Time: "+ofToString(updateTime, 0) +"ms");
 }
 
 //--------------------------------------------------------------

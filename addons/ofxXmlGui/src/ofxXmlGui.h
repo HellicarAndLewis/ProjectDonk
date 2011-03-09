@@ -22,6 +22,7 @@
 #include "GuiTextField.h"
 #include "GuiIntField.h"
 #include "GuiColorPicker.h"
+#include "GuiIntSlider.h"
 
 
 /**
@@ -52,8 +53,11 @@ public:
 	/** Add a generic slider (for floats) */
 	GuiSlider	*addSlider(string name, float &ptr, float minValue, float maxValue);
 	
+	GuiIntSlider *addSlider(string name, int &ptr, int minValue, int maxValue);
+	
 	/** 2D slider, like a trackpad */
 	GuiSlider2D *addSlider2D(string name, ofPoint &ptr, float minX, float maxX, float minY, float maxY);
+	
 	
 	/** Colour picker, specified by hex value */
 	GuiColorPicker *addColorPicker(string name, int &hexColor);

@@ -288,6 +288,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1B7797AD1327AFC700EF2ED7 /* GuiIntSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiIntSlider.h; sourceTree = "<group>"; };
 		1F08342C1317D1D400BC166F /* general.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = general.xml; path = bin/data/settings/general.xml; sourceTree = "<group>"; };
 		1F8EEEC5131BC74F00EF55C7 /* OSC.json.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = OSC.json.txt; path = bin/data/settings/OSC.json.txt; sourceTree = "<group>"; };
 		1F9DB93D13279A0400C8C174 /* Champagne.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Champagne.h; sourceTree = "<group>"; };
@@ -2245,6 +2246,7 @@
 				EA746A681312865B000753DA /* GuiDoubleField.h */,
 				EA746A691312865B000753DA /* GuiDrawable.h */,
 				EA746A6A1312865B000753DA /* GuiFloatField.h */,
+				1B7797AD1327AFC700EF2ED7 /* GuiIntSlider.h */,
 				EA746A6B1312865B000753DA /* GuiFPSCounter.h */,
 				EA746A6C1312865B000753DA /* GuiGrid.h */,
 				EA746A6D1312865B000753DA /* GuiIntField.h */,

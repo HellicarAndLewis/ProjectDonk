@@ -109,6 +109,16 @@ GuiSlider *ofxXmlGui::addSlider(string name, float &ptr, float minValue, float m
 	return slider;
 }
 
+GuiIntSlider *ofxXmlGui::addSlider(string name, int &ptr, int minValue, int maxValue) {
+	GuiIntSlider *slider = (GuiIntSlider*)currPage->add("intslider", name, name);
+	slider->min = minValue;
+	slider->max = maxValue;
+	slider->value = &ptr;
+	slider->width = controlSize;
+	slider->showValue = true;
+	return slider;
+}
+
 GuiSlider2D *ofxXmlGui::addSlider2D(string name, ofPoint &ptr, float minX, float maxX, float minY, float maxY) {
 	GuiSlider2D *slider2d = (GuiSlider2D*)currPage->add("slider2d", name, name);
 	slider2d->minX = minX;

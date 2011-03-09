@@ -14,7 +14,7 @@ void ofxPlanarKinect::preprocessSlice() {
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 	// start with at least the first pixel being a lowpass filtered value of all the pixels that are not 0
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
-	if(slice[0]==0) {
+	/*if(slice[0]==0) {
 		float val = 0;
 		for(int i = 1; i < kinectWidth; i++) {
 			if(slice[i]!=0) {
@@ -27,7 +27,7 @@ void ofxPlanarKinect::preprocessSlice() {
 		}
 		slice[0] = val;
 		if(val>1) printf("First slice pixel too big! %f\n", val);
-	}
+	}*/
 	
 	
 	

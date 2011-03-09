@@ -81,6 +81,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1B7797E41327B16600EF2ED7 /* GuiIntSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiIntSlider.h; sourceTree = "<group>"; };
 		1B95679D1313D17800B0CDD3 /* ofxAudioEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxAudioEvent.h; sourceTree = "<group>"; };
 		1B95679E1313D17800B0CDD3 /* ofxSoundStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxSoundStream.cpp; sourceTree = "<group>"; };
 		1B95679F1313D17800B0CDD3 /* ofxSoundStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxSoundStream.h; sourceTree = "<group>"; };
@@ -332,6 +333,7 @@
 				1B9568591313DB3F00B0CDD3 /* GuiPanner.h */,
 				1B95685A1313DB3F00B0CDD3 /* GuiSegmentedControl.h */,
 				1B95685B1313DB3F00B0CDD3 /* GuiSlider.h */,
+				1B7797E41327B16600EF2ED7 /* GuiIntSlider.h */,
 				1B95685C1313DB3F00B0CDD3 /* GuiSlider2D.h */,
 				1B95685D1313DB3F00B0CDD3 /* GuiText.h */,
 				1B95685E1313DB3F00B0CDD3 /* GuiTextField.h */,
