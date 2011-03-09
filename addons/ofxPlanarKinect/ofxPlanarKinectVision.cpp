@@ -11,51 +11,6 @@
 
 void ofxPlanarKinect::preprocessSlice() {
 	
-	//////////////////////////////////////////////////////////////////////////////////////////////////////
-	// start with at least the first pixel being a lowpass filtered value of all the pixels that are not 0
-	//////////////////////////////////////////////////////////////////////////////////////////////////////
-	/*if(slice[0]==0) {
-		float val = 0;
-		for(int i = 1; i < kinectWidth; i++) {
-			if(slice[i]!=0) {
-				if(val==0) {
-					val = slice[i];
-				} else {
-					val = val*lpf + ((float)slice[i])*(1.f - lpf);
-				}
-			}
-		}
-		slice[0] = val;
-		if(val>1) printf("First slice pixel too big! %f\n", val);
-	}*/
-	
-	
-	
-	
-	
-	
-	
-	////////////////////////////////////////////////
-	// flood fill any black out with previous pixels
-	////////////////////////////////////////////////
-	if(fillHoles) {
-		// fill holes
-		for(int i = 1; i < kinectWidth; i++) {
-			if(slice[i]==1) {
-				int start = i-1;
-				for(; i < kinectWidth; i++) {
-					if(slice[i]!=1) {
-						for(int j = start; j < i; j++) {
-							slice[j] = ofMap(j, start, i, slice[start], slice[i]);
-						}
-						
-						break;
-					}
-				}
-			}
-		}
-	}
-	
 	
 	////////////////////////
 	// Distance filter
@@ -89,53 +44,137 @@ void ofxPlanarKinect::preprocessSlice() {
 		
 	}
 	
-	
-	
-	
 	//////////////////////////
 	// Time filter
 	//////////////////////////
-	for(int i = 0; i < kinectWidth; i++) {
-		slice[i] = slice[i]*(1.f - timeFilter) + lastSlice[i]*timeFilter;
+	if(timeFilter>0) {
+		for(int i = 0; i < kinectWidth; i++) {
+			slice[i] = slice[i]*(1.f - timeFilter) + lastSlice[i]*timeFilter;
+		}
+		memcpy(lastSlice, slice, kinectWidth*sizeof(float));
 	}
-	memcpy(lastSlice, slice, kinectWidth*sizeof(float));
 	
+	
+	//////////////////////////////////////////////////
+	// Create a CV Image of the thresholded interactive area
+	//////////////////////////////////////////////////
+	
+	int numInteractionPixels = (int)kinectWidth*interactionDepth;
+	unsigned char *intArea = new unsigned char[numInteractionPixels];
+	
+	int iai = 0; // quicker to increment an int than calculate an index
+	
+	// loop through each row of pixels
+	for(int i = sliceY - interactionDepth; i < sliceY; i++) {
+		for(int j = 0; j < kinectWidth; j++) {
+			intArea[iai] = interactionArea[iai]>threshold[j]?(254.f*interactionArea[iai]+1):0;
+			iai++;
+		}
+	}
+	
+	// resize if we need to
+	if(cvImage.getHeight()!=interactionDepth) {
+		cvImage.clear();
+		cvImage.allocate(kinectWidth, interactionDepth);
+	}
+	
+	cvImage.setFromPixels(intArea, kinectWidth, interactionDepth);
+	delete [] intArea;
 	
 }
 
 void ofxPlanarKinect::findBlobs() {
 	
+	contourFinder.findContours(cvImage, minHandWidth*interactionDepth, 3*maxHandWidth*interactionDepth, 10, false);
+	
 	rawBlobs.clear();
-	
-	// look through slice and decide where the blobs are.
-	
-	for(int i = 0; i < kinectWidth; i++) {
-		// loop until we find a blob
-		while(i<kinectWidth-1 && slice[i]<threshold[i]) {
-			i++;
+	for(int i = 0; i < contourFinder.nBlobs; i++) {
+		if(contourFinder.blobs[i].boundingRect.width>maxHandWidth) continue;
+		
+		
+		// to calculate the more accurate version of the x coord 
+		// we're going to find the point on the contour with the 
+		// biggest y
+		float maxY = 0;
+		
+		ofVec2f leftmostMaxY(0, 0);
+		ofVec2f rightmostMaxY(0, 640);
+		
+
+		for(int j = 0; j < contourFinder.blobs[i].nPts; j++) {
+			ofPoint pt = contourFinder.blobs[i].pts[j];
+			if(pt.y>maxY) {
+				maxY = pt.y;
+				leftmostMaxY = ofVec2f(pt.x, pt.y);
+				rightmostMaxY = leftmostMaxY;
+			} else if(pt.y==maxY) {
+				if(pt.x<leftmostMaxY.x) leftmostMaxY.x = pt.x;
+				else if(pt.x>rightmostMaxY.x) rightmostMaxY.x = pt.x;
+			}
 		}
 		
-		// consume the blob
-		if(slice[i]>=threshold[i]) {
-			int blobStart = i;
-			// find the end point (and also the depth)
-			float maxDepth = slice[i];
-			int blobCentre = 0;
-			while(i<kinectWidth-1 && slice[i]>threshold[i]) {
-				if(slice[i]>maxDepth) {
-					maxDepth = slice[i];
-					blobCentre = i;
-				}
-				i++;
-			}
-			
-			int blobEnd = i;
-			
-			// give the centre of the blob as x-coord
-			blobCentre = (blobEnd+blobStart)/2;
-			
-			rawBlobs.push_back(ofVec2f(blobCentre, maxDepth));
+		
+		
+		ofVec2f finalCoord = (leftmostMaxY + rightmostMaxY)/2.f;
+		
+
+		// sample the pixels in an inverted cross
+		//     X
+		//     X
+		//     X
+		//    XXX
+		//    XXX
+		//     X
+		int index = finalCoord.x + ((sliceY - interactionDepth)+(int)finalCoord.y)*kinectWidth;
+		float valuesToMax[10];
+		valuesToMax[0] = currFrame[index];
+		valuesToMax[1] = currFrame[index-1];
+		valuesToMax[2] = currFrame[index+1];
+		valuesToMax[3] = currFrame[index-(int)kinectWidth];
+		valuesToMax[4] = currFrame[index+(int)kinectWidth];
+		valuesToMax[5] = currFrame[index-(int)kinectWidth*2];
+		valuesToMax[6] = currFrame[index-(int)kinectWidth*3];
+		valuesToMax[7] = currFrame[index-(int)kinectWidth*4];
+		valuesToMax[8] = currFrame[index-1 - (int)kinectWidth];
+		valuesToMax[9] = currFrame[index+1 - (int)kinectWidth];
+		maxY = valuesToMax[0];
+		
+		float thresholdComparer = threshold[(int)finalCoord.x];
+		
+		for(int i = 1; i < 10; i++) {
+			if(valuesToMax[i]>maxY) maxY = valuesToMax[i];
 		}
+		/*
+		// try an average
+		float ff = 0;
+		for(int i = 0; i < 10; i++) {
+			ff += valuesToMax[i];
+		}
+		
+		
+		
+		float average = ff/10.f;
+		
+		float total = 0;
+		int averageCount = 0;
+		for(int i = 0; i < 10; i++) {
+			if(valuesToMax[i] > thresholdComparer) {
+				averageCount++;
+				total += valuesToMax[i];
+			}
+		}
+		
+		if(averageCount>0) {
+			average = total/averageCount;
+		}
+			
+		printf("Averaged %d pixels\n", averageCount);
+		
+		
+		finalCoord.y = average;
+		*/
+		finalCoord.y = maxY;
+		rawBlobs.push_back(finalCoord);
 	}
 	
 }

@@ -208,7 +208,7 @@ void ofxBlobTracker::notifyAllListeners(ofVec3f pos, int id, ofxBlobEventType ty
 void ofxBlobTracker::draw(float x,float y) {
 	draw(x, y, getWidth(), getHeight());
 }
-
+deque<ofVec2f> blobStore;
 void ofxBlobTracker::draw(float x,float y,float w, float h) {
 	// stroked rect
 	ofEnableAlphaBlending();
@@ -227,9 +227,16 @@ void ofxBlobTracker::draw(float x,float y,float w, float h) {
 	for(it = smoothedBlobs.begin(); it!=smoothedBlobs.end(); it++) {
 		ofCircle((*it).second.x*w, (*it).second.y*h, 5);
 		ofDrawBitmapString("id: "+ofToString((*it).first), (*it).second.x*w, (*it).second.y*h);
+		blobStore.push_back((*it).second);
 	}
 
-	
+	while(blobStore.size()>50) {
+		blobStore.pop_front();
+	}
+	deque<ofVec2f>::iterator itr;
+	for(itr = blobStore.begin(); itr!=blobStore.end(); itr++) {
+		ofCircle((*itr).x*w,(*itr).y*h, 5);
+	}
 	glPopMatrix();
 	ofFill();
 	
