@@ -19,15 +19,9 @@ class BuzzContainerBubble : public ContentBubble{
 		
 		void createContainerBubble(ofxBullet * bullet);
 		void pop();
-		
 		void drawTwitterData(){}
-		
-		
-		//void create(btDiscreteDynamicsWorld* world, float radius, ofVec3f position, int resolution);
-
+				
 	private:
 	
-		//btDiscreteDynamicsWorld * m_world;
-		//vector<ofxBulletRigidBody*> m_children;
 };
 
