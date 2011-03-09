@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F9DB94413279A7F00C8C174 /* BrownianObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F9DB94213279A7F00C8C174 /* BrownianObject.cpp */; };
 		5F586E18132541B8000E5FB7 /* TouchedConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F586E16132541B8000E5FB7 /* TouchedConstraint.cpp */; };
 		5FC27C0A13196E13005F76C7 /* ContentBubble.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC27C0913196E13005F76C7 /* ContentBubble.cpp */; };
 		5FC27F40131BCFDD005F76C7 /* ofxCubeMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC27F3E131BCFDD005F76C7 /* ofxCubeMap.cpp */; };
@@ -166,8 +167,6 @@
 		5FF09D7E13180C67009A416F /* btQuickprof.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FF09CD413180C67009A416F /* btQuickprof.cpp */; };
 		5FF09D7F13180C67009A416F /* ofxBullet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FF09CE213180C67009A416F /* ofxBullet.cpp */; };
 		5FF09D8213180C67009A416F /* ofxBulletRigidBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FF09CE913180C67009A416F /* ofxBulletRigidBody.cpp */; };
-		8101E0D21326F410003E1834 /* BrownianObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8101E0CE1326F410003E1834 /* BrownianObject.cpp */; };
-		8101E0D31326F410003E1834 /* Champagne.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8101E0D01326F410003E1834 /* Champagne.cpp */; };
 		8101E0DC1326F611003E1834 /* BuzzContainerBubble.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8101E0DA1326F611003E1834 /* BuzzContainerBubble.cpp */; };
 		810A07CA1324A5C7008AEE7A /* BubbleShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 810A07C91324A5C7008AEE7A /* BubbleShader.cpp */; };
 		81313BE71316160E000F5CD2 /* base64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81313BE51316160E000F5CD2 /* base64.cpp */; };
@@ -291,6 +290,9 @@
 /* Begin PBXFileReference section */
 		1F08342C1317D1D400BC166F /* general.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = general.xml; path = bin/data/settings/general.xml; sourceTree = "<group>"; };
 		1F8EEEC5131BC74F00EF55C7 /* OSC.json.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = OSC.json.txt; path = bin/data/settings/OSC.json.txt; sourceTree = "<group>"; };
+		1F9DB93D13279A0400C8C174 /* Champagne.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Champagne.h; sourceTree = "<group>"; };
+		1F9DB94213279A7F00C8C174 /* BrownianObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BrownianObject.cpp; sourceTree = "<group>"; };
+		1F9DB94313279A7F00C8C174 /* BrownianObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrownianObject.h; sourceTree = "<group>"; };
 		1FEBF35C1324F06F001D9100 /* Light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Light.h; sourceTree = "<group>"; };
 		1FEBF5201324FE5F001D9100 /* fresnel_refraction.fs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fresnel_refraction.fs; path = bin/data/shader/fresnel_refraction.fs; sourceTree = "<group>"; };
 		1FEBF5211324FE5F001D9100 /* fresnel_refraction.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fresnel_refraction.vs; path = bin/data/shader/fresnel_refraction.vs; sourceTree = "<group>"; };
@@ -697,9 +699,6 @@
 		5FF09CE913180C67009A416F /* ofxBulletRigidBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBulletRigidBody.cpp; sourceTree = "<group>"; };
 		5FF09CEA13180C67009A416F /* ofxBulletRigidBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBulletRigidBody.h; sourceTree = "<group>"; };
 		5FF09CEB13180C67009A416F /* ofxBulletUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBulletUtils.h; sourceTree = "<group>"; };
-		8101E0CE1326F410003E1834 /* BrownianObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BrownianObject.cpp; sourceTree = "<group>"; };
-		8101E0CF1326F410003E1834 /* BrownianObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrownianObject.h; sourceTree = "<group>"; };
-		8101E0D01326F410003E1834 /* Champagne.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Champagne.cpp; sourceTree = "<group>"; };
 		8101E0D11326F410003E1834 /* Champagne.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Champagne.h; sourceTree = "<group>"; };
 		8101E0DA1326F611003E1834 /* BuzzContainerBubble.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BuzzContainerBubble.cpp; sourceTree = "<group>"; };
 		8101E0DB1326F611003E1834 /* BuzzContainerBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuzzContainerBubble.h; sourceTree = "<group>"; };
@@ -1695,11 +1694,10 @@
 		8101E0D51326F418003E1834 /* Beauty */ = {
 			isa = PBXGroup;
 			children = (
+				1F9DB94213279A7F00C8C174 /* BrownianObject.cpp */,
+				1F9DB94313279A7F00C8C174 /* BrownianObject.h */,
 				810A07C81324A5C7008AEE7A /* BubbleShader.h */,
 				810A07C91324A5C7008AEE7A /* BubbleShader.cpp */,
-				8101E0CE1326F410003E1834 /* BrownianObject.cpp */,
-				8101E0CF1326F410003E1834 /* BrownianObject.h */,
-				8101E0D01326F410003E1834 /* Champagne.cpp */,
 				8101E0D11326F410003E1834 /* Champagne.h */,
 			);
 			name = Beauty;
@@ -1892,6 +1890,7 @@
 				8101E0D51326F418003E1834 /* Beauty */,
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
 				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
+				1F9DB93D13279A0400C8C174 /* Champagne.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -2778,9 +2777,8 @@
 				810A07CA1324A5C7008AEE7A /* BubbleShader.cpp in Sources */,
 				5FDBD91C1325402000A02A05 /* BubbleData.cpp in Sources */,
 				5F586E18132541B8000E5FB7 /* TouchedConstraint.cpp in Sources */,
-				8101E0D21326F410003E1834 /* BrownianObject.cpp in Sources */,
-				8101E0D31326F410003E1834 /* Champagne.cpp in Sources */,
 				8101E0DC1326F611003E1834 /* BuzzContainerBubble.cpp in Sources */,
+				1F9DB94413279A7F00C8C174 /* BrownianObject.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
