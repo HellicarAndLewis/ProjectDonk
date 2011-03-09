@@ -10,6 +10,7 @@
 #include "ofxPlanarKinect.h"
 
 void ofxPlanarKinect::preprocessSlice() {
+	
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 	// start with at least the first pixel being a lowpass filtered value of all the pixels that are not 0
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -25,14 +26,36 @@ void ofxPlanarKinect::preprocessSlice() {
 			}
 		}
 		slice[0] = val;
-		if(val>255) printf("First slice pixel too big! %f\n", val);
+		if(val>1) printf("First slice pixel too big! %f\n", val);
 	}
 	
 	
 	
 	
 	
-
+	
+	
+	////////////////////////////////////////////////
+	// flood fill any black out with previous pixels
+	////////////////////////////////////////////////
+	if(fillHoles) {
+		// fill holes
+		for(int i = 1; i < kinectWidth; i++) {
+			if(slice[i]==1) {
+				int start = i-1;
+				for(; i < kinectWidth; i++) {
+					if(slice[i]!=1) {
+						for(int j = start; j < i; j++) {
+							slice[j] = ofMap(j, start, i, slice[start], slice[i]);
+						}
+						
+						break;
+					}
+				}
+			}
+		}
+	}
+	
 	
 	////////////////////////
 	// Distance filter
@@ -40,36 +63,42 @@ void ofxPlanarKinect::preprocessSlice() {
 	// make lp be even
 	int lp = lpf*10;
 	lp *= 2;
+
+
 	if(lp>0) {
-		unsigned char *temp = new unsigned char[(int)kinectWidth];
-		memcpy(temp, slice, (int)kinectWidth);
+		
+		float *t = new float[(int)kinectWidth];
+		float *temp = t;
+	
+		memcpy(t, slice, (int)kinectWidth*sizeof(float));
+		
+		
 		// now lpf the slice
 		for(int i = 0; i < lp; i++) {
 			
 			for(int i = 1; i < kinectWidth-1; i++) {
-				slice[i] = temp[i-1]*0.3333 + temp[i]*0.33333 + temp[i]*0.33333;
+				slice[i] = t[i-1]/3.f + t[i]/3.f + t[i+1]/3.f;
 			}
-			unsigned char *a = temp;
-			slice = temp;
-			temp = a;
+			float *a = t;
+			t = slice;
+			slice = a;
 		}
-		delete temp;
+		
+		delete [] temp;
+		
+		
 	}
+	
+	
 	
 	
 	//////////////////////////
 	// Time filter
 	//////////////////////////
-	
-	memcpy(lastSlice, slice, kinectWidth);
-	////////////////////////////////////////////////
-	// flood fill any black out with previous pixels
-	////////////////////////////////////////////////
-	if(fillHoles) {
-		for(int i = 1; i < kinectWidth; i++) {
-			if(slice[i]==0) slice[i] = slice[i-1];
-		}
+	for(int i = 0; i < kinectWidth; i++) {
+		slice[i] = slice[i]*(1.f - timeFilter) + lastSlice[i]*timeFilter;
 	}
+	memcpy(lastSlice, slice, kinectWidth*sizeof(float));
 	
 	
 }

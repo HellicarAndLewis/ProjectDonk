@@ -29,7 +29,7 @@ public:
 	
 	void setup();	
 	
-	void update(unsigned char *pixels);	
+	void update(unsigned char *pixels, float *distances);	
 	
 	
 	// add these as drawables to your gui.
@@ -90,8 +90,8 @@ private:
 	unsigned char *pixels;
 	
 	/** the start point in 'pixels' of the row of interest */
-	unsigned char *slice;
-	unsigned char *lastSlice;
+	float *slice;
+	float *lastSlice;
 	
 	/** This is which row of pixels we slice from */
 	int sliceY;

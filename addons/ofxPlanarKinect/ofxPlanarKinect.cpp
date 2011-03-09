@@ -38,7 +38,8 @@ ofxPlanarKinect::ofxPlanarKinect() {
 	lpf = 0.9;
 	timeFilter = 0.5;
 	fillHoles = false;
-	lastSlice = new unsigned char[(int)kinectWidth];
+	lastSlice = new float[(int)kinectWidth];
+	slice = new float[(int)kinectWidth];
 }
 
 ofxPlanarKinect::~ofxPlanarKinect() {
@@ -76,7 +77,16 @@ void ofxPlanarKinect::setup() {
 }
 
 
-void ofxPlanarKinect::update(unsigned char *pixels) {
+
+int ROTATE_PIXEL_COORD(int i, int W) {
+	
+	int x = i%W;
+	int y = i/W;
+	return x*W + y;
+//	((i%W)*W + (i/W));
+}
+
+void ofxPlanarKinect::update(unsigned char *pixels, float *distances) {
 	if(pixels==NULL) {
 		ofLog(OF_LOG_ERROR, "ofxPlanarKinect(): setup() not called, or set up incorrectly!");
 	}
@@ -84,9 +94,40 @@ void ofxPlanarKinect::update(unsigned char *pixels) {
 	// copy the whole frame
 	memcpy(this->pixels, pixels, numPixels);
 	
+	
+	// this will slow down performance dramatically
+	if(true) {
+		for(int i = 0; i < numPixels; i++) {
+			this->pixels[i] = ofMap(distances[i], 400, 0, 0, 255, true);
+		}
+		
+		if(fillHoles) {
+			// fill holes
+			for(int i = 1; i < numPixels; i++) {
+				if(this->pixels[i]==255) {
+					int start = i-1;
+					for(; i < numPixels; i++) {
+						if(this->pixels[i]!=255) {
+							for(int j = start; j < i; j++) {
+								this->pixels[j] = ofMap(j, start, i, this->pixels[start], this->pixels[i]);
+							}
+
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
+	
 	// then make a reference to the slice
 	int offset = sliceY*kinectWidth;
-	slice = this->pixels + offset;
+	
+	for(int i = 0; i < kinectWidth; i++) {
+		slice[i] = ofMap(distances[offset + i], 400, 0, 0, 1, true);
+	}
+	for(int i = 635; i < 640; i++) slice[i] = 0.2;
+	//slice = this->pixels + offset;
 	
 	// load the preview texture
 	camImg.loadData(this->pixels, kinectWidth, kinectHeight, GL_LUMINANCE);
@@ -96,8 +137,15 @@ void ofxPlanarKinect::update(unsigned char *pixels) {
 	findBlobs();
 	calibrateBlobs();
 	
+	// make a temporary unsigned char representation of the slice
+	unsigned char *slc = new unsigned char[(int)kinectWidth];
+	
+	for(int i = 0; i< kinectWidth; i++) {
+		slc[i] = ofMap(slice[i], 0, 1, 0, 255, true);
+	}
 	// load the slice texture with a preprocessed slice array
-	sliceImg.loadData(slice, kinectWidth, 1, GL_LUMINANCE);
+	sliceImg.loadData(slc, kinectWidth, 1, GL_LUMINANCE);
+	delete [] slc;
 	
 	// calculate the depth graph points (for preview)
 	int pos = 0;
@@ -106,17 +154,18 @@ void ofxPlanarKinect::update(unsigned char *pixels) {
 		depthGraph[pos] = ofVec2f(i, slice[i]);
 		pos++;
 	}
+		
 }
 
 void ofxPlanarKinect::moveThreshold(float increment) {
 	for(int i = 0; i < kinectWidth; i++) {
-		threshold[i] = ofClamp(threshold[i]+increment, 0, 255);
+		threshold[i] = ofClamp(threshold[i]+increment, 0, 1);
 	}
 }
 
 void ofxPlanarKinect::captureThreshold() {
 	for(int i = 0; i < kinectWidth; i++) {
-		threshold[i] = ofClamp(slice[i]+15, 0, 255);
+		threshold[i] = ofClamp(slice[i]+0.02, 0, 1);
 	}
 }
 

@@ -8,7 +8,6 @@
 #include "ofxBase3DVideo.h"
 
 
-
 #include <libusb.h>
 #include "libfreenect.h"
 #include "ofxKinectCalibration.h"
@@ -24,7 +23,7 @@ class ofxKinect : public ofxBase3DVideo, protected ofThread{
 		bool isFrameNew();
         
 		/// open the connection and start grabbing images
-		bool open(int deviceId = 0);
+		bool open();
         
 		/// close the connection and stop grabbing images
 		void close();
@@ -83,6 +82,9 @@ class ofxKinect : public ofxBase3DVideo, protected ofThread{
 		/// get the greyscale depth texture
 		ofTexture &		getDepthTextureReference();
 		
+		/// for 007 compatibility
+		ofPixels & getPixelsRef();
+		
 		/**
 			set the near value of the pixels in the greyscale depth image to white?
 			
@@ -118,6 +120,7 @@ class ofxKinect : public ofxBase3DVideo, protected ofThread{
 		bool 					bVerbose;
 		bool 					bGrabberInited;
 		
+		ofPixels pixels;
 		unsigned char *			videoPixels;
 		unsigned short *		depthPixelsRaw;
 		

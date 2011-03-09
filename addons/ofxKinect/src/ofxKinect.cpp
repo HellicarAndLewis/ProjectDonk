@@ -85,6 +85,11 @@ ofTexture & ofxKinect::getDepthTextureReference(){
 	return depthTex;
 }
 
+//---------------------------------------------------------------------------
+ofPixels & ofxKinect::getPixelsRef() {
+	return pixels;
+}
+
 //--------------------------------------------------------------------
 bool ofxKinect::isFrameNew(){
 	if(isThreadRunning()){
@@ -94,7 +99,7 @@ bool ofxKinect::isFrameNew(){
 }
 
 //--------------------------------------------------------------------
-bool ofxKinect::open(int deviceId){
+bool ofxKinect::open(){
 	if(!bGrabberInited){
 		ofLog(OF_LOG_WARNING, "ofxKinect: Cannot open, init not called");
 		return false;
@@ -106,7 +111,7 @@ bool ofxKinect::open(int deviceId){
 		return false;
 	}
 
-	if (freenect_open_device(kinectContext, &kinectDevice, deviceId) < 0) {
+	if (freenect_open_device(kinectContext, &kinectDevice, 0) < 0) {
 		ofLog(OF_LOG_ERROR, "ofxKinect: Could not open device");
 		return false;
 	}
@@ -170,6 +175,7 @@ bool ofxKinect::init(bool infrared, bool setUseTexture){
 	depthPixelsBack = new unsigned short[length];
 
 	videoPixels = new unsigned char[length*bytespp];
+	pixels.setFromPixels(videoPixels, width, height, OF_IMAGE_COLOR);
 	videoPixelsBack = new unsigned char[length*bytespp];
 	
 	memset(depthPixelsRaw, 0, length*sizeof(unsigned short));
@@ -296,7 +302,7 @@ ofColor ofxKinect::getCalibratedColorAt(int x, int y){
 
 //------------------------------------
 ofColor ofxKinect::getCalibratedColorAt(const ofPoint & p){
-	return getCalibratedColorAt(calibration.getCalibratedColorCoordAt(p));
+	return getColorAt(calibration.getCalibratedColorCoordAt(p));
 }
 
 //------------------------------------

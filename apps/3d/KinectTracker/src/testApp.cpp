@@ -10,7 +10,7 @@ void testApp::setup(){
 	
 	planarKinect.setup();
 	kinect.init();
-	kinect.open(planarKinect.deviceId);
+	kinect.open();//planarKinect.deviceId);
 
 	blobTracker.addListener(this);
 	setupGui();
@@ -61,19 +61,23 @@ void testApp::setupGui() {
 	gui.addButton("up")->size(30, 20)->underRight(c);
 
 	c = gui.addTitle("TUIO Output")->size(320, 20)->under(gui.getControlById("4"));
+	
 	c = gui.addDrawable("blobs", blobTracker)->under(c)->size(320, 240);
+	tuioRect = ofRectangle(c->x, c->y, c->width, c->height);
 	c = gui.addSlider("smoothness", blobTracker.smoothing, 0, 0.99)->under(c, 10);
 	c = gui.addTextField("TUIO Host", tuioHost)->under(c, 10)->size(70, 20);
 	c = gui.addIntField("Port", tuioPort)->right(c)->size(40, 20);
 	c = gui.addButton("Reconnect")->right(c)->size(70, 20);
 	c = gui.addButton("Help")->right(c, 69)->size(60, 20);
-	gui.enableAutoSave("trackerSettings.xml");
-	gui.addListener((GuiListener*)this);
-	
+		
 	c = gui.addSlider("Distance Filter", planarKinect.lpf, 0.0, 1.0)->under(gui.getControlById("threshold control"));
 	c = gui.addSlider("Time Filter", planarKinect.timeFilter, 0.0, 1.0)->under(c);
 	gui.addToggle("Fill Holes", planarKinect.fillHoles)->under(c);
+	gui.enableAutoSave("trackerSettings.xml");
+	gui.addListener((GuiListener*)this);
+
 	gui.enable();
+	ofAddListener(ofEvents.draw, this, &testApp::_draw);
 	
 }
 
@@ -83,7 +87,7 @@ void testApp::update(){
 	
 	kinect.update();
 
-	planarKinect.update(kinect.getDepthPixels());
+	planarKinect.update(kinect.getDepthPixels(), kinect.getDistancePixels());
 	 blobTracker.track(planarKinect.blobs);
 	tuioServer.run();
 	
@@ -91,8 +95,20 @@ void testApp::update(){
 }
 
 //--------------------------------------------------------------
-void testApp::draw(){
+void testApp::_draw(ofEventArgs &args){
+	// draw the inset
+	ofRectangle r = tuioRect;
 	
+	// inset the tuioRect
+	r.x += r.width*planarKinect.inset;
+	r.y += r.height*planarKinect.inset;
+	r.width -= r.width*planarKinect.inset*2;
+	r.height -= r.height*planarKinect.inset*2;
+	// draw it
+	ofNoFill();
+	ofSetColor(255, 255, 255);
+	ofRect(r);
+	ofFill();
 }
 
 
@@ -165,9 +181,9 @@ void testApp::controlChanged(GuiControl *control) {
 	} else if(control->controlId=="4") {
 		planarKinect.calibrateCorner(BOTTOM_LEFT_CORNER);
 	} else if(control->controlId=="up") {
-		planarKinect.moveThreshold(1);
+		planarKinect.moveThreshold(-0.05);
 	} else if(control->controlId=="down") {
-		planarKinect.moveThreshold(-1);
+		planarKinect.moveThreshold(0.05);
 	} else if(control->controlId=="Capture Background") {
 		planarKinect.captureThreshold();
 	} else if(control->controlId=="Reconnect") {
