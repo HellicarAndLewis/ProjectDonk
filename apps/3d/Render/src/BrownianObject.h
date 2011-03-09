@@ -8,7 +8,7 @@
  */
 
 #include "ofMain.h"
-#pragma warning This is a placeholder Marek found in the experiments folder because they were missing from a commit made on 08/03/11 by nimoy.
+
 class BrownianObject {
 	
 	

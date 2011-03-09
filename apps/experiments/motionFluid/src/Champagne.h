@@ -14,7 +14,6 @@ class Champagne{
 public:
 
 	Champagne();
-	void setup();
 	void update();
 	void draw();
 	
