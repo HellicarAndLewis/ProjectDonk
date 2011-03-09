@@ -14,11 +14,13 @@
 #include "ofxPlanarKinect.h"
 
 ofxPlanarKinect::ofxPlanarKinect() {
+
 	inset = 0;
 	// should really pass the kinect in here
 	kinectWidth = 640;
 	kinectHeight = 480;
-	
+	minHandWidth = 10;
+	maxHandWidth = 640/4;
 	pixels = NULL;
 	depthGraph = NULL;
 	width = 640;
@@ -132,14 +134,13 @@ void ofxPlanarKinect::update(float *distances) {
 	// copy to the render frame.
 	for(int i = 0; i < numPixels; i++) {
 		this->pixels[i] = this->currFrame[i]*255.f;
-		this->pixels[i] = CLAMP(this->pixels[i], 0, 255);
 	}
 	
 	// move the slice pointer to wherever sliceY is.
 	slice = this->currFrame + ((int)kinectWidth*sliceY);
 
 	// similarly, position the interactionArea
-	interactionArea = this->currFrame + ((int)kinectWidth*(interactionDepth-sliceY));
+	interactionArea = this->currFrame + ((int)kinectWidth*(sliceY-interactionDepth));
 	
 	
 	//slice = this->pixels + offset;

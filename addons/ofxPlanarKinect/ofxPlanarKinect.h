@@ -11,6 +11,8 @@
 #include "ofMain.h"
 #include "ofxPlanarKinectWarper.h"
 #include "ofxPlanarKinectGui.h"
+#include "ofxOpenCv.h"
+
 #define SLICE_SELECTION 1
 #define THRESHOLD_SETTING 0
 
@@ -72,6 +74,10 @@ public:
 	bool fillHoles;
 	float cropLeft, cropRight;
 	int interactionDepth;
+	ofxCvGrayscaleImage cvImage;
+	ofxCvContourFinder contourFinder;
+	int minHandWidth;
+	int maxHandWidth;
 private:
 	
 	/** uncalibrated blobs */

@@ -16,9 +16,10 @@ void testApp::setup(){
 	setupGui();
 	
 	tuioServer.start((char*)tuioHost.c_str(), tuioPort);
-	tuioServer.setVerbose(true);
+	tuioServer.setVerbose(false);
 	planarKinect.guiMode = 1;
-	
+	fullscreen = false;
+	ofSetFullscreen(fullscreen);
 }
 
 void testApp::setupGui() {
@@ -71,12 +72,22 @@ void testApp::setupGui() {
 	c = gui.addButton("Help")->right(c, 69)->size(60, 20);
 		
 	c = gui.addSlider("Distance Filter", planarKinect.lpf, 0.0, 1.0)->under(gui.getControlById("threshold control"));
+	
 	c = gui.addSlider("Time Filter", planarKinect.timeFilter, 0.0, 1.0)->under(c);
+	c = gui.addToggle("Fill Holes", planarKinect.fillHoles)->under(c);
+	
 	c = gui.addSlider("Crop Left", planarKinect.cropLeft, 0.0, 1.0)->under(c);
 	c = gui.addSlider("Crop Right", planarKinect.cropRight, 0.0, 1.0)->under(c);
 	c = gui.addSlider("Interaction Depth", planarKinect.interactionDepth, 1, 200)->under(c);
 	
-	gui.addToggle("Fill Holes", planarKinect.fillHoles)->under(c);
+	c = gui.addDrawable("cv image", planarKinect.cvImage)->under(c);
+	
+	
+	c->width = 320;
+	gui.addDrawable("blobs", planarKinect.contourFinder)->overlay(c);
+	c = gui.addSlider("Min hand width", planarKinect.minHandWidth, 2, 640/4)->under(c);
+	c = gui.addSlider("Max hand width", planarKinect.maxHandWidth, 20, 640/2)->under(c);
+	
 	gui.enableAutoSave("trackerSettings.xml");
 	gui.addListener((GuiListener*)this);
 
@@ -116,6 +127,24 @@ void testApp::_draw(ofEventArgs &args){
 	ofRect(r);
 	ofFill();
 	
+	
+	// draw the client here fullscreen for testing purposes
+	if(fullscreen) {
+		//ofEnableAlphaBlending();
+		//ofSetColor(0, 0, 0, 100);
+		//ofRect(ofGetWindowRect());
+		blobTracker.draw(0, 0, ofGetWidth(), ofGetHeight());
+		r = ofGetWindowRect();
+		r.x += r.width*planarKinect.inset;
+		r.y += r.height*planarKinect.inset;
+		r.width -= r.width*planarKinect.inset*2;
+		r.height -= r.height*planarKinect.inset*2;
+		ofNoFill();
+		ofSetColor(255, 255, 255);
+		ofRect(r);
+		ofFill();
+	}
+	
 }
 
 
@@ -129,6 +158,10 @@ void testApp::keyPressed  (int key){
 		planarKinect.calibrateCorner(BOTTOM_RIGHT_CORNER);
 	} else if(key=='4') {
 		planarKinect.calibrateCorner(BOTTOM_LEFT_CORNER);
+	} else if(key=='f' || key=='F') {
+		fullscreen ^= true;
+		ofSetFullscreen(fullscreen);
+		
 	}
 }
 

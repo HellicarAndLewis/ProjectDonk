@@ -300,7 +300,14 @@ GuiControl *GuiControl::right(GuiControl *rel, float padding) {
 	this->x = rel->x + rel->width + padding;
 	return this;
 }
-
+// positioning over the top of
+GuiControl *GuiControl::overlay(GuiControl *rel) {
+	this->x = rel->x;
+	this->y = rel->y;
+	this->width = rel->width;
+	this->height = rel->height;
+	return this;
+}
 string GuiControl::stringValue() {
 	return sval(value);
 }
@@ -347,3 +354,4 @@ void GuiControl::setValue(double d) {
 void GuiControl::setValue(float f, int index) {
 	faval(value, index) = f;
 }
+
