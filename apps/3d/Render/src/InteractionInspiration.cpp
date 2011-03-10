@@ -22,7 +22,7 @@ void InteractionInspiration::newBubbleRecieved(Donk::BubbleData * data) {
 	bubble->radius    = radius;
 	bubble->rigidBody = bullet->createSphere(startPos, radius, 1);
 	bubble->createContentBubble();
-	bubble->target.set(center.x + ofRandom(-300, 300), ofRandom(500, interactiveRect.height-300), 0);
+	bubble->setTarget(center.x + ofRandom(-300, 300), ofRandom(500, interactiveRect.height-300), 0);
 	
 	bubble->offScreenTaget.x = bubble->target.x;
 	bubble->offScreenTaget.y = -300;
@@ -33,7 +33,7 @@ void InteractionInspiration::newBubbleRecieved(Donk::BubbleData * data) {
 //--------------------------------------------------------
 void InteractionInspiration::update() {
 	
-	bool bAllOffFadedOut = true;
+	bool bAllOffScreen = true;
 	
 	for(int i=0; i<bubbles.size(); i++) {
 		
@@ -49,21 +49,19 @@ void InteractionInspiration::update() {
 			
 		}
 		
-		if(!bubbles[i]->bTouched) {
+		
+		if(bAnimateIn) {
+			bubbles[i]->gotoTarget();
+			bubbles[i]->bobMe();
+		}
 			
-			if(bAnimateIn) {
-				if(bubbles[i]->alpha <= 255) bubbles[i]->alpha += 10;
-				bubbles[i]->gotoTarget();
+		else if(bAnimateOut && !bDoneAnimatingOut) {
+			bubbles[i]->goOffScreen();
+			
+			float disToOffScreenTarget = bubbles[i]->getPosition().distance(bubbles[i]->offScreenTaget);
+			if(disToOffScreenTarget > 300) {
+				bAllOffScreen = false;
 			}
-			
-			else if(bAnimateOut && !bDoneAnimatingOut) {
-				if(bubbles[i]->alpha > 0) {
-					bubbles[i]->alpha -= 10;
-					bAllOffFadedOut = false;
-				}
-				// bubbles[i]->goOffScreen();
-			}
-			
 		}
 		
 		
@@ -71,13 +69,15 @@ void InteractionInspiration::update() {
 		
 	}	
 	
-	if(bAllOffFadedOut && bAnimateOut) {
+	if(bAnimateOut && bAllOffScreen) {
 		bDoneAnimatingOut = true;
-		for(int i=0; i<bubbles.size(); i++) {
-			bubbles[i]->rigidBody->body->setActivationState(DISABLE_SIMULATION);
-		}
-		
+		killallBubbles();
 	}
+	
+	/*if(bAllOffScreen && bAnimateOut) {
+		bDoneAnimatingOut = true;
+		killallBubbles();
+	}*/
 	
 	
 	
@@ -111,6 +111,15 @@ void InteractionInspiration::animatedOut() {
 	
 	bDoneAnimatingOut = false;
 	bDoneAnimatingIn  = true;
+	
+	for(int i=0; i<bubbles.size(); i++) {
+	
+		bubbles[i]->bAnimateOut = true;
+		bubbles[i]->offScreenTaget.x = (int)ofRandom(0,2) ? -100 : interactiveRect.width+100;
+		bubbles[i]->offScreenTaget.y = (int)ofRandom(0,2) ? -100 : interactiveRect.height+100;		
+		bubbles[i]->offScreenTaget.z = 0;
+	}
+	
 }
 
 //--------------------------------------------------------

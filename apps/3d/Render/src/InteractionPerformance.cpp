@@ -12,6 +12,10 @@
 
 //--------------------------------------------------------
 void InteractionPerformance::setup() {
+	
+	lineAlpha = 0;
+	lineAlphaDes = 255;
+	
 	audio = Donk::AudioData::getInstance();	
 	nBands = audio->getNumChannels();
 	freq = new float[nBands];
@@ -99,15 +103,18 @@ void InteractionPerformance::update() {
 		bDoneAnimatingOut = true;
 	}
 	
+	lineAlpha += (lineAlphaDes-lineAlpha) * 0.02;
 }
 
 
 //--------------------------------------------------------
 void InteractionPerformance::drawContent() {
 	
+	ofEnableAlphaBlending();
+
 	// fft goods
 	glPushMatrix();
-	ofSetColor(255, 0, 0);
+	ofSetColor(255, 0, 0, lineAlpha);
 	ofNoFill();
 	ofBeginShape();
 	for (int i=0; i<nBands; i++) {
@@ -127,7 +134,6 @@ void InteractionPerformance::drawContent() {
 	
 	
 	
-	ofEnableAlphaBlending();
 	ofSetColor(255, 255, 255);
 	for(int i=0; i<bubbles.size(); i++) {
 		//bubbles[i]->drawHighLight();
@@ -189,10 +195,15 @@ void InteractionPerformance::animatedOut() {
 	
 	bDoneAnimatingOut = false;
 	bDoneAnimatingIn  = true;
+
+	lineAlphaDes = 0;
+	
 }
 
 //--------------------------------------------------------
 void InteractionPerformance::animatedIn() {
+	
+	lineAlphaDes = 255;
 	
 	for(int i=0; i<bubbles.size(); i++) {
 		bubbles[i]->bAnimateIn  = true;

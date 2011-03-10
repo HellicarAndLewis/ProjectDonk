@@ -19,7 +19,7 @@ void testApp::setup(){
 	setupGraphics();
 	mode = Donk::Mode::getInstance();
 	// default starting mode
-	nextMode = "performance";
+	nextMode = "inspiration";
 	mode->setMode(nextMode);
 }
 

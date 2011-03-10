@@ -54,6 +54,17 @@ public:
 	virtual void doubleTouched(ofVec2f touchpos) {}
 	virtual void putToRest() {} 
 	
+	virtual void killallBubbles() {
+		
+		for (int i=0; i<bubbles.size(); i++) {
+			bubbles[i]->rigidBody->destroy();
+			delete bubbles[i];
+			bubbles[i] = NULL;
+		}
+		bubbles.clear();
+		
+	}
+	
 	// required!
 	virtual void update()								    = 0;
 	virtual void drawContent()								= 0;

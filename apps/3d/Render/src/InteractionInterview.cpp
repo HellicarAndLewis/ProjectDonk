@@ -13,7 +13,7 @@
 void InteractionInterview::newBubbleRecieved(Donk::BubbleData * data) { 
 	ofVec3f center(interactiveRect.width/2, 0, 0);
 	ofVec3f startPos(center.x + ofRandom(-300, 300), interactiveRect.height, ofRandom(-100, 100));
-	float   radius = 80;
+	float   radius = 180;
 	
 	ContentBubble * bubble = new ContentBubble();
 	
@@ -21,15 +21,36 @@ void InteractionInterview::newBubbleRecieved(Donk::BubbleData * data) {
 	bubble->radius    = radius;
 	bubble->rigidBody = bullet->createSphere(startPos, radius, 1);
 	bubble->createContentBubble();
-	bubble->target.set(center.x + ofRandom(-300, 300), ofRandom(500, interactiveRect.height-300), 0);
+	bubble->setTarget(center.x + ofRandom(-300, 300), ofRandom(500, interactiveRect.height-300), 0);
 	bubbles.push_back(bubble);
 };
 
 //--------------------------------------------------------
 void InteractionInterview::update() {
+
+	bool bAllOffScreen = true;
 	for(int i=0; i<bubbles.size(); i++) {
+	
+		if(bAnimateOut) {
+			bubbles[i]->goOffScreen();
+			float disToOffScreenTarget = bubbles[i]->getPosition().distance(bubbles[i]->offScreenTaget);
+			if(disToOffScreenTarget > 300) {
+				bAllOffScreen = false;
+			}
+		}
+		else {
+			bubbles[i]->gotoTarget();
+		}
+		
+		
 		bubbles[i]->update();	
-	}	
+	}
+	
+	
+	if(bAnimateOut && bAllOffScreen) {
+		bDoneAnimatingOut = true;
+		killallBubbles();
+	}
 }
 
 //--------------------------------------------------------
@@ -55,9 +76,31 @@ void InteractionInterview::drawSphere(BubbleShader * shader) {
 
 //--------------------------------------------------------
 void InteractionInterview::animatedOut() {
+	bAnimateIn  = false;
+	bAnimateOut = true;
+	
+	bDoneAnimatingOut = false;
+	bDoneAnimatingIn  = true;
+	
+	for(int i=0; i<bubbles.size(); i++) {
+		
+		bubbles[i]->bAnimateOut = true;
+		bubbles[i]->offScreenTaget.x = (int)ofRandom(0,2) ? -100 : interactiveRect.width+100;
+		bubbles[i]->offScreenTaget.y = (int)ofRandom(0,2) ? -100 : interactiveRect.height+100;		
+		bubbles[i]->offScreenTaget.z = 0;
+	}
+	
 }
 
 //--------------------------------------------------------
 void InteractionInterview::animatedIn() {
+	bAnimateIn  = true;
+	bAnimateOut = false;
 	
+	bDoneAnimatingOut = true;
+	bDoneAnimatingIn  = false;
+
 }
+
+
+

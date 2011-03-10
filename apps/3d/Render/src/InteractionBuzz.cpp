@@ -163,6 +163,10 @@ void InteractionBuzz::animatedOut() {
 //--------------------------------------------------------
 void InteractionBuzz::animatedIn() {
 	
+	// hack for now.
+	killallBubbles();
+	bDoneAnimatingOut = true;
+	
 	bAnimateIn  = true;
 	bAnimateOut = false;
 	

@@ -22,6 +22,7 @@ public:
 	float *				freq; 
 	int					nBands;
 	vector	<ofImage>	images;
+	float				lineAlpha, lineAlphaDes;
 	
 	//--------------------------------------------------------
 	InteractionPerformance() {

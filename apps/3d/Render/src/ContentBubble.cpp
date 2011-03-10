@@ -81,6 +81,20 @@ void ContentBubble::gotoTarget() {
 }
 
 //--------------------------------------------------------------
+void ContentBubble::bobMe() {
+
+	target.x = resetTarget.x + ofRandom(-10, 10);
+	target.y = resetTarget.y + ofRandom(-10, 10);
+	target.z = resetTarget.z + ofRandom(-10, 10);
+}
+
+//--------------------------------------------------------------
+void ContentBubble::setTarget(float x, float y, float z) {
+	target = ofVec3f(x, y, z);
+	resetTarget = ofVec3f(x, y, z);
+}
+
+//--------------------------------------------------------------
 ofVec3f ContentBubble::getPosition() {
 	if(rigidBody->isBody()) {
 		return rigidBody->getPosition();

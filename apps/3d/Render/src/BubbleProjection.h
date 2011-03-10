@@ -83,6 +83,7 @@ private:
 	vector <BaseInteraction*>	interactions;
 	BaseInteraction *			activeInteraction;
 	BaseInteraction *			previousInteraction;
+	BaseInteraction *			nextInteraction;
 	
 	// Sphere rendering
 	//--------------------------------------------------------

@@ -20,6 +20,7 @@ BubbleProjection::BubbleProjection() {
 	interactiveArea     = ofRectangle(100,100,900,500);
 	activeInteraction   = NULL;
 	previousInteraction = NULL;
+	nextInteraction     = NULL;
 	touchPadding		= 10.0;
 }
 
@@ -73,11 +74,13 @@ void BubbleProjection::interactionModeChange(string modeName) {
 	int mode = -1;
 	if(modeName == "buzz")				 mode = MODE_BUZZ;
 	else if(modeName == "inspiration")   mode = MODE_INSPIRATION;
+	else if(modeName == "interview")     mode = MODE_INTERVIEW;
+	else if(modeName == "question")      mode = MODE_CHOICE;
 	else if(modeName == "performance")   mode = MODE_PERFORMANCE;
 	
+	
 	if(mode != -1) {
-		activeInteraction = interactions[mode];
-		activeInteraction->animatedIn();
+		nextInteraction = interactions[mode];
 	}
 }
 
@@ -136,10 +139,17 @@ void BubbleProjection::update() {
 		
 		previousInteraction->nTouches = touches.size();
 		previousInteraction->update();
+		
 		if(previousInteraction->bDoneAnimatingOut && previousInteraction->bAnimateOut) {
 			previousInteraction->putToRest();
 			printf(" *** done animating out: %s ***\n", previousInteraction->name.c_str());
 			previousInteraction = NULL;
+			
+			if(nextInteraction) {
+				activeInteraction = nextInteraction;
+				if(activeInteraction) activeInteraction->animatedIn();
+				nextInteraction = NULL;
+			}
 		}
 		
 		
@@ -439,7 +449,14 @@ void BubbleProjection::touchUp(float x, float y, int touchId) {
 			
 			ContentBubble * bubble = activeInteraction->bubbles[i];
 			
+			
+			
 			if(bubble->bTouched) {
+				
+				if (activeInteraction->name == "inspiration") {
+					bubble->setTarget(pos.x, pos.y);
+				}
+				
 				bubble->bTouched = false;
 				removeTouchConstraint(bubble);
 			}

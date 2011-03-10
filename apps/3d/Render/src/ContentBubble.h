@@ -24,7 +24,7 @@ public:
 	btScalar			 m[16];
 	float				 billboadMatrix[16];
 	
-	ofVec3f				 target, pos;
+	ofVec3f				 target, pos, resetTarget;
 	ofVec3f				 offScreenTaget;
 	float				 distanceToTarget;
 	float				 alpha;
@@ -52,6 +52,7 @@ public:
 	void doubleTouched();
 	void setRadius(float r);
 	ofVec3f getPosition();
+	void setTarget(float x, float y, float z=0);
 	void addForce(float x, float y, float z=0, float scale=1.0);
 	void addAtrractionForce(float x, float y, float z=0, float scale=1.0);
 	
@@ -60,6 +61,7 @@ public:
 	void update();
 	void gotoTarget();
 	void goOffScreen();
+	void bobMe();
 	
 	void pushBubble();
 	void popBubble();
