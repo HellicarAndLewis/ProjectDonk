@@ -15,6 +15,7 @@ ofxBlobTracker::ofxBlobTracker() {
 	bVerbose = false;
 	smoothing = 0;
 	lastId = 0;
+	minTrackDistance = 0.2;
 }
 
 void ofxBlobTracker::addListener(ofxBlobListener *listener) {
@@ -119,7 +120,7 @@ void ofxBlobTracker::track(vector<ofVec3f> &blobs) {
 		ofxBlob *blob = getClosestBlob(blobs[i]);
 		
 		// new blob!
-		if(blob==NULL || blob->distance(blobs[i])>0.2) {
+		if(blob==NULL || blob->distance(blobs[i])>minTrackDistance) {
 
 			ofxBlob *b = newBlob(blobs[i]);
 			updateKalman(b->id, b);

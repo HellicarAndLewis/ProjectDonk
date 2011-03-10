@@ -71,9 +71,7 @@ void testApp::setupGui() {
 	c = gui.addButton("Reconnect")->right(c)->size(70, 20);
 	c = gui.addButton("Help")->right(c, 69)->size(60, 20);
 		
-	c = gui.addSlider("Distance Filter", planarKinect.lpf, 0.0, 1.0)->under(gui.getControlById("threshold control"));
-	
-	c = gui.addSlider("Time Filter", planarKinect.timeFilter, 0.0, 1.0)->under(c);
+	c = gui.addSlider("Min track distance", blobTracker.minTrackDistance, 0.0, 1.0)->under(gui.getControlById("threshold control"));
 	c = gui.addToggle("Fill Holes", planarKinect.fillHoles)->under(c);
 	
 	c = gui.addSlider("Crop Left", planarKinect.cropLeft, 0.0, 1.0)->under(c);
