@@ -80,6 +80,10 @@ public:
 	int maxHandWidth;
 private:
 	
+	
+	/** This is a reference to ofxKinect's distances */
+	float *distancesRef;
+	
 	/** uncalibrated blobs */
 	vector<ofVec2f> rawBlobs;
 	
@@ -90,6 +94,9 @@ private:
 	void preprocessSlice();
 	void findBlobs();
 	void calibrateBlobs();
+	
+	// gets average of non-zero pixels in a roi.
+	float getAverage(float *pixels, ofRectangle roi);
 	
 	/** number of pixels in 'pixels' */
 	int numPixels;	

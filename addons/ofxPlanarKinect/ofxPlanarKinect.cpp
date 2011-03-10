@@ -100,6 +100,9 @@ void ofxPlanarKinect::update(float *distances) {
 		ofLog(OF_LOG_ERROR, "ofxPlanarKinect(): setup() not called, or set up incorrectly!");
 	}
 	
+	// make a reference to this for later if needed
+	distancesRef = distances;
+	
 	int kw = kinectWidth;
 	int cl = kinectWidth*cropLeft;
 	int cr = kinectWidth*cropRight;

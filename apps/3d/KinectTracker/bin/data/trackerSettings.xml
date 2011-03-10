@@ -7,7 +7,7 @@
     <value controlId="1" value="0"></value>
     <value controlId="4" value="0"></value>
     <value controlId="2" value="0"></value>
-    <value controlId="Inset" value="0.136000007"></value>
+    <value controlId="Inset" value="0.112000003"></value>
     <value controlId="3" value="0"></value>
     <value controlId="Threshold Controls" value="0"></value>
     <value controlId="Capture Background" value="0"></value>
@@ -15,8 +15,8 @@
     <value controlId="up" value="0"></value>
     <value controlId="TUIO Output" value="0"></value>
     <value controlId="blobs" value="0"></value>
-    <value controlId="smoothness" value="0.304071426"></value>
-    <value controlId="TUIO Host" value="localhost"></value>
+    <value controlId="smoothness" value="0.601071417"></value>
+    <value controlId="TUIO Host" value="192.168.1.69"></value>
     <value controlId="Port" value="3333"></value>
     <value controlId="Reconnect" value="0"></value>
     <value controlId="Help" value="0"></value>

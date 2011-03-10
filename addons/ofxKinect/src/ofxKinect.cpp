@@ -31,6 +31,8 @@ ofxKinect::ofxKinect()
 	bTiltNeedsApplying		= false;
 
 	thisKinect = this;
+	// give it 3 seconds to start up.
+	lastTimeUpdated = ofGetElapsedTimef()+3;
 }
 
 //--------------------------------------------------------------------
@@ -236,11 +238,20 @@ void ofxKinect::update(){
 	}
 
 	if (!bNeedsUpdate){
+		if(ofGetElapsedTimef() - lastTimeUpdated>1.0) {
+			close();
+			ofSleepMillis(500);
+			open();
+			ofSleepMillis(500);
+			ofLogVerbose() << "\n\n\n\nKINECT STOPPED AND STARTED !!!!! \n\n\n\n";
+		}
 		return;
 	} else {
 		bUpdateTex = true;
 	}
 
+	lastTimeUpdated = ofGetElapsedTimef();
+	
 	if ( this->lock() ) {
 		int n = width * height;
 		

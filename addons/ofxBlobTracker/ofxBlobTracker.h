@@ -82,4 +82,5 @@ private:
 	void untouchLastBlobs();
 	int getNextAvailableBlobId();
 	ofxBlobSmoother blobSmoother;
+	int lastId;
 };
