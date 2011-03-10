@@ -87,7 +87,7 @@ void testApp::setupGui() {
 	gui.addDrawable("blobs", planarKinect.contourFinder)->overlay(c);
 	c = gui.addSlider("Min hand width", planarKinect.minHandWidth, 2, 640/4)->under(c);
 	c = gui.addSlider("Max hand width", planarKinect.maxHandWidth, 20, 640/2)->under(c);
-	
+	c = gui.addToggle("kinect connected", isConnected)->under(c);
 	gui.enableAutoSave("trackerSettings.xml");
 	gui.addListener((GuiListener*)this);
 
@@ -100,9 +100,10 @@ void testApp::setupGui() {
 //--------------------------------------------------------------
 void testApp::update(){
 	
+	
 	float start = ofGetElapsedTimef();
 	kinect.update();
-
+	isConnected = kinect.isConnected();
 	planarKinect.update(kinect.getDistancePixels());
 	blobTracker.track(planarKinect.blobs);
 	tuioServer.run();

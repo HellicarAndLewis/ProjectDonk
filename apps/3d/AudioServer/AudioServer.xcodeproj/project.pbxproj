@@ -82,6 +82,8 @@
 
 /* Begin PBXFileReference section */
 		1B7797E41327B16600EF2ED7 /* GuiIntSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiIntSlider.h; sourceTree = "<group>"; };
+		1B7996991328EC2100F09E86 /* Sample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sample.h; sourceTree = "<group>"; };
+		1B79969A1328EC6500F09E86 /* WavFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WavFile.h; sourceTree = "<group>"; };
 		1B95679D1313D17800B0CDD3 /* ofxAudioEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxAudioEvent.h; sourceTree = "<group>"; };
 		1B95679E1313D17800B0CDD3 /* ofxSoundStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxSoundStream.cpp; sourceTree = "<group>"; };
 		1B95679F1313D17800B0CDD3 /* ofxSoundStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxSoundStream.h; sourceTree = "<group>"; };
@@ -595,6 +597,8 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				1B79969A1328EC6500F09E86 /* WavFile.h */,
+				1B7996991328EC2100F09E86 /* Sample.h */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,

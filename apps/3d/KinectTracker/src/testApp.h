@@ -66,6 +66,7 @@ public:
 	ofRectangle tuioRect;
 	float updateTime;
 	bool fullscreen;
+	bool isConnected;
 };
 
 #endif	

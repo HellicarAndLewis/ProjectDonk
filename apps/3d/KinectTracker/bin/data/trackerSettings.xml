@@ -30,4 +30,5 @@
     <value controlId="blobs" value=""></value>
     <value controlId="Min hand width" value="5"></value>
     <value controlId="Max hand width" value="135"></value>
+    <value controlId="kinect connected" value="true"></value>
 </values>
