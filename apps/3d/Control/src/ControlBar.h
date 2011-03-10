@@ -16,6 +16,9 @@ namespace ControlBar{
 
 	class Event;
 	
+	/**
+		superclass for real widgets
+	 */
 	class Control{
 	public:
 		Control();
@@ -31,8 +34,15 @@ namespace ControlBar{
 		virtual void mouseUp();
 		string className;
 		void* userData;
+		bool enabled;
+		virtual void disable();
+		virtual void enable();
 	};
 
+	
+	/**
+		event object
+	 */
 	class Event{
 	public:
 		Event(Control *it,string w);

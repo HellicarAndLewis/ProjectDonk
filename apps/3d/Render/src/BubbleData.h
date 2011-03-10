@@ -29,6 +29,7 @@ namespace Donk{
 		 */
 		string mode;
 		string id;
+		string polledGroup;
 		string profileImageURL;
 		string userName;
 		string text;

@@ -33,9 +33,14 @@ void testApp::setup(){
 	http_get_timeout = json_settings["http_get_timeout"].asInt();
 	http_auth = json_settings["sources_auth"].asString();
 
-	controlbar.children.push_back(new ControlBar::Label("Mode:                  "));
+	
+	controlbar.children.push_back(new ControlBar::Button("Poll"));
+	controlbar.children.back()->disable();
+	controlbar.children.push_back(new ControlBar::Label("Mode:             "));
 	controlbar.children.push_back(new ControlBar::Button("Swap"));
-	controlbar.children.push_back(new ControlBar::Label("Next:                  "));
+	controlbar.children.push_back(new ControlBar::Button("Poll"));
+	controlbar.children.back()->disable();
+	controlbar.children.push_back(new ControlBar::Label("Next:             "));
 	for(int i=0;i<source_names.size();i++){
 		loaders.push_back(new AsyncHttpLoader());
 		loaders.back()->timeout = http_get_timeout;
@@ -169,17 +174,13 @@ void testApp::update(){
 	if(ofGetElapsedTimef() - lastConnectTime > polling_delay || lastConnectTime == 0){
 		
 		//do consecutive blocking calls
-		try{
-			for(int i=0;i<source_names.size();i++){
-				if(i!=modes[0] && i!=modes[1])continue;
-				if(loaders[i]->status==0){
-					loaders[i]->get(json_settings["sources"][source_names[i]].asString(),http_auth);
-				}else{
-					log(source_names[i] + " (previous network call not yet finished)",2);
-				}
+		for(int i=0;i<source_names.size();i++){
+			if(i!=modes[0] && i!=modes[1])continue;
+			
+			if(!json_settings["sources"][source_names[i]]["manual_poll"].asBool()){
+				poll(i);
 			}
-		}catch(logic_error err){
-			log("Error calling remote server -- network down?",1);
+			
 		}
 		
 		lastConnectTime = ofGetElapsedTimef();
@@ -200,25 +201,35 @@ void testApp::update(){
 		if(e.what=="mouseClicked" && e.obj->className=="Button"){
 				ControlBar::Button *b = (ControlBar::Button*)e.obj;
 			if(b->text!="Swap"){
-				//mode buttons
-				//set upcoming
-				modes[1] = (int)b->userData;
+				if(e.obj==controlbar.children[0]){
+					if(modes[0]!=-1)poll(modes[0]);
+					log("polled current mode",3);
+				}else if(e.obj==controlbar.children[3]){
+					if(modes[1]!=-1)poll(modes[1]);
+					log("polled next mode",3);
+					
+				}else{
 				
-				log(string("set upcoming mode to \"") + source_names[modes[1]] + "\"",3);
-				((ControlBar::Button*)controlbar.children[2])->text = string("Next: ") + source_names[modes[1]];
-				
-				ofxOscMessage m;
-				m.setAddress("/control/mode/next");
-				m.addStringArg(source_names[modes[1]]);
-				oscOut.sendMessage(m);
-				
+					//mode buttons
+					//set upcoming
+					modes[1] = (int)b->userData;
+					
+					log(string("set upcoming mode to \"") + source_names[modes[1]] + "\"",3);
+					((ControlBar::Button*)controlbar.children[4])->text = string("Next: ") + source_names[modes[1]];
+					
+					ofxOscMessage m;
+					m.setAddress("/control/mode/next");
+					m.addStringArg(source_names[modes[1]]);
+					oscOut.sendMessage(m);
+					updateEnabledButtons();
+				}
 			}else{
 				//do swap
 				if(modes[1] != -1){
 					modes[0] = modes[1];
 					
-					((ControlBar::Button*)controlbar.children[0])->text = string("Mode: ") + source_names[modes[1]];
-					((ControlBar::Button*)controlbar.children[2])->text = "Next:";
+					((ControlBar::Button*)controlbar.children[1])->text = string("Mode: ") + source_names[modes[1]];
+					((ControlBar::Button*)controlbar.children[4])->text = "Next:";
 
 					modes[1] = -1;
 					
@@ -227,13 +238,43 @@ void testApp::update(){
 					oscOut.sendMessage(m);
 					
 					log(string("swapped current mode to \"") + source_names[modes[0]] + "\"",3);
-					
+					updateEnabledButtons();
 				}else{
 					log("Swap error - you must first queue up an upcoming mode by pressing one of the buttons on the right",1);
 				}
 			}
 		}
 	}
+}
+//--------------------------------------------------------------
+
+void testApp::updateEnabledButtons(){
+	for(int i=0;i<2;i++){
+		
+		bool enabled = false;
+		
+		if(modes[i]!=-1){
+			enabled = json_settings["sources"][source_names[modes[i]]]["manual_poll"].asBool();
+		}
+		
+		ControlBar::Control *ctl = controlbar.children[i*3];
+		if(enabled)ctl->enable();
+		else ctl->disable();
+	}
+}
+
+//--------------------------------------------------------------
+void testApp::poll(int i){
+	try{
+		if(loaders[i]->status==0){
+			loaders[i]->get(json_settings["sources"][source_names[i]]["url"].asString(),http_auth);
+		}else{
+			log(source_names[i] + " (previous network call not yet finished)",2);
+		}
+	}catch(logic_error err){
+		log("Error calling remote server -- network down?",1);
+	}
+	
 }
 
 //--------------------------------------------------------------
@@ -314,6 +355,11 @@ void testApp::log(string s,int color=0){
 void testApp::populateBubble(ofxOscMessage &m,Json::Value &bubble){
 	m.addStringArg("queueID");
 	m.addStringArg(bubble["queueID"].asString());
+	m.addStringArg("polledGroup");
+	char numString[64];
+	sprintf(numString,"%i",ofGetFrameNum());
+	m.addStringArg(numString);
+	
 	m.addStringArg("profileImageURL");
 	m.addStringArg(bubble["profileImageURL"].asString());
 	m.addStringArg("userName");

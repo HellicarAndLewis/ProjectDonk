@@ -47,19 +47,20 @@ namespace ControlBar{
 		glTranslatef(rect.x,rect.y,0);
 		
 		glColor3f(0.25,0.25,0.25);
-		if(mouseIsHovering)glColor3f(0.4,0.4,0.4);
-		if(mouseIsDown)glColor3f(1,0.8,0);
+		if(enabled){
+			if(mouseIsHovering)glColor3f(0.4,0.4,0.4);
+			if(mouseIsDown)glColor3f(1,0.8,0);
+			drawRoundedRect(GL_TRIANGLE_FAN,rect.width,rect.height,BUTTON_RECT_RADIUS);
 		
-		drawRoundedRect(GL_TRIANGLE_FAN,rect.width,rect.height,BUTTON_RECT_RADIUS);
-				
-		if(mouseIsHovering){
-			if(mouseIsDown){
-				ofSetColor(255,255,220);
+			if(mouseIsHovering){
+				if(mouseIsDown){
+					ofSetColor(255,255,220);
+				}else{
+					ofSetColor(0,0,0);
+				}
 			}else{
-				ofSetColor(0,0,0);
+				ofSetColor(150,150,150);
 			}
-		}else{
-			ofSetColor(150,150,150);
 		}
 		
 		drawRoundedRect(GL_LINE_LOOP,rect.width,rect.height,BUTTON_RECT_RADIUS);
@@ -108,11 +109,20 @@ namespace ControlBar{
 		mouseIsDown = false;
 		className = "Control";
 		userData = NULL;
+		enabled = true;
 	}
 	Control::~Control(){
 		for(int i=0;i<children.size();i++){
 			delete children[i];
 		}
+	}
+	
+	void Control::enable(){
+		enabled = true;
+	}
+	
+	void Control::disable(){
+		enabled = false;
 	}
 	
 	void Control::draw(){
@@ -134,32 +144,37 @@ namespace ControlBar{
 		}
 	}
 	void Control::update(int mouseX,int mouseY){
-		mouseIsHovering = (mouseX > rect.x && mouseX < rect.x+rect.width &&
-		   mouseY > rect.y && mouseY < rect.y+rect.height);
-		for(int i=0;i<children.size();i++)children[i]->update(mouseX,mouseY);
+		if(enabled){
+			mouseIsHovering = (mouseX > rect.x && mouseX < rect.x+rect.width &&
+			   mouseY > rect.y && mouseY < rect.y+rect.height);
+			for(int i=0;i<children.size();i++)children[i]->update(mouseX,mouseY);
+		}
 	}
 	
 	bool Control::mouseDown(){
-		mouseIsDown = false;
-		
-		for(int i=0;i<children.size();i++){
-			if(children[i]->mouseDown())return true;
-		}
-		if(mouseIsHovering){
-			mouseIsDown = true;
-			return true;
+		if(enabled){
+			mouseIsDown = false;
+			
+			for(int i=0;i<children.size();i++){
+				if(children[i]->mouseDown())return true;
+			}
+			if(mouseIsHovering){
+				mouseIsDown = true;
+				return true;
+			}
 		}
 		return false;
 	}
 	
 	void Control::mouseUp(){
-		for(int i=0;i<children.size();i++){
-			children[i]->mouseUp();
-		}
-		if(mouseIsDown && mouseIsHovering){
-			eventQueue.push_back(Event(this,"mouseClicked"));
-		}
-		
+		if(enabled){
+			for(int i=0;i<children.size();i++){
+				children[i]->mouseUp();
+			}
+			if(mouseIsDown && mouseIsHovering){
+				eventQueue.push_back(Event(this,"mouseClicked"));
+			}
+		}		
 		mouseIsDown = false;
 	}
 	

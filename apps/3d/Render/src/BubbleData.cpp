@@ -83,6 +83,10 @@ namespace Donk{
 				mode = m.getArgAsString(index);
 			}else if(key=="queueID"){
 				id = m.getArgAsString(index);
+				
+			}else if(key=="polledGroup"){
+				polledGroup = m.getArgAsString(index);
+				
 			}else if(key=="profileImageURL"){
 				profileImageURL = m.getArgAsString(index);
 				

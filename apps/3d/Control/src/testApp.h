@@ -85,7 +85,8 @@ public:
 	string rendermachine_ip;
 	
 	/**
-		must be a pointer since it passes itself to a thread func
+		must be a pointer since it passes
+		itself to a thread func
 	 */
 	vector<AsyncHttpLoader*> loaders;
 	/**
@@ -110,6 +111,16 @@ public:
 		populate osc message with json bubble data
 	 */
 	void populateBubble(ofxOscMessage &m,Json::Value &bubble);
+	/**
+		poll a URL by source index
+	 */
+	void poll(int index);
+	/**
+		updates the poll buttons to be enabled
+		or disabled depending on the manual_poll
+		settings for that source
+	 */
+	void updateEnabledButtons();
 };
 
 #endif
