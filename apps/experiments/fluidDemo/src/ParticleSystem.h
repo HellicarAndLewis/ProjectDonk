@@ -11,7 +11,7 @@
 #include "ofMain.h"
 #include "Particle.h"
 
-#define MAX_PARTICLES		2000 //50000
+#define MAX_PARTICLES		3000 //50000
 
 using namespace MSA;
 
