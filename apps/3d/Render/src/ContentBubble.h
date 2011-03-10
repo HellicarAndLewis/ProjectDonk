@@ -36,8 +36,13 @@ public:
 	float				 touchAlpha, touchAlphaTarget;
 	bool				 bTouched, bDoubleTouched;
 	int					 touchID;
-	
+	float				 birthDate, age;
 	bool				 bAlive;
+	
+	
+	// --------------------------------- things useing in performance
+	int					 performceImageID;
+	int					 performanceChannel;
 	
 	// ---------------------------------
 	ContentBubble();
@@ -45,6 +50,9 @@ public:
 	// ---------------------------------
 	void doubleTouched();
 	void setRadius(float r);
+	ofVec3f getPosition();
+	void addForce(float x, float y, float z=0, float scale=1.0);
+	void addAtrractionForce(float x, float y, float z=0, float scale=1.0);
 	
 	// ---------------------------------
 	void createContentBubble();
@@ -54,6 +62,8 @@ public:
 	
 	void pushBubble();
 	void popBubble();
+	void pushBillboard();
+	void popBillboard();
 	
 	virtual void drawTwitterData();
 	virtual void drawHighLight();

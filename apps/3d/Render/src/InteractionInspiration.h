@@ -17,6 +17,7 @@ public:
 	
 	InteractionInspiration() {
 		mode = MODE_INSPIRATION;
+		name = "inspiration";
 	}
 	
 	//--------------------------------------------------------

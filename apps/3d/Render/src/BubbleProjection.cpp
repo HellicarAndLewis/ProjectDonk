@@ -61,6 +61,7 @@ void BubbleProjection::setup() {
 
 //--------------------------------------------------------
 void BubbleProjection::interactionModeChange(string modeName) {
+	
 	printf("The New Interaction Mode: %s\n", modeName.c_str());	
 	
 	if(activeInteraction) {
@@ -72,6 +73,7 @@ void BubbleProjection::interactionModeChange(string modeName) {
 	int mode = -1;
 	if(modeName == "buzz")				 mode = MODE_BUZZ;
 	else if(modeName == "inspiration")   mode = MODE_INSPIRATION;
+	else if(modeName == "performance")   mode = MODE_PERFORMANCE;
 	
 	if(mode != -1) {
 		activeInteraction = interactions[mode];
@@ -84,7 +86,7 @@ void BubbleProjection::update() {
 	
 	
 	// ******* DEBUG	  *******
-	if(DEBUG_INTERATIONS) {
+	/*if(DEBUG_INTERATIONS) {
 		
 		if(debugCount < 10) {
 			if(ofGetFrameNum() % 20==0) {
@@ -122,7 +124,7 @@ void BubbleProjection::update() {
 				debugCount ++;
 			}
 		}
-	}
+	}*/
 	// ******* END DEBUG  *******
 	
 	
@@ -135,7 +137,7 @@ void BubbleProjection::update() {
 		previousInteraction->nTouches = touches.size();
 		previousInteraction->update();
 		if(previousInteraction->bDoneAnimatingOut && previousInteraction->bAnimateOut) {
-			printf("done animating out: %i\n", previousInteraction->mode);
+			printf(" *** done animating out: %s ***\n", previousInteraction->name.c_str());
 			previousInteraction = NULL;
 		}
 		
@@ -233,7 +235,8 @@ void BubbleProjection::draw() {
 //--------------------------------------------------------
 /** A bubble was just received */
 void BubbleProjection::bubbleReceived(Donk::BubbleData *bubbleData) {
-	printf("%s %s\n", bubbleData->text.c_str(), bubbleData->userName.c_str());
+	
+	// printf("%s %s\n", bubbleData->text.c_str(), bubbleData->userName.c_str());
 	
 	/*
 	 ofVec3f center(getWidth()/2, 0, 0);

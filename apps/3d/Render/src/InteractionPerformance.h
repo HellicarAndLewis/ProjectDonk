@@ -10,21 +10,33 @@
 
 #pragma once
 #include "BaseInteraction.h"
+#include "AudioData.h"
+#include "ofxDirList.h"
 
 class InteractionPerformance : public BaseInteraction {
 	
 	
 public:
 	
+	Donk::AudioData *	audio;
+	float *				freq; 
+	int					nBands;
+	vector	<ofImage>	images;
+	
+	//--------------------------------------------------------
 	InteractionPerformance() {
 		mode = MODE_PERFORMANCE;
+		name = "performance";
 	}
 	
 	//--------------------------------------------------------
+	void setup();
 	void update();
+	
 	void newBubbleRecieved(Donk::BubbleData * data);
 	void drawContent();
 	void drawSphere(BubbleShader * shader);
+	
 	void animatedOut();
 	void animatedIn();	
 };

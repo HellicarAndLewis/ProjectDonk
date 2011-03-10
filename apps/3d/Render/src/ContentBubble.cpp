@@ -50,6 +50,7 @@ void ContentBubble::createContentBubble() {
 	}
 	
 	bAlive = true;
+	birthDate = ofGetElapsedTimeMillis();
 }
 
 //--------------------------------------------------------------
@@ -73,6 +74,26 @@ void ContentBubble::gotoTarget() {
 }
 
 //--------------------------------------------------------------
+ofVec3f ContentBubble::getPosition() {
+	if(rigidBody->isBody()) {
+		return rigidBody->getPosition();
+	}
+}
+
+//--------------------------------------------------------------
+void ContentBubble::addForce(float x, float y, float z, float scale) {
+	if(rigidBody->isBody()) {
+		
+		// rigidBody->body->setDamping(0.99, 0.99); // <-- add some crazy damping
+		
+		ofVec3f frc = ofVec3f(x, y, z) * scale;
+		rigidBody->body->clearForces();
+		rigidBody->body->applyCentralForce(btVector3(frc.x, frc.y, frc.z));
+		
+	}	
+}
+
+//--------------------------------------------------------------
 void ContentBubble::goOffScreen() {
 	if(rigidBody->isBody()) {
 		
@@ -82,6 +103,24 @@ void ContentBubble::goOffScreen() {
 		distanceToTarget = frc.length();
 		float d = ABS(distanceToTarget);
 		d *= 20.0;
+		frc.normalize();
+		frc *= d;
+		
+		rigidBody->body->clearForces();
+		rigidBody->body->applyCentralForce(btVector3(frc.x, frc.y, frc.z));
+		
+	}
+}
+
+
+//--------------------------------------------------------------
+void ContentBubble::addAtrractionForce(float x, float y, float z, float scale) {
+	if(rigidBody->isBody()) {
+		
+		ofVec3f frc = ofVec3f(x, y, z) - rigidBody->getBulletPosition();
+		distanceToTarget = frc.length();
+		float d = ABS(distanceToTarget);
+		d *= scale;
 		frc.normalize();
 		frc *= d;
 		
@@ -118,36 +157,41 @@ void ContentBubble::update() {
 		rotateYTarget = 0;
 	}
 	
-}
-
-//--------------------------------------------------------------
-void ContentBubble::pushBubble() {
+	age = ofGetElapsedTimeMillis()-birthDate;
+	
 	
 	if(rigidBody->isBody()) {
 		
 		pos = rigidBody->getPosition();
 		rigidBody->body->getWorldTransform().getOpenGLMatrix(m);		
 		btSphereShape * sphereShape = (btSphereShape*)rigidBody->shape;
+		
 		//radius doesn't include the margin, so draw with margin
 		radius = sphereShape->getMargin();
-		
-		glPushMatrix();
-		glMultMatrixf(m);
 		
 		// create the billboard matrix
 		for (int i=0; i<16; i++) {
 			billboadMatrix[i] = m[i];
 		}
-
+		
 		// ripped from here
 		// http://lighthouse3d.com/opengl/billboarding/index.php?billCheat
 		for(int i=0; i<3; i++ ) {
 			for(int j=0; j<3; j++ ) {
-				if ( i==j ) billboadMatrix[i*4+j] = 1.0;
+				if ( i==j)  billboadMatrix[i*4+j] = 1.0;
 				else		billboadMatrix[i*4+j] = 0.0;
 			}
 		}
-		
+	}
+}
+
+//--------------------------------------------------------------
+void ContentBubble::pushBubble() {
+	
+	if(rigidBody->isBody()) {
+	
+		glPushMatrix();
+		glMultMatrixf(m);
 		
 	}
 	
@@ -160,6 +204,19 @@ void ContentBubble::popBubble() {
 	}
 	
 }
+
+
+//--------------------------------------------------------------
+void ContentBubble::pushBillboard() {
+	glPushMatrix();
+	glMultMatrixf(billboadMatrix);
+}
+
+//--------------------------------------------------------------
+void ContentBubble::popBillboard() {
+	glPopMatrix();
+}
+
 
 //--------------------------------------------------------------
 void ContentBubble::drawTwitterData() {
@@ -225,7 +282,7 @@ void ContentBubble::drawHighLight() {
 	
 	glPushMatrix();
 	glMultMatrixf(billboadMatrix);
-
+	
 	
 	// little touch outline...
 	ofEnableAlphaBlending();

@@ -25,7 +25,6 @@ public:
 	ofColor	color, colorDes;
 	float	radius, radiusDes;
 	bool	bDraw;
-	
 	BubbleTouch * secondTouch;
 	
 	BubbleTouch() {
@@ -43,6 +42,7 @@ public:
 	
 	void update() {
 		if(!bDraw) return;
+		
 		
 		// the of color class is weird clamp crap! (ill do it myself?)
 		color.r		 += (colorDes.r-color.r) * 0.2;

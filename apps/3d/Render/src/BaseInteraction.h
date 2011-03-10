@@ -35,6 +35,7 @@ public:
 	bool		bDoneAnimatingOut, bDoneAnimatingIn;
 	bool		bAnimateOut, bAnimateIn;
 	int			nTouches;
+	string		name;	// for debug printing
 	
 	BaseInteraction()  {
 		bullet			  = NULL;
@@ -49,7 +50,7 @@ public:
 	~BaseInteraction() {}
 	
 	virtual void setup()  {}
-	virtual void draw()   {};
+	virtual void draw()   {}
 	virtual void doubleTouched(ofVec2f touchpos) {}
 	
 	// required!

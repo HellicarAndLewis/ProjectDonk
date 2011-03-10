@@ -137,7 +137,7 @@ void InteractionInspiration::doubleTouched(ofVec2f touchpos) {
 		float	dis = p1.distance(p2);
 		
 		if(dis < bubble->radius + 10.0) {
-			bubble->setRadius(120);
+			bubble->setRadius(150);
 			bubble->doubleTouched();
 			printf("hit this bubble: %p\n", bubble);
 			break;

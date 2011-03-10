@@ -171,6 +171,7 @@
 		5FF09D7E13180C67009A416F /* btQuickprof.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FF09CD413180C67009A416F /* btQuickprof.cpp */; };
 		5FF09D7F13180C67009A416F /* ofxBullet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FF09CE213180C67009A416F /* ofxBullet.cpp */; };
 		5FF09D8213180C67009A416F /* ofxBulletRigidBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FF09CE913180C67009A416F /* ofxBulletRigidBody.cpp */; };
+		5FFBEFC3132952AC009FBC1A /* ofxDirList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FFBEFC1132952AC009FBC1A /* ofxDirList.cpp */; };
 		8101E0DC1326F611003E1834 /* BuzzContainerBubble.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8101E0DA1326F611003E1834 /* BuzzContainerBubble.cpp */; };
 		810A07CA1324A5C7008AEE7A /* BubbleShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 810A07C91324A5C7008AEE7A /* BubbleShader.cpp */; };
 		81313BE71316160E000F5CD2 /* base64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81313BE51316160E000F5CD2 /* base64.cpp */; };
@@ -718,6 +719,10 @@
 		5FF09CEA13180C67009A416F /* ofxBulletRigidBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBulletRigidBody.h; sourceTree = "<group>"; };
 		5FF09CEB13180C67009A416F /* ofxBulletUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBulletUtils.h; sourceTree = "<group>"; };
 		5FFBED17132931AC009FBC1A /* BubbleTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BubbleTouch.h; sourceTree = "<group>"; };
+		5FFBEFBE132952AC009FBC1A /* Instructions.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Instructions.txt; sourceTree = "<group>"; };
+		5FFBEFBF132952AC009FBC1A /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = install.xml; sourceTree = "<group>"; };
+		5FFBEFC1132952AC009FBC1A /* ofxDirList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxDirList.cpp; sourceTree = "<group>"; };
+		5FFBEFC2132952AC009FBC1A /* ofxDirList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxDirList.h; sourceTree = "<group>"; };
 		8101E0D11326F410003E1834 /* Champagne.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Champagne.h; sourceTree = "<group>"; };
 		8101E0DA1326F611003E1834 /* BuzzContainerBubble.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BuzzContainerBubble.cpp; sourceTree = "<group>"; };
 		8101E0DB1326F611003E1834 /* BuzzContainerBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuzzContainerBubble.h; sourceTree = "<group>"; };
@@ -1741,6 +1746,34 @@
 			name = "Bubble Projection";
 			sourceTree = "<group>";
 		};
+		5FFBEFBC132952AC009FBC1A /* ofxDirList */ = {
+			isa = PBXGroup;
+			children = (
+				5FFBEFBD132952AC009FBC1A /* doc */,
+				5FFBEFBF132952AC009FBC1A /* install.xml */,
+				5FFBEFC0132952AC009FBC1A /* src */,
+			);
+			name = ofxDirList;
+			path = ../../../addons/ofxDirList;
+			sourceTree = SOURCE_ROOT;
+		};
+		5FFBEFBD132952AC009FBC1A /* doc */ = {
+			isa = PBXGroup;
+			children = (
+				5FFBEFBE132952AC009FBC1A /* Instructions.txt */,
+			);
+			path = doc;
+			sourceTree = "<group>";
+		};
+		5FFBEFC0132952AC009FBC1A /* src */ = {
+			isa = PBXGroup;
+			children = (
+				5FFBEFC1132952AC009FBC1A /* ofxDirList.cpp */,
+				5FFBEFC2132952AC009FBC1A /* ofxDirList.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		8101E0D51326F418003E1834 /* Beauty */ = {
 			isa = PBXGroup;
 			children = (
@@ -1877,6 +1910,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				5FFBEFBC132952AC009FBC1A /* ofxDirList */,
 				5D04B67D1328F5660082AFA4 /* msaFluidSlim */,
 				5FDBD62413240A2100A02A05 /* ofxCubeMap */,
 				1F37C4FC1318170D00AE17C7 /* ofxMacKeys */,
@@ -2836,6 +2870,7 @@
 				5D04B6871328F5660082AFA4 /* MSAFluidSolver.cpp in Sources */,
 				5D04B68C1328F58D0082AFA4 /* Particle.cpp in Sources */,
 				5D04B68D1328F58D0082AFA4 /* ParticleSystem.cpp in Sources */,
+				5FFBEFC3132952AC009FBC1A /* ofxDirList.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
