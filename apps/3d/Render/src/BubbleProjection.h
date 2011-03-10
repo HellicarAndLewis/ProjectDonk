@@ -21,6 +21,8 @@
 #include "InteractionPerformance.h"
 
 #include "Champagne.h"
+#include "BubbleTouch.h"
+
 
 class BubbleProjection: public ProjectedRect {
 
@@ -97,10 +99,10 @@ private:
 	void doubleTouchGesture(int touch1Id, int touch2Id);
 	
 	/** This is a local copy of the current touches */
-	map<int,ofVec2f> touches;
+	map<int,BubbleTouch> touches;
 	
 	/** Convenience so you don't have to keep typing it */
-	map<int,ofVec2f>::iterator tIt;
+	map<int,BubbleTouch>::iterator tIt;
 	
 	/** champagne bubbles */
 	Champagne champagne;

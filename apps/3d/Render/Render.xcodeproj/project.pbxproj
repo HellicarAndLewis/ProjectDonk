@@ -192,7 +192,7 @@
 		E45BE9830E8CC7DD009D7055 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9790E8CC7DD009D7055 /* OpenGL.framework */; };
 		E45BE9840E8CC7DD009D7055 /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE97A0E8CC7DD009D7055 /* QuickTime.framework */; };
 		E4B69E210A3A1BDC003C02F2 /* testApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */; };
-		E4C2422B10CC554B004149E2 /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2421E10CC549C004149E2 /* openFrameworksDebug.a */; };
+		E4C2422B10CC554B004149E2 /* openFrameworks.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2421E10CC549C004149E2 /* openFrameworks.a */; };
 		E4C2424710CC5A17004149E2 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424410CC5A17004149E2 /* AppKit.framework */; };
 		E4C2424810CC5A17004149E2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424510CC5A17004149E2 /* Cocoa.framework */; };
 		E4C2424910CC5A17004149E2 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424610CC5A17004149E2 /* IOKit.framework */; };
@@ -717,6 +717,7 @@
 		5FF09CE913180C67009A416F /* ofxBulletRigidBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBulletRigidBody.cpp; sourceTree = "<group>"; };
 		5FF09CEA13180C67009A416F /* ofxBulletRigidBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBulletRigidBody.h; sourceTree = "<group>"; };
 		5FF09CEB13180C67009A416F /* ofxBulletUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBulletUtils.h; sourceTree = "<group>"; };
+		5FFBED17132931AC009FBC1A /* BubbleTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BubbleTouch.h; sourceTree = "<group>"; };
 		8101E0D11326F410003E1834 /* Champagne.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Champagne.h; sourceTree = "<group>"; };
 		8101E0DA1326F611003E1834 /* BuzzContainerBubble.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BuzzContainerBubble.cpp; sourceTree = "<group>"; };
 		8101E0DB1326F611003E1834 /* BuzzContainerBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuzzContainerBubble.h; sourceTree = "<group>"; };
@@ -970,7 +971,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E4C2422B10CC554B004149E2 /* openFrameworksDebug.a in Frameworks */,
+				E4C2422B10CC554B004149E2 /* openFrameworks.a in Frameworks */,
 				E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */,
 				E45BE97C0E8CC7DD009D7055 /* ApplicationServices.framework in Frameworks */,
 				E45BE97D0E8CC7DD009D7055 /* AudioToolbox.framework in Frameworks */,
@@ -1726,6 +1727,20 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		5FFBED19132931DF009FBC1A /* Bubble Projection */ = {
+			isa = PBXGroup;
+			children = (
+				EAFA578B1316834D00714F88 /* BubbleProjection.h */,
+				EAFA578C1316834D00714F88 /* BubbleProjection.cpp */,
+				5FFBED17132931AC009FBC1A /* BubbleTouch.h */,
+				5FC27C0813196E13005F76C7 /* ContentBubble.h */,
+				5FC27C0913196E13005F76C7 /* ContentBubble.cpp */,
+				5F586E16132541B8000E5FB7 /* TouchedConstraint.cpp */,
+				5F586E17132541B8000E5FB7 /* TouchedConstraint.h */,
+			);
+			name = "Bubble Projection";
+			sourceTree = "<group>";
+		};
 		8101E0D51326F418003E1834 /* Beauty */ = {
 			isa = PBXGroup;
 			children = (
@@ -1918,14 +1933,9 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				5FC27C0813196E13005F76C7 /* ContentBubble.h */,
-				5FC27C0913196E13005F76C7 /* ContentBubble.cpp */,
-				5F586E16132541B8000E5FB7 /* TouchedConstraint.cpp */,
-				5F586E17132541B8000E5FB7 /* TouchedConstraint.h */,
-				EAFA578B1316834D00714F88 /* BubbleProjection.h */,
-				EAFA578C1316834D00714F88 /* BubbleProjection.cpp */,
 				EAFA581C13168B3B00714F88 /* CalibrationProjection.h */,
 				EAFA581D13168B3B00714F88 /* CalibrationProjection.cpp */,
+				5FFBED19132931DF009FBC1A /* Bubble Projection */,
 				8101E0E11326F6EB003E1834 /* Data */,
 				5FDBD72813244A6500A02A05 /* Interactions */,
 				8101E0D51326F418003E1834 /* Beauty */,
@@ -1939,7 +1949,7 @@
 		E4C2421710CC549C004149E2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E4C2421E10CC549C004149E2 /* openFrameworksDebug.a */,
+				E4C2421E10CC549C004149E2 /* openFrameworks.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2564,10 +2574,10 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		E4C2421E10CC549C004149E2 /* openFrameworksDebug.a */ = {
+		E4C2421E10CC549C004149E2 /* openFrameworks.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = openFrameworksDebug.a;
+			path = openFrameworks.a;
 			remoteRef = E4C2421D10CC549C004149E2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};

@@ -14,7 +14,7 @@
 
 
 #define DEBUG_INTERATIONS 1
-
+int		debugCount = 0;
 //--------------------------------------------------------
 BubbleProjection::BubbleProjection() {
 	interactiveArea     = ofRectangle(100,100,900,500);
@@ -48,44 +48,6 @@ void BubbleProjection::setup() {
 	// we will get an event that tells us the mode
 	
 	activeInteraction   = interactions[MODE_BUZZ];//INSPIRATION];
-	
-	
-	// this is just for testing - need to get a bunch of bubbles on screen
-	if(DEBUG_INTERATIONS) {
-		for (int i=0; i<3; i++) {
-			ofxOscMessage m;
-			Donk::BubbleData *data = new Donk::BubbleData(m);
-			data->mode = "inspiration";
-			data->id = "39A5D49FE5";
-			switch((int)ofRandom(5)) {
-				case 0: data->text = "This is test 1"; break;
-				case 1: data->text = "Bubble bubble bubble"; break;
-				case 2: data->text = "Project donk here"; break;
-				case 3: data->text = "Who is this Maroon 5 band anyway?"; break;
-				case 4: data->text = "MMmmm... brown sticky liquid!"; break;
-			}
-			switch((int)ofRandom(5)) {
-				case 0: data->userName = "mazbox"; break;
-				case 1: data->userName = "cokeMe!"; break;
-				case 2: data->userName = "DeadSaxon"; break;
-				case 3: data->userName = "bluntInstrument"; break;
-				case 4: data->userName = "timeteam"; break;
-			}
-			
-			
-			data->media.push_back(Donk::BubbleData::MediaEntry());
-			data->media.back().mediaImage.loadImage("lena.png");
-			data->media.back().thumbImage = data->media.back().mediaImage;
-			data->media.back().thumbImage.resize(128, 128);
-			
-			data->profileImage.loadImage("lena.png");
-			
-			// now add to the active interaction
-			activeInteraction->newBubbleRecieved(data);
-		}
-		
-	}
-	
 	activeInteraction->animatedIn();
 	
 	
@@ -121,6 +83,53 @@ void BubbleProjection::interactionModeChange(string modeName) {
 void BubbleProjection::update() {
 	
 	
+	// ******* DEBUG	  *******
+	if(DEBUG_INTERATIONS) {
+		
+		if(debugCount < 10) {
+			if(ofGetFrameNum() % 20==0) {
+				
+				ofxOscMessage m;
+				Donk::BubbleData *data = new Donk::BubbleData(m);
+				data->mode = "inspiration";
+				data->id = "39A5D49FE5";
+				switch((int)ofRandom(5)) {
+					case 0: data->text = "This is test 1"; break;
+					case 1: data->text = "Bubble bubble bubble"; break;
+					case 2: data->text = "Project donk here"; break;
+					case 3: data->text = "Who is this Maroon 5 band anyway?"; break;
+					case 4: data->text = "MMmmm... brown sticky liquid!"; break;
+				}
+				switch((int)ofRandom(5)) {
+					case 0: data->userName = "mazbox"; break;
+					case 1: data->userName = "cokeMe!"; break;
+					case 2: data->userName = "DeadSaxon"; break;
+					case 3: data->userName = "bluntInstrument"; break;
+					case 4: data->userName = "timeteam"; break;
+				}
+				
+				
+				data->media.push_back(Donk::BubbleData::MediaEntry());
+				data->media.back().mediaImage.loadImage("lena.png");
+				data->media.back().thumbImage = data->media.back().mediaImage;
+				data->media.back().thumbImage.resize(128, 128);
+				
+				data->profileImage.loadImage("lena.png");
+				
+				// now add to the active interaction
+				activeInteraction->newBubbleRecieved(data);
+				
+				debugCount ++;
+			}
+		}
+	}
+	// ******* END DEBUG  *******
+	
+	
+	
+	// -------------------
+	// Previous Interaction
+	// -------------------
 	if(previousInteraction) {
 		
 		previousInteraction->nTouches = touches.size();
@@ -132,11 +141,26 @@ void BubbleProjection::update() {
 		
 		
 	}
+
+	// -------------------
+	// Active Interaction
+	// -------------------
 	if(activeInteraction) {
 		activeInteraction->nTouches = touches.size();
 		activeInteraction->update();
 	}
 	
+	// -------------------
+	// Update the touches
+	// -------------------
+	for(tIt = touches.begin(); tIt!=touches.end(); tIt++) {
+		(*tIt).second.update();
+	}
+	
+	
+	// -------------------
+	// Bullet etc...
+	// -------------------
 	bullet.update();
 	bubbleShader.update();
 	champagne.update();
@@ -176,77 +200,30 @@ void BubbleProjection::draw() {
 	}
 	
 	champagne.draw();
-
-	
-	//draw bubbles
-	//glPushMatrix();
-	//ofRectangle *rect = testApp::instance->calibrationProjection.rect;
-	//glTranslatef(rect->x + rect->width/2,rect->y + rect->height/2,0);
-	//Donk::BubbleData::render();
-	//glPopMatrix();
 	
 	
-	// --------------------------------------------
+	// -------------------
 	if(previousInteraction) {
 		previousInteraction->drawContent();
 		previousInteraction->drawSphere(&bubbleShader);
 	}
+	
+	// -------------------
 	if(activeInteraction)   {
 		activeInteraction->drawContent();
 		activeInteraction->drawSphere(&bubbleShader);
 	}
 	
 	
-	/*
-	 // ---------------------
-	 // Bubbles
-	 // ---------------------
-	 glPushMatrix();
-	 glTranslatef(0, 0, 0);
-	 for(int i=0; i<bubbles.size(); i++) {
-	 
-	 // billboarded layers
-	 bubbles[i]->drawHighLight();
-	 bubbles[i]->drawTwitterData();
-	 
-	 //shader sphere
-	 bubbles[i]->pushBubble();
-	 bubbleShader.begin();
-	 bubbles[i]->draw();
-	 bubbleShader.end();
-	 bubbles[i]->popBubble();
-	 
-	 
-	 }
-	 glPopMatrix();
-	 */
 	
+	// -------------------
 	// draw touches
-	int touchInc = 0;
+	// -------------------
 	for(tIt = touches.begin(); tIt!=touches.end(); tIt++) {
-		
-		ofVec2f pos = mapToInteractiveArea((*tIt).second);
-		//ofFill();
-		ofSetColor(255.0, (touchInc%2)*255.0, 0, 128);
-		ofNoFill();
-		glLineWidth(10);
-		glPushMatrix();
-		glTranslatef(pos.x,pos.y,0);
-		glBegin(GL_LINES);
-		glVertex2f(-20,   0);
-		glVertex2f( 20,   0);
-		glVertex2f(  0, -20);
-		glVertex2f(  0,  20);
-		glEnd();
-		glPopMatrix();
-		
-		ofSetColor(255, 0, 0);
-		ofDrawBitmapString(ofToString(touchInc), pos.x, pos.y);
-		touchInc ++;
-		// cout << "touch " << pos.x << " " << pos.y << endl;
+		ofVec2f tp = mapToInteractiveArea((*tIt).second.getPosition());
+		(*tIt).second.drawTouch(tp);
 	}
 	
-	glLineWidth(1);	
 	
 	
 }
@@ -282,7 +259,6 @@ void BubbleProjection::bubbleReceived(Donk::BubbleData *bubbleData) {
 ofRectangle &BubbleProjection::getInteractiveArea() {
 	return interactiveArea;
 }
-
 
 //--------------------------------------------------------
 void BubbleProjection::addTouchConstraints(ContentBubble * bubble) {
@@ -322,11 +298,10 @@ void BubbleProjection::removeTouchConstraint(ContentBubble * bubble) {
 	// printf("Touch Constraint Size:%i\n", (int)touchConstraints.size());
 }
 
-
 //--------------------------------------------------------
 void BubbleProjection::touchDown(float x, float y, int touchId) {
 	
-	cout << touchId << endl;
+	// cout << touchId << endl;
 	
 	ofVec2f touchCoords(x, y);
 	ofVec2f pos = mapToInteractiveArea(touchCoords);
@@ -367,11 +342,11 @@ void BubbleProjection::touchDown(float x, float y, int touchId) {
 	
 	// find the closest point to the new touch
 	float minSqrDist = FLT_MAX; // do squares
-	int minTouchId = -1;
+	int minTouchId   = -1;
 	
 	for(tIt = touches.begin(); tIt!=touches.end(); tIt++) {
-		float sqrDist = touchCoords.squareDistance((*tIt).second);
-		if(sqrDist<minSqrDist) {
+		float sqrDist = touchCoords.squareDistance((*tIt).second.getPosition());
+		if(sqrDist < minSqrDist) {
 			minTouchId = (*tIt).first;
 			minSqrDist = sqrDist;
 		}
@@ -382,9 +357,10 @@ void BubbleProjection::touchDown(float x, float y, int touchId) {
 	float doubleTouchDist = 0.1;
 	
 	// add the touch
-	touches[touchId] = touchCoords;
+	touches[touchId].setPosition( touchCoords );
+	
 	// if there's another touch, and it's close enough, call doubleTouchGesture
-	if(minTouchId!=-1 && sqrt(minSqrDist)<doubleTouchDist) { 
+	if(minTouchId!=-1 && sqrt(minSqrDist) < doubleTouchDist) { 
 		doubleTouchGesture(touchId, minTouchId);
 	}
 	
@@ -393,11 +369,14 @@ void BubbleProjection::touchDown(float x, float y, int touchId) {
 //--------------------------------------------------------
 void BubbleProjection::touchMoved(float x, float y, int touchId) {
 	
-	touches[touchId] = ofVec2f(x, y);
-	ofVec2f pos = mapToInteractiveArea(ofVec2f(x, y));
+	cout << touchId << endl;
+
 	
+	ofVec2f p(x, y);
+	touches[touchId].setPosition( p );
+	ofVec2f pos = mapToInteractiveArea( p );
 	
-	
+
 	if(activeInteraction) {
 		
 		// first we check to see if any bubbles are using 
@@ -411,11 +390,11 @@ void BubbleProjection::touchMoved(float x, float y, int touchId) {
 			}
 		}
 		
-	
-		for(int i=0; i<activeInteraction->bubbles.size(); i++) {
 		
+		for(int i=0; i<activeInteraction->bubbles.size(); i++) {
+			
 			ContentBubble * bubble = activeInteraction->bubbles[i];
-
+			
 			// update the interaction touch constraints
 			for (int j=0; j<touchConstraints.size(); j++) {
 				TouchedConstraint * tc = touchConstraints[j];
@@ -428,7 +407,7 @@ void BubbleProjection::touchMoved(float x, float y, int touchId) {
 				ofVec2f p1  = pos;
 				ofVec2f p2  = bubble->rigidBody->getPosition();
 				float	dis = p1.distance(p2);
-
+				
 				if(dis < bubble->radius+touchPadding && !bubble->bTouched) {
 					bubble->touchID = touchId;
 					addTouchConstraints(bubble);
@@ -464,7 +443,8 @@ void BubbleProjection::touchUp(float x, float y, int touchId) {
 	}
 	
 	// remove old touches...
-	if(touches.find(touchId)!=touches.end()) {
+	if(touches.find(touchId) != touches.end()) {
+		printf("remove touch: %i\n", touchId);
 		touches.erase(touchId);
 	}
 }
@@ -478,9 +458,25 @@ ofVec2f BubbleProjection::mapToInteractiveArea(ofVec2f inPoint) {
 //--------------------------------------------------------
 void BubbleProjection::doubleTouchGesture(int touch1Id, int touch2Id) {
 	
-	ofVec2f doubleTouchCenter = (touches[touch1Id] + touches[touch2Id])/2;
+	printf("%i %i\n", touch1Id, touch2Id);
+	
+	ofVec2f doubleTouchCenter = (touches[touch1Id].getPosition() + touches[touch2Id].getPosition())/2;
+	
+	// fade out this touch we are not using it 
+	// anymore cause we have a double gesture
+	touches[touch2Id].touchAlphaDes = 0;
+	touches[touch2Id].radiusDes = 0;
+	
+	touches[touch1Id].secondTouch = &touches[touch2Id];
+	touches[touch1Id].setPosition(doubleTouchCenter); 
+	touches[touch1Id].enableGesture();
+	
+	
+	
+	// map for the active interaction
 	doubleTouchCenter = mapToInteractiveArea(doubleTouchCenter);
 	
+	// send the active interaction the double gesture!
 	if(activeInteraction) {
 		activeInteraction->doubleTouched(doubleTouchCenter);	
 	}

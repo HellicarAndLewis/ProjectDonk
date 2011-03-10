@@ -42,6 +42,8 @@ void testApp::update(){
 	
 	ofSetWindowTitle(ofToString(ofGetFrameRate(), 2) + "fps,  " + ofToString(ofGetWindowSize().x) + "x"+ofToString(ofGetWindowSize().y));
 	
+	
+	
 }
 
 
@@ -145,12 +147,29 @@ void testApp::keyPressed(int key){
 		projection->bubbleReceived(data);
 	}
 
-
+	
+	
+	if(!bDidFakeSecondTouch && key == 'x') {
+		ofTouchEventArgs t;
+		t.id = 1;
+		t.x = (float)mouseX/ofGetWidth();
+		t.y = (float)mouseY/ofGetHeight();
+ 		touchDown(t);
+		bDidFakeSecondTouch = true;
+	}
 }
 
 //--------------------------------------------------------------
 void testApp::keyReleased(int key){
 
+	if(bDidFakeSecondTouch) {
+		ofTouchEventArgs t;
+		t.id = 1;
+		t.x = (float)mouseX/ofGetWidth();
+		t.y = (float)mouseY/ofGetHeight();
+ 		touchUp(t);
+		bDidFakeSecondTouch = false;
+	}
 }
 
 //--------------------------------------------------------------
@@ -167,10 +186,10 @@ void testApp::mouseDragged(int x, int y, int button){
 	t.id = button;
 	touchMoved(t);
 	
-	if(ofxMacShiftKeyDown()) {
+	if(ofGetKeyPressed('x')) {
 		
 		t.id ++;
-		float pct = 40.0 * ((float)x/(float)ofGetWidth());
+		float pct = 100.0 * ((float)x/(float)ofGetWidth());
 		t.x = (float)(x-pct)/ofGetWidth();
 		t.y = (float)y/ofGetHeight();
 		if(!bDidFakeSecondTouch) {
@@ -190,7 +209,7 @@ void testApp::mousePressed(int x, int y, int button){
 	t.id = button;
 	touchDown(t);
 	
-	if(ofxMacShiftKeyDown()) {
+	if(ofGetKeyPressed('x')) {
 		t.id = 1;
 		t.x = (float)(x-50.0)/ofGetWidth();
 		t.y = (float)y/ofGetHeight();
@@ -201,6 +220,7 @@ void testApp::mousePressed(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mouseReleased(int x, int y, int button){
+	
 	ofTouchEventArgs t;
 	t.x = (float)x/ofGetWidth();
 	t.y = (float)y/ofGetHeight();
@@ -208,7 +228,7 @@ void testApp::mouseReleased(int x, int y, int button){
 	touchUp(t);
 	
 	if(bDidFakeSecondTouch) {
-		t.id ++;
+		t.id = 1;
 		t.x = (float)(x-50.0)/ofGetWidth();
 		t.y = (float)y/ofGetHeight();
  		touchUp(t);
