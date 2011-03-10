@@ -56,6 +56,7 @@ void InteractionInterview::update() {
 //--------------------------------------------------------
 void InteractionInterview::drawContent() {
 	
+	
 	for(int i=0; i<bubbles.size(); i++) {
 		bubbles[i]->drawHighLight();
 		bubbles[i]->drawTwitterData();
@@ -64,6 +65,7 @@ void InteractionInterview::drawContent() {
 
 //--------------------------------------------------------
 void InteractionInterview::drawSphere(BubbleShader * shader) {
+	
 	for(int i=0; i<bubbles.size(); i++) {
 		bubbles[i]->pushBubble();
 		shader->begin();

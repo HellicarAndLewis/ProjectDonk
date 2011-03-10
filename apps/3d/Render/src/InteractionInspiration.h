@@ -20,6 +20,8 @@ public:
 		name = "inspiration";
 	}
 	
+	float timeAnimateOut;
+	
 	//--------------------------------------------------------
 	void update();
 	void newBubbleRecieved(Donk::BubbleData * data);

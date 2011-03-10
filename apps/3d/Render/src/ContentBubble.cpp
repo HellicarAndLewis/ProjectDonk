@@ -241,6 +241,7 @@ void ContentBubble::popBillboard() {
 
 //--------------------------------------------------------------
 void ContentBubble::drawTwitterData() {
+	glEnable(GL_DEPTH_TEST);
 	glPushMatrix();
 	glMultMatrixf(billboadMatrix);
 	
@@ -301,6 +302,8 @@ void ContentBubble::drawTwitterData() {
 //--------------------------------------------------------------
 void ContentBubble::drawHighLight() {
 	
+	glDisable(GL_DEPTH_TEST);
+	
 	glPushMatrix();
 	glMultMatrixf(billboadMatrix);
 	
@@ -321,9 +324,9 @@ void ContentBubble::drawHighLight() {
 		} else {
 			glColor4f(1,1,1, touchAlpha/255.0);
 		}
-		glVertex2f(x*radius,y*radius);
+		glVertex3f(x*radius,y*radius, 0);
 		glColor4f(1,1,1,0);
-		glVertex2f(x*rad_extend,y*rad_extend);
+		glVertex3f(x*rad_extend,y*rad_extend, 0);
 		
 	}
 	glEnd();
@@ -336,7 +339,7 @@ void ContentBubble::draw() {
 	// for debuggin...
 	//ofSetColor(255, 255, 0);
 	//drawSphere(target, 3, 10);
-	
+	glEnable(GL_DEPTH_TEST);
 	// the main bubble sphere
 	ofSetColor(color, alpha);
 	ofFill();

@@ -12,9 +12,14 @@
 
 //--------------------------------------------------------
 void InteractionInspiration::newBubbleRecieved(Donk::BubbleData * data) { 
+
 	ofVec3f center(interactiveRect.width/2, 0, 0);
-	ofVec3f startPos(center.x + ofRandom(-300, 300), interactiveRect.height, ofRandom(-100, 100));
 	float   radius = 80;
+	
+	ofVec3f startPos;
+	startPos.x = (int)ofRandom(0,2) ? -100 : interactiveRect.width+100;
+	startPos.y = (int)ofRandom(0,2) ? -100 : interactiveRect.height+100;		
+	startPos.z = 0;
 	
 	ContentBubble * bubble = new ContentBubble();
 	
@@ -69,6 +74,11 @@ void InteractionInspiration::update() {
 		
 	}	
 	
+	float animateOutTime = (ofGetElapsedTimeMillis()-timeAnimateOut)/1000.0;
+	if(bAnimateOut && animateOutTime > 4.0 && !bDoneAnimatingOut) {
+		bDoneAnimatingOut = true;
+		killallBubbles();
+	}
 	if(bAnimateOut && bAllOffScreen) {
 		bDoneAnimatingOut = true;
 		killallBubbles();
@@ -120,6 +130,7 @@ void InteractionInspiration::animatedOut() {
 		bubbles[i]->offScreenTaget.z = 0;
 	}
 	
+	timeAnimateOut = ofGetElapsedTimeMillis();
 }
 
 //--------------------------------------------------------
