@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		1F9DB94413279A7F00C8C174 /* BrownianObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F9DB94213279A7F00C8C174 /* BrownianObject.cpp */; };
-		4BBA77C2132824F2000CE22E /* Particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BBA77BE132824F2000CE22E /* Particle.cpp */; };
-		4BBA77C3132824F2000CE22E /* ParticleSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BBA77C0132824F2000CE22E /* ParticleSystem.cpp */; };
-		4BBA77CD13282509000CE22E /* MSAFluidDrawerBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BBA77C713282509000CE22E /* MSAFluidDrawerBase.cpp */; };
-		4BBA77CE13282509000CE22E /* MSAFluidSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BBA77CB13282509000CE22E /* MSAFluidSolver.cpp */; };
+		5D04B6861328F5660082AFA4 /* MSAFluidDrawerBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5D04B6801328F5660082AFA4 /* MSAFluidDrawerBase.cpp */; };
+		5D04B6871328F5660082AFA4 /* MSAFluidSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5D04B6841328F5660082AFA4 /* MSAFluidSolver.cpp */; };
+		5D04B68C1328F58D0082AFA4 /* Particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5D04B6881328F58D0082AFA4 /* Particle.cpp */; };
+		5D04B68D1328F58D0082AFA4 /* ParticleSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5D04B68A1328F58D0082AFA4 /* ParticleSystem.cpp */; };
 		5F586E18132541B8000E5FB7 /* TouchedConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F586E16132541B8000E5FB7 /* TouchedConstraint.cpp */; };
 		5FC27C0A13196E13005F76C7 /* ContentBubble.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC27C0913196E13005F76C7 /* ContentBubble.cpp */; };
 		5FC27F40131BCFDD005F76C7 /* ofxCubeMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC27F3E131BCFDD005F76C7 /* ofxCubeMap.cpp */; };
@@ -303,18 +303,18 @@
 		1FEBF5201324FE5F001D9100 /* fresnel_refraction.fs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fresnel_refraction.fs; path = bin/data/shader/fresnel_refraction.fs; sourceTree = "<group>"; };
 		1FEBF5211324FE5F001D9100 /* fresnel_refraction.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fresnel_refraction.vs; path = bin/data/shader/fresnel_refraction.vs; sourceTree = "<group>"; };
 		1FEBF8D713254487001D9100 /* general.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = general.xml; path = bin/data/settings/general.xml; sourceTree = "<group>"; };
-		4BBA77BE132824F2000CE22E /* Particle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Particle.cpp; path = /Users/base/c_languages/openframeworks/coke_energy/ProjectDonk/apps/3d/Render/src/Particle.cpp; sourceTree = "<absolute>"; };
-		4BBA77BF132824F2000CE22E /* Particle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Particle.h; path = /Users/base/c_languages/openframeworks/coke_energy/ProjectDonk/apps/3d/Render/src/Particle.h; sourceTree = "<absolute>"; };
-		4BBA77C0132824F2000CE22E /* ParticleSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ParticleSystem.cpp; path = /Users/base/c_languages/openframeworks/coke_energy/ProjectDonk/apps/3d/Render/src/ParticleSystem.cpp; sourceTree = "<absolute>"; };
-		4BBA77C1132824F2000CE22E /* ParticleSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParticleSystem.h; path = /Users/base/c_languages/openframeworks/coke_energy/ProjectDonk/apps/3d/Render/src/ParticleSystem.h; sourceTree = "<absolute>"; };
-		4BBA77C513282509000CE22E /* CinderMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CinderMath.h; path = /Users/base/c_languages/openframeworks/coke_energy/ProjectDonk/addons/msaFluidSlim/CinderMath.h; sourceTree = "<absolute>"; };
-		4BBA77C613282509000CE22E /* MSAFluid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSAFluid.h; path = /Users/base/c_languages/openframeworks/coke_energy/ProjectDonk/addons/msaFluidSlim/MSAFluid.h; sourceTree = "<absolute>"; };
-		4BBA77C713282509000CE22E /* MSAFluidDrawerBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MSAFluidDrawerBase.cpp; path = /Users/base/c_languages/openframeworks/coke_energy/ProjectDonk/addons/msaFluidSlim/MSAFluidDrawerBase.cpp; sourceTree = "<absolute>"; };
-		4BBA77C813282509000CE22E /* MSAFluidDrawerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSAFluidDrawerBase.h; path = /Users/base/c_languages/openframeworks/coke_energy/ProjectDonk/addons/msaFluidSlim/MSAFluidDrawerBase.h; sourceTree = "<absolute>"; };
-		4BBA77C913282509000CE22E /* MSAFluidDrawerGl-OF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MSAFluidDrawerGl-OF.h"; path = "/Users/base/c_languages/openframeworks/coke_energy/ProjectDonk/addons/msaFluidSlim/MSAFluidDrawerGl-OF.h"; sourceTree = "<absolute>"; };
-		4BBA77CA13282509000CE22E /* MSAFluidParticleUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSAFluidParticleUpdater.h; path = /Users/base/c_languages/openframeworks/coke_energy/ProjectDonk/addons/msaFluidSlim/MSAFluidParticleUpdater.h; sourceTree = "<absolute>"; };
-		4BBA77CB13282509000CE22E /* MSAFluidSolver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MSAFluidSolver.cpp; path = /Users/base/c_languages/openframeworks/coke_energy/ProjectDonk/addons/msaFluidSlim/MSAFluidSolver.cpp; sourceTree = "<absolute>"; };
-		4BBA77CC13282509000CE22E /* MSAFluidSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSAFluidSolver.h; path = /Users/base/c_languages/openframeworks/coke_energy/ProjectDonk/addons/msaFluidSlim/MSAFluidSolver.h; sourceTree = "<absolute>"; };
+		5D04B67E1328F5660082AFA4 /* CinderMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CinderMath.h; path = ../../../addons/msaFluidSlim/CinderMath.h; sourceTree = SOURCE_ROOT; };
+		5D04B67F1328F5660082AFA4 /* MSAFluid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSAFluid.h; path = ../../../addons/msaFluidSlim/MSAFluid.h; sourceTree = SOURCE_ROOT; };
+		5D04B6801328F5660082AFA4 /* MSAFluidDrawerBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MSAFluidDrawerBase.cpp; path = ../../../addons/msaFluidSlim/MSAFluidDrawerBase.cpp; sourceTree = SOURCE_ROOT; };
+		5D04B6811328F5660082AFA4 /* MSAFluidDrawerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSAFluidDrawerBase.h; path = ../../../addons/msaFluidSlim/MSAFluidDrawerBase.h; sourceTree = SOURCE_ROOT; };
+		5D04B6821328F5660082AFA4 /* MSAFluidDrawerGl-OF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MSAFluidDrawerGl-OF.h"; path = "../../../addons/msaFluidSlim/MSAFluidDrawerGl-OF.h"; sourceTree = SOURCE_ROOT; };
+		5D04B6831328F5660082AFA4 /* MSAFluidParticleUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSAFluidParticleUpdater.h; path = ../../../addons/msaFluidSlim/MSAFluidParticleUpdater.h; sourceTree = SOURCE_ROOT; };
+		5D04B6841328F5660082AFA4 /* MSAFluidSolver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MSAFluidSolver.cpp; path = ../../../addons/msaFluidSlim/MSAFluidSolver.cpp; sourceTree = SOURCE_ROOT; };
+		5D04B6851328F5660082AFA4 /* MSAFluidSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSAFluidSolver.h; path = ../../../addons/msaFluidSlim/MSAFluidSolver.h; sourceTree = SOURCE_ROOT; };
+		5D04B6881328F58D0082AFA4 /* Particle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Particle.cpp; path = src/Particle.cpp; sourceTree = SOURCE_ROOT; };
+		5D04B6891328F58D0082AFA4 /* Particle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Particle.h; path = src/Particle.h; sourceTree = SOURCE_ROOT; };
+		5D04B68A1328F58D0082AFA4 /* ParticleSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ParticleSystem.cpp; path = src/ParticleSystem.cpp; sourceTree = SOURCE_ROOT; };
+		5D04B68B1328F58D0082AFA4 /* ParticleSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParticleSystem.h; path = src/ParticleSystem.h; sourceTree = SOURCE_ROOT; };
 		5F586E16132541B8000E5FB7 /* TouchedConstraint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TouchedConstraint.cpp; sourceTree = "<group>"; };
 		5F586E17132541B8000E5FB7 /* TouchedConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchedConstraint.h; sourceTree = "<group>"; };
 		5FC27C0813196E13005F76C7 /* ContentBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentBubble.h; sourceTree = "<group>"; };
@@ -1005,21 +1005,21 @@
 			name = ofxMacKeys;
 			sourceTree = "<group>";
 		};
-		4BBA77C413282509000CE22E /* msaFluidSlim */ = {
+		5D04B67D1328F5660082AFA4 /* msaFluidSlim */ = {
 			isa = PBXGroup;
 			children = (
-				4BBA77C513282509000CE22E /* CinderMath.h */,
-				4BBA77C613282509000CE22E /* MSAFluid.h */,
-				4BBA77C713282509000CE22E /* MSAFluidDrawerBase.cpp */,
-				4BBA77C813282509000CE22E /* MSAFluidDrawerBase.h */,
-				4BBA77C913282509000CE22E /* MSAFluidDrawerGl-OF.h */,
-				4BBA77CA13282509000CE22E /* MSAFluidParticleUpdater.h */,
-				4BBA77CB13282509000CE22E /* MSAFluidSolver.cpp */,
-				4BBA77CC13282509000CE22E /* MSAFluidSolver.h */,
+				5D04B67E1328F5660082AFA4 /* CinderMath.h */,
+				5D04B67F1328F5660082AFA4 /* MSAFluid.h */,
+				5D04B6801328F5660082AFA4 /* MSAFluidDrawerBase.cpp */,
+				5D04B6811328F5660082AFA4 /* MSAFluidDrawerBase.h */,
+				5D04B6821328F5660082AFA4 /* MSAFluidDrawerGl-OF.h */,
+				5D04B6831328F5660082AFA4 /* MSAFluidParticleUpdater.h */,
+				5D04B6841328F5660082AFA4 /* MSAFluidSolver.cpp */,
+				5D04B6851328F5660082AFA4 /* MSAFluidSolver.h */,
 			);
 			name = msaFluidSlim;
-			path = /Users/base/c_languages/openframeworks/coke_energy/ProjectDonk/addons/msaFluidSlim;
-			sourceTree = "<absolute>";
+			path = ../../../addons/msaFluidSlim;
+			sourceTree = SOURCE_ROOT;
 		};
 		5F586E37132541EA000E5FB7 /* data */ = {
 			isa = PBXGroup;
@@ -1729,10 +1729,10 @@
 		8101E0D51326F418003E1834 /* Beauty */ = {
 			isa = PBXGroup;
 			children = (
-				4BBA77BE132824F2000CE22E /* Particle.cpp */,
-				4BBA77BF132824F2000CE22E /* Particle.h */,
-				4BBA77C0132824F2000CE22E /* ParticleSystem.cpp */,
-				4BBA77C1132824F2000CE22E /* ParticleSystem.h */,
+				5D04B6881328F58D0082AFA4 /* Particle.cpp */,
+				5D04B6891328F58D0082AFA4 /* Particle.h */,
+				5D04B68A1328F58D0082AFA4 /* ParticleSystem.cpp */,
+				5D04B68B1328F58D0082AFA4 /* ParticleSystem.h */,
 				1F9DB94213279A7F00C8C174 /* BrownianObject.cpp */,
 				1F9DB94313279A7F00C8C174 /* BrownianObject.h */,
 				810A07C81324A5C7008AEE7A /* BubbleShader.h */,
@@ -1862,7 +1862,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
-				4BBA77C413282509000CE22E /* msaFluidSlim */,
+				5D04B67D1328F5660082AFA4 /* msaFluidSlim */,
 				5FDBD62413240A2100A02A05 /* ofxCubeMap */,
 				1F37C4FC1318170D00AE17C7 /* ofxMacKeys */,
 				5FF09B4B13180C67009A416F /* ofxBullet */,
@@ -2539,6 +2539,7 @@
 			isa = PBXProject;
 			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "Render" */;
 			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				English,
@@ -2821,10 +2822,10 @@
 				8101E0DC1326F611003E1834 /* BuzzContainerBubble.cpp in Sources */,
 				1F9DB94413279A7F00C8C174 /* BrownianObject.cpp in Sources */,
 				81D550751327EFFA00BE67D2 /* Champagne.cpp in Sources */,
-				4BBA77C2132824F2000CE22E /* Particle.cpp in Sources */,
-				4BBA77C3132824F2000CE22E /* ParticleSystem.cpp in Sources */,
-				4BBA77CD13282509000CE22E /* MSAFluidDrawerBase.cpp in Sources */,
-				4BBA77CE13282509000CE22E /* MSAFluidSolver.cpp in Sources */,
+				5D04B6861328F5660082AFA4 /* MSAFluidDrawerBase.cpp in Sources */,
+				5D04B6871328F5660082AFA4 /* MSAFluidSolver.cpp in Sources */,
+				5D04B68C1328F58D0082AFA4 /* Particle.cpp in Sources */,
+				5D04B68D1328F58D0082AFA4 /* ParticleSystem.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
