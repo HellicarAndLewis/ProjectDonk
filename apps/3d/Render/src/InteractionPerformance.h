@@ -38,5 +38,6 @@ public:
 	void drawSphere(BubbleShader * shader);
 	
 	void animatedOut();
-	void animatedIn();	
+	void animatedIn();
+	void putToRest();
 };

@@ -14,6 +14,9 @@ ofTrueTypeFont ContentBubble::font;
 //--------------------------------------------------------------
 ContentBubble::ContentBubble() {
 	
+	
+	bAnimateOut = false;
+	bAnimateIn = false;
 	rigidBody		 = NULL;
 	bTouched		 = false;
 	bDoubleTouched	 = false;
@@ -31,6 +34,10 @@ ContentBubble::ContentBubble() {
 	alpha = 255;
 	
 	bAlive = false;
+	
+	// for now!
+	offScreenTaget.y = -100;
+	offScreenTaget.z = -200;
 }
 
 //--------------------------------------------------------------

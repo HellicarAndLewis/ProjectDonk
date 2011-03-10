@@ -137,6 +137,7 @@ void BubbleProjection::update() {
 		previousInteraction->nTouches = touches.size();
 		previousInteraction->update();
 		if(previousInteraction->bDoneAnimatingOut && previousInteraction->bAnimateOut) {
+			previousInteraction->putToRest();
 			printf(" *** done animating out: %s ***\n", previousInteraction->name.c_str());
 			previousInteraction = NULL;
 		}

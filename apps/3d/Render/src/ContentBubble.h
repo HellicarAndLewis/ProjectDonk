@@ -38,11 +38,13 @@ public:
 	int					 touchID;
 	float				 birthDate, age;
 	bool				 bAlive;
-	
+	bool				 bAnimateOut, bAnimateIn;
 	
 	// --------------------------------- things useing in performance
 	int					 performceImageID;
 	int					 performanceChannel;
+	ofVec3f				 performanceStartTarget;
+	
 	
 	// ---------------------------------
 	ContentBubble();
