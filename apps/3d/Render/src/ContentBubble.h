@@ -44,11 +44,7 @@ public:
 	int					 performceImageID;
 	int					 performanceChannel;
 	ofVec3f				 performanceStartTarget;
-<<<<<<< HEAD
-	
-	
-=======
->>>>>>> dba36ef608dae5f179718ab097c64a91191c9e07
+
 	// ---------------------------------
 	ContentBubble();
 	
