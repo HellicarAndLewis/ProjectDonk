@@ -369,7 +369,7 @@ void BubbleProjection::touchDown(float x, float y, int touchId) {
 //--------------------------------------------------------
 void BubbleProjection::touchMoved(float x, float y, int touchId) {
 	
-	cout << touchId << endl;
+	// cout << touchId << endl;
 
 	
 	ofVec2f p(x, y);

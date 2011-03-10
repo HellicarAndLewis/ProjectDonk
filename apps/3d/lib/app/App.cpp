@@ -201,7 +201,7 @@ void App::_keyPressed(ofKeyEventArgs &e) {
 	
 	float increment = ofxMacShiftKeyDown()?0.1:0.005;
 	
-	printf("Key pressed %c\n", e.key);
+	// printf("Key pressed %c\n", e.key);
 	switch(e.key) {
 		case ' ':
 			guiEnabled ^= true;
