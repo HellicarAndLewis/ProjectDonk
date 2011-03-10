@@ -7,7 +7,7 @@
     <value controlId="1" value="0"></value>
     <value controlId="4" value="0"></value>
     <value controlId="2" value="0"></value>
-    <value controlId="Inset" value="0.136000007"></value>
+    <value controlId="Inset" value="0.112000003"></value>
     <value controlId="3" value="0"></value>
     <value controlId="Threshold Controls" value="0"></value>
     <value controlId="Capture Background" value="0"></value>
@@ -15,13 +15,12 @@
     <value controlId="up" value="0"></value>
     <value controlId="TUIO Output" value="0"></value>
     <value controlId="blobs" value="0"></value>
-    <value controlId="smoothness" value="0.304071426"></value>
-    <value controlId="TUIO Host" value="localhost"></value>
+    <value controlId="smoothness" value="0.212142855"></value>
+    <value controlId="TUIO Host" value="192.168.1.69"></value>
     <value controlId="Port" value="3333"></value>
     <value controlId="Reconnect" value="0"></value>
     <value controlId="Help" value="0"></value>
-    <value controlId="Distance Filter" value="0.292857140"></value>
-    <value controlId="Time Filter" value="0.064285718"></value>
+    <value controlId="Min track distance" value="0.092857145"></value>
     <value controlId="Fill Holes" value="true"></value>
     <value controlId="Crop Left" value="0.021428572"></value>
     <value controlId="Crop Right" value="0.942857146"></value>

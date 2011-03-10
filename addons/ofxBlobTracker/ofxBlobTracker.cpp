@@ -14,6 +14,8 @@ ofxBlobTracker::ofxBlobTracker() {
 	}
 	bVerbose = false;
 	smoothing = 0;
+	lastId = 0;
+	minTrackDistance = 0.2;
 }
 
 void ofxBlobTracker::addListener(ofxBlobListener *listener) {
@@ -50,7 +52,7 @@ int ofxBlobTracker::getNextAvailableBlobId() {
 	for(int i = 0; i < lastBlobs.size(); i++) {
 		printf("\t\tblob %d = %f %f\n", lastBlobs[i]->id, lastBlobs[i]->x, lastBlobs[i]->y);
 	}*/
-	for(int id = 0; id < MAX_NUM_BLOBS; id++) {
+	/*for(int id = 0; id < MAX_NUM_BLOBS; id++) {
 		bool foundId = false;
 
 		for(int i = 0; i < lastBlobs.size(); i++) {
@@ -66,7 +68,10 @@ int ofxBlobTracker::getNextAvailableBlobId() {
 		}
 		
 	}
-	return 0;
+	return 0;*/
+	int currId = (lastId+1)%MAX_NUM_BLOBS;
+	lastId = currId;
+	return currId;
 }
 ofxBlob *ofxBlobTracker::newBlob(ofVec3f coords) {
 	ofxBlob *blob = new ofxBlob();
@@ -115,7 +120,7 @@ void ofxBlobTracker::track(vector<ofVec3f> &blobs) {
 		ofxBlob *blob = getClosestBlob(blobs[i]);
 		
 		// new blob!
-		if(blob==NULL || blob->distance(blobs[i])>0.2) {
+		if(blob==NULL || blob->distance(blobs[i])>minTrackDistance) {
 
 			ofxBlob *b = newBlob(blobs[i]);
 			updateKalman(b->id, b);

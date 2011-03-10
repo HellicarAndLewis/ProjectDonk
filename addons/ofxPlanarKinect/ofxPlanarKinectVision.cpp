@@ -11,54 +11,13 @@
 
 void ofxPlanarKinect::preprocessSlice() {
 	
-	
-	////////////////////////
-	// Distance filter
-	////////////////////////
-	// make lp be even
-	int lp = lpf*10;
-	lp *= 2;
-
-
-	if(lp>0) {
 		
-		float *t = new float[(int)kinectWidth];
-		float *temp = t;
-	
-		memcpy(t, slice, (int)kinectWidth*sizeof(float));
-		
-		
-		// now lpf the slice
-		for(int i = 0; i < lp; i++) {
-			
-			for(int i = 1; i < kinectWidth-1; i++) {
-				slice[i] = t[i-1]/3.f + t[i]/3.f + t[i+1]/3.f;
-			}
-			float *a = t;
-			t = slice;
-			slice = a;
-		}
-		
-		delete [] temp;
-		
-		
-	}
-	
-	//////////////////////////
-	// Time filter
-	//////////////////////////
-	if(timeFilter>0) {
-		for(int i = 0; i < kinectWidth; i++) {
-			slice[i] = slice[i]*(1.f - timeFilter) + lastSlice[i]*timeFilter;
-		}
-		memcpy(lastSlice, slice, kinectWidth*sizeof(float));
-	}
-	
-	
 	//////////////////////////////////////////////////
 	// Create a CV Image of the thresholded interactive area
 	//////////////////////////////////////////////////
 	
+	
+	// to create the cv image
 	int numInteractionPixels = (int)kinectWidth*interactionDepth;
 	unsigned char *intArea = new unsigned char[numInteractionPixels];
 	
@@ -79,22 +38,37 @@ void ofxPlanarKinect::preprocessSlice() {
 	}
 	
 	cvImage.setFromPixels(intArea, kinectWidth, interactionDepth);
-	delete [] intArea;
 	
+	// try to get rid of some noise with blur.
+	cvImage.blur();
+	cvImage.blur();
+	
+	cvImage.blur();
+	
+	
+	delete [] intArea;
 }
 
 void ofxPlanarKinect::findBlobs() {
 	
+	
 	contourFinder.findContours(cvImage, minHandWidth*interactionDepth, 3*maxHandWidth*interactionDepth, 10, false);
+	
+	
+	
 	
 	rawBlobs.clear();
 	for(int i = 0; i < contourFinder.nBlobs; i++) {
+		
+		
+		// ignore any things that we suspect are too big to be hands
 		if(contourFinder.blobs[i].boundingRect.width>maxHandWidth) continue;
 		
+		// make sure the hand is properly in the interaction area
+		if(contourFinder.blobs[i].boundingRect.height<30) continue;
 		
-		// to calculate the more accurate version of the x coord 
-		// we're going to find the point on the contour with the 
-		// biggest y
+		// to calculate the x coord  we're going to find the point 
+		// on the contour with the biggest y
 		float maxY = 0;
 		
 		ofVec2f leftmostMaxY(0, 0);
@@ -113,69 +87,29 @@ void ofxPlanarKinect::findBlobs() {
 			}
 		}
 		
-		
-		
+		// this is now an approximation of the x coord (y coord is not correct yet)
 		ofVec2f finalCoord = (leftmostMaxY + rightmostMaxY)/2.f;
 		
+		// to find the y, we take the max in the bottom quarter of the blob.
+		
+		// modify the boundingRect of the blob to be the bottom quarter of the
+		// bounding rect of the 
+		ofRectangle roi = contourFinder.blobs[i].boundingRect;
+		roi.height*=0.25;
+		roi.y += roi.height*3;
+		
+		
+		cvImage.setROI(roi);
+		double minVal;
+		double maxVal;
+		cvMinMaxLoc(cvImage.getCvImage(), &minVal, &maxVal);
+		
 
-		// sample the pixels in an inverted cross
-		//     X
-		//     X
-		//     X
-		//    XXX
-		//    XXX
-		//     X
-		int index = finalCoord.x + ((sliceY - interactionDepth)+(int)finalCoord.y)*kinectWidth;
-		float valuesToMax[10];
-		valuesToMax[0] = currFrame[index];
-		valuesToMax[1] = currFrame[index-1];
-		valuesToMax[2] = currFrame[index+1];
-		valuesToMax[3] = currFrame[index-(int)kinectWidth];
-		valuesToMax[4] = currFrame[index+(int)kinectWidth];
-		valuesToMax[5] = currFrame[index-(int)kinectWidth*2];
-		valuesToMax[6] = currFrame[index-(int)kinectWidth*3];
-		valuesToMax[7] = currFrame[index-(int)kinectWidth*4];
-		valuesToMax[8] = currFrame[index-1 - (int)kinectWidth];
-		valuesToMax[9] = currFrame[index+1 - (int)kinectWidth];
-		maxY = valuesToMax[0];
 		
-		float thresholdComparer = threshold[(int)finalCoord.x];
-		
-		for(int i = 1; i < 10; i++) {
-			if(valuesToMax[i]>maxY) maxY = valuesToMax[i];
-		}
-		/*
-		// try an average
-		float ff = 0;
-		for(int i = 0; i < 10; i++) {
-			ff += valuesToMax[i];
-		}
-		
-		
-		
-		float average = ff/10.f;
-		
-		float total = 0;
-		int averageCount = 0;
-		for(int i = 0; i < 10; i++) {
-			if(valuesToMax[i] > thresholdComparer) {
-				averageCount++;
-				total += valuesToMax[i];
-			}
-		}
-		
-		if(averageCount>0) {
-			average = total/averageCount;
-		}
-			
-		printf("Averaged %d pixels\n", averageCount);
-		
-		
-		finalCoord.y = average;
-		*/
-		finalCoord.y = maxY;
+		finalCoord.y = maxVal;
 		rawBlobs.push_back(finalCoord);
 	}
+	cvImage.resetROI();
 	
 }
 

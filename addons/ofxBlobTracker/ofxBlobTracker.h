@@ -60,7 +60,7 @@ public:
 	float getHeight();
 	
 	float smoothing;
-	
+	float minTrackDistance;
 private:
 	bool bVerbose;
 	vector<ofxBlobListener*> listeners;
@@ -82,4 +82,5 @@ private:
 	void untouchLastBlobs();
 	int getNextAvailableBlobId();
 	ofxBlobSmoother blobSmoother;
+	int lastId;
 };

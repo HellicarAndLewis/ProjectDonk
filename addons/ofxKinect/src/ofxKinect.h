@@ -153,5 +153,6 @@ class ofxKinect : public ofxBase3DVideo, protected ofThread{
 		void threadedFunction();
 
 		ofxKinectCalibration calibration;
+	float lastTimeUpdated;
 };
 
