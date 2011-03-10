@@ -40,7 +40,11 @@ void InteractionPerformance::setup() {
 		ofVec3f startPos(center.x + ofRandom(-300, 300), 
 						 interactiveRect.height, 
 						 ofRandom(-100, 100));
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> dba36ef608dae5f179718ab097c64a91191c9e07
 		ContentBubble * bubble = new ContentBubble();
 		bubble->performceImageID   = i;
 		bubble->performanceChannel = i;
@@ -52,8 +56,11 @@ void InteractionPerformance::setup() {
 		ofRandom(500, interactiveRect.height-300);
 		bubble->target.set(x, (interactiveRect.height/2), 0);
 		bubble->performanceStartTarget = bubble->target;
+<<<<<<< HEAD
 		bubble->offScreenTaget = bubble->performanceStartTarget;
 		bubble->offScreenTaget.y = -100;
+=======
+>>>>>>> dba36ef608dae5f179718ab097c64a91191c9e07
 		
 		bubbles.push_back(bubble);
 	}
@@ -65,6 +72,7 @@ void InteractionPerformance::setup() {
 void InteractionPerformance::newBubbleRecieved(Donk::BubbleData * data) { 
 	
 	/*ofVec3f center(interactiveRect.width/2, 0, 0);
+<<<<<<< HEAD
 	 ofVec3f startPos(center.x + ofRandom(-300, 300), interactiveRect.height, ofRandom(-100, 100));
 	 float   radius = 80;
 	 
@@ -81,6 +89,24 @@ void InteractionPerformance::newBubbleRecieved(Donk::BubbleData * data) {
 	 
 	 printf("new performance bubble added\n");
 	 */
+=======
+	ofVec3f startPos(center.x + ofRandom(-300, 300), interactiveRect.height, ofRandom(-100, 100));
+	float   radius = 80;
+	
+	ContentBubble * bubble = new ContentBubble();
+	bubble->performceImageID = (int)ofRandom(0, images.size());
+	bubble->performanceChannel = ofRandom(0, nBands);
+	
+	bubble->data	  = NULL;
+	bubble->radius    = radius;
+	bubble->rigidBody = bullet->createSphere(startPos, radius, 1);
+	bubble->createContentBubble();
+	bubble->target.set(center.x + ofRandom(-300, 300), ofRandom(500, interactiveRect.height-300), 0);
+	bubbles.push_back(bubble);
+	
+	printf("new performance bubble added\n");
+	*/
+>>>>>>> dba36ef608dae5f179718ab097c64a91191c9e07
 };
 
 //--------------------------------------------------------
@@ -90,7 +116,10 @@ void InteractionPerformance::update() {
 	
 	for(int i=0; i<bubbles.size(); i++) {
 		
+		ofVec3f target = bubbles[i]->target;
+		target.y = (bubbles[i]->performanceStartTarget.y) - (audio->getVolume(bubbles[i]->performceImageID) * 320.0);
 		
+<<<<<<< HEAD
 		if(bubbles[i]->bAnimateOut) {
 			bubbles[i]->goOffScreen();
 			
@@ -107,12 +136,30 @@ void InteractionPerformance::update() {
 			bubbles[i]->addAtrractionForce(target.x, target.y, target.z, 30.0);
 		}	
 		
+=======
+		bubbles[i]->rigidBody->body->setDamping(0.99, 0.99);
+		bubbles[i]->addAtrractionForce(target.x, target.y, target.z, 30.0);
+		bubbles[i]->update();
+>>>>>>> dba36ef608dae5f179718ab097c64a91191c9e07
 		
 		bubbles[i]->update();
 		float newRad = freq[ bubbles[i]->performanceChannel ] * 60.0;
 		bubbles[i]->setRadius(30 + newRad);
 		
+<<<<<<< HEAD
 
+=======
+		//		ofVec3f p = bubbles[i]->getPosition();
+		//		
+		//	//	printf("%f %f\n", p.y, interactiveRect.height);
+		//		
+		//		if(p.y < 0) {
+		//			ofVec3f center(interactiveRect.width/2, 0, 0);
+		//			ofVec3f startPos(center.x + ofRandom(-300, 300), interactiveRect.height, ofRandom(-100, 100));
+		//			bubbles[i]->rigidBody->body->clearForces();
+		//			bubbles[i]->rigidBody->setPosition(startPos, 0, 0);
+		//		}
+>>>>>>> dba36ef608dae5f179718ab097c64a91191c9e07
 	}	
 	
 	if(bAllOffScreen && bAnimateOut) {
@@ -199,6 +246,7 @@ void InteractionPerformance::putToRest() {
 //--------------------------------------------------------
 void InteractionPerformance::animatedOut() {
 	for(int i=0; i<bubbles.size(); i++) {
+<<<<<<< HEAD
 		bubbles[i]->bAnimateIn  = false;
 		bubbles[i]->bAnimateOut = true;
 		
@@ -209,11 +257,16 @@ void InteractionPerformance::animatedOut() {
 	
 	bDoneAnimatingOut = false;
 	bDoneAnimatingIn  = true;
+=======
+		bubbles[i]->rigidBody->body->setActivationState(DISABLE_DEACTIVATION);
+	}
+>>>>>>> dba36ef608dae5f179718ab097c64a91191c9e07
 }
 
 //--------------------------------------------------------
 void InteractionPerformance::animatedIn() {
 	
+<<<<<<< HEAD
 	for(int i=0; i<bubbles.size(); i++) {
 		bubbles[i]->bAnimateIn  = true;
 		bubbles[i]->bAnimateOut =false;
@@ -224,6 +277,32 @@ void InteractionPerformance::animatedIn() {
 	
 	bDoneAnimatingOut = true;
 	bDoneAnimatingIn  = false;	
+=======
+	// if(bullet) bullet->setGravity(0, -500, 0);
+	
+	/*for(int i=0; i<bubbles.size(); i++) {
+		
+		float radius = 80;
+		float x = 100 + (i * 100);
+		ofVec3f center(interactiveRect.width/2, 0, 0);
+		ofVec3f startPos(center.x + ofRandom(-300, 300), 
+						 interactiveRect.height, 
+						 ofRandom(-100, 100));
+		
+		ContentBubble * bubble = new ContentBubble();
+		bubble->performceImageID   = (int)ofRandom(0, images.size());
+		bubble->performanceChannel = i;
+		
+		bubble->data	  = NULL;
+		bubble->radius    = radius;
+		bubble->rigidBody = bullet->createSphere(startPos, radius, 1);
+		bubble->createContentBubble();
+		ofRandom(500, interactiveRect.height-300);
+		bubble->target.set(x, (interactiveRect.height/2)-300, 0);
+		bubbles.push_back(bubble);
+	}
+	*/
+>>>>>>> dba36ef608dae5f179718ab097c64a91191c9e07
 	
 }
 
