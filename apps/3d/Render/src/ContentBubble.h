@@ -43,7 +43,7 @@ public:
 	// --------------------------------- things useing in performance
 	int					 performceImageID;
 	int					 performanceChannel;
-	
+	ofVec3f				 performanceStartTarget;
 	// ---------------------------------
 	ContentBubble();
 	

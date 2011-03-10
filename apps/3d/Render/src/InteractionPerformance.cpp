@@ -30,12 +30,39 @@ void InteractionPerformance::setup() {
 		}
 	}
 	
+	
+	for(int i=0; i<nBands; i++) {
+		
+		float offset = 500;
+		float radius = 110;
+		float x = offset + ((interactiveRect.width-offset)/nBands) * i;
+		ofVec3f center(interactiveRect.width/2, 0, 0);
+		ofVec3f startPos(center.x + ofRandom(-300, 300), 
+						 interactiveRect.height, 
+						 ofRandom(-100, 100));
+
+		ContentBubble * bubble = new ContentBubble();
+		bubble->performceImageID   = i;
+		bubble->performanceChannel = i;
+		
+		bubble->data	  = NULL;
+		bubble->radius    = radius;
+		bubble->rigidBody = bullet->createSphere(startPos, radius, 1);
+		bubble->createContentBubble();
+		ofRandom(500, interactiveRect.height-300);
+		bubble->target.set(x, (interactiveRect.height/2), 0);
+		bubble->performanceStartTarget = bubble->target;
+		
+		bubbles.push_back(bubble);
+	}
+	
 }
 
 
 //--------------------------------------------------------
 void InteractionPerformance::newBubbleRecieved(Donk::BubbleData * data) { 
-	ofVec3f center(interactiveRect.width/2, 0, 0);
+	
+	/*ofVec3f center(interactiveRect.width/2, 0, 0);
 	ofVec3f startPos(center.x + ofRandom(-300, 300), interactiveRect.height, ofRandom(-100, 100));
 	float   radius = 80;
 	
@@ -51,6 +78,7 @@ void InteractionPerformance::newBubbleRecieved(Donk::BubbleData * data) {
 	bubbles.push_back(bubble);
 	
 	printf("new performance bubble added\n");
+	*/
 };
 
 //--------------------------------------------------------
@@ -58,25 +86,26 @@ void InteractionPerformance::update() {
 	
 	for(int i=0; i<bubbles.size(); i++) {
 		
+		ofVec3f target = bubbles[i]->target;
+		target.y = (bubbles[i]->performanceStartTarget.y) - (audio->getVolume(bubbles[i]->performceImageID) * 320.0);
 		
-		bubbles[i]->rigidBody->body->setDamping(0, 0);		
-		bubbles[i]->addAtrractionForce(interactiveRect.width/2, interactiveRect.height/2, 0, 0.98);
-		bubbles[i]->addForce(0, -5, 0, 10.0);
+		bubbles[i]->rigidBody->body->setDamping(0.99, 0.99);
+		bubbles[i]->addAtrractionForce(target.x, target.y, target.z, 30.0);
 		bubbles[i]->update();
 		
 		float newRad = freq[ bubbles[i]->performanceChannel ] * 60.0;
 		bubbles[i]->setRadius(30 + newRad);
 		
-		ofVec3f p = bubbles[i]->getPosition();
-		
-	//	printf("%f %f\n", p.y, interactiveRect.height);
-		
-		if(p.y < 0) {
-			ofVec3f center(interactiveRect.width/2, 0, 0);
-			ofVec3f startPos(center.x + ofRandom(-300, 300), interactiveRect.height, ofRandom(-100, 100));
-			bubbles[i]->rigidBody->body->clearForces();
-			bubbles[i]->rigidBody->setPosition(startPos, 0, 0);
-		}
+		//		ofVec3f p = bubbles[i]->getPosition();
+		//		
+		//	//	printf("%f %f\n", p.y, interactiveRect.height);
+		//		
+		//		if(p.y < 0) {
+		//			ofVec3f center(interactiveRect.width/2, 0, 0);
+		//			ofVec3f startPos(center.x + ofRandom(-300, 300), interactiveRect.height, ofRandom(-100, 100));
+		//			bubbles[i]->rigidBody->body->clearForces();
+		//			bubbles[i]->rigidBody->setPosition(startPos, 0, 0);
+		//		}
 	}	
 	
 }
@@ -120,10 +149,16 @@ void InteractionPerformance::drawContent() {
 		ofSetRectMode(OF_RECTMODE_CORNER);
 		bubbles[i]->popBillboard();
 		
+		// test...
+		//images[ bubbles[i]->performceImageID ].bind();
+		
+		//images[ bubbles[i]->performceImageID ].unbind();
+		
 		//bubbles[i]->popBubble();
 		//bubbles[i]->pushBillboard();
 		//images[	bubbles[i]->performceImageID ].draw(p.x, p.y);
-		//bubbles[i]->popBillboard();		
+		//bubbles[i]->popBillboard();
+		
 	}
 	
 }
@@ -144,11 +179,39 @@ void InteractionPerformance::drawSphere(BubbleShader * shader) {
 
 //--------------------------------------------------------
 void InteractionPerformance::animatedOut() {
+	for(int i=0; i<bubbles.size(); i++) {
+		bubbles[i]->rigidBody->body->setActivationState(DISABLE_DEACTIVATION);
+	}
 }
 
 //--------------------------------------------------------
 void InteractionPerformance::animatedIn() {
+	
 	// if(bullet) bullet->setGravity(0, -500, 0);
+	
+	/*for(int i=0; i<bubbles.size(); i++) {
+		
+		float radius = 80;
+		float x = 100 + (i * 100);
+		ofVec3f center(interactiveRect.width/2, 0, 0);
+		ofVec3f startPos(center.x + ofRandom(-300, 300), 
+						 interactiveRect.height, 
+						 ofRandom(-100, 100));
+		
+		ContentBubble * bubble = new ContentBubble();
+		bubble->performceImageID   = (int)ofRandom(0, images.size());
+		bubble->performanceChannel = i;
+		
+		bubble->data	  = NULL;
+		bubble->radius    = radius;
+		bubble->rigidBody = bullet->createSphere(startPos, radius, 1);
+		bubble->createContentBubble();
+		ofRandom(500, interactiveRect.height-300);
+		bubble->target.set(x, (interactiveRect.height/2)-300, 0);
+		bubbles.push_back(bubble);
+	}
+	*/
+	
 }
 
 
