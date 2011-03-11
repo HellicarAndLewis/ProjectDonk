@@ -44,6 +44,7 @@ Scene::Scene(int w, int h) {
 	// create a new model and add it to the scene
 	model = new Model();
 	addNode(*model);
+	light.setDirectional(false);
 	addNode(light);
 }
 
