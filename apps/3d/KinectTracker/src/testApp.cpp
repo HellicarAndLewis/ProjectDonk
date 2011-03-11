@@ -198,14 +198,17 @@ void testApp::windowResized(int w, int h){
 }
 
 void testApp::blobEntered(ofVec3f pos, int blobId) {
+	printf("Blob ID: %d\n", blobId);
 	// ofxTuioServer assumes you're giving screen coordinates, so multiply by ofGetWidth()/Height()
 	blobs[blobId] = tuioServer.addCursor(pos.x*ofGetWidth(), pos.y*ofGetHeight());
 }
 void testApp::blobMoved(ofVec3f pos, int blobId) {
+	printf("Blob ID: %d\n", blobId);
 	tuioServer.updateCursor(blobs[blobId], pos.x*ofGetWidth(), pos.y*ofGetHeight());
 }
 
 void testApp::blobExited(ofVec3f pos, int blobId) {
+	printf("Blob ID: %d\n", blobId);
 	tuioServer.removeCursor(blobs[blobId]);
 	blobs.erase(blobId);
 }

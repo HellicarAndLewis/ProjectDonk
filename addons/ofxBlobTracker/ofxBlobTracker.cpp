@@ -24,6 +24,7 @@ void ofxBlobTracker::addListener(ofxBlobListener *listener) {
 
 
 ofxBlob *ofxBlobTracker::updateKalman(int id, ofxBlob *blob) {
+	id %= MAX_NUM_BLOBS;
 	if (id>=MAX_NUM_BLOBS) return NULL;
 	if(tuioPointSmoothed[id*2] == NULL) {
 		tuioPointSmoothed[id*2] = new ofxCvKalman(blob->x);
@@ -37,6 +38,7 @@ ofxBlob *ofxBlobTracker::updateKalman(int id, ofxBlob *blob) {
 }
 
 void ofxBlobTracker::clearKalman(int id) {
+	id %= MAX_NUM_BLOBS;
 	if (id>=MAX_NUM_BLOBS) return;
 	if(tuioPointSmoothed[id*2]) {
 		delete tuioPointSmoothed[id*2];
@@ -69,7 +71,7 @@ int ofxBlobTracker::getNextAvailableBlobId() {
 		
 	}
 	return 0;*/
-	int currId = (lastId+1)%MAX_NUM_BLOBS;
+	int currId = (lastId+1);//%MAX_NUM_BLOBS;
 	lastId = currId;
 	return currId;
 }

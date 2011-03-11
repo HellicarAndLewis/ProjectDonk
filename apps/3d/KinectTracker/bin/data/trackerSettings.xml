@@ -15,7 +15,7 @@
     <value controlId="up" value="0"></value>
     <value controlId="TUIO Output" value="0"></value>
     <value controlId="blobs" value="0"></value>
-    <value controlId="smoothness" value="0.212142855"></value>
+    <value controlId="smoothness" value="0.636428595"></value>
     <value controlId="TUIO Host" value="192.168.1.69"></value>
     <value controlId="Port" value="3333"></value>
     <value controlId="Reconnect" value="0"></value>
