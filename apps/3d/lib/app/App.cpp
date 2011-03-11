@@ -177,6 +177,8 @@ int lastGui = 1;
 bool zedDown = false;
 bool exDown = false;
 bool zooming = false;
+bool aDown = false;
+bool vDown = false;
 
 void App::_keyReleased(ofKeyEventArgs &e) {
 	switch(e.key) {
@@ -192,6 +194,14 @@ void App::_keyReleased(ofKeyEventArgs &e) {
 		case 'z':
 		case 'Z':
 			zedDown = false;
+			break;
+		case 'v':
+		case 'V':
+			vDown = false;
+			break;
+		case 'a':
+		case 'A':
+			aDown = false;
 			break;
 	}
 }
@@ -273,6 +283,14 @@ void App::_keyPressed(ofKeyEventArgs &e) {
 		case 'X':
 			exDown = true;
 			break;
+		case 'v':
+		case 'V':
+			vDown = true;
+			break;
+		case 'a':
+		case 'A':
+			aDown = true;
+			break;
 			
 		case OF_KEY_UP:
 			if(zedDown) scene->projectors[0]->pos.z+=increment;
@@ -291,10 +309,13 @@ void App::_keyPressed(ofKeyEventArgs &e) {
 			if(exDown) {
 				// pan left
 				scene->projectors[0]->pos.x+=increment;
-			} else if(!zedDown) {
+			} else if(zedDown) {
+				scene->projectors[0]->rot.z+=increment;
+			} else {
 				// rotate left
 				scene->projectors[0]->rot.x+=increment;
 			}
+
 			sceneGui->save();
 			break;
 			
@@ -302,7 +323,9 @@ void App::_keyPressed(ofKeyEventArgs &e) {
 			if(exDown) {
 				// pan right
 				scene->projectors[0]->pos.x-=increment;
-			} else if(!zedDown) {
+			} else if(zedDown) {
+				scene->projectors[0]->rot.z-=increment;
+			} else {
 				// rotate right
 				scene->projectors[0]->rot.x-=increment;
 			}

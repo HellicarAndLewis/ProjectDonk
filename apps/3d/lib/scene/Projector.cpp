@@ -11,6 +11,7 @@
 
 Projector::Projector(string name, float x, float y, float width, float height): Viewport(name, x, y, width, height) {
 	fov = 45;
+	aspectAdjustment = 1;
 	zNear = (0.01);
 	zFar = (1000);
 	this->name = name;
@@ -80,7 +81,7 @@ void Projector::begin() {
 	glLoadIdentity();
 	
 	float aspect = width/height;
-	aspect = ofGetWindowSize().x/ofGetWindowSize().y;
+	aspect = aspectAdjustment*ofGetWindowSize().x/ofGetWindowSize().y;
 	gluPerspective(fov, aspect, nc, fc);
 	
 	

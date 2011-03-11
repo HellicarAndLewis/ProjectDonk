@@ -68,6 +68,7 @@ public:
 	float fov;
 	float zNear;
 	float zFar;
+	float aspectAdjustment;
 private:
 	bool isActive;
 };

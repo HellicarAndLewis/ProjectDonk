@@ -30,12 +30,14 @@ SceneGui::SceneGui(Scene *scene): Enableable() {
 
 		gui.addToggle("enabled", scene->projectors[i]->enabled);
 		gui.addSlider("fov", scene->projectors[i]->fov, 0, 180);
+		gui.addSlider("aspect adjustment", scene->projectors[i]->aspectAdjustment, 0.8, 1.2);
 
 		gui.addSlider2D("xy position", scene->projectors[i]->pos, -10, 10, -10, 10);
 		gui.addPanner("z position", scene->projectors[i]->pos.z, -10, 10);
 		gui.addSlider2D("xy rotation", scene->projectors[i]->rot, -180, 180, -180, 180);
 		gui.addPanner("z rotation", scene->projectors[i]->rot.z, -180, 180);
 		gui.addToggle("Rotate then position", scene->projectors[i]->rotateThenPosition);
+		gui.addButton("Reset aspect and z-rot");
 	}
 	
 	gui.setPage(0);
@@ -62,6 +64,10 @@ void SceneGui::save() {
 }
 
 void SceneGui::controlChanged(GuiControl *control) {
+	if(control->controlId=="Reset aspect and z-rot") {
+		scene->projectors[0]->rot.z = 0;
+		scene->projectors[0]->aspectAdjustment = 1;
+	}
 }
 void SceneGui::draw() { gui.draw(); }
 

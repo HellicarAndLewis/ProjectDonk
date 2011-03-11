@@ -16,7 +16,7 @@
     <value controlId="TUIO Output" value="0"></value>
     <value controlId="blobs" value="0"></value>
     <value controlId="smoothness" value="0.636428595"></value>
-    <value controlId="TUIO Host" value="192.168.1.69"></value>
+    <value controlId="TUIO Host" value="localhost"></value>
     <value controlId="Port" value="3333"></value>
     <value controlId="Reconnect" value="0"></value>
     <value controlId="Help" value="0"></value>
@@ -24,10 +24,10 @@
     <value controlId="Fill Holes" value="true"></value>
     <value controlId="Crop Left" value="0.021428572"></value>
     <value controlId="Crop Right" value="0.942857146"></value>
-    <value controlId="Interaction Depth" value="107"></value>
+    <value controlId="Interaction Depth" value="101"></value>
     <value controlId="cv image" value="0"></value>
     <value controlId="blobs" value=""></value>
     <value controlId="Min hand width" value="5"></value>
-    <value controlId="Max hand width" value="135"></value>
+    <value controlId="Max hand width" value="320"></value>
     <value controlId="kinect connected" value="true"></value>
 </values>
