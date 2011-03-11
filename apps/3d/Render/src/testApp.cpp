@@ -12,6 +12,7 @@ void testApp::setup(){
 	projection = BubbleProjection::getInstance();
 	audioData = Donk::AudioData::getInstance();
 	
+	gradientProjection.allocate(500, 500);
 	instance = this;
 	
 	setupOsc();
@@ -54,6 +55,7 @@ void testApp::render() {
 		calibrationProjection.render();
 	} else {
 		projection->render();
+		gradientProjection.render();
 	}
 }
 
@@ -81,9 +83,7 @@ void testApp::drawView() {
 		
 	} else {
 		
-		ofSetColor(mode->getValue("Background Red"), 
-							  mode->getValue("Background Green"), 
-							  mode->getValue("Background Blue"));
+		
 		
 		
 		scene->getLight()->setPosition(ofVec3f(mode->getValue("light x"), 
@@ -92,8 +92,8 @@ void testApp::drawView() {
 		glShadeModel(GL_FLAT);
 		ofEnableLighting();
 		scene->getLight()->enable();
-		scene->getModel()->drawSolid();
-		
+//		scene->getModel()->drawSolid();
+		gradientProjection.drawOnModel(scene->getModel());
 		
 		
 		glShadeModel(GL_SMOOTH);

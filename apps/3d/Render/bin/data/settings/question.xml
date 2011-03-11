@@ -1,9 +1,12 @@
 <values>
-    <parameter key="Background Red" value="221.447372"></parameter>
-    <parameter key="Background Green" value="189.236832"></parameter>
-    <parameter key="Background Blue" value="232.184219"></parameter>
-    <parameter key="light x" value="-2.631579"></parameter>
-    <parameter key="light y" value="3.368421"></parameter>
-    <parameter key="light z" value="0.210526"></parameter>
+    <parameter key="Top BG Red" value="250.973694"></parameter>
+    <parameter key="Top BG Green" value="249.631577"></parameter>
+    <parameter key="Top BG Blue" value="237.552628"></parameter>
+    <parameter key="Bottom BG Red" value="155.684219"></parameter>
+    <parameter key="Bottom BG Green" value="131.526306"></parameter>
+    <parameter key="Bottom BG Blue" value="30.868422"></parameter>
+    <parameter key="light x" value="-0.631579"></parameter>
+    <parameter key="light y" value="1.473684"></parameter>
+    <parameter key="light z" value="1.157895"></parameter>
     <parameter key="Background Audio-reactiveness" value="0.000000"></parameter>
 </values>

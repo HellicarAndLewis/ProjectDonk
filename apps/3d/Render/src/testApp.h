@@ -14,6 +14,7 @@
 #include "CalibrationProjection.h"
 #include "AudioData.h"
 #include "ofxMacKeys.h"
+#include "GradientProjection.h"
 
 class testApp : public Donk::App {
 
@@ -65,7 +66,7 @@ public:
 	CalibrationProjection calibrationProjection;
 	ofxTuioClient tuio;
 	Donk::AudioData *audioData;
-	
+	GradientProjection gradientProjection;
 };
 
 #endif

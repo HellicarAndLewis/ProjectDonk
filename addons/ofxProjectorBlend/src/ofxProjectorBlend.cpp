@@ -103,7 +103,7 @@ void ofxProjectorBlend::setup(int resolutionWidth,
 	displayHeight = resolutionHeight;
 	
 	fullTexture = new ofFbo();
-	fullTexture->setup(fullTextureWidth, fullTextureHeight, GL_RGB);
+	fullTexture->setup(fullTextureWidth, fullTextureHeight, GL_RGB, 4);
 	
 	blendShader = new ofShader();
 	blendShader->setup("shader/SmoothEdgeBlend.vert","shader/SmoothEdgeBlend.frag", "");
