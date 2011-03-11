@@ -94,6 +94,8 @@ void InteractionBuzz::update() {
 	map <int, int> :: const_iterator it;
 	
 	for(int i=0; i<bubbles.size(); i++) {
+				
+
 		
 		if(nTouches == 0) {
 			bubbles[i]->bTouched = false;			
@@ -140,7 +142,7 @@ void InteractionBuzz::update() {
 		
 		bubbles[i]->update();
 		
-		testApp::instance->projection->champagne.particles.push_back( new BrownianObject( bubbles[i]->pos, 0));
+		champagne(bubbles[i]->pos);
 
 	}	
 	

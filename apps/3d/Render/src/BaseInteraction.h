@@ -72,5 +72,6 @@ public:
 	virtual void newBubbleRecieved(Donk::BubbleData * data) = 0;
 	virtual void animatedOut()								= 0;
 	virtual void animatedIn()								= 0;
+	void champagne(ofVec3f pos);
 	
 };

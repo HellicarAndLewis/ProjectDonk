@@ -124,23 +124,28 @@ void testApp::keyPressed(int key){
 			case 0: data->text = "This is test 1"; break;
 			case 1: data->text = "Bubble bubble bubble"; break;
 			case 2: data->text = "Project donk here"; break;
-			case 3: data->text = "Who is this Maroon 5 band anyway?"; break;
-			case 4: data->text = "MMmmm... brown sticky liquid!"; break;
+			case 3: data->text = "Who is this Maroon 5?"; break;
+			case 4: data->text = "brown sticky liquid!"; break;
 		}
 		switch((int)ofRandom(5)) {
 			case 0: data->userName = "mazbox"; break;
 			case 1: data->userName = "cokeMe!"; break;
 			case 2: data->userName = "DeadSaxon"; break;
-			case 3: data->userName = "bluntInstrument"; break;
+			case 3: data->userName = "jtnimoy"; break;
 			case 4: data->userName = "timeteam"; break;
 		}
 		
 		
-		data->media.push_back(Donk::BubbleData::MediaEntry());
-		data->media.back().mediaImage.loadImage("lena.png");
-		data->media.back().thumbImage = data->media.back().mediaImage;
-		data->media.back().thumbImage.resize(128, 128);
-
+		if(ofRandomuf()>0.5){
+			data->media.push_back(Donk::BubbleData::MediaEntry());
+			char fname[64];
+			sprintf(fname,"images/performance/%i.png",(int)ofRandom(1,13));
+			cout << fname << endl;
+			data->media.back().mediaImage.loadImage(fname);
+			data->media.back().thumbImage = data->media.back().mediaImage;
+			data->media.back().thumbImage.resize(128, 128);
+		}
+		
 		data->profileImage.loadImage("lena.png");
 
 		

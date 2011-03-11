@@ -8,4 +8,9 @@
  */
 
 #include "BaseInteraction.h"
+#include "testApp.h"
+
+void BaseInteraction::champagne(ofVec3f pos){
+	if(ofGetFrameNum()%4==0)testApp::instance->projection->champagne.particles.push_back( new BrownianObject( pos, 10));
+}
 

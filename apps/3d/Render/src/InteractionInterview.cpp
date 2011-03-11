@@ -32,6 +32,12 @@ void InteractionInterview::update() {
 	bool bAllOffScreen = true;
 	for(int i=0; i<bubbles.size(); i++) {
 	
+		if(bubbles[i]->bDoubleTouched) {
+			bubbles[i]->lerpRadius(240,0.1);
+		}else{
+			bubbles[i]->lerpRadius(180,0.1);
+		}
+		
 		if(bAnimateOut) {
 			bubbles[i]->goOffScreen();
 			float disToOffScreenTarget = bubbles[i]->getPosition().distance(bubbles[i]->offScreenTaget);
@@ -46,7 +52,7 @@ void InteractionInterview::update() {
 		
 		bubbles[i]->update();	
 		
-		testApp::instance->projection->champagne.particles.push_back( new BrownianObject( bubbles[i]->pos, 0));
+		champagne(bubbles[i]->pos);
 
 	}
 	

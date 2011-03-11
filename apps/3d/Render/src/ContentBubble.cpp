@@ -43,9 +43,9 @@ ContentBubble::ContentBubble() {
 //--------------------------------------------------------------
 void ContentBubble::createContentBubble() {
 	
-	color.r = 255;// ofRandom(0, 255);
-	color.g = 255;
-	color.b = 255;
+	color.r = ofRandom(0, 255);
+	color.g = ofRandom(0, 255);
+	color.b = ofRandom(0, 255);
 	color.a = 25;
 	
 	touchAlphaTarget = 0;
@@ -166,6 +166,11 @@ void ContentBubble::setRadius(float r) {
 }
 
 //--------------------------------------------------------------
+void ContentBubble::lerpRadius(float r,float speed) {
+	setRadius(radius + (r-radius)*speed);	
+}
+
+//--------------------------------------------------------------
 void ContentBubble::update() {
 	
 	touchAlpha += (touchAlphaTarget-touchAlpha) * 0.1;
@@ -261,37 +266,91 @@ void ContentBubble::drawTwitterData() {
 				}
 			}
 			
-			//draw twitter icon as a disk
-			ofSetColor(255,255,255, alpha);
-			data->profileImage.bind();
-			float w = data->profileImage.width;
-			float h = data->profileImage.height;
-			//draw the circle-masked thumbnail
-			int steps = 60;
-			float inc = TWO_PI/(float)steps;
-			glBegin(GL_TRIANGLE_FAN);
-			for(int i=0;i<steps;i++){
-				float x = cos(inc*i);
-				float y = sin(inc*i);
-				glTexCoord2f((x+1)*w*0.5,(y+1)*h*0.5);
-				glVertex2f(x*data_radius,y*data_radius);
+			{
+				//draw twitter icon as a disk
+				ofSetColor(255,255,255, alpha);
+				data->profileImage.bind();
+				float w = data->profileImage.width;
+				float h = data->profileImage.height;
+				//draw the circle-masked thumbnail
+				int steps = 60;
+				float inc = TWO_PI/(float)steps;
+				glBegin(GL_TRIANGLE_FAN);
+				for(int i=0;i<steps;i++){
+					float x = cos(inc*i);
+					float y = sin(inc*i);
+					glTexCoord2f((x+1)*w*0.5,(y+1)*h*0.5);
+					glVertex2f(x*data_radius,y*data_radius);
+				}
+				glEnd();
+				data->profileImage.unbind();
 			}
-			glEnd();
-			data->profileImage.unbind();
 			
-			//draw twitter text content
-			ofRectangle textBB = font.getStringBoundingBox(data->userName, 0,0);
-			glPushMatrix();
-			float s = data_radius/textBB.width*1.75;
-			glScalef(s,s,s);
-			glTranslated(-textBB.width/2, 0,0.2);
-			ofSetColor(0,0,0, alpha);
-			font.drawString(data->userName,0,0);
-			glTranslatef(2,2,0.2);
-			ofSetColor(255,255,255, alpha);
-			font.drawString(data->userName,0,0);
-			data->profileImage.unbind();			
-			glPopMatrix();
+			{
+				glPushMatrix();
+				glRotatef(180,0,1,0);
+				glTranslatef(0,0,0.1);
+				
+				//draw twitter media as a disk
+				ofSetColor(color,alpha);
+				if(data->media.size()){
+					ofSetColor(255,255,255, alpha);
+					data->media[0].mediaImage.bind();
+				}
+				float w = data->profileImage.width;
+				float h = data->profileImage.height;
+				//draw the circle-masked thumbnail
+				int steps = 60;
+				float inc = TWO_PI/(float)steps;
+				glBegin(GL_TRIANGLE_FAN);
+				for(int i=0;i<steps;i++){
+					float x = cos(inc*i);
+					float y = sin(inc*i);
+					glTexCoord2f((x+1)*w*0.5,(y+1)*h*0.5);
+					glVertex2f(x*data_radius,y*data_radius);
+				}
+				glEnd();
+				data->profileImage.unbind();
+				glPopMatrix();
+			}
+			
+			{
+				//draw twitter text content
+				ofRectangle textBB = font.getStringBoundingBox(data->userName, 0,0);
+				glPushMatrix();
+				float s = data_radius/textBB.width*1.75;
+				glScalef(s,s,s);
+				glTranslated(-textBB.width/2, 0,0.2);
+				ofSetColor(0,0,0, alpha);
+				font.drawString(data->userName,0,0);
+				glTranslatef(2,2,0.2);
+				ofSetColor(255,255,255, alpha);
+				font.drawString(data->userName,0,0);
+				data->profileImage.unbind();			
+				glPopMatrix();
+			}
+			
+			{
+				//draw twitter text content
+				string txt = data->text;
+				if(txt.empty())txt="lorem ipsum";
+				ofRectangle textBB = font.getStringBoundingBox(txt, 0,0);
+				glPushMatrix();
+				float s = data_radius/textBB.width*1.75;
+				glScalef(s,s,s);
+				glRotatef(180,0,1,0);
+				glTranslated(-textBB.width/2, 0,0.2);
+				ofSetColor(0,0,0, alpha);
+				font.drawString(txt,0,0);
+				glTranslatef(2,2,0.2);
+				ofSetColor(255,255,255, alpha);
+				font.drawString(txt,0,0);
+				data->profileImage.unbind();			
+				glPopMatrix();
+			}
+			
+			
+			
 			
 		}
 		

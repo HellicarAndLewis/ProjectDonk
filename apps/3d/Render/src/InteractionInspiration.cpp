@@ -42,12 +42,19 @@ void InteractionInspiration::update() {
 	bool bAllOffScreen = true;
 	
 	for(int i=0; i<bubbles.size(); i++) {
+
+		
+		if(bubbles[i]->bDoubleTouched) {
+			bubbles[i]->lerpRadius(150,0.1);
+		}else{
+			bubbles[i]->lerpRadius(90,0.1);
+		}
 		
 		if(nTouches == 0) {
 			
 			if(bubbles[i]->bDoubleTouched) {
 				printf("Double Touched Off!\n");
-				bubbles[i]->setRadius(90);
+				//bubbles[i]->setRadius(90);
 			}
 			
 			bubbles[i]->bTouched	   = false;
@@ -74,7 +81,7 @@ void InteractionInspiration::update() {
 		bubbles[i]->update();
 		
 		
-		testApp::instance->projection->champagne.particles.push_back( new BrownianObject( bubbles[i]->pos, 0));
+		champagne(bubbles[i]->pos);
 
 		
 		
@@ -163,7 +170,7 @@ void InteractionInspiration::doubleTouched(ofVec2f touchpos) {
 		float	dis = p1.distance(p2);
 		
 		if(dis < bubble->radius + 10.0) {
-			bubble->setRadius(150);
+			//bubble->setRadius(150);
 			bubble->doubleTouched();
 			printf("hit this bubble: %p\n", bubble);
 			break;

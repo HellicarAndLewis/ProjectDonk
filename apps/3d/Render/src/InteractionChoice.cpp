@@ -30,7 +30,7 @@ void InteractionChoice::newBubbleRecieved(Donk::BubbleData * data) {
 void InteractionChoice::update() {
 	for(int i=0; i<bubbles.size(); i++) {
 		bubbles[i]->update();	
-		testApp::instance->projection->champagne.particles.push_back( new BrownianObject( bubbles[i]->pos, 0));
+		champagne(bubbles[i]->pos);
 
 	}	
 }

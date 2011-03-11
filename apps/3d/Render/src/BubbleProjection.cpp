@@ -235,7 +235,7 @@ void BubbleProjection::draw() {
 	for(tIt = touches.begin(); tIt!=touches.end(); tIt++) {
 		ofVec2f tp = mapToInteractiveArea((*tIt).second.getPosition());
 		(*tIt).second.drawTouch(tp);
-		champagne.particles.push_back( new BrownianObject( tp, 0));
+		if(ofGetFrameNum()%4==0)champagne.particles.push_back( new BrownianObject( tp, 10));
 	}
 	
 }

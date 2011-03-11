@@ -51,6 +51,7 @@ public:
 	// ---------------------------------
 	void doubleTouched();
 	void setRadius(float r);
+	void lerpRadius(float r,float speed);
 	ofVec3f getPosition();
 	void setTarget(float x, float y, float z=0);
 	void addForce(float x, float y, float z=0, float scale=1.0);
