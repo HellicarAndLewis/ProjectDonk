@@ -37,16 +37,18 @@ public:
 	void animatedIn();	
 	
 	void doubleTouched(ofVec2f touchpos);
-	
+	void killallBubbles();
+
 	//--------------------------------------------------------
 	void createContainerBubble(Donk::BubbleData * data);
 	void clearOldBubbles();
 	void releaseContainedBubbles(int poppedID);
+	void clearContainer( int index );
 	
 	//--------------------------------------------------------
 	void setCollisionFilter(ofxBulletRigidBody * rigidBody, int filter, int mask);
 	
 	//--------------------------------------------------------
-	vector<int> bubbleTypes;
+	//vector<int> bubbleTypes;
 	map<int,int> bubbleToContIndex;
 };
