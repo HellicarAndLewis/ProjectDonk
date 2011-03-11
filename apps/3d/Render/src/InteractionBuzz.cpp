@@ -96,18 +96,18 @@ void InteractionBuzz::update() {
 	
 	for(int i=0; i<bubbles.size(); i++) {
 				
-
+		if(bubbles[i]->buzzID == BUZZ_TYPE_BUBBLE_OUT)
+		{
+			if(bubbles[i]->bDoubleTouched){
+				bubbles[i]->lerpRadius(150,0.1);
+			}else{
+				bubbles[i]->lerpRadius(90,0.1);
+			}
+		}
 		
 		if(nTouches == 0) {
 			
 			bubbles[i]->bTouched = false;	
-			
-			
-			if(bubbles[i]->bDoubleTouched ){
-				bubbles[i]->setRadius(bubbles[i]->originalRadius);
-			}
-			
-			
 			bubbles[i]->bDoubleTouched = false;		
 		}
 		
@@ -132,14 +132,15 @@ void InteractionBuzz::update() {
 				
 				// fade out
 				if(bubbles[i]->alpha > 0) {
-					bubbles[i]->alpha -= 2;
+					//bubbles[i]->alpha -= 2;
 					bAllOffFadedOut = false;
 				}
 				
 				// move off screen
 				bubbles[i]->goOffScreen();
 				
-				if(bubbles[i]->getPosition().y > 0) {
+				// dead containers should count as offscreen
+				if(bubbles[i]->getPosition().y > 0 && bubbles[i]->bAlive) {
 					bAllOffScreen = false;
 				}
 				
@@ -161,7 +162,7 @@ void InteractionBuzz::update() {
 
 	}	
 	
-	if(bAllOffFadedOut && bAnimateOut){
+	if(bAllOffScreen && bAnimateOut){
 		bDoneAnimatingOut = true;
 		for(int i=0; i<bubbles.size(); i++) {
 			bubbles[i]->rigidBody->body->setActivationState(DISABLE_SIMULATION);
@@ -283,7 +284,7 @@ void InteractionBuzz::createContainerBubble(Donk::BubbleData * data){
 	
 	BuzzContainerBubble * container = new BuzzContainerBubble();
 	
-	ofVec3f center(interactiveRect.width/2, 0, 0);
+	ofVec3f center(interactiveRect.width/2,interactiveRect.height/2, 0);
 	ofVec3f startPos(center.x + ofRandom(-500, 500), interactiveRect.height+200, ofRandom(-100, 100));
 	float radius = CONTAINER_RADIUS+20;
 	
@@ -299,7 +300,9 @@ void InteractionBuzz::createContainerBubble(Donk::BubbleData * data){
 	container->rigidBody->shape = new btSphereShape(radius/SCALE);
 	container->rigidBody->createRigidBody(1, startTransform);
 	
-	container->target.set(center.x + ofRandom(-300, 300), ofRandom(300, interactiveRect.height-300), 0);
+	container->target.set(
+				center.x + ofRandom(-200, 200), 
+				center.y+ ofRandom(-100,100), 0);
 	container->targetForce = 5;
 	
 	container->offScreenTaget.x = container->target.x;
@@ -316,13 +319,6 @@ void InteractionBuzz::createContainerBubble(Donk::BubbleData * data){
 	bubbles.push_back(container);
 }
 
-void InteractionBuzz::clearContainer( int index ){
-	BuzzContainerBubble* bubble = (BuzzContainerBubble*)bubbles[index];
-	bubble->pop();
-	setCollisionFilter(bubble->rigidBody,COL_NOTHING,collidesWithNone);
-	bullet->world->removeRigidBody(bubble->rigidBody->body);
-}
-
 void InteractionBuzz::doubleTouched(ofVec2f touchpos)
 {
 	
@@ -331,10 +327,19 @@ void InteractionBuzz::doubleTouched(ofVec2f touchpos)
 	
 	for(int i=0; i<bubbles.size(); i++)
 	{
-		if(bubbles[i]->buzzID == BUZZ_TYPE_CONTAINER && ((BuzzContainerBubble*)bubbles[i])->bTouched && bubbles[i]->bAlive)
+		if(bubbles[i]->buzzID == BUZZ_TYPE_CONTAINER && bubbles[i]->bAlive)
 		{
-			poppedID = i;
-			break;
+			ContentBubble * bubble = bubbles[i];
+			ofVec2f p1  = touchpos;
+			ofVec2f p2  = bubble->rigidBody->getPosition();
+			float	dis = p1.distance(p2);
+			
+			if(dis < bubble->radius + 10.0) {
+				poppedID = i;
+				//bubble->doubleTouched();
+				break;
+			}
+			
 		}
 	}
 	
@@ -358,7 +363,6 @@ void InteractionBuzz::doubleTouched(ofVec2f touchpos)
 			float	dis = p1.distance(p2);
 			
 			if(dis < bubble->radius + 10.0) {
-				bubble->setRadius(150);
 				bubble->doubleTouched();
 				printf("hit this bubble: %p\n", bubble);
 				break;
@@ -367,6 +371,15 @@ void InteractionBuzz::doubleTouched(ofVec2f touchpos)
 	
 	}
 	
+}
+
+void InteractionBuzz::clearContainer( int index ){
+	BuzzContainerBubble* bubble = (BuzzContainerBubble*)bubbles[index];
+	bubble->pop();
+	setCollisionFilter(bubble->rigidBody,COL_NOTHING,collidesWithNone);
+	bullet->world->removeRigidBody(bubble->rigidBody->body);
+	bubble->target.x = bubble->rigidBody->getPosition().x;
+	bubble->target.y = -300;
 }
 
 
@@ -400,8 +413,8 @@ void InteractionBuzz::releaseContainedBubbles(int poppedID)
 			{
 				bubble->buzzID  = BUZZ_TYPE_BUBBLE_OUT;
 				bubble->target = bubble->rigidBody->getPosition();
-				bubble->target.x += ofRandom(-300, 300);
-				bubble->target.y += ofRandom(-300, 300);
+				bubble->target.x += ofRandom(-200, 200);
+				bubble->target.y += ofRandom(-200, 200);
 				bubble->targetForce = 10.f;
 				
 				setCollisionFilter(bubble->rigidBody,COL_BUBBLE_OUT,bubbleOutCollidesWith);
