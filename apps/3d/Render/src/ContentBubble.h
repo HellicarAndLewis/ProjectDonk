@@ -44,7 +44,10 @@ public:
 	int					 performceImageID;
 	int					 performanceChannel;
 	ofVec3f				 performanceStartTarget;
-
+	
+	// ---------------------------------
+	int					buzzID;
+	
 	// ---------------------------------
 	ContentBubble();
 	

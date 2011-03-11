@@ -69,7 +69,9 @@ void BuzzContainerBubble::createContainerBubble(ofxBullet * bullet, ofVec3f _pos
 	btVector3 localPivot = rigidBody->body->getCenterOfMassPosition();
 	p2p = new btPoint2PointConstraint(*globe->body, localPivot);
 	bullet->world->addConstraint(p2p);
-	
+	//p2p->m_setting.m_damping = 1.001f;
+	//p2p->m_setting.m_impulseClamp = .1;
+
 }
 
 void BuzzContainerBubble::pop(){
@@ -94,10 +96,16 @@ void BuzzContainerBubble::updateConstraint() {
 	
 	if(bAlive && rigidBody->isBody())
 	{
+		//btVector3 pickPos = rigidBody->body->getCenterOfMassPosition();
+		//printf("pickPos=%f,%f,%f\n",pickPos.getX(),pickPos.getY(),pickPos.getZ());
+		
+		
+		//btVector3 localPivot = globe->body->getCenterOfMassTransform().inverse() * pickPos;
 		btVector3 localPivot = rigidBody->body->getCenterOfMassPosition();
 		p2p->setPivotB(localPivot);
 	}
 	
+
 }
 
 
