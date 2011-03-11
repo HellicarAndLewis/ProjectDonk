@@ -24,6 +24,7 @@ public:
 	
 	ofxBulletCompoundBody   * globe;
 	btPoint2PointConstraint * p2p;
+	int nChildren;
 	
 private:
 	
