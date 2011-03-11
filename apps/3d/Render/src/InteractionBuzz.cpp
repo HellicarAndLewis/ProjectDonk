@@ -8,6 +8,7 @@
  */
 
 #include "InteractionBuzz.h"
+#include "testApp.h"
 
 #define BIT(x) (1<<(x))
 enum collisiontypes{
@@ -108,6 +109,9 @@ void InteractionBuzz::update() {
 		}
 		
 		bubbles[i]->update();
+
+		
+		testApp::instance->projection->champagne.particles.push_back( new BrownianObject( bubbles[i]->pos, 0));
 
 	}	
 	

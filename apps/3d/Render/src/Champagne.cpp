@@ -30,7 +30,6 @@ void Champagne::setup(){
 void Champagne::update(){
 	vector<ofVec3f>::iterator dObj = disturbingObjects.begin();
 	
-	/*
 	while(dObj != disturbingObjects.end()){
 		if( dObj->y > 0 ) {
 			dObj->y -= 7.f;
@@ -43,7 +42,6 @@ void Champagne::update(){
 			dObj = disturbingObjects.erase(dObj);
 		}
 	}
-	*/
 	
 	if(ofRandomuf() < 0.1){
 		particles.push_back( new BrownianObject( emitter, 32));
@@ -72,7 +70,7 @@ void Champagne::update(){
 void Champagne::draw(){
 	ofSetColor(255, 255, 255);
 	
-	/*
+	
 	vector<ofVec3f>::iterator dObj = disturbingObjects.begin();
 	while(dObj != disturbingObjects.end())
 	{
@@ -82,7 +80,7 @@ void Champagne::draw(){
 		glPopMatrix();
 		++dObj;
 	}
-	*/
+	
 	
 	vector<BrownianObject*>::iterator it;
 	for(it=particles.begin();it != particles.end();it++){

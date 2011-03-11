@@ -104,7 +104,7 @@ private:
 	
 	/** Convenience so you don't have to keep typing it */
 	map<int,BubbleTouch>::iterator tIt;
-	
+public:	
 	/** champagne bubbles */
 	Champagne champagne;
 };

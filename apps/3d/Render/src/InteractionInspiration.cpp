@@ -8,6 +8,7 @@
  */
 
 #include "InteractionInspiration.h"
+#include "testApp.h"
 
 
 //--------------------------------------------------------
@@ -71,6 +72,11 @@ void InteractionInspiration::update() {
 		
 		
 		bubbles[i]->update();
+		
+		
+		testApp::instance->projection->champagne.particles.push_back( new BrownianObject( bubbles[i]->pos, 0));
+
+		
 		
 	}	
 	

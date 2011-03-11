@@ -8,6 +8,7 @@
  */
 
 #include "InteractionInterview.h"
+#include "testApp.h"
 
 //--------------------------------------------------------
 void InteractionInterview::newBubbleRecieved(Donk::BubbleData * data) { 
@@ -44,6 +45,9 @@ void InteractionInterview::update() {
 		
 		
 		bubbles[i]->update();	
+		
+		testApp::instance->projection->champagne.particles.push_back( new BrownianObject( bubbles[i]->pos, 0));
+
 	}
 	
 	

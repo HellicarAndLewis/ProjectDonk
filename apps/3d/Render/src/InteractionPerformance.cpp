@@ -8,7 +8,7 @@
  */
 
 #include "InteractionPerformance.h"
-
+#include "testApp.h"
 
 //--------------------------------------------------------
 void InteractionPerformance::setup() {
@@ -96,6 +96,8 @@ void InteractionPerformance::update() {
 		float newRad = freq[ bubbles[i]->performanceChannel ] * 60.0;
 		bubbles[i]->setRadius(30 + newRad);
 		
+		testApp::instance->projection->champagne.particles.push_back( new BrownianObject( bubbles[i]->pos, 0));
+
 		
 	}	
 	
