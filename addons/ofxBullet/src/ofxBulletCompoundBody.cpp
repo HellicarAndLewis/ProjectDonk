@@ -27,6 +27,7 @@ void ofxBulletCompoundBody::createCompoundBody(int mass, const btTransform start
 	
 	btVector3 inertia(0, 0, 0);
 	compoundShape->calculateLocalInertia(mass, inertia);
+	//shape = new btSphereShape(200);
 	
 	btMotionState* myMotionState;
 	myMotionState = new btDefaultMotionState(startTrans);			
@@ -44,7 +45,10 @@ void ofxBulletCompoundBody::createCompoundBody(int mass, const btTransform start
 //--------------------------------------------------------------
 void ofxBulletCompoundBody::drawChildren()
 {
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	int nChildren = compoundShape->getNumChildShapes();
+	//cout << "compound kids: " << nChildren << endl;
+	
 	btScalar	m[16];
 	body->getWorldTransform().getOpenGLMatrix(m);
 	btVector3 aabbMin, aabbMax;
@@ -92,6 +96,7 @@ void ofxBulletCompoundBody::drawChildren()
 				7,2,3,
 				7,6,2};
 			static btVector3 vertices[8]={	btVector3(1,1,1),btVector3(-1,1,1),	btVector3(1,-1,1),	btVector3(-1,-1,1),	btVector3(1,1,-1),	btVector3(-1,1,-1),	btVector3(1,-1,-1),	btVector3(-1,-1,-1)};
+			
 			glBegin (GL_TRIANGLES);
 			int si=36;
 			for (int i=0;i<si;i+=3) {
@@ -120,5 +125,6 @@ void ofxBulletCompoundBody::drawChildren()
 	}
 	
 	glPopMatrix();
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 

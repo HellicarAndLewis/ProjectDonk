@@ -9,19 +9,24 @@
 
 #pragma once
 #include "ofxBullet.h"
+#include "ofxBulletCompoundBody.h"
 #include "ContentBubble.h"
 
 class BuzzContainerBubble : public ContentBubble{
 	
-	public:
+public:
 	
-		BuzzContainerBubble();
-		
-		void createContainerBubble(ofxBullet * bullet);
-		void pop();
-		void drawTwitterData(){}
-				
-	private:
+	BuzzContainerBubble();
+	
+	void createContainerBubble(ofxBullet * bullet, ofVec3f pos);
+	void pop();
+	void updateConstraint();
+	
+	ofxBulletCompoundBody   * globe;
+	btPoint2PointConstraint * p2p;
+	
+private:
+	
 	
 };
 

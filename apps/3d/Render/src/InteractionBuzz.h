@@ -14,12 +14,15 @@
 #define BUZZ_TYPE_CONTAINER		0
 #define BUZZ_TYPE_BUBBLE_IN		1
 #define BUZZ_TYPE_BUBBLE_OUT	2
+#define BUZZ_TYPE_BUBBLE_OLD	3
+
+#define CONTAINER_RADIUS		200
 
 class InteractionBuzz : public BaseInteraction {
 	
 	
 public:
-		
+	
 	//--------------------------------------------------------
 	InteractionBuzz() {
 		mode = MODE_BUZZ;
@@ -37,8 +40,12 @@ public:
 	
 	//--------------------------------------------------------
 	void createContainerBubble(Donk::BubbleData * data);
-	//void clearContainerBubble(int index);
-
+	void clearOldBubbles();
+	void releaseContainedBubbles(int poppedID);
+	
+	//--------------------------------------------------------
+	void setCollisionFilter(ofxBulletRigidBody * rigidBody, int filter, int mask);
+	
 	//--------------------------------------------------------
 	vector<int> bubbleTypes;
 	map<int,int> bubbleToContIndex;

@@ -182,6 +182,7 @@
 		814B60771300CDF40003229E /* ofxOscReceiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 814B606B1300CDF40003229E /* ofxOscReceiver.cpp */; };
 		814B60781300CDF40003229E /* ofxOscSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 814B606D1300CDF40003229E /* ofxOscSender.cpp */; };
 		81A509A41308C42E00E1911C /* QuestionData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81A509A31308C42E00E1911C /* QuestionData.cpp */; };
+		81CBEF9F1329B41E009DD635 /* ofxBulletCompoundBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81CBEF9D1329B41E009DD635 /* ofxBulletCompoundBody.cpp */; };
 		81D550751327EFFA00BE67D2 /* Champagne.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81D550741327EFFA00BE67D2 /* Champagne.cpp */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
 		E45BE97C0E8CC7DD009D7055 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */; };
@@ -758,6 +759,8 @@
 		814B606E1300CDF40003229E /* ofxOscSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxOscSender.h; sourceTree = "<group>"; };
 		81A509A21308C42E00E1911C /* QuestionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionData.h; sourceTree = "<group>"; };
 		81A509A31308C42E00E1911C /* QuestionData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QuestionData.cpp; sourceTree = "<group>"; };
+		81CBEF9D1329B41E009DD635 /* ofxBulletCompoundBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxBulletCompoundBody.cpp; path = ../../../addons/ofxBullet/src/ofxBulletCompoundBody.cpp; sourceTree = SOURCE_ROOT; };
+		81CBEF9E1329B41E009DD635 /* ofxBulletCompoundBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxBulletCompoundBody.h; path = ../../../addons/ofxBullet/src/ofxBulletCompoundBody.h; sourceTree = SOURCE_ROOT; };
 		81D550741327EFFA00BE67D2 /* Champagne.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Champagne.cpp; sourceTree = "<group>"; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
 		E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
@@ -1141,6 +1144,8 @@
 		5FF09B5013180C67009A416F /* bullet */ = {
 			isa = PBXGroup;
 			children = (
+				81CBEF9D1329B41E009DD635 /* ofxBulletCompoundBody.cpp */,
+				81CBEF9E1329B41E009DD635 /* ofxBulletCompoundBody.h */,
 				5FF09B5113180C67009A416F /* btBulletCollisionCommon.h */,
 				5FF09B5213180C67009A416F /* btBulletDynamicsCommon.h */,
 				5FF09B5313180C67009A416F /* Bullet-C-Api.h */,
@@ -2871,6 +2876,7 @@
 				5D04B68C1328F58D0082AFA4 /* Particle.cpp in Sources */,
 				5D04B68D1328F58D0082AFA4 /* ParticleSystem.cpp in Sources */,
 				5FFBEFC3132952AC009FBC1A /* ofxDirList.cpp in Sources */,
+				81CBEF9F1329B41E009DD635 /* ofxBulletCompoundBody.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
