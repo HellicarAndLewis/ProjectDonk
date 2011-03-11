@@ -26,28 +26,85 @@ int bubbleOutCollidesWith	= COL_CONTAINER | COL_BUBBLE_OUT;
 int bubbleInCollidesWith	= COL_BUBBLE_IN | COL_CONT_FRAME;
 int contFrameCollidesWith	= COL_BUBBLE_IN;
 
+// #define BUZZ_TEST_MODE_WAIT
+
+/*
+void InteractionBuzz::newContainerReceived( containerData * data )
+{
+	// make container
+	momNowID = createContainerBubble();
+	
+	// start adding her children
+	int numChildren  = data->numChildren;
+ 
+	// base size on how many we have (need real data here )
+	float cRad = CONTAINER_RADIUS;
+	float volCont = (( 4.0/3.0)*PI )*(cRad*cRad*cRad);
+	float volBubb = volCont / (numChildren * 5.f);
+ 
+	float radius = volBubb / (( 4.0/3.0)*PI );
+	radius = pow(radius, 1.0f/3.0f);
+ 
+
+	// create inner content bubbles
+	for( int i = 0; i < numChildren; i++)
+	{
+		createChildBubble( momNowID, data->bubbleData[i],  radius);
+	}
+	
+}
+*/
 //--------------------------------------------------------
 void InteractionBuzz::newBubbleRecieved(Donk::BubbleData * data) { 
 	
-	// create the container first
-	createContainerBubble(data);
 	
-	int id = bubbles.size()-1;
-	ofVec3f momPos = bubbles[id]->rigidBody->getPosition();
+	// testing only
+	#ifdef BUZZ_TEST_MODE_WAIT
+		if(bubbles.size()<=0) momNowID  = createContainerBubble();
+	#else
+	 momNowID  = createContainerBubble();
+	#endif
+
+	BuzzContainerBubble* mom = (BuzzContainerBubble*)bubbles[momNowID];
+	
+	#ifdef BUZZ_TEST_MODE_WAIT
+		if(mom->nChildren >= 4) momNowID = createContainerBubble();
+	#endif
+
+
+	// start adding her children
+	int numChildren  = 4;
 	
 	// base size on how many we have (need real data here )
-	int   total = 4;
 	float cRad = CONTAINER_RADIUS;
 	float volCont = (( 4.0/3.0)*PI )*(cRad*cRad*cRad);
-	float volBubb = volCont / (total * 5.f);
+	float volBubb = volCont / (numChildren * 5.f);
 	
 	float radius = volBubb / (( 4.0/3.0)*PI );
 	radius = pow(radius, 1.0f/3.0f);
-	float hRad = cRad *.5;
 	
+	#ifdef BUZZ_TEST_MODE_WAIT
+		int numToMakeNow = 1;
+	#else
+		int numToMakeNow = 4;
+	#endif
+
 	// create inner content bubbles
-	for( int i = 0; i < total; i++)
+	for( int i = 0; i < numToMakeNow; i++)
 	{
+		createChildBubble( momNowID, data,  radius);
+	}
+	
+	#ifdef BUZZ_TEST_MODE_WAIT// testing
+	if(mom->nChildren >= 4)
+	{
+		ofVec3f center(interactiveRect.width/2,interactiveRect.height/2, 0);
+		mom->target.set( center.x + ofRandom(-200, 200), center.y+ ofRandom(-100,100), 0);
+	}
+	#endif
+
+	/*for( int i = 0; i < total; i++)
+	{	
 		ofVec3f startPos = ofVec3f(momPos.x+ofRandom(-hRad,hRad),momPos.y+ofRandom(-hRad,hRad),momPos.z+ofRandom(-hRad,hRad));
 		
 		ContentBubble * bubble = new ContentBubble();
@@ -82,7 +139,7 @@ void InteractionBuzz::newBubbleRecieved(Donk::BubbleData * data) {
 		// record types and mom index
 		bubbleToContIndex.insert( pair<int,int>(bubbles.size()-1,id) );
 		
-	}
+	}*/
 	
 };
 
@@ -213,8 +270,6 @@ void InteractionBuzz::drawSphere(BubbleShader * shader) {
 	
 }
 
-
-
 //--------------------------------------------------------
 void InteractionBuzz::animatedOut() {
 	bAnimateIn  = false;
@@ -229,16 +284,6 @@ void InteractionBuzz::animatedOut() {
 		bubbles[i]->offScreenTaget.y = -300;
 	}
 	
-	/*for(int i=0; i<bubbles.size(); i++) 
-	{
-		if(bubbleTypes[i] == BUZZ_TYPE_CONTAINER && bubbles[i]->bAlive)
-		{
-			clearContainer(i);
-			releaseContainedBubbles(i);
-		}
-	}*/
-	
-
 }
 
 //--------------------------------------------------------
@@ -260,6 +305,7 @@ void InteractionBuzz::animatedIn() {
 	
 }
 
+//--------------------------------------------------------
 void InteractionBuzz::killallBubbles() {
 	
 	for (int i=0; i<bubbles.size(); i++) {
@@ -278,47 +324,7 @@ void InteractionBuzz::killallBubbles() {
 	bubbleToContIndex.clear();
 }
 
-void InteractionBuzz::createContainerBubble(Donk::BubbleData * data){
-	
-	cout << "Buzz: adding new container bubble" << endl;
-	
-	BuzzContainerBubble * container = new BuzzContainerBubble();
-	
-	ofVec3f center(interactiveRect.width/2,interactiveRect.height/2, 0);
-	ofVec3f startPos(center.x + ofRandom(-500, 500), interactiveRect.height+200, ofRandom(-100, 100));
-	float radius = CONTAINER_RADIUS+20;
-	
-	container->data	  = data;
-	container->radius = radius;
-	
-	btTransform startTransform;
-	startTransform.setIdentity();
-	startTransform.setOrigin(btVector3(startPos.x/SCALE, startPos.y/SCALE, startPos.z/SCALE));
-	
-	container->rigidBody = new ofxBulletRigidBody();
-	container->rigidBody->world = bullet->world;
-	container->rigidBody->shape = new btSphereShape(radius/SCALE);
-	container->rigidBody->createRigidBody(1, startTransform);
-	
-	container->target.set(
-				center.x + ofRandom(-200, 200), 
-				center.y+ ofRandom(-100,100), 0);
-	container->targetForce = 5;
-	
-	container->offScreenTaget.x = container->target.x;
-	container->offScreenTaget.y = -300;
-	
-	bullet->world->addRigidBody(container->rigidBody->body, COL_CONTAINER, contCollidesWith);
-	bullet->rigidBodies.push_back(container->rigidBody);
-	
-	container->createContainerBubble(bullet,startPos);
-	bullet->world->addRigidBody(container->globe->body, COL_CONT_FRAME,contFrameCollidesWith);
-	bullet->rigidBodies.push_back(container->globe);
-	
-	container->buzzID = BUZZ_TYPE_CONTAINER;
-	bubbles.push_back(container);
-}
-
+//--------------------------------------------------------
 void InteractionBuzz::doubleTouched(ofVec2f touchpos)
 {
 	
@@ -351,7 +357,7 @@ void InteractionBuzz::doubleTouched(ofVec2f touchpos)
 		releaseContainedBubbles(poppedID);
 		
 	}else{
-	
+		
 		
 		for(int i=0; i<bubbles.size(); i++) {
 			
@@ -368,11 +374,100 @@ void InteractionBuzz::doubleTouched(ofVec2f touchpos)
 				break;
 			}
 		}
-	
+		
 	}
 	
 }
+//--------------------------------------------------------
+int InteractionBuzz::createContainerBubble(/*Donk::BubbleData * data*/){
+	
+	cout << "Buzz: adding new container bubble" << endl;
+	
+	BuzzContainerBubble * container = new BuzzContainerBubble();
+	
+	ofVec3f center(interactiveRect.width/2,interactiveRect.height/2, 0);
+	ofVec3f startPos(center.x + ofRandom(-500, 500), interactiveRect.height+300, ofRandom(-100, 100));
+	float radius = CONTAINER_RADIUS+20;
+	
+	//container->data	  = data;
+	container->radius = radius;
+	
+	btTransform startTransform;
+	startTransform.setIdentity();
+	startTransform.setOrigin(btVector3(startPos.x/SCALE, startPos.y/SCALE, startPos.z/SCALE));
+	
+	container->rigidBody = new ofxBulletRigidBody();
+	container->rigidBody->world = bullet->world;
+	container->rigidBody->shape = new btSphereShape(radius/SCALE);
+	container->rigidBody->createRigidBody(1, startTransform);
+	
+	#ifdef BUZZ_TEST_MODE_WAIT
+	container->target = startPos;
+	#else
+	container->target.set(center.x + ofRandom(-200, 200), center.y+ ofRandom(-100,100), 0);
+	#endif
 
+	container->targetForce = 5;
+	
+	container->offScreenTaget.x = container->target.x;
+	container->offScreenTaget.y = -300;
+	
+	bullet->world->addRigidBody(container->rigidBody->body, COL_CONTAINER, contCollidesWith);
+	bullet->rigidBodies.push_back(container->rigidBody);
+	
+	container->createContainerBubble(bullet,startPos);
+	bullet->world->addRigidBody(container->globe->body, COL_CONT_FRAME,contFrameCollidesWith);
+	bullet->rigidBodies.push_back(container->globe);
+	
+	container->buzzID = BUZZ_TYPE_CONTAINER;
+	bubbles.push_back(container);
+	return bubbles.size()-1;
+}
+
+//--------------------------------------------------------
+void InteractionBuzz::createChildBubble(int momID, Donk::BubbleData * data, float radius)
+{
+	BuzzContainerBubble* mom = (BuzzContainerBubble*)bubbles[momID];
+	
+	float hRad = radius *.5;
+	ofVec3f momPos = mom->rigidBody->getPosition();
+	ofVec3f startPos = ofVec3f(momPos.x+ofRandom(-hRad,hRad),momPos.y+ofRandom(-hRad,hRad),momPos.z+ofRandom(-hRad,hRad));
+	
+	ContentBubble * bubble = new ContentBubble();
+	
+	bubble->data	  = data;
+	bubble->radius    = radius;
+	bubble->originalRadius = radius;
+	
+	btTransform startTransform;
+	startTransform.setIdentity();
+	startTransform.setOrigin(btVector3(startPos.x/SCALE, startPos.y/SCALE, startPos.z/SCALE));
+	
+	bubble->rigidBody = new ofxBulletRigidBody();
+	bubble->rigidBody->world = bullet->world;
+	bubble->rigidBody->shape = new btSphereShape(radius/SCALE);
+	bubble->rigidBody->createRigidBody(1, startTransform);
+	
+	bullet->world->addRigidBody(bubble->rigidBody->body, COL_BUBBLE_IN, bubbleInCollidesWith);
+	bullet->rigidBodies.push_back(bubble->rigidBody);
+	
+	bubble->createContentBubble();
+	bubble->target = momPos;
+	bubble->targetForce = 20.f;
+	
+	bubble->offScreenTaget.x = bubble->target.x;
+	bubble->offScreenTaget.y = -300;
+	
+	bubbles.push_back(bubble);
+	
+	bubble->buzzID = BUZZ_TYPE_BUBBLE_IN;
+	
+	// record types and mom index
+	bubbleToContIndex.insert( pair<int,int>(bubbles.size()-1,momID) );
+	
+	mom->nChildren++;
+}
+//--------------------------------------------------------
 void InteractionBuzz::clearContainer( int index ){
 	BuzzContainerBubble* bubble = (BuzzContainerBubble*)bubbles[index];
 	bubble->pop();
@@ -382,10 +477,9 @@ void InteractionBuzz::clearContainer( int index ){
 	bubble->target.y = -300;
 }
 
-
+//--------------------------------------------------------
 void InteractionBuzz::clearOldBubbles()
 {
-	cout << "CLEAR OLD " << endl;
 	for(int i=0; i<bubbles.size(); i++)
 	{
 		if(bubbles[i]->buzzID == BUZZ_TYPE_BUBBLE_OUT)
@@ -396,7 +490,7 @@ void InteractionBuzz::clearOldBubbles()
 		}
 	}
 }
-
+//--------------------------------------------------------
 void InteractionBuzz::releaseContainedBubbles(int poppedID)
 {
 	map <int, int> :: const_iterator it;
@@ -424,6 +518,7 @@ void InteractionBuzz::releaseContainedBubbles(int poppedID)
 	}
 }
 
+//--------------------------------------------------------
 void InteractionBuzz::setCollisionFilter(ofxBulletRigidBody * rigidBody, int filter, int mask)
 {
 	ofVec3f startPos = rigidBody->getPosition();
