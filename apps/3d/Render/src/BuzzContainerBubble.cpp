@@ -12,7 +12,9 @@
 BuzzContainerBubble::BuzzContainerBubble(){
 	
 	ContentBubble::ContentBubble();
+	nChildren = 0;
 }
+
 
 void BuzzContainerBubble::createContainerBubble(ofxBullet * bullet, ofVec3f _pos){
 	
