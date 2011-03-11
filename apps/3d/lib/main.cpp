@@ -20,7 +20,7 @@ int main( ){
 	// soley for the gui. The gui screen is as wide as the projectors.
 	int numScreens = settings.getInt("num projectors", 1) + (settings.getBool("using first screen for gui only", false)?1:0);
 	
-	WIDTH =  settings.getInt("projector width", WIDTH);//*numScreens;
+	WIDTH =  settings.getInt("projector width", WIDTH)*numScreens;
 	
 	// height of the app is determined by the projector height
 	HEIGHT = settings.getInt("projector height", HEIGHT);

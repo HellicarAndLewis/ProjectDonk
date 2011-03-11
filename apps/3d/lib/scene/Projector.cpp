@@ -11,7 +11,6 @@
 
 Projector::Projector(string name, float x, float y, float width, float height): Viewport(name, x, y, width, height) {
 	fov = 45;
-	aspectAdjustment = 1;
 	zNear = (0.01);
 	zFar = (1000);
 	this->name = name;
@@ -81,17 +80,19 @@ void Projector::begin() {
 	glLoadIdentity();
 	
 	float aspect = width/height;
-	aspect = aspectAdjustment*ofGetWindowSize().x/ofGetWindowSize().y;
+//	aspect = aspectAdjustment*ofGetWindowSize().x/ofGetWindowSize().y;
 	gluPerspective(fov, aspect, nc, fc);
 	
 	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(ofMatrix4x4::getInverseOf(getGlobalTransformMatrix()).getPtr());
-	//glViewport(x, ofGetHeight() - (height+y), width, height);
+
+	// this was ofViewport(x, y, width, height);
+	// but changed it because we're drawing to an intermediate fbo now.
+	ofViewport(0, 0, width, height);
+
+
 	
-	
-	glViewport(x, height, width, height);
-	//glViewport(x, y, width, height);
 	//printf("x: %f   Y: %f   w: %f   h: %f  \n", x, y, width, height);
 }
 
