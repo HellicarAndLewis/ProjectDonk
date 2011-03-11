@@ -24,14 +24,24 @@ public:
 					 mode->getValue("Bottom BG Green"), 
 					 mode->getValue("Bottom BG Blue"));
 		
-		glBegin(GL_QUADS);
+		float middle = mode->getValue("Gradient Centre");
+		
+		ofColor middleColor = (topColor + bottomColor) / 2.f;
+		
+		glBegin(GL_TRIANGLE_STRIP);
 		
 		ofSetColor(topColor);
 		glVertex2f(0, 0);
 		glVertex2f(getWidth(), 0);
+		
+		ofSetColor(middleColor);
+		glVertex2f(0, getHeight()*middle);
+		glVertex2f(getWidth(), getHeight()*middle);
+		
 		ofSetColor(bottomColor);
-		glVertex2f(getWidth(), getHeight());
 		glVertex2f(0, getHeight());
+		glVertex2f(getWidth(), getHeight());
+		
 		glEnd();
 	}
 };

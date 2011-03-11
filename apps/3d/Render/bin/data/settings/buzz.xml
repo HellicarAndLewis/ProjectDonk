@@ -5,6 +5,7 @@
     <parameter key="Bottom BG Red" value="193.263168"></parameter>
     <parameter key="Bottom BG Green" value="81.868423"></parameter>
     <parameter key="Bottom BG Blue" value="120.789474"></parameter>
+    <parameter key="Gradient Centre" value="0.578947"></parameter>
     <parameter key="light x" value="0.315789"></parameter>
     <parameter key="light y" value="1.789474"></parameter>
     <parameter key="light z" value="0.421053"></parameter>

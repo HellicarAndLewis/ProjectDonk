@@ -1,5 +1,5 @@
 <values>
-    <value controlId="Calibration Mode" value="true"></value>
+    <value controlId="Calibration Mode" value="false"></value>
     <value controlId="Projection" value="0"></value>
     <value controlId="Draw Lena" value="true"></value>
     <value controlId="Lena scale" value="2.322105408"></value>

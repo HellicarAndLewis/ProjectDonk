@@ -1,10 +1,11 @@
 <values>
     <parameter key="Top BG Red" value="250.973694"></parameter>
-    <parameter key="Top BG Green" value="249.631577"></parameter>
+    <parameter key="Top BG Green" value="77.842110"></parameter>
     <parameter key="Top BG Blue" value="237.552628"></parameter>
     <parameter key="Bottom BG Red" value="155.684219"></parameter>
     <parameter key="Bottom BG Green" value="131.526306"></parameter>
     <parameter key="Bottom BG Blue" value="30.868422"></parameter>
+    <parameter key="Gradient Centre" value="0.452632"></parameter>
     <parameter key="light x" value="-0.631579"></parameter>
     <parameter key="light y" value="1.473684"></parameter>
     <parameter key="light z" value="1.157895"></parameter>

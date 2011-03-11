@@ -210,6 +210,7 @@ void BubbleProjection::draw() {
 		glVertex2f(getWidth()/2, getHeight()/2-10);
 		glVertex2f(getWidth()/2, getHeight()/2+10);
 		glEnd();
+		glLineWidth(1);
 	}
 	
 	champagne.draw();
@@ -232,7 +233,11 @@ void BubbleProjection::draw() {
 	// -------------------
 	// draw touches
 	// -------------------
-	for(tIt = touches.begin(); tIt!=touches.end(); tIt++) {
+	tIt = touches.begin();
+	for(; 
+		tIt!=touches.end(); 
+		tIt++) 
+	{
 		ofVec2f tp = mapToInteractiveArea((*tIt).second.getPosition());
 		(*tIt).second.drawTouch(tp);
 		if(ofGetFrameNum()%4==0)champagne.particles.push_back( new BrownianObject( tp, 10));

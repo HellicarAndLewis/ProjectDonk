@@ -70,7 +70,7 @@ void ofxFourUpDisplay::draw(ofEventArgs &e) {
 	ofSetupScreen();
 	//ofViewport();
 	glViewport(0, 0, ofGetWidth(), ofGetHeight());
-	
+	glLineWidth(1);
 	glDisable(GL_DEPTH_TEST);
 	for(int i = 0; i < viewports.size(); i++) {
 		ofFill();
