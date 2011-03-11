@@ -39,8 +39,12 @@ public:
 	void doubleTouched(ofVec2f touchpos);
 	void killallBubbles();
 
+	//void newContainerReceived( containerData * data );
+
 	//--------------------------------------------------------
-	void createContainerBubble(Donk::BubbleData * data);
+	int createContainerBubble(/*Donk::BubbleData * data*/);
+	void createChildBubble(int momID, Donk::BubbleData * data, float radius);
+	
 	void clearOldBubbles();
 	void releaseContainedBubbles(int poppedID);
 	void clearContainer( int index );
@@ -51,4 +55,6 @@ public:
 	//--------------------------------------------------------
 	//vector<int> bubbleTypes;
 	map<int,int> bubbleToContIndex;
+	int momNowID;
+	
 };
