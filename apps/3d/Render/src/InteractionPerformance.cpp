@@ -16,10 +16,20 @@ void InteractionPerformance::setup() {
 	lineAlpha = 0;
 	lineAlphaDes = 255;
 	
+    
+    
 	audio = Donk::AudioData::getInstance();	
 	nBands = audio->getNumChannels();
+    
 	freq = new float[nBands];
-	for(int i=0; i<nBands; i++) freq[i] = 0.0;
+    colors = new ofColor[nBands];
+    ribbonCounts = new int[nBands];
+    lastFreq = new float[nBands];
+	for(int i=0; i<nBands; i++){
+        freq[i] = 0.0;   
+        lastFreq[i] = 0.0;
+        ribbonCounts[i] = 0;
+    }
 	
 	
 	// load all the images
@@ -59,9 +69,18 @@ void InteractionPerformance::setup() {
 		bubble->offScreenTaget = bubble->performanceStartTarget;
 		bubble->offScreenTaget.y = -100;
 		
-		bubbles.push_back(bubble);
+        
+		bubbles.push_back(bubble);        
 	}
-	
+    
+    maxRibbonsPerChannel = 100;
+    //add uggo-matic colors on purpose for debug
+    colors[0] = ofColor(1.0, 0.0, 0.0);
+    colors[1] = ofColor(1.0, 1.0, 0.0);
+    colors[2] = ofColor(0.0, 1.0, 1.0);
+    colors[3] = ofColor(1.0, 0.0, 1.0);
+    colors[4] = ofColor(0.0, 1.0, 0.0);
+    colors[5] = ofColor(1.0, 1.0, 1.0);
 }
 
 
@@ -93,12 +112,26 @@ void InteractionPerformance::update() {
 		}	
 		
 		bubbles[i]->update();
-		float newRad = freq[ bubbles[i]->performanceChannel ] * 60.0;
+		
+        float newRad = freq[ bubbles[i]->performanceChannel ] * 60.0;
 		bubbles[i]->setRadius(30 + newRad);
 		
 		champagne(bubbles[i]->pos);
-
 		
+        
+        //check for ribbon emmitting 
+        float dFreq = freq[ bubbles[i]->performanceChannel ] - lastFreq[ bubbles[i]->performanceChannel ];
+        int numRibbonsToEmit = ofMap(dFreq, .05, .2, 0, 20, true);
+        
+        //cout << " channel " << bubbles[i]->performanceChannel << " freq " << dFreq << endl;
+        
+        //clamp to max
+        numRibbonsToEmit = MIN(numRibbonsToEmit, maxRibbonsPerChannel - (ribbonCounts[bubbles[i]->performanceChannel] + numRibbonsToEmit) );
+        for(int j = 0; j < numRibbonsToEmit; j++){
+            addRibbonForIndex(i);
+        }
+        //cache freq
+        lastFreq[ bubbles[i]->performanceChannel ] = freq[ bubbles[i]->performanceChannel ];
 	}	
 	
 	if(bAllOffScreen && bAnimateOut) {
@@ -106,6 +139,9 @@ void InteractionPerformance::update() {
 	}
 	
 	lineAlpha += (lineAlphaDes-lineAlpha) * 0.02;
+
+ 
+    updateRibbons();
 }
 
 
@@ -134,7 +170,8 @@ void InteractionPerformance::drawContent() {
 	ofEndShape();
 	glPopMatrix();
 	
-	
+    
+    drawRibbons();
 	
 	ofSetColor(255, 255, 255);
 	for(int i=0; i<bubbles.size(); i++) {
@@ -159,7 +196,69 @@ void InteractionPerformance::drawContent() {
 		//bubbles[i]->popBillboard();
 		
 	}
+    
 	
+}
+
+void InteractionPerformance::addRibbonForIndex(int emitterBubble)
+{
+    //for now just add one ribbon per frame to test
+    Ribbon* ribbon = new Ribbon();
+    ribbon->ribbonCreatedTime = ofGetElapsedTimef();    
+    //animation params
+    ribbon->segmentsPerFrame = 3; //careful with this guy, dramatically effects other ribbon parameters
+    
+    ribbon->maxSegmentAge = 3.0; //changing this will tend to make longer ribbons
+    ribbon->maxRibbonAge = 4; //changing this will tend to make ribbons go longer
+    ribbon->noiseDamp = 500; //controls the scale of the perlin field. bigger number means slower meander
+    ribbon->noiseAmp = .5; //controls the scale of the perlin force applied, bigger number means greater influence
+    ribbon->curlySpeed = 3; //twisty action!
+    ribbon->speed = ofRandom(3, 8); //ranged speed
+    ribbon->maxThickness = 40;
+    ribbon->minThickness = 5;
+    ribbon->channel = emitterBubble;
+    
+    //Geometry and space, no real tweaking to do here, random direction picking.
+    //pick some random direction and upvec
+    ribbon->head = ofNode();
+    ribbon->head.setPosition( bubbles[emitterBubble]->getPosition() );
+    ribbon->color = colors[emitterBubble];
+    ofVec3f direction = ribbon->head.getPosition() + ofVec3f(ofRandomf(),ofRandomf(), ofRandomf()).normalized();
+    ofVec3f up = direction.getCrossed(direction + ofVec3f(ofRandomf(),ofRandomf(), ofRandomf()));
+    ribbon->head.lookAt(direction, up);
+        
+    ribbons.push_back(ribbon);
+}
+
+void InteractionPerformance::updateRibbons()
+{
+    for(int i = 0; i < ribbons.size(); i++){
+        ribbons[i]->update();
+    }
+    
+    for(int i = ribbons.size()-1; i >= 0; i--){
+        if(ribbons[i]->isDead()){
+            delete ribbons[i];
+            ribbons.erase(ribbons.begin()+i);
+        }
+    } 
+    
+    //recalculate totals
+    for(int i = 0; i < nBands; i++){
+        ribbonCounts[i] = 0;
+    }
+    
+    for(int i = 0; i < ribbons.size(); i++){
+        ribbonCounts[ ribbons[i]->channel ]++;
+    }
+}
+
+void InteractionPerformance::drawRibbons()
+{
+    for(int i = 0; i < ribbons.size(); i++){
+        ribbons[i]->draw();
+    }
+    
 }
 
 //--------------------------------------------------------
