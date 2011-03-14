@@ -13,7 +13,7 @@ BrownianObject::BrownianObject(ofVec2f initialLocation, float initialRadius, boo
 	position.set(initialLocation.x, initialLocation.y);
 	velocity.set(ofRandom(-0.1, 0.1), ofRandom(-0.3, 0));
 	age = 1.f;
-	minSize = ofRandom(3);
+	minSize = ofRandom(8);
 	xmoveLimited = limitXMovement;
 
 }
@@ -38,11 +38,8 @@ void BrownianObject::draw()
 	
 	//ofStrokeColor(255, age);
 	radius = (max<float>( age * radius, minSize));
-	glBindTexture(GL_TEXTURE_2D, NULL); // what's this all about
+	//glBindTexture(GL_TEXTURE_2D, NULL); // what's this all about
 	ofSetColor(255,255,255, 255);
 	ofNoFill();
 	ofCircle(position.x, position.y, radius);
-	//ofSphere(position.x, position.y, 100 - ( 1000 - (age * 1000)), radius);
-	//ofFill();
-	//ofCircle(position.x, position.y, radius);
 }

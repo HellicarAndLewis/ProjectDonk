@@ -11,7 +11,7 @@ class BrownianObject {
 public:
 	
 	BrownianObject(ofVec2f initialLocation, float intialRadius, bool limitXMovement = false);
-	bool isDead() { return age < 0.001; }
+	bool isDead() { return age < 0.01; }
 	void update();
 	void draw();
 	

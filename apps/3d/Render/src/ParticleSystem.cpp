@@ -13,10 +13,10 @@ ParticleSystem::ParticleSystem()
 	curIndex = 0;
 	//setWindowSize( ofVec2f( 1, 1 ) );
 	
-	shader.setup("pointShader.vs", "pointShader.fs" );
+	shader.setup("shader/pointShader.vs", "shader/pointShader.fs" );
 	
 	ofDisableArbTex();
-	dustParticle.loadImage("pointSpriteImg.png");
+	dustParticle.loadImage("shader/pointSpriteImg.png");
 	ofEnableArbTex();
 	
 	drawingType = SHADED_POINT_SPRITE;	

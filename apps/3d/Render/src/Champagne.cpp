@@ -31,7 +31,7 @@ void Champagne::update(){
 		if( dObj->y > 0 ) {
 			dObj->y -= 7.f;
 			if( ofRandomuf() < .2f) {
-				float scale = min(ofGetHeight() / dObj->y, 15.f);
+				float scale = min(ofGetHeight() / dObj->y, 25.f);
 				particles.push_back( new BrownianObject( *dObj, scale + 2));
 			}
 			++dObj;
@@ -40,7 +40,7 @@ void Champagne::update(){
 		}
 	}
 	
-	if(ofRandomuf() < 0.1){
+	if(ofRandomuf() < 0.05){
 		particles.push_back( new BrownianObject( emitter, 32));
 	}
 	
@@ -49,6 +49,7 @@ void Champagne::update(){
 	while(it != particles.end()){
 		if( (*it)->isDead()) {
 			if(*it) {
+				cout << "deleting " << endl;
 				delete *it;
 			}
 			it = particles.erase(it);
@@ -57,7 +58,7 @@ void Champagne::update(){
 		}
 	}
 
-	for(it = particles.begin();it!=particles.end();it++)(*it)->update();
+	for(it = particles.begin();it!=particles.end();it++) (*it)->update();
 	
 }
 
