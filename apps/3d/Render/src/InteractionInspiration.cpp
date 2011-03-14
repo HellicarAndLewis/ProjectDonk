@@ -34,6 +34,9 @@ void InteractionInspiration::newBubbleRecieved(Donk::BubbleData * data) {
 	bubble->offScreenTaget.y = -300;
 	
 	bubbles.push_back(bubble);
+	
+	
+	printf("--- new bubble in inpiration ---\n");
 };
 
 //--------------------------------------------------------
@@ -96,11 +99,6 @@ void InteractionInspiration::update() {
 		bDoneAnimatingOut = true;
 		killallBubbles();
 	}
-	
-	/*if(bAllOffScreen && bAnimateOut) {
-		bDoneAnimatingOut = true;
-		killallBubbles();
-	}*/
 	
 	
 	

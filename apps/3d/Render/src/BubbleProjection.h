@@ -18,7 +18,7 @@
 #include "InteractionBuzz.h"
 #include "InteractionInspiration.h"
 #include "InteractionInterview.h"
-#include "InteractionChoice.h"
+#include "InteractionVote.h"
 #include "InteractionPerformance.h"
 
 #include "Champagne.h"

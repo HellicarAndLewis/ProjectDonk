@@ -21,7 +21,7 @@
 		5FDBD72F13244A9A00A02A05 /* BaseInteraction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FDBD72E13244A9A00A02A05 /* BaseInteraction.cpp */; };
 		5FDBD73A13244B8100A02A05 /* InteractionInterview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FDBD73913244B8100A02A05 /* InteractionInterview.cpp */; };
 		5FDBD74213244BA700A02A05 /* InteractionBuzz.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FDBD74113244BA700A02A05 /* InteractionBuzz.cpp */; };
-		5FDBD74913244BBF00A02A05 /* InteractionChoice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FDBD74813244BBF00A02A05 /* InteractionChoice.cpp */; };
+		5FDBD74913244BBF00A02A05 /* InteractionVote.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FDBD74813244BBF00A02A05 /* InteractionVote.cpp */; };
 		5FDBD89E13253AAD00A02A05 /* InteractionPerformance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FDBD89D13253AAD00A02A05 /* InteractionPerformance.cpp */; };
 		5FDBD91C1325402000A02A05 /* BubbleData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FDBD91A1325402000A02A05 /* BubbleData.cpp */; };
 		5FF09CEC13180C67009A416F /* GL_ShapeDrawer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FF09B4D13180C67009A416F /* GL_ShapeDrawer.cpp */; };
@@ -196,7 +196,7 @@
 		E45BE9830E8CC7DD009D7055 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9790E8CC7DD009D7055 /* OpenGL.framework */; };
 		E45BE9840E8CC7DD009D7055 /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE97A0E8CC7DD009D7055 /* QuickTime.framework */; };
 		E4B69E210A3A1BDC003C02F2 /* testApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */; };
-		E4C2422B10CC554B004149E2 /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2421E10CC549C004149E2 /* openFrameworksDebug.a */; };
+		E4C2422B10CC554B004149E2 /* openFrameworks.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2421E10CC549C004149E2 /* openFrameworks.a */; };
 		E4C2424710CC5A17004149E2 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424410CC5A17004149E2 /* AppKit.framework */; };
 		E4C2424810CC5A17004149E2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424510CC5A17004149E2 /* Cocoa.framework */; };
 		E4C2424910CC5A17004149E2 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424610CC5A17004149E2 /* IOKit.framework */; };
@@ -338,8 +338,8 @@
 		5FDBD73913244B8100A02A05 /* InteractionInterview.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InteractionInterview.cpp; sourceTree = "<group>"; };
 		5FDBD74013244BA700A02A05 /* InteractionBuzz.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InteractionBuzz.h; sourceTree = "<group>"; };
 		5FDBD74113244BA700A02A05 /* InteractionBuzz.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InteractionBuzz.cpp; sourceTree = "<group>"; };
-		5FDBD74713244BBF00A02A05 /* InteractionChoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InteractionChoice.h; sourceTree = "<group>"; };
-		5FDBD74813244BBF00A02A05 /* InteractionChoice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InteractionChoice.cpp; sourceTree = "<group>"; };
+		5FDBD74713244BBF00A02A05 /* InteractionVote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InteractionVote.h; sourceTree = "<group>"; };
+		5FDBD74813244BBF00A02A05 /* InteractionVote.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InteractionVote.cpp; sourceTree = "<group>"; };
 		5FDBD89C13253AAD00A02A05 /* InteractionPerformance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InteractionPerformance.h; sourceTree = "<group>"; };
 		5FDBD89D13253AAD00A02A05 /* InteractionPerformance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InteractionPerformance.cpp; sourceTree = "<group>"; };
 		5FDBD91A1325402000A02A05 /* BubbleData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BubbleData.cpp; sourceTree = "<group>"; };
@@ -985,7 +985,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E4C2422B10CC554B004149E2 /* openFrameworksDebug.a in Frameworks */,
+				E4C2422B10CC554B004149E2 /* openFrameworks.a in Frameworks */,
 				E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */,
 				E45BE97C0E8CC7DD009D7055 /* ApplicationServices.framework in Frameworks */,
 				E45BE97D0E8CC7DD009D7055 /* AudioToolbox.framework in Frameworks */,
@@ -1066,7 +1066,7 @@
 				5FDBD74313244BAA00A02A05 /* Buzz */,
 				5FDBD73C13244B9100A02A05 /* Inspiration */,
 				5FDBD73B13244B8700A02A05 /* Interview */,
-				5FDBD74A13244BC100A02A05 /* Choice */,
+				5FDBD74A13244BC100A02A05 /* Vote */,
 				5FDBD8A013253AB100A02A05 /* Performance */,
 			);
 			name = Interactions;
@@ -1101,13 +1101,13 @@
 			name = Buzz;
 			sourceTree = "<group>";
 		};
-		5FDBD74A13244BC100A02A05 /* Choice */ = {
+		5FDBD74A13244BC100A02A05 /* Vote */ = {
 			isa = PBXGroup;
 			children = (
-				5FDBD74713244BBF00A02A05 /* InteractionChoice.h */,
-				5FDBD74813244BBF00A02A05 /* InteractionChoice.cpp */,
+				5FDBD74713244BBF00A02A05 /* InteractionVote.h */,
+				5FDBD74813244BBF00A02A05 /* InteractionVote.cpp */,
 			);
-			name = Choice;
+			name = Vote;
 			sourceTree = "<group>";
 		};
 		5FDBD8A013253AB100A02A05 /* Performance */ = {
@@ -1999,7 +1999,7 @@
 		E4C2421710CC549C004149E2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E4C2421E10CC549C004149E2 /* openFrameworksDebug.a */,
+				E4C2421E10CC549C004149E2 /* openFrameworks.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2590,6 +2590,7 @@
 			isa = PBXProject;
 			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "Render" */;
 			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				English,
@@ -2614,10 +2615,10 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		E4C2421E10CC549C004149E2 /* openFrameworksDebug.a */ = {
+		E4C2421E10CC549C004149E2 /* openFrameworks.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = openFrameworksDebug.a;
+			path = openFrameworks.a;
 			remoteRef = E4C2421D10CC549C004149E2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -2863,7 +2864,7 @@
 				5FDBD72F13244A9A00A02A05 /* BaseInteraction.cpp in Sources */,
 				5FDBD73A13244B8100A02A05 /* InteractionInterview.cpp in Sources */,
 				5FDBD74213244BA700A02A05 /* InteractionBuzz.cpp in Sources */,
-				5FDBD74913244BBF00A02A05 /* InteractionChoice.cpp in Sources */,
+				5FDBD74913244BBF00A02A05 /* InteractionVote.cpp in Sources */,
 				5FDBD89E13253AAD00A02A05 /* InteractionPerformance.cpp in Sources */,
 				810A07CA1324A5C7008AEE7A /* BubbleShader.cpp in Sources */,
 				5FDBD91C1325402000A02A05 /* BubbleData.cpp in Sources */,

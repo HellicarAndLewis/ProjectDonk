@@ -37,7 +37,7 @@ void BubbleProjection::setup() {
 	interactions.push_back(new InteractionBuzz());
 	interactions.push_back(new InteractionInspiration());
 	interactions.push_back(new InteractionInterview());
-	interactions.push_back(new InteractionChoice());
+	interactions.push_back(new InteractionVote());
 	interactions.push_back(new InteractionPerformance());
 	
 	for (int i=0; i<interactions.size(); i++) {
@@ -76,10 +76,10 @@ void BubbleProjection::interactionModeChange(string modeName) {
 	
 	// still need to add the rest...
 	int mode = -1;
-	if(modeName == "buzz")				 mode = MODE_BUZZ;
+	if(modeName		 == "buzz")			 mode = MODE_BUZZ;
 	else if(modeName == "inspiration")   mode = MODE_INSPIRATION;
 	else if(modeName == "interview")     mode = MODE_INTERVIEW;
-	else if(modeName == "question")      mode = MODE_CHOICE;
+	else if(modeName == "vote")      mode = MODE_VOTE;
 	else if(modeName == "performance")   mode = MODE_PERFORMANCE;
 	
 	

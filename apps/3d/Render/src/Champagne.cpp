@@ -49,7 +49,7 @@ void Champagne::update(){
 	while(it != particles.end()){
 		if( (*it)->isDead()) {
 			if(*it) {
-				cout << "deleting " << endl;
+				//cout << "deleting " << endl;
 				delete *it;
 			}
 			it = particles.erase(it);

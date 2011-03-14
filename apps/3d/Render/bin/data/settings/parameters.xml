@@ -6,7 +6,7 @@
 	<mode name="buzz"></mode>
 	<mode name="inspiration"></mode>
 	<mode name="interview"></mode>
-	<mode name="question"></mode>
+	<mode name="vote"></mode>
 	<mode name="performance"></mode>
     <parameter name="Top BG Red" defaultValue="0" minValue="0" maxValue="255"></parameter>
     <parameter name="Top BG Green" defaultValue="0" minValue="0" maxValue="255"></parameter>

@@ -10,13 +10,13 @@
 #pragma once
 #include "BaseInteraction.h"
 
-class InteractionChoice : public BaseInteraction {
+class InteractionVote : public BaseInteraction {
 	
 	
 public:
 	
-	InteractionChoice() {
-		mode = MODE_CHOICE;
+	InteractionVote() {
+		mode = MODE_VOTE;
 	}
 	
 	//--------------------------------------------------------

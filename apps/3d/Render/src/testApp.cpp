@@ -89,7 +89,7 @@ void testApp::drawView() {
 		scene->getLight()->setPosition(ofVec3f(mode->getValue("light x"), 
 								  mode->getValue("light y"), 
 								  mode->getValue("light z")));
-		printf("%f %f %f\n", mode->getValue("light x"), mode->getValue("light y"), mode->getValue("light z"));
+		// printf("%f %f %f\n", mode->getValue("light x"), mode->getValue("light y"), mode->getValue("light z"));
 		glShadeModel(GL_FLAT);
 		ofEnableLighting();
 		scene->getLight()->enable();
