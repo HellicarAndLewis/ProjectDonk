@@ -22,7 +22,9 @@ BubbleProjection::BubbleProjection() {
 	previousInteraction = NULL;
 	nextInteraction     = NULL;
 	touchPadding		= 10.0;
-	drawingParticles	= false;
+	//drawingParticles	= false;
+	drawingParticles	= true;
+	drawingChampagne	= false;
 }
 
 //--------------------------------------------------------
@@ -58,10 +60,12 @@ void BubbleProjection::setup() {
 	// next one animates in.
 	previousInteraction = NULL;
 	
-	champagne.setup();
+	if(drawingChampagne)
+		champagne.setup();
 	
 	// probably only want to do this when the particle system is used //
-	particleSys.init();
+	if(drawingParticles)
+		particleSys.init();
 }
 
 //--------------------------------------------------------
@@ -184,12 +188,44 @@ void BubbleProjection::update() {
 	// -------------------
 	// pretty stuff
 	// -------------------
-	champagne.update();
+	if(drawingChampagne) {
+		champagne.update();
+	}
+	
 	if(drawingParticles) {
 		particleSys.update();
 	}
 }
 
+
+
+void BubbleProjection::drawOnModel(Model *model) {
+	
+	//glViewport(0, 0, ofGetWidth()*2, ofGetHeight()*2);
+	// scale the texture matrix so we can use normalized tex coords
+	glMatrixMode(GL_TEXTURE);
+	glPushMatrix();
+	glLoadIdentity();
+	glScalef(width, -height, 1);
+	glTranslatef(0, -1, 0);
+	glMatrixMode(GL_MODELVIEW);
+	
+	
+	// draw the model (assuming it also draws normalized texCoords
+	bind();
+	glColor3f(1, 1, 1);
+	model->drawModel();
+	unbind();
+	
+	// reset the texture matrix
+	glMatrixMode(GL_TEXTURE);
+	//	glLoadIdentity();
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	
+	//particleSys.draw(true); // just checking if these can draw outside of FBO
+	
+}
 
 //--------------------------------------------------------
 void BubbleProjection::draw() {
@@ -225,7 +261,7 @@ void BubbleProjection::draw() {
 	}
 	
 	if(drawingParticles) {
-		particleSys.draw(false);
+		//particleSys.draw(false);
 	} else {
 		champagne.draw();
 	}

@@ -61,6 +61,8 @@ void testApp::render() {
 
 void testApp::drawView() {
 	
+	projection->particleSys.draw(true);
+	
 	// comment this stuff out if you don't want to draw the mesh
 	/*ofSetColor(mode->getValue("Background Red"), 
 			  mode->getValue("Background Green"), 
@@ -90,6 +92,7 @@ void testApp::drawView() {
 								  mode->getValue("light y"), 
 								  mode->getValue("light z")));
 		// printf("%f %f %f\n", mode->getValue("light x"), mode->getValue("light y"), mode->getValue("light z"));
+		//printf("%f %f %f\n", mode->getValue("light x"), mode->getValue("light y"), mode->getValue("light z"));
 		glShadeModel(GL_FLAT);
 		ofEnableLighting();
 		scene->getLight()->enable();

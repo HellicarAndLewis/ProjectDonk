@@ -39,7 +39,6 @@ public:
 	float				heightArray[MAX_PARTICLES  * 2 * 2];
 	ofVec2f				windowSize;
 	ofVec2f				invWindowSize;
-	const FluidSolver	*solver;
     int					curIndex;
 	ofImage				dustParticle;
     Particle			particles[MAX_PARTICLES];

@@ -96,7 +96,8 @@ void Particle::updateVertexArrays( bool drawingFluid, const ofVec2f &invWindowSi
 		// TODO - figure this out!
 		
 		ofColor color;
-		color.setHsb( 220 + (alpha * 20.f), 255.f, 0.5); //lerp( 0.5f, 1.0f, mass ) * alpha);
+		//color.setHsb( 220 + (alpha * 20.f), 255.f, 0.5); //lerp( 0.5f, 1.0f, mass ) * alpha);
+		color.setHsb( 190 + (alpha * 20.f), 255.f, 0.5); //lerp( 0.5f, 1.0f, mass ) * alpha);
 		
 		colBuffer[ci++] = color.r;
 		colBuffer[ci++] = color.g;

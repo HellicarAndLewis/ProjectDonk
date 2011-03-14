@@ -19,7 +19,7 @@ ParticleSystem::ParticleSystem()
 	dustParticle.loadImage("shader/pointSpriteImg.png");
 	ofEnableArbTex();
 	
-	drawingType = SHADED_POINT_SPRITE;	
+	drawingType = SHADED_POINT_SPRITE;
 }
 
 void ParticleSystem::init()
@@ -85,7 +85,8 @@ void ParticleSystem::draw( bool drawingFluid ){
 			glDisableClientState(GL_VERTEX_ARRAY);
 			glDisableClientState(GL_COLOR_ARRAY);
 			
-			glDisable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // put blending back
+			glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
 		break;
 	
 		case POINT_SPRITE:
@@ -117,6 +118,8 @@ void ParticleSystem::draw( bool drawingFluid ){
 			// Clean up
 			glDisableClientState(GL_VERTEX_ARRAY); 
 			glDisable(GL_POINT_SPRITE);
+			glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // put blending back
 		}
 		break;
 			
@@ -125,8 +128,8 @@ void ParticleSystem::draw( bool drawingFluid ){
 			
 			shader.begin(); // Turn on the Shader
 			
-			glEnable(GL_BLEND);
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+			//glEnable(GL_BLEND);
+			//glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 			
 			// Get the attribute and bind it
 			GLint pixel_loc = glGetAttribLocation(shader.getProgram(), "pointSize");
@@ -143,7 +146,8 @@ void ParticleSystem::draw( bool drawingFluid ){
 			glTexEnvi(GL_POINT_SPRITE, GL_COORD_REPLACE, GL_TRUE);
 			glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);      
 			
-			glEnableClientState(GL_VERTEX_ARRAY);
+			// try w/o vertex array
+			/*glEnableClientState(GL_VERTEX_ARRAY);
 			glVertexPointer(2, GL_FLOAT, 0, posArray);
 			
 			glEnableClientState(GL_COLOR_ARRAY);
@@ -152,8 +156,16 @@ void ParticleSystem::draw( bool drawingFluid ){
 			glDrawArrays(GL_POINTS, 0, MAX_PARTICLES * 2);
 			
 			glDisableClientState(GL_VERTEX_ARRAY);
-			glDisableClientState(GL_COLOR_ARRAY);
+			glDisableClientState(GL_COLOR_ARRAY);*/
 			
+			glBegin(GL_POINTS);
+			int i = 0;
+			while( i < MAX_PARTICLES ) {
+				glVertex3f(posArray[i], posArray[i+1], -1);
+				i += 2;
+			}
+			glEnd();
+				
 			dustParticle.unbind();
 			
 			// Clean up
@@ -161,6 +173,10 @@ void ParticleSystem::draw( bool drawingFluid ){
 			glDisable(GL_POINT_SPRITE);
 			glDisableVertexAttribArray(pixel_loc);
 			shader.end();
+			
+			glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
+			//glDisable(GL_BLEND);
+			//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // put blending back
 		}
 		break;
 	}
@@ -232,7 +248,7 @@ void ParticleSystem::update()
 	// update each particle
 	for(int i=0; i<MAX_PARTICLES - 1; i++) {
 		if(particles[i].alpha > 0) {
-			particles[i].update( *solver, windowSize, invWindowSize );
+			particles[i].update( fluidSolver, windowSize, invWindowSize );
 			//cout << particles[i].radius << endl;
 			particles[i].updateVertexArrays( false, invWindowSize, i, posArray, colArray, heightArray);
 		}

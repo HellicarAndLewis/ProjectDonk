@@ -21,7 +21,8 @@ void Champagne::setup()
 	emitter.set(a.x + a.width/2,a.y + a.height * 1.3 ,0);
 	
 	//play out the simulation a bit
-	for(int i=0;i<2000;i++)update();
+	//for(int i=0;i<2000;i++)update();
+	for(int i=0;i<500;i++)update();
 }	
 
 void Champagne::update(){
