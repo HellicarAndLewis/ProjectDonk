@@ -1,15 +1,12 @@
 /*
- *  ParticleSystem.cpp
- *  ofxMSAFluid Demo
  *
- *  Created by Mehmet Akten on 02/05/2009.
- *  Copyright 2009 MSA Visuals Ltd.. All rights reserved.
+ *  ParticleSystem.cpp
+ *
+ *  Ported from ofxMSAFluid
  *
  */
 
 #include "ParticleSystem.h"
-
-//using namespace MSA;
 
 ParticleSystem::ParticleSystem() 
 {
@@ -19,7 +16,7 @@ ParticleSystem::ParticleSystem()
 	shader.setup("pointShader.vs", "pointShader.fs" );
 	
 	ofDisableArbTex();
-	starImage.loadImage("pointSpriteImg.png");
+	dustParticle.loadImage("pointSpriteImg.png");
 	ofEnableArbTex();
 	
 	drawingType = SHADED_POINT_SPRITE;	
@@ -30,9 +27,7 @@ void ParticleSystem::init()
 	// setup fluid stuff
 	fluidSolver.setup(100, 100);
     fluidSolver.enableRGB(true);
-	//fluidSolver.setFadeSpeed(0.000001);
 	fluidSolver.setFadeSpeed(0.002f);
-	//fluidSolver.setFadeSpeed(1.0);
 	fluidSolver.setDeltaT(1);
 	fluidSolver.setColorDiffusion(0);
 	fluidSolver.setVisc(0.00015);
@@ -41,12 +36,11 @@ void ParticleSystem::init()
 	setWindowSize(ofVec2f(ofGetWidth(), ofGetHeight()));
 	
 	fluidCellsX			= 150;
-	
 	drawFluid			= true;
 	drawParticles		= true;
-	
-	pMouse = ofVec2f(ofGetWidth()/2, ofGetHeight()/2);
 	resizeFluid			= true;
+	
+	//pMouse = ofVec2f(ofGetWidth()/2, ofGetHeight()/2);
 	
 	currentEmitter = 0;
 	float inc = ofGetWidth()/3.f;
@@ -67,49 +61,8 @@ void ParticleSystem::setWindowSize( ofVec2f winSize )
 	invWindowSize = ofVec2f( 1.0f / winSize.x, 1.0f / winSize.y );
 }
 
-void ParticleSystem::updateAndDraw( bool drawingFluid ){
+void ParticleSystem::draw( bool drawingFluid ){
 
-	// manage
-	fluidSolver.update();
-	
-	for(int i = 0 ; i<NUM_EMITTERS; i++)
-	{
-		
-		ofVec2f vel(0,ofRandom(1.f) * -1);
-		
-		ofVec2f constrainPos(
-							 ofMap(forceEmitters[i].x, 0, 1024, 0.f, 1.f, true),
-							 ofMap(forceEmitters[i].y, 0, 768, 0.f, 1.f, true) 
-							 );
-		
-		const float colorMult = 100;
-		const float velocityMult = 0.3;
-		
-		//addToFluid(forceEmitters[i], vel, true, true);
-		int index = fluidSolver.getIndexForPos(constrainPos);
-		fluidSolver.addForceAtIndex(index, vel * velocityMult);
-	}
-	
-	if(ofGetFrameNum() % 2 == 0 ) {
-		
-		ofVec2f pos(ofRandom(ofGetWidth()), ofRandom(ofGetHeight()));
-		ofVec2f vel(sin(ofGetFrameNum()), cos(ofGetFrameNum()));
-		
-		addToFluid(pos, vel, true, true);
-		
-	}
-	
-	// update each particle
-	
-	for(int i=0; i<MAX_PARTICLES - 1; i++) {
-		if(particles[i].alpha > 0) {
-			particles[i].update( *solver, windowSize, invWindowSize );
-			
-			//cout << particles[i].radius << endl;
-			//particles[i].updateVertexArrays( drawingFluid, invWindowSize, i, posArray, colArray);
-			particles[i].updateVertexArrays( false, invWindowSize, i, posArray, colArray, heightArray);
-		}
-	}
 	
 	switch ( drawingType ) 
 	{
@@ -142,7 +95,7 @@ void ParticleSystem::updateAndDraw( bool drawingFluid ){
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 			
 			glDisable(GL_DEPTH_TEST);
-			starImage.bind();
+			dustParticle.bind();
 			
 			glEnable(GL_POINT_SPRITE);
 			glTexEnvi(GL_POINT_SPRITE, GL_COORD_REPLACE, GL_TRUE);
@@ -159,7 +112,7 @@ void ParticleSystem::updateAndDraw( bool drawingFluid ){
 			
 			glDisableClientState(GL_VERTEX_ARRAY);
 			
-			starImage.unbind();
+			dustParticle.unbind();
 			
 			// Clean up
 			glDisableClientState(GL_VERTEX_ARRAY); 
@@ -184,7 +137,7 @@ void ParticleSystem::updateAndDraw( bool drawingFluid ){
 			glDisable(GL_DEPTH_TEST);
 			glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
 			
-			starImage.bind();
+			dustParticle.bind();
 			
 			glEnable(GL_POINT_SPRITE);
 			glTexEnvi(GL_POINT_SPRITE, GL_COORD_REPLACE, GL_TRUE);
@@ -201,7 +154,7 @@ void ParticleSystem::updateAndDraw( bool drawingFluid ){
 			glDisableClientState(GL_VERTEX_ARRAY);
 			glDisableClientState(GL_COLOR_ARRAY);
 			
-			starImage.unbind();
+			dustParticle.unbind();
 			
 			// Clean up
 			glDisableClientState(GL_VERTEX_ARRAY); 
@@ -232,7 +185,57 @@ void ParticleSystem::addParticle( const ofVec2f &pos ) {
 	
 	if(curIndex == MAX_PARTICLES) {
 		curIndex = 0;
-		//return;
+	}
+}
+
+void ParticleSystem::update()
+{
+	/*if(resizeFluid)
+	 {
+	 
+	 //float hwRatio = ofGetHeight()/ofGetWidth();
+	 float hwRatio = 1200/800;
+	 fluidSolver.setSize(fluidCellsX, fluidCellsX / hwRatio);
+	 fluidDrawer.setup(&fluidSolver);
+	 resizeFluid = false;
+	 }*/
+	
+	// manage
+	fluidSolver.update();
+	
+	for(int i = 0 ; i<NUM_EMITTERS; i++)
+	{
+		
+		ofVec2f vel(0,ofRandom(1.f) * -1);
+		
+		ofVec2f constrainPos(
+							 ofMap(forceEmitters[i].x, 0, 1024, 0.f, 1.f, true),
+							 ofMap(forceEmitters[i].y, 0, 768, 0.f, 1.f, true) 
+							 );
+		
+		const float colorMult = 100;
+		const float velocityMult = 0.3;
+		
+		//addToFluid(forceEmitters[i], vel, true, true);
+		int index = fluidSolver.getIndexForPos(constrainPos);
+		fluidSolver.addForceAtIndex(index, vel * velocityMult);
+	}
+	
+	if(ofGetFrameNum() % 2 == 0 ) {
+		
+		ofVec2f pos(ofRandom(ofGetWidth()), ofRandom(ofGetHeight()));
+		ofVec2f vel(sin(ofGetFrameNum()), cos(ofGetFrameNum()));
+		addToFluid(pos, vel, true, true);
+		
+	}
+	
+	// update each particle
+	for(int i=0; i<MAX_PARTICLES - 1; i++) {
+		if(particles[i].alpha > 0) {
+			particles[i].update( *solver, windowSize, invWindowSize );
+			//cout << particles[i].radius << endl;
+			particles[i].updateVertexArrays( false, invWindowSize, i, posArray, colArray, heightArray);
+		}
 	}
 }
 
@@ -258,10 +261,8 @@ void ParticleSystem::addToFluid( ofVec2f pos, ofVec2f vel, bool addColor, bool a
 			ofColor drawColor;
 			drawColor.setHex(0x5E2612, 1.0);
 			//drawColor.setHsb((ofGetFrameNum() % 360 ) / 360.0f, 1, 1);
-			
 			fluidSolver.addColorAtIndex(index, drawColor);// * colorMult);
 		}
-		
 		
 		//particleSystem.addParticles( pos * ofVec2f( ofGetWindowSize() ), 5 );
 		addParticles( pos, 3 );

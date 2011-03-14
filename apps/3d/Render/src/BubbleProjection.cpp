@@ -22,6 +22,7 @@ BubbleProjection::BubbleProjection() {
 	previousInteraction = NULL;
 	nextInteraction     = NULL;
 	touchPadding		= 10.0;
+	drawingParticles	= false;
 }
 
 //--------------------------------------------------------
@@ -58,6 +59,9 @@ void BubbleProjection::setup() {
 	previousInteraction = NULL;
 	
 	champagne.setup();
+	
+	// probably only want to do this when the particle system is used //
+	particleSys.init();
 }
 
 //--------------------------------------------------------
@@ -176,7 +180,14 @@ void BubbleProjection::update() {
 	// -------------------
 	bullet.update();
 	bubbleShader.update();
+	
+	// -------------------
+	// pretty stuff
+	// -------------------
 	champagne.update();
+	if(drawingParticles) {
+		particleSys.update();
+	}
 }
 
 
@@ -213,7 +224,11 @@ void BubbleProjection::draw() {
 		glLineWidth(1);
 	}
 	
-	champagne.draw();
+	if(drawingParticles) {
+		particleSys.draw(false);
+	} else {
+		champagne.draw();
+	}
 	
 	
 	// -------------------

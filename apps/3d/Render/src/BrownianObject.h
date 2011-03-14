@@ -1,10 +1,6 @@
 /*
  *  BrownianObject.h
- *  emptyExample
- *
- *  Created by base on 24/02/11.
- *  Copyright 2011 __MyCompanyName__. All rights reserved.
- *
+ *  Simple object w/Brownian-ish motion
  */
 
 #include "ofMain.h"

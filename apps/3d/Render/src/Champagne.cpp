@@ -14,9 +14,8 @@ Champagne::Champagne(){
 	
 }
 
-//----------------------------------------------------------------------
-
-void Champagne::setup(){
+void Champagne::setup()
+{
 	ofRectangle a = testApp::instance->projection->getInteractiveArea();
 	
 	emitter.set(a.x + a.width/2,a.y + a.height * 1.3 ,0);
@@ -25,16 +24,14 @@ void Champagne::setup(){
 	for(int i=0;i<2000;i++)update();
 }	
 
-//----------------------------------------------------------------------
-
 void Champagne::update(){
 	vector<ofVec3f>::iterator dObj = disturbingObjects.begin();
 	
 	while(dObj != disturbingObjects.end()){
 		if( dObj->y > 0 ) {
 			dObj->y -= 7.f;
-			if( ofRandomuf() < .4f) {
-				float scale = min(ofGetHeight() / dObj->y, 10.f);
+			if( ofRandomuf() < .2f) {
+				float scale = min(ofGetHeight() / dObj->y, 15.f);
 				particles.push_back( new BrownianObject( *dObj, scale + 2));
 			}
 			++dObj;
@@ -64,12 +61,9 @@ void Champagne::update(){
 	
 }
 
-//----------------------------------------------------------------------
-
-
-void Champagne::draw(){
+void Champagne::draw()
+{
 	ofSetColor(255, 255, 255);
-	
 	
 	vector<ofVec3f>::iterator dObj = disturbingObjects.begin();
 	while(dObj != disturbingObjects.end())
@@ -88,9 +82,6 @@ void Champagne::draw(){
 	}
 	
 }
-
-//----------------------------------------------------------------------
-
 
 void Champagne::createObjectAtPoint(ofVec3f point){
 	

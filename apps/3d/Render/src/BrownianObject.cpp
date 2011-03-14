@@ -2,9 +2,6 @@
  *  BrownianObject.cpp
  *  emptyExample
  *
- *  Created by base on 24/02/11.
- *  Copyright 2011 __MyCompanyName__. All rights reserved.
- *
  */
 
 #include "BrownianObject.h"
@@ -41,7 +38,7 @@ void BrownianObject::draw()
 	
 	//ofStrokeColor(255, age);
 	radius = (max<float>( age * radius, minSize));
-	glBindTexture(GL_TEXTURE_2D,NULL);
+	glBindTexture(GL_TEXTURE_2D, NULL); // what's this all about
 	ofSetColor(255,255,255, 255);
 	ofNoFill();
 	ofCircle(position.x, position.y, radius);
