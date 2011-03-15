@@ -65,7 +65,7 @@ void BubbleProjection::setup() {
 	
 	// probably only want to do this when the particle system is used //
 	if(drawingParticles)
-		particleSys.init();
+		particleSys.init(ofVec2f(2000, 2000));
 }
 
 //--------------------------------------------------------
@@ -291,7 +291,8 @@ void BubbleProjection::draw() {
 	{
 		ofVec2f tp = mapToInteractiveArea((*tIt).second.getPosition());
 		(*tIt).second.drawTouch(tp);
-		if(ofGetFrameNum()%4==0)champagne.particles.push_back( new BrownianObject( tp, 10));
+		//if(ofGetFrameNum()%12==0)champagne.particles.push_back( new BrownianObject( tp, 10));
+		particleSys.addForceAtPoint( tp );
 	}
 	
 }

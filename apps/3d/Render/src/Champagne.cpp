@@ -30,7 +30,7 @@ void Champagne::update(){
 	
 	while(dObj != disturbingObjects.end()){
 		if( dObj->y > 0 ) {
-			dObj->y -= 7.f;
+			dObj->y -= 8.f;
 			if( ofRandomuf() < .1f) {
 				float scale = min(ofGetHeight() / dObj->y, 25.f);
 				particles.push_back( new BrownianObject( *dObj, scale + 2));
@@ -41,7 +41,7 @@ void Champagne::update(){
 		}
 	}
 	
-	if(ofRandomuf() < 0.05){
+	if(ofRandomuf() < 0.01){
 		particles.push_back( new BrownianObject( emitter, 32));
 	}
 	
