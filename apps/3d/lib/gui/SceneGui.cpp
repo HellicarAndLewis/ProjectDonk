@@ -21,7 +21,7 @@ SceneGui::SceneGui(Scene *scene): Enableable() {
 	
 	
 	gui.addPage("Model");
-	gui.addButton("invert model");
+	gui.addToggle("invert model", scene->getModel()->flipZ);
 	
 	for(int i = 0; i < scene->projectors.size(); i++) {
 		
