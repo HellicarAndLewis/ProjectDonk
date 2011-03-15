@@ -13,7 +13,7 @@ BrownianObject::BrownianObject(ofVec2f initialLocation, float initialRadius, boo
 	position.set(initialLocation.x, initialLocation.y);
 	velocity.set(ofRandom(-0.1, 0.1), ofRandom(-0.3, 0));
 	age = 1.f;
-	minSize = ofRandom(8);
+	minSize = ofRandom(12);
 	xmoveLimited = limitXMovement;
 
 }

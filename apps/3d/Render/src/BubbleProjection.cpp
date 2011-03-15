@@ -23,8 +23,8 @@ BubbleProjection::BubbleProjection() {
 	nextInteraction     = NULL;
 	touchPadding		= 10.0;
 	//drawingParticles	= false;
-	drawingParticles	= true;
-	drawingChampagne	= false;
+	drawingParticles	= false;
+	drawingChampagne	= true;
 }
 
 //--------------------------------------------------------
