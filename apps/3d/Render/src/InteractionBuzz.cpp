@@ -62,6 +62,8 @@ void InteractionBuzz::setup()
 //--------------------------------------------------------
 void InteractionBuzz::newBubbleRecieved(Donk::BubbleData * data) { 
 	
+	
+	
 	string currentPollGroup = data->polledGroup;
 	cout << "polled group " << currentPollGroup << endl;
 	
@@ -80,12 +82,25 @@ void InteractionBuzz::newBubbleRecieved(Donk::BubbleData * data) {
 	// record current data
 	polledData.push_back(data);
 	
+	// check if we have everyone
+	// efficient? maybe iterate backwards is better method
+	bool bAllDone = true;
+	vector<Donk::BubbleData*>::iterator bdit;
+	for(bdit=data->all.begin();bdit!=data->all.end();bdit++){
+		if(!(*bdit)->doneLoading()) {
+			bAllDone = false;
+			break;
+		}
+	}
+	if( bAllDone){
+		createMomAndChildBubbles();
+	}
 };
 
 //--------------------------------------------------------
 void InteractionBuzz::update(){
 	
-	if(polledData.size() > 0) createMomAndChildBubbles();
+	
 	
 	bool bAllOffScreen		= true;
 	map <int, int> :: const_iterator it;
