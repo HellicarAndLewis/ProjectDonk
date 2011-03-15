@@ -31,6 +31,7 @@ public:
 	}
 	
 	//--------------------------------------------------------
+	void setup();
 	void update();
 	void newBubbleRecieved(Donk::BubbleData * data);
 	void drawContent();
