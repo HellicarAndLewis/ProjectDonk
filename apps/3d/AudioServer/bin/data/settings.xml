@@ -5,18 +5,18 @@
     <value controlId="audio thru" value="false"></value>
     <value controlId="exponent" value="0.529999971"></value>
     <value controlId="fps" value="49"></value>
-    <value controlId="gain1" value="1.280991793"></value>
-    <value controlId="ch1" value="1031848257"></value>
-    <value controlId="gain2" value="0.330578387"></value>
-    <value controlId="gain4" value="1.157024860"></value>
-    <value controlId="gain3" value="0.041322410"></value>
-    <value controlId="gain6" value="1.363636255"></value>
-    <value controlId="gain5" value="4.297520638"></value>
-    <value controlId="ch2" value="1038972375"></value>
-    <value controlId="ch6" value="1053349031"></value>
-    <value controlId="ch4" value="1045477997"></value>
-    <value controlId="ch3" value="998784162"></value>
-    <value controlId="ch5" value="1065353216"></value>
+    <value controlId="gain1" value="0.000000000"></value>
+    <value controlId="ch1" value="0"></value>
+    <value controlId="gain2" value="0.000000000"></value>
+    <value controlId="gain4" value="0.041322410"></value>
+    <value controlId="gain3" value="1.322314143"></value>
+    <value controlId="gain6" value="2.438016415"></value>
+    <value controlId="gain5" value="0.000000000"></value>
+    <value controlId="ch2" value="0"></value>
+    <value controlId="ch6" value="1050875198"></value>
+    <value controlId="ch4" value="989983759"></value>
+    <value controlId="ch3" value="1057135516"></value>
+    <value controlId="ch5" value="0"></value>
     <value controlId="oscHost" value="localhost"></value>
     <value controlId="oscPort" value="12345"></value>
     <value controlId="connect" value="0"></value>

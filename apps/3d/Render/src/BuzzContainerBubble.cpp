@@ -13,6 +13,7 @@ BuzzContainerBubble::BuzzContainerBubble(){
 	
 	ContentBubble::ContentBubble();
 	nChildren = 0;
+	pollingGroup = "";
 }
 
 
@@ -71,8 +72,6 @@ void BuzzContainerBubble::createContainerBubble(ofxBullet * bullet, ofVec3f _pos
 	btVector3 localPivot = rigidBody->body->getCenterOfMassPosition();
 	p2p = new btPoint2PointConstraint(*globe->body, localPivot);
 	bullet->world->addConstraint(p2p);
-	//p2p->m_setting.m_damping = 1.001f;
-	//p2p->m_setting.m_impulseClamp = .1;
 
 }
 

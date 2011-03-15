@@ -13,6 +13,8 @@
 #include "AudioData.h"
 #include "ofxDirList.h"
 
+#include "Ribbon.h"
+
 class InteractionPerformance : public BaseInteraction {
 	
 	
@@ -41,4 +43,17 @@ public:
 	void animatedOut();
 	void animatedIn();
 	void putToRest();
+    
+    
+    //JG ribbon balognie 
+    void addRibbonForIndex(int emitterBubble);
+    void updateRibbons();
+    void drawRibbons();
+    //JG added ribbons for flare and bg effect
+    vector<Ribbon*> ribbons;
+    //JG we probably want to augment the bubble datastore instead of keeping parallel arrays but whatevs
+    int maxRibbonsPerChannel;
+    ofColor* colors; //assign a color to each band
+    int* ribbonCounts; //make sure we can max out to control framerates
+    float* lastFreq; //pops ribbons on dramatic positive changes in amplitude
 };

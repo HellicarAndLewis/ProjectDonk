@@ -1,5 +1,5 @@
 /*
- *  InteractionChoice.cpp
+ *  InteractionVote.cpp
  *  Render
  *
  *  Created by Todd Vanderlin on 3/6/11.
@@ -7,11 +7,11 @@
  *
  */
 
-#include "InteractionChoice.h"
+#include "InteractionVote.h"
 #include "testApp.h"
 
 //--------------------------------------------------------
-void InteractionChoice::newBubbleRecieved(Donk::BubbleData * data) { 
+void InteractionVote::newBubbleRecieved(Donk::BubbleData * data) { 
 	ofVec3f center(interactiveRect.width/2, 0, 0);
 	ofVec3f startPos(center.x + ofRandom(-300, 300), interactiveRect.height, ofRandom(-100, 100));
 	float   radius = 80;
@@ -27,7 +27,7 @@ void InteractionChoice::newBubbleRecieved(Donk::BubbleData * data) {
 };
 
 //--------------------------------------------------------
-void InteractionChoice::update() {
+void InteractionVote::update() {
 	for(int i=0; i<bubbles.size(); i++) {
 		bubbles[i]->update();	
 		champagne(bubbles[i]->pos);
@@ -36,7 +36,7 @@ void InteractionChoice::update() {
 }
 
 //--------------------------------------------------------
-void InteractionChoice::drawContent() {
+void InteractionVote::drawContent() {
 	
 	for(int i=0; i<bubbles.size(); i++) {
 		bubbles[i]->drawHighLight();
@@ -45,7 +45,7 @@ void InteractionChoice::drawContent() {
 }
 
 //--------------------------------------------------------
-void InteractionChoice::drawSphere(BubbleShader * shader) {
+void InteractionVote::drawSphere(BubbleShader * shader) {
 	for(int i=0; i<bubbles.size(); i++) {
 		bubbles[i]->pushBubble();
 		shader->begin();
@@ -57,10 +57,10 @@ void InteractionChoice::drawSphere(BubbleShader * shader) {
 
 
 //--------------------------------------------------------
-void InteractionChoice::animatedOut() {
+void InteractionVote::animatedOut() {
 }
 
 //--------------------------------------------------------
-void InteractionChoice::animatedIn() {
+void InteractionVote::animatedIn() {
 	
 }

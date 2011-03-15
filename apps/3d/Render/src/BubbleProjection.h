@@ -13,11 +13,12 @@
 #include "ContentBubble.h"
 #include "TouchedConstraint.h"
 #include "BubbleShader.h"
+#include "ParticleSystem.h"
 
 #include "InteractionBuzz.h"
 #include "InteractionInspiration.h"
 #include "InteractionInterview.h"
-#include "InteractionChoice.h"
+#include "InteractionVote.h"
 #include "InteractionPerformance.h"
 
 #include "Champagne.h"
@@ -68,6 +69,10 @@ public:
 	
 	/** This is the rectangle where the interaction is going to happen */
 	ofRectangle &getInteractiveArea();
+	
+	/// fluid sim //
+	bool			drawingParticles;
+	ParticleSystem	particleSys;
 	
 private:
 	

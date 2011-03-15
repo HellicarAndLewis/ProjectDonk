@@ -22,6 +22,7 @@ BubbleProjection::BubbleProjection() {
 	previousInteraction = NULL;
 	nextInteraction     = NULL;
 	touchPadding		= 10.0;
+	drawingParticles	= false;
 }
 
 //--------------------------------------------------------
@@ -36,7 +37,7 @@ void BubbleProjection::setup() {
 	interactions.push_back(new InteractionBuzz());
 	interactions.push_back(new InteractionInspiration());
 	interactions.push_back(new InteractionInterview());
-	interactions.push_back(new InteractionChoice());
+	interactions.push_back(new InteractionVote());
 	interactions.push_back(new InteractionPerformance());
 	
 	for (int i=0; i<interactions.size(); i++) {
@@ -58,6 +59,9 @@ void BubbleProjection::setup() {
 	previousInteraction = NULL;
 	
 	champagne.setup();
+	
+	// probably only want to do this when the particle system is used //
+	particleSys.init();
 }
 
 //--------------------------------------------------------
@@ -72,10 +76,10 @@ void BubbleProjection::interactionModeChange(string modeName) {
 	
 	// still need to add the rest...
 	int mode = -1;
-	if(modeName == "buzz")				 mode = MODE_BUZZ;
+	if(modeName		 == "buzz")			 mode = MODE_BUZZ;
 	else if(modeName == "inspiration")   mode = MODE_INSPIRATION;
 	else if(modeName == "interview")     mode = MODE_INTERVIEW;
-	else if(modeName == "question")      mode = MODE_CHOICE;
+	else if(modeName == "vote")      mode = MODE_VOTE;
 	else if(modeName == "performance")   mode = MODE_PERFORMANCE;
 	
 	
@@ -176,7 +180,14 @@ void BubbleProjection::update() {
 	// -------------------
 	bullet.update();
 	bubbleShader.update();
+	
+	// -------------------
+	// pretty stuff
+	// -------------------
 	champagne.update();
+	if(drawingParticles) {
+		particleSys.update();
+	}
 }
 
 
@@ -213,7 +224,11 @@ void BubbleProjection::draw() {
 		glLineWidth(1);
 	}
 	
-	champagne.draw();
+	if(drawingParticles) {
+		particleSys.draw(false);
+	} else {
+		champagne.draw();
+	}
 	
 	
 	// -------------------
@@ -458,6 +473,11 @@ void BubbleProjection::touchUp(float x, float y, int touchId) {
 			if(bubble->bTouched) {
 				
 				if (activeInteraction->name == "inspiration") {
+					bubble->setTarget(pos.x, pos.y);
+				}
+				
+				
+				if (activeInteraction->name == "buzz") {
 					bubble->setTarget(pos.x, pos.y);
 				}
 				

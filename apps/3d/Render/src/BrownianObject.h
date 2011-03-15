@@ -1,10 +1,6 @@
 /*
  *  BrownianObject.h
- *  emptyExample
- *
- *  Created by base on 24/02/11.
- *  Copyright 2011 __MyCompanyName__. All rights reserved.
- *
+ *  Simple object w/Brownian-ish motion
  */
 
 #include "ofMain.h"
@@ -15,7 +11,7 @@ class BrownianObject {
 public:
 	
 	BrownianObject(ofVec2f initialLocation, float intialRadius, bool limitXMovement = false);
-	bool isDead() { return age < 0.001; }
+	bool isDead() { return age < 0.01; }
 	void update();
 	void draw();
 	
