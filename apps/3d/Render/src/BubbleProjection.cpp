@@ -393,6 +393,9 @@ void BubbleProjection::touchDown(float x, float y, int touchId) {
 			for(int i=0; i<activeInteraction->bubbles.size(); i++) {
 				
 				ContentBubble * bubble = activeInteraction->bubbles[i];
+				
+				if(activeInteraction->name == "buzz" && !bubble->bAlive) continue;
+				
 				ofVec2f p1  = pos;
 				ofVec2f p2  = bubble->rigidBody->getPosition();
 				float	dis = p1.distance(p2);
@@ -455,6 +458,9 @@ void BubbleProjection::touchMoved(float x, float y, int touchId) {
 		
 		for(int i=0; i<activeInteraction->bubbles.size(); i++) {
 			ContentBubble * bubble = activeInteraction->bubbles[i];
+			
+			if(activeInteraction->name == "buzz" && !bubble->bAlive) continue;
+			
 			if (bubble->touchID == touchId) {
 				bTouchedIDUsed = true;
 			}
@@ -464,6 +470,8 @@ void BubbleProjection::touchMoved(float x, float y, int touchId) {
 		for(int i=0; i<activeInteraction->bubbles.size(); i++) {
 			
 			ContentBubble * bubble = activeInteraction->bubbles[i];
+			
+			if(activeInteraction->name == "buzz" && !bubble->bAlive) continue;
 			
 			// update the interaction touch constraints
 			for (int j=0; j<touchConstraints.size(); j++) {
