@@ -476,6 +476,11 @@ void BubbleProjection::touchUp(float x, float y, int touchId) {
 					bubble->setTarget(pos.x, pos.y);
 				}
 				
+				
+				if (activeInteraction->name == "buzz") {
+					bubble->setTarget(pos.x, pos.y);
+				}
+				
 				bubble->bTouched = false;
 				removeTouchConstraint(bubble);
 			}
