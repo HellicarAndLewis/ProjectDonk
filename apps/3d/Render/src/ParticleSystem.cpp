@@ -122,16 +122,18 @@ void ParticleSystem::draw( bool drawingFluid ){
 		{
 			
 			glPointSize(5);
-			//shader.begin(); // Turn on the Shader
 			
 			//glEnable(GL_BLEND);
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 			
 			// Get the attribute and bind it
+			
+			//shader.begin(); // Turn on the Shader
+			//glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
 			/*GLint pixel_loc = glGetAttribLocation(shader.getProgram(), "pointSize");
 			glVertexAttribPointer(pixel_loc, 4, GL_FLOAT, false, 0, heightArray);
 			glBindAttribLocation(shader.getProgram(), pixel_loc, "pointSize");
-			glEnableVertexAttribArray(pixel_loc);*/
+			glEnableVertexAttribArray(pixel_loc); */
 
 			glDisable(GL_DEPTH_TEST);
 			glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
@@ -140,13 +142,12 @@ void ParticleSystem::draw( bool drawingFluid ){
 			
 			glEnable(GL_POINT_SPRITE);
 			glTexEnvi(GL_POINT_SPRITE, GL_COORD_REPLACE, GL_TRUE);
-			//glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
 			
 			glEnableClientState(GL_VERTEX_ARRAY);
 			glVertexPointer(2, GL_FLOAT, 0, posArray);
 			
-			glEnableClientState(GL_COLOR_ARRAY);
-			glColorPointer(3, GL_FLOAT, 0, colArray);
+			//glEnableClientState(GL_COLOR_ARRAY);
+			//glColorPointer(3, GL_FLOAT, 0, colArray);
 			
 			glDrawArrays(GL_POINTS, 0, MAX_PARTICLES * 2);
 			
@@ -161,8 +162,8 @@ void ParticleSystem::draw( bool drawingFluid ){
 			glDisable(GL_POINT_SPRITE);
 			//glDisableVertexAttribArray(pixel_loc);
 			//shader.end();
+			//glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
 			
-			glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // put blending back
 
 			
