@@ -25,14 +25,15 @@ public:
 	
 	ParticleSystem();
 	
-	void init();
+	void init(ofVec2f simulationPixelSize);
 	void update();
     void draw( bool drawingFluid );
 	void addParticles( const ofVec2f &pos, int count );
 	void addParticle( const ofVec2f &pos );
-	void setWindowSize( ofVec2f winSize );
+	//void setWindowSize( ofVec2f winSize );
 	void fadeToColor(float r, float g, float b, float speed);
 	void addToFluid(ofVec2f pos, ofVec2f vel, bool addColor, bool addForce);
+	void addForceAtPoint( ofVec2f position );
 	
     float				posArray[MAX_PARTICLES * 2 * 2];
     float				colArray[MAX_PARTICLES * 3 * 2];
@@ -48,7 +49,7 @@ public:
 	bool				drawParticles;
 	MSA::FluidSolver	fluidSolver;
 	MSA::FluidDrawerGl	fluidDrawer;	
-	ofVec2f				pMouse;
+	ofVec2f				prevForcePosition;
 	bool				addForces;
 	ofVec2f				forceEmitters[6];
 	int					currentEmitter;

@@ -11,7 +11,7 @@ BrownianObject::BrownianObject(ofVec2f initialLocation, float initialRadius, boo
 	
 	radius = initialRadius;
 	position.set(initialLocation.x, initialLocation.y);
-	velocity.set(ofRandom(-0.1, 0.1), ofRandom(-0.3, 0));
+	velocity.set(ofRandom(-0.3, 0.3), ofRandom(-2, -1));
 	age = 1.f;
 	minSize = ofRandom(12);
 	xmoveLimited = limitXMovement;
@@ -29,7 +29,8 @@ void BrownianObject::update()
 		velocity.x += ofRandom(-br, br);
 	}
 
-	velocity.y += ofRandom(-br*1.5, br);// - map(age, 255, 0, 0.01, 0.1);
+	//velocity.y += ofRandom(-br*1.5, br);// - map(age, 255, 0, 0.01, 0.1);
+	velocity.y += ofRandom(-br, br);
 }
 
 

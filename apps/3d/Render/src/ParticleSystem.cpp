@@ -22,7 +22,7 @@ ParticleSystem::ParticleSystem()
 	drawingType = SHADED_POINT_SPRITE;
 }
 
-void ParticleSystem::init()
+void ParticleSystem::init(ofVec2f simulationPixelSize)
 {
 	// setup fluid stuff
 	fluidSolver.setup(100, 100);
@@ -32,33 +32,28 @@ void ParticleSystem::init()
 	fluidSolver.setColorDiffusion(0);
 	fluidSolver.setVisc(0.00015);
 	fluidDrawer.setup( &fluidSolver );
-	
-	setWindowSize(ofVec2f(ofGetWidth(), ofGetHeight()));
+
+	windowSize = simulationPixelSize;
+	invWindowSize = ofVec2f( 1.0f / simulationPixelSize.x, 1.0f / simulationPixelSize.y );
 	
 	fluidCellsX			= 150;
 	drawFluid			= true;
 	drawParticles		= true;
 	resizeFluid			= true;
 	
-	//pMouse = ofVec2f(ofGetWidth()/2, ofGetHeight()/2);
+	prevForcePosition = ofVec2f(windowSize.x/2, windowSize.y/2);
 	
 	currentEmitter = 0;
-	float inc = ofGetWidth()/3.f;
+	float inc = windowSize.y/3.f;
 	for(int i = 0; i<NUM_EMITTERS/2; i++)
 	{
-		forceEmitters[i].set(i*inc, ofGetHeight());
+		forceEmitters[i].set(i*inc, windowSize.y);
 	}
 	
 	for(int i = NUM_EMITTERS/2; i<NUM_EMITTERS; i++)
 	{
-		forceEmitters[i].set((i-NUM_EMITTERS/2)*inc, ofGetHeight()/2);
+		forceEmitters[i].set((i-NUM_EMITTERS/2)*inc, windowSize.y/2);
 	}
-}	
-
-void ParticleSystem::setWindowSize( ofVec2f winSize )
-{
-	windowSize = winSize;
-	invWindowSize = ofVec2f( 1.0f / winSize.x, 1.0f / winSize.y );
 }
 
 void ParticleSystem::draw( bool drawingFluid ){
@@ -126,27 +121,26 @@ void ParticleSystem::draw( bool drawingFluid ){
 		case SHADED_POINT_SPRITE:
 		{
 			
+			glPointSize(5);
 			//shader.begin(); // Turn on the Shader
 			
-			glPointSize(15);
-			
 			//glEnable(GL_BLEND);
-			//glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 			
 			// Get the attribute and bind it
 			/*GLint pixel_loc = glGetAttribLocation(shader.getProgram(), "pointSize");
 			glVertexAttribPointer(pixel_loc, 4, GL_FLOAT, false, 0, heightArray);
 			glBindAttribLocation(shader.getProgram(), pixel_loc, "pointSize");
-			glEnableVertexAttribArray(pixel_loc);
-			
+			glEnableVertexAttribArray(pixel_loc);*/
+
 			glDisable(GL_DEPTH_TEST);
 			glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
 			
-			//dustParticle.bind();
+			dustParticle.bind();
 			
 			glEnable(GL_POINT_SPRITE);
 			glTexEnvi(GL_POINT_SPRITE, GL_COORD_REPLACE, GL_TRUE);
-			glEnable(GL_VERTEX_PROGRAM_POINT_SIZE); */
+			//glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
 			
 			glEnableClientState(GL_VERTEX_ARRAY);
 			glVertexPointer(2, GL_FLOAT, 0, posArray);
@@ -159,16 +153,17 @@ void ParticleSystem::draw( bool drawingFluid ){
 			glDisableClientState(GL_VERTEX_ARRAY);
 			glDisableClientState(GL_COLOR_ARRAY);
 				
-			//dustParticle.unbind();
+			dustParticle.unbind();
 			
 			// Clean up
 			glDisableClientState(GL_VERTEX_ARRAY); 
 			
-			//glDisable(GL_POINT_SPRITE);
+			glDisable(GL_POINT_SPRITE);
 			//glDisableVertexAttribArray(pixel_loc);
 			//shader.end();
 			
-			//glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
+			glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // put blending back
 
 			
 		}
@@ -219,8 +214,8 @@ void ParticleSystem::update()
 		ofVec2f vel(0,ofRandom(1.f) * -1);
 		
 		ofVec2f constrainPos(
-							 ofMap(forceEmitters[i].x, 0, 1024, 0.f, 1.f, true),
-							 ofMap(forceEmitters[i].y, 0, 768, 0.f, 1.f, true) 
+							 ofMap(forceEmitters[i].x, 0, windowSize.x, 0.f, 1.f, true),
+							 ofMap(forceEmitters[i].y, 0, windowSize.y, 0.f, 1.f, true) 
 							 );
 		
 		const float colorMult = 100;
@@ -233,7 +228,7 @@ void ParticleSystem::update()
 	
 	if(ofGetFrameNum() % 2 == 0 ) {
 		
-		ofVec2f pos(ofRandom(ofGetWidth()), ofRandom(ofGetHeight()));
+		ofVec2f pos(ofRandom(windowSize.x), ofRandom(windowSize.y));
 		ofVec2f vel(sin(ofGetFrameNum()), cos(ofGetFrameNum()));
 		addToFluid(pos, vel, true, true);
 		
@@ -250,16 +245,38 @@ void ParticleSystem::update()
 }
 
 
+void ParticleSystem::addForceAtPoint( ofVec2f position )
+{
+	
+	ofVec2f constrainPos(
+						 ofMap(position.x, 0, windowSize.x, 0.f, 1.f, true),
+						 ofMap(position.y, 0, windowSize.y, 0.f, 1.f, true) 
+						 );
+	
+	const float colorMult = 100;
+	const float velocityMult = 0.5; //30;
+	
+	int index = fluidSolver.getIndexForPos(constrainPos);
+	ofVec2f vel = position - prevForcePosition;
+	
+	float aspectRatio = windowSize.x/windowSize.y;
+	float speed = vel.x * vel.x  + vel.y * vel.y * aspectRatio * aspectRatio;
+	fluidSolver.addForceAtIndex(index, vel * velocityMult);
+	
+	// store for next force
+	prevForcePosition = position;
+}
+
 // add force and dye to fluid, and create particles
 void ParticleSystem::addToFluid( ofVec2f pos, ofVec2f vel, bool addColor, bool addForce ) {
     //float speed = vel.x * vel.x  + vel.y * vel.y * getWindowAspectRatio() * getWindowAspectRatio();    
 	//balance the x and y components of speed with the screen aspect ratio
-	float aspectRatio = ofGetWidth()/ofGetHeight();
+	float aspectRatio = windowSize.x/windowSize.y;
 	float speed = vel.x * vel.x  + vel.y * vel.y * aspectRatio * aspectRatio;
     if(speed > 0) {
 		ofVec2f constrainPos(
-							 ofMap(pos.x, 0, 1024, 0.f, 1.f, true),
-							 ofMap(pos.y, 0, 768, 0.f, 1.f, true) 
+							 ofMap(pos.x, 0, windowSize.x, 0.f, 1.f, true),
+							 ofMap(pos.y, 0, windowSize.y, 0.f, 1.f, true) 
 							 );
 		
         const float colorMult = 100;
