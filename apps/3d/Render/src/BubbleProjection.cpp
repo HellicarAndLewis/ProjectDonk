@@ -261,7 +261,7 @@ void BubbleProjection::draw() {
 	}
 	
 	if(drawingParticles) {
-		//particleSys.draw(false);
+		particleSys.draw(false);
 	} else {
 		champagne.draw();
 	}
@@ -509,6 +509,11 @@ void BubbleProjection::touchUp(float x, float y, int touchId) {
 			if(bubble->bTouched) {
 				
 				if (activeInteraction->name == "inspiration") {
+					bubble->setTarget(pos.x, pos.y);
+				}
+				
+				
+				if (activeInteraction->name == "buzz") {
 					bubble->setTarget(pos.x, pos.y);
 				}
 				

@@ -126,13 +126,15 @@ void ParticleSystem::draw( bool drawingFluid ){
 		case SHADED_POINT_SPRITE:
 		{
 			
-			shader.begin(); // Turn on the Shader
+			//shader.begin(); // Turn on the Shader
+			
+			glPointSize(15);
 			
 			//glEnable(GL_BLEND);
 			//glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 			
 			// Get the attribute and bind it
-			GLint pixel_loc = glGetAttribLocation(shader.getProgram(), "pointSize");
+			/*GLint pixel_loc = glGetAttribLocation(shader.getProgram(), "pointSize");
 			glVertexAttribPointer(pixel_loc, 4, GL_FLOAT, false, 0, heightArray);
 			glBindAttribLocation(shader.getProgram(), pixel_loc, "pointSize");
 			glEnableVertexAttribArray(pixel_loc);
@@ -140,14 +142,13 @@ void ParticleSystem::draw( bool drawingFluid ){
 			glDisable(GL_DEPTH_TEST);
 			glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
 			
-			dustParticle.bind();
+			//dustParticle.bind();
 			
 			glEnable(GL_POINT_SPRITE);
 			glTexEnvi(GL_POINT_SPRITE, GL_COORD_REPLACE, GL_TRUE);
-			glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);      
+			glEnable(GL_VERTEX_PROGRAM_POINT_SIZE); */
 			
-			// try w/o vertex array
-			/*glEnableClientState(GL_VERTEX_ARRAY);
+			glEnableClientState(GL_VERTEX_ARRAY);
 			glVertexPointer(2, GL_FLOAT, 0, posArray);
 			
 			glEnableClientState(GL_COLOR_ARRAY);
@@ -156,27 +157,20 @@ void ParticleSystem::draw( bool drawingFluid ){
 			glDrawArrays(GL_POINTS, 0, MAX_PARTICLES * 2);
 			
 			glDisableClientState(GL_VERTEX_ARRAY);
-			glDisableClientState(GL_COLOR_ARRAY);*/
-			
-			glBegin(GL_POINTS);
-			int i = 0;
-			while( i < MAX_PARTICLES ) {
-				glVertex3f(posArray[i], posArray[i+1], -1);
-				i += 2;
-			}
-			glEnd();
+			glDisableClientState(GL_COLOR_ARRAY);
 				
-			dustParticle.unbind();
+			//dustParticle.unbind();
 			
 			// Clean up
 			glDisableClientState(GL_VERTEX_ARRAY); 
-			glDisable(GL_POINT_SPRITE);
-			glDisableVertexAttribArray(pixel_loc);
-			shader.end();
 			
-			glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
-			//glDisable(GL_BLEND);
-			//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // put blending back
+			//glDisable(GL_POINT_SPRITE);
+			//glDisableVertexAttribArray(pixel_loc);
+			//shader.end();
+			
+			//glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
+
+			
 		}
 		break;
 	}

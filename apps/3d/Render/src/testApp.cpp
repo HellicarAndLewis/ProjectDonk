@@ -61,13 +61,11 @@ void testApp::render() {
 
 void testApp::drawView() {
 	
-	projection->particleSys.draw(true);
-	
 	// comment this stuff out if you don't want to draw the mesh
-	/*ofSetColor(mode->getValue("Background Red"), 
+	ofSetColor(mode->getValue("Background Red"), 
 			  mode->getValue("Background Green"), 
 			  mode->getValue("Background Blue"));
-	*/
+
 	
 	if(calibrationProjection.calibrate) {
 		
