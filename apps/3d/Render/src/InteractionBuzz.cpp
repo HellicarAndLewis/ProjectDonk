@@ -50,6 +50,7 @@ struct BuzzFilterCallback : public btOverlapFilterCallback {
 void InteractionBuzz::setup()
 {
 	name = "buzz";
+	startPoll = 0;
 	
 	if(!bSetCallback)
 	{
@@ -87,20 +88,20 @@ void InteractionBuzz::newBubbleRecieved(Donk::BubbleData * data) {
 	bool bAllDone = true;
 	vector<Donk::BubbleData*>::iterator bdit;
 	for(bdit=data->all.begin();bdit!=data->all.end();bdit++){
-		if(!(*bdit)->doneLoading()) {
+		if((*bdit)->mode == "buzz" && !(*bdit)->doneLoading()) {
 			bAllDone = false;
 			break;
 		}
 	}
+	
 	if( bAllDone){
 		createMomAndChildBubbles();
+		startPoll = data->all.size()-1;
 	}
 };
 
 //--------------------------------------------------------
 void InteractionBuzz::update(){
-	
-	
 	
 	bool bAllOffScreen		= true;
 	map <int, int> :: const_iterator it;
@@ -112,7 +113,7 @@ void InteractionBuzz::update(){
 		//---- update touch
 		if(nTouches == 0) {
 			
-			//bubble->bTouched		= false;	
+			bubble->bTouched		= false;	
 			//bubble->bDoubleTouched	= false;		
 		}
 		
@@ -177,11 +178,12 @@ void InteractionBuzz::update(){
 			if(bubble->bAlive && bubbles[i]->getPosition().y < -90){
 				bubble->bAlive = false;
 				ofVec3f startPos = bubble->rigidBody->getPosition();
-				setCollisionFilter(bubble->rigidBody,COL_NOTHING,collidesWithNone,startPos);
+				setCollisionFilter(bubble->rigidBody,COL_NOTHING,collidesWithNone);
 			}
 		}
 
-
+		//if( bubble->bTouched ) cout << i << " touched " <<endl;
+		//if( bubble->touchID > -1 ) cout << i << " touch id " << bubble->touchID << endl;
 	}	
 	
 	
@@ -201,14 +203,14 @@ void InteractionBuzz::update(){
 void InteractionBuzz::drawContent(){
 	
 	
-	 for(int i=0; i<bubbles.size(); i++){
+	 /*for(int i=0; i<bubbles.size(); i++){
 		if(bubbles[i]->bAlive){
 		 if(bubbles[i]->buzzID == BUZZ_TYPE_CONTAINER)
 		 {
-			//((BuzzContainerBubble*)bubbles[i])->globe->drawChildren();
+			((BuzzContainerBubble*)bubbles[i])->globe->drawChildren();
 		 }
 		}
-	 }
+	 }*/
 	 
 	
 	for(int i=0; i<bubbles.size(); i++) {
@@ -483,21 +485,12 @@ void InteractionBuzz::createChildBubble(int momID, Donk::BubbleData * data, floa
 
 //--------------------------------------------------------
 void InteractionBuzz::clearContainer( int index ){
-
-	//if(bubbles[index]->buzzID != BUZZ_TYPE_CONTAINER) return;
 	
 	BuzzContainerBubble* bubble = (BuzzContainerBubble*)bubbles[index];
 	bubble->pop();
 	
-	// make sure container has no influence or collisions
-	ofVec3f startPos = bubble->rigidBody->getPosition();
-	startPos.y = -300;
-	setCollisionFilter(bubble->rigidBody,COL_NOTHING,collidesWithNone,startPos);
-	//bubble->rigidBody->body->setCollisionFlags(bubble->rigidBody->body->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
-	
-	bullet->world->removeRigidBody(bubble->rigidBody->body);
-	//bubble->target.x = bubble->rigidBody->getPosition().x;
-	//bubble->target.y = -300;
+	setCollisionFilter(bubble->rigidBody,COL_NOTHING,collidesWithNone);
+	bubble->target.y = -300;
 }
 
 //--------------------------------------------------------
@@ -535,25 +528,31 @@ void InteractionBuzz::releaseInBubbles(int poppedID)
 				bubble->targetForce = 10.f;
 				
 				bubble->rigidBody->body->clearForces();
-				ofVec3f startPos = bubble->rigidBody->getPosition();
-				setCollisionFilter(bubble->rigidBody,COL_BUBBLE_OUT,bubbleOutCollidesWith,startPos);				
+				setCollisionFilter(bubble->rigidBody,COL_BUBBLE_OUT,bubbleOutCollidesWith);				
 			}
 		}
 	}
 }
 
 //--------------------------------------------------------
-void InteractionBuzz::setCollisionFilter(ofxBulletRigidBody * rigidBody, int filter, int mask, ofVec3f startPos)
+void InteractionBuzz::setCollisionFilter(ofxBulletRigidBody * rigidBody, int filter, int mask)
 {
 	//ofVec3f startPos = rigidBody->getPosition();
-	btTransform startTransform;
+	
+	btBroadphaseProxy* bp = rigidBody->body->getBroadphaseProxy();
+	bp->m_collisionFilterGroup = filter;
+	bp->m_collisionFilterMask = mask;
+	
+	
+	/*btTransform startTransform;
 	startTransform.setIdentity();
 	startTransform.setOrigin(btVector3(startPos.x, startPos.y, startPos.z));
 	
 	bullet->world->removeRigidBody(rigidBody->body);
 	rigidBody->createRigidBody(1, startTransform);
 	
-	bullet->world->addRigidBody(rigidBody->body, filter, mask);
+	bullet->world->addRigidBody(rigidBody->body, filter, mask);*/
+	
 	
 }
 
