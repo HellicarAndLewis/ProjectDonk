@@ -19,7 +19,10 @@ public:
 	ofxOBJModel model;
 	bool solid;
 	bool disableWhite;
+	bool flipZ;
+	
 	Model() {
+		flipZ = false;
 		disableWhite = false;
 		solid = false;
 		model.load(settings.get("model file", "scene.obj"));
@@ -39,8 +42,16 @@ public:
 		solid = false;
 	}
 	void customDraw() {
+		if(flipZ) {
+			glPushMatrix();
+			glScalef(1, 1, -1);
+			glRotatef(180, 0, 1, 0);
+		}
 		if(!disableWhite) glColor3f(1,1,1);
 		model.draw(solid);
+		if(flipZ) {
+			glPopMatrix();
+		}
 		
 		/*
 		ofVec3f *verts = model.getPoints();
@@ -54,6 +65,14 @@ public:
 		
 	}
 	void drawModel() {
+		if(flipZ) {
+			glPushMatrix();
+			glScalef(1, 1, -1);
+			glRotatef(180, 0, 1, 0);
+		}
 		model.draw(true);
+		if(flipZ) {
+			glPopMatrix();
+		}
 	}
 };
