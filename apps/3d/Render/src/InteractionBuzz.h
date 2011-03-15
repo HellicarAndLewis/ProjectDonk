@@ -54,7 +54,7 @@ public:
 	void clearContainer( int index );
 	
 	//--------------------------------------------------------
-	void setCollisionFilter(ofxBulletRigidBody * rigidBody, int filter, int mask, ofVec3f startPos);
+	void setCollisionFilter(ofxBulletRigidBody * rigidBody, int filter, int mask);
 	
 	//--------------------------------------------------------
 	map<int,int> bubbleToContIndex;
@@ -63,4 +63,5 @@ public:
 	//--------------------------------------------------------
 	vector<Donk::BubbleData *> polledData;
 	string	momPollGroup;
+	int startPoll;
 };
