@@ -46,6 +46,18 @@ struct BuzzFilterCallback : public btOverlapFilterCallback {
 	}
 };
 
+//--------------------------------------------------------
+void InteractionBuzz::setup()
+{
+	name = "buzz";
+	
+	if(!bSetCallback)
+	{
+		btOverlapFilterCallback * filterCallback = new BuzzFilterCallback(); 
+		bullet->world->getPairCache()->setOverlapFilterCallback(filterCallback);
+		bSetCallback = true;
+	}
+}
 
 //--------------------------------------------------------
 void InteractionBuzz::newBubbleRecieved(Donk::BubbleData * data) { 
@@ -85,13 +97,8 @@ void InteractionBuzz::update(){
 		//---- update touch
 		if(nTouches == 0) {
 			
-			bubble->bTouched		= false;	
-			bubble->bDoubleTouched	= false;		
-		}
-		
-		if(bubble->buzzID == BUZZ_TYPE_BUBBLE_OLD){
-			bubble->bTouched = false;
-			bubble->bDoubleTouched	= false;
+			//bubble->bTouched		= false;	
+			//bubble->bDoubleTouched	= false;		
 		}
 		
 		//---- update sizes
@@ -250,12 +257,7 @@ void InteractionBuzz::animatedIn() {
 		bubbles[i]->rigidBody->body->setActivationState(DISABLE_DEACTIVATION);
 	}
 	
-	if(!bSetCallback)
-	{
-	btOverlapFilterCallback * filterCallback = new BuzzFilterCallback(); 
-	bullet->world->getPairCache()->setOverlapFilterCallback(filterCallback);
-	bSetCallback = true;
-	}
+	
 }
 
 //--------------------------------------------------------
@@ -285,6 +287,10 @@ void InteractionBuzz::doubleTouched(ofVec2f touchpos)
 	
 	// find out who has been popped
 	int poppedID = -1;
+	
+	// reset double touches
+	//for(int i=0; i<bubbles.size(); i++)
+	//	bubbles[i]->bDoubleTouched	= false;	
 	
 	for(int i=0; i<bubbles.size(); i++)
 	{
@@ -323,7 +329,10 @@ void InteractionBuzz::doubleTouched(ofVec2f touchpos)
 			float	dis = p1.distance(p2);
 			
 			if(dis < bubble->radius + 10.0) {
-				bubble->doubleTouched();
+				if(bubble->bDoubleTouched)
+					bubble->bDoubleTouched = false;
+				else
+					bubble->doubleTouched();
 				printf("hit this bubble: %p\n", bubble);
 				break;
 			}
