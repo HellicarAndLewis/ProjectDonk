@@ -24,6 +24,7 @@ public:
 	btScalar			 m[16];
 	float				 billboadMatrix[16];
 	
+	ofVec3f				 bobTheta;
 	ofVec3f				 target, pos, resetTarget;
 	ofVec3f				 offScreenTaget;
 	float				 distanceToTarget;
@@ -44,9 +45,12 @@ public:
 	int					 performceImageID;
 	int					 performanceChannel;
 	ofVec3f				 performanceStartTarget;
-	
+
+	// --------------------------------- things for vote
+	int					 voteBubbleID;
+
 	// ---------------------------------
-	int					buzzID;
+	int					 buzzID;
 	
 	// ---------------------------------
 	ContentBubble();
@@ -57,13 +61,15 @@ public:
 	void lerpRadius(float r,float speed);
 	ofVec3f getPosition();
 	void setTarget(float x, float y, float z=0);
+	void setTarget(ofVec3f v);
 	void addForce(float x, float y, float z=0, float scale=1.0);
 	void addAtrractionForce(float x, float y, float z=0, float scale=1.0);
+	void addAtrractionForce(ofVec3f &p, float scale=1.0);
 	
 	// ---------------------------------
 	void createContentBubble();
 	void update();
-	void gotoTarget();
+	void gotoTarget(float scale=1.0);
 	void goOffScreen();
 	void bobMe();
 	

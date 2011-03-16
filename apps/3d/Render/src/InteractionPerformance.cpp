@@ -36,11 +36,11 @@ void InteractionPerformance::setup() {
 	ofxDirList			lister;
 	lister.setVerbose(false);
 	int nFiles = lister.listDir("images/performance");
-	
+	printf("found %i files for performance\n", nFiles);
 	for (int i=0; i<nFiles; i++) {
 		images.push_back(ofImage());
-		if(images.back().loadImage(lister.getPath(i))) {
-			printf("loaded image in performance\n");
+		if(!images.back().loadImage(lister.getPath(i))) {
+			printf("error loaded image in performance\n");
 		}
 	}
 	
