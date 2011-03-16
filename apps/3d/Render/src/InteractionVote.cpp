@@ -18,6 +18,7 @@ void InteractionVote::setup() {
 	
 	pctA			  = 0;
 	pctB			  = 0;
+	animateOutTimer   = 0;
 	
 	for (int i=0; i<100; i++) {
 		voteIds[i] = 0;
@@ -79,6 +80,8 @@ ContentBubble * InteractionVote::addBubbleToVote(int voteID) {
 //--------------------------------------------------------
 void InteractionVote::newBubbleRecieved(Donk::BubbleData * data) { 
 
+	if(bAnimateOut) return;
+	
 	int totalA     = ofRandom(2, 40);	// need this from data
 	int totalB     = ofRandom(2, 40);	// need this from data
 	
@@ -145,39 +148,75 @@ void InteractionVote::newBubbleRecieved(Donk::BubbleData * data) {
 
 //--------------------------------------------------------
 void InteractionVote::update() {
+	
+	if(bAnimateOut) {
+		bool bAllOffscreen = true;
+		for(int i=0; i<bubbles.size(); i++) {
+			if(bubbles[i]->getPosition().y > 0) {
+				bAllOffscreen = false;
+			}
+		}
 		
+		float time = (ofGetElapsedTimeMillis() - animateOutTimer) / 1000.0;
+		if(bAllOffscreen && !bDoneAnimatingOut || time > 4.0) {
+			killallBubbles();
+			
+			for (int i=0; i<2; i++) {
+				if(voteBubbles[i]) {
+					voteBubbles[i]->rigidBody->destroy();
+					delete voteBubbles[i];
+					voteBubbles[i] = NULL;
+				}
+			}
+			
+			bDoneAnimatingOut = true;
+		}
+	}
+	
+	
 	for(int i=0; i<bubbles.size(); i++) {
 		
-		float time = (ofGetElapsedTimeMillis() - bubbles[i]->voteTimer) / 1000.0;
-		if(time > bubbles[i]->voteDelay && bubbles[i]->bVoteNeedsUpdate) {
-			bubbles[i]->voteBubbleID = voteIds[i];
-			bubbles[i]->bVoteNeedsUpdate = false;
-		}
-		
-		if(bubbles[i]->bVoteEnabled) {
-			
-			int voteID   = bubbles[i]->voteBubbleID;
-			if(voteID != -1) {
-				ofVec3f  pos = voteBubbles[ voteID ]->getPosition();
-				bubbles[i]->setTarget( pos );
-			}
-				
-			bubbles[i]->rigidBody->body->setDamping(0.999, 0.999); // <-- add some crazy damping
-			bubbles[i]->gotoTarget(1.0);
+		if(bAnimateOut) {
+			bubbles[i]->gotoTarget();
 			bubbles[i]->update();	
 		}
-		
+		else {
+			
+			float time = (ofGetElapsedTimeMillis() - bubbles[i]->voteTimer) / 1000.0;
+			if(time > bubbles[i]->voteDelay && bubbles[i]->bVoteNeedsUpdate) {
+				bubbles[i]->voteBubbleID = voteIds[i];
+				bubbles[i]->bVoteNeedsUpdate = false;
+			}
+			
+			if(bubbles[i]->bVoteEnabled) {
+				
+				int voteID   = bubbles[i]->voteBubbleID;
+				if(voteID != -1) {
+					ofVec3f  pos = voteBubbles[ voteID ]->getPosition();
+					bubbles[i]->setTarget( pos );
+				}
+				
+				bubbles[i]->rigidBody->body->setDamping(0.999, 0.999); // <-- add some crazy damping
+				bubbles[i]->gotoTarget(1.0);
+				bubbles[i]->update();	
+			}
+		}
 	}	
 	
 	
 	for (int i=0; i<2; i++) {
 		if(!voteBubbles[i]) continue;
 		
-		voteBubbles[i]->rigidBody->body->setDamping(0.999, 0.999); // <-- add some crazy damping
-		voteBubbles[i]->gotoTarget(50.0);
-		voteBubbles[i]->bobMe();
-		voteBubbles[i]->update();
-		
+		if(bAnimateOut) {
+			voteBubbles[i]->gotoTarget();
+			voteBubbles[i]->update();
+		}
+		else {
+			voteBubbles[i]->rigidBody->body->setDamping(0.999, 0.999); // <-- add some crazy damping
+			voteBubbles[i]->gotoTarget(50.0);
+			voteBubbles[i]->bobMe();
+			voteBubbles[i]->update();
+		}
 	}
 	
 	
@@ -195,10 +234,10 @@ void InteractionVote::drawContent() {
 	
 	InteractionPerformance * interaction = (InteractionPerformance*)testApp::instance->projection->getInteraction(MODE_PERFORMANCE);
 
-	ofEnableAlphaBlending();
 	for(int i=0; i<bubbles.size(); i++) {
 		if(bubbles[i]->bVoteEnabled) {
 			
+			ofEnableAlphaBlending();
 			// bubbles[i]->drawHighLight();
 			// bubbles[i]->drawTwitterData();
 			
@@ -244,13 +283,25 @@ void InteractionVote::drawSphere(BubbleShader * shader) {
 
 //--------------------------------------------------------
 void InteractionVote::animatedOut() {
-	// temp for debugging other modes!
-	bAnimateOut  = true;
-	bDoneAnimatingOut = true;
-	killallBubbles();
+
+	for(int i=0; i<bubbles.size(); i++) {
+		ofVec3f offScreenPos;
+		offScreenPos.x = bubbles[i]->getPosition().x;
+		offScreenPos.y = ofRandom(-400, -500);	
+		offScreenPos.z = ofRandom(-100, -400);
+		bubbles[i]->setTarget(offScreenPos);
+	}
+	
+	if(voteBubbles[0]) voteBubbles[0]->setTarget(-500, voteBubbles[0]->getPosition().y);
+	if(voteBubbles[1]) voteBubbles[1]->setTarget(interactiveRect.width+500, voteBubbles[1]->getPosition().y);
+	
+	bAnimateOut		  = true;
+	bDoneAnimatingOut = false;
+	animateOutTimer   = ofGetElapsedTimeMillis();
 }
 
 //--------------------------------------------------------
 void InteractionVote::animatedIn() {
-	
+	bAnimateOut		  = false;
+	bDoneAnimatingOut = false;
 }

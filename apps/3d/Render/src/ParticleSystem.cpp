@@ -121,6 +121,7 @@ void ParticleSystem::draw( bool drawingFluid ){
 		case SHADED_POINT_SPRITE:
 		{
 			
+			pointSize = 16;
 			glPointSize(pointSize);
 			
 			//glEnable(GL_BLEND);

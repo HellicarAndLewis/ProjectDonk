@@ -36,6 +36,7 @@ public:
 	void setup();
 	void update();
 	
+	void addBubbles();
 	void newBubbleRecieved(Donk::BubbleData * data);
 	void drawContent();
 	void drawSphere(BubbleShader * shader);

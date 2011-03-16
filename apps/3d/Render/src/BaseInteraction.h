@@ -36,8 +36,10 @@ public:
 	bool		bAnimateOut, bAnimateIn;
 	int			nTouches;
 	string		name;	// for debug printing
+	float		animatedOutTimer;
 	
 	BaseInteraction()  {
+		animatedOutTimer  = 0;
 		bullet			  = NULL;
 		mode			  = -1;
 		nTouches		  = 0;
