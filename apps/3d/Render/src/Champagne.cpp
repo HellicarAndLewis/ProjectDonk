@@ -21,7 +21,8 @@ void Champagne::setup()
 	emitter.set(a.x + a.width/2,a.y + a.height * 1.3 ,0);
 	
 	//play out the simulation a bit
-	for(int i=0;i<2000;i++)update();
+	//for(int i=0;i<2000;i++)update();
+	for(int i=0;i<500;i++)update();
 }	
 
 void Champagne::update(){
@@ -29,8 +30,8 @@ void Champagne::update(){
 	
 	while(dObj != disturbingObjects.end()){
 		if( dObj->y > 0 ) {
-			dObj->y -= 7.f;
-			if( ofRandomuf() < .2f) {
+			dObj->y -= 8.f;
+			if( ofRandomuf() < .1f) {
 				float scale = min(ofGetHeight() / dObj->y, 25.f);
 				particles.push_back( new BrownianObject( *dObj, scale + 2));
 			}
@@ -40,7 +41,7 @@ void Champagne::update(){
 		}
 	}
 	
-	if(ofRandomuf() < 0.05){
+	if(ofRandomuf() < 0.01){
 		particles.push_back( new BrownianObject( emitter, 32));
 	}
 	

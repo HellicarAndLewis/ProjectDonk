@@ -22,7 +22,9 @@ BubbleProjection::BubbleProjection() {
 	previousInteraction = NULL;
 	nextInteraction     = NULL;
 	touchPadding		= 10.0;
-	drawingParticles	= false;
+	//drawingParticles	= false;
+	drawingParticles	= true;
+	drawingChampagne	= false;
 }
 
 //--------------------------------------------------------
@@ -58,10 +60,12 @@ void BubbleProjection::setup() {
 	// next one animates in.
 	previousInteraction = NULL;
 	
-	champagne.setup();
+	if(drawingChampagne)
+		champagne.setup();
 	
 	// probably only want to do this when the particle system is used //
-	particleSys.init();
+	if(drawingParticles)
+		particleSys.init(ofVec2f(2000, 2000));
 }
 
 //--------------------------------------------------------
@@ -76,11 +80,45 @@ void BubbleProjection::interactionModeChange(string modeName) {
 	
 	// still need to add the rest...
 	int mode = -1;
-	if(modeName		 == "buzz")			 mode = MODE_BUZZ;
-	else if(modeName == "inspiration")   mode = MODE_INSPIRATION;
-	else if(modeName == "interview")     mode = MODE_INTERVIEW;
-	else if(modeName == "vote")      mode = MODE_VOTE;
-	else if(modeName == "performance")   mode = MODE_PERFORMANCE;
+	if(modeName		 == "buzz")	{
+		mode = MODE_BUZZ;
+		drawingChampagne = false;
+		drawingParticles = true;
+		particleSys.useGravity = true;
+		particleSys.pointSize = 2; // only doing this b/c point sprites don't work
+		particleSys.particleColor.set(1, 1, 1, 0.75);
+	}
+	else if(modeName == "inspiration") {
+		mode = MODE_INSPIRATION;
+		/*particleSys.useGravity = false;
+		particleSys.pointSize = 5; // only doing this b/c point sprites don't work
+		particleSys.particleColor.set(1, 1, 1, 0.75);*/
+		drawingChampagne = true;
+		drawingParticles = false;
+	}
+	else if(modeName == "interview") {
+		
+		mode = MODE_INTERVIEW;
+		drawingChampagne = false;
+		drawingParticles = true;
+		particleSys.useGravity = false;
+		particleSys.pointSize = 5;  // only doing this b/c point sprites don't work
+	}
+	else if(modeName == "vote") {
+		mode = MODE_VOTE;
+		drawingChampagne = false;
+		drawingParticles = true;
+		particleSys.useGravity = true;
+		particleSys.pointSize = 2;  // only doing this b/c point sprites don't work
+		particleSys.particleColor.set(0, 1, 1, 0.75);
+	}
+	else if(modeName == "performance") {
+		mode = MODE_PERFORMANCE;
+		drawingChampagne = false;
+		drawingParticles = true;
+		particleSys.pointSize = 5;  // only doing this b/c point sprites don't work
+		particleSys.particleColor.set(1, 1, 0, 0.75);
+	}
 	
 	
 	if(mode != -1) {
@@ -184,12 +222,44 @@ void BubbleProjection::update() {
 	// -------------------
 	// pretty stuff
 	// -------------------
-	champagne.update();
+	if(drawingChampagne) {
+		champagne.update();
+	}
+	
 	if(drawingParticles) {
 		particleSys.update();
 	}
 }
 
+
+
+void BubbleProjection::drawOnModel(Model *model) {
+	
+	//glViewport(0, 0, ofGetWidth()*2, ofGetHeight()*2);
+	// scale the texture matrix so we can use normalized tex coords
+	glMatrixMode(GL_TEXTURE);
+	glPushMatrix();
+	glLoadIdentity();
+	glScalef(width, -height, 1);
+	glTranslatef(0, -1, 0);
+	glMatrixMode(GL_MODELVIEW);
+	
+	
+	// draw the model (assuming it also draws normalized texCoords
+	bind();
+	glColor3f(1, 1, 1);
+	model->drawModel();
+	unbind();
+	
+	// reset the texture matrix
+	glMatrixMode(GL_TEXTURE);
+	//	glLoadIdentity();
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	
+	//particleSys.draw(true); // just checking if these can draw outside of FBO
+	
+}
 
 //--------------------------------------------------------
 void BubbleProjection::draw() {
@@ -255,7 +325,8 @@ void BubbleProjection::draw() {
 	{
 		ofVec2f tp = mapToInteractiveArea((*tIt).second.getPosition());
 		(*tIt).second.drawTouch(tp);
-		if(ofGetFrameNum()%4==0)champagne.particles.push_back( new BrownianObject( tp, 10));
+		//if(ofGetFrameNum()%12==0)champagne.particles.push_back( new BrownianObject( tp, 10));
+		particleSys.addForceAtPoint( tp );
 	}
 	
 }
@@ -356,6 +427,9 @@ void BubbleProjection::touchDown(float x, float y, int touchId) {
 			for(int i=0; i<activeInteraction->bubbles.size(); i++) {
 				
 				ContentBubble * bubble = activeInteraction->bubbles[i];
+				
+				if(activeInteraction->name == "buzz" && !bubble->bAlive) continue;
+				
 				ofVec2f p1  = pos;
 				ofVec2f p2  = bubble->rigidBody->getPosition();
 				float	dis = p1.distance(p2);
@@ -418,6 +492,9 @@ void BubbleProjection::touchMoved(float x, float y, int touchId) {
 		
 		for(int i=0; i<activeInteraction->bubbles.size(); i++) {
 			ContentBubble * bubble = activeInteraction->bubbles[i];
+			
+			if(activeInteraction->name == "buzz" && !bubble->bAlive) continue;
+			
 			if (bubble->touchID == touchId) {
 				bTouchedIDUsed = true;
 			}
@@ -427,6 +504,8 @@ void BubbleProjection::touchMoved(float x, float y, int touchId) {
 		for(int i=0; i<activeInteraction->bubbles.size(); i++) {
 			
 			ContentBubble * bubble = activeInteraction->bubbles[i];
+			
+			if(activeInteraction->name == "buzz" && !bubble->bAlive) continue;
 			
 			// update the interaction touch constraints
 			for (int j=0; j<touchConstraints.size(); j++) {
@@ -473,6 +552,11 @@ void BubbleProjection::touchUp(float x, float y, int touchId) {
 			if(bubble->bTouched) {
 				
 				if (activeInteraction->name == "inspiration") {
+					bubble->setTarget(pos.x, pos.y);
+				}
+				
+				
+				if (activeInteraction->name == "buzz") {
 					bubble->setTarget(pos.x, pos.y);
 				}
 				

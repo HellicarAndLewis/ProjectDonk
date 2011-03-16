@@ -19,7 +19,7 @@ ParticleSystem::ParticleSystem()
 	shader.setup("pointShader.vs", "pointShader.fs" );
 	
 	ofDisableArbTex();
-	starImage.loadImage("dust2.png");
+	starImage.loadImage("pointSpriteImg.png");
 	ofEnableArbTex();
 	
 	drawingType = SHADED_POINT_SPRITE;	

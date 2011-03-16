@@ -62,10 +62,10 @@ void testApp::render() {
 void testApp::drawView() {
 	
 	// comment this stuff out if you don't want to draw the mesh
-	/*ofSetColor(mode->getValue("Background Red"), 
+	ofSetColor(mode->getValue("Background Red"), 
 			  mode->getValue("Background Green"), 
 			  mode->getValue("Background Blue"));
-	*/
+
 	
 	if(calibrationProjection.calibrate) {
 		
@@ -90,6 +90,7 @@ void testApp::drawView() {
 								  mode->getValue("light y"), 
 								  mode->getValue("light z")));
 		// printf("%f %f %f\n", mode->getValue("light x"), mode->getValue("light y"), mode->getValue("light z"));
+		//printf("%f %f %f\n", mode->getValue("light x"), mode->getValue("light y"), mode->getValue("light z"));
 		glShadeModel(GL_FLAT);
 		ofEnableLighting();
 		scene->getLight()->enable();

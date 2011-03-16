@@ -15,8 +15,10 @@
 #define BUZZ_TYPE_BUBBLE_IN		1
 #define BUZZ_TYPE_BUBBLE_OUT	2
 #define BUZZ_TYPE_BUBBLE_OLD	3
+#define BUZZ_TYPE_POPPED		4
 
 #define CONTAINER_RADIUS		200
+
 
 class InteractionBuzz : public BaseInteraction {
 	
@@ -29,6 +31,7 @@ public:
 	}
 	
 	//--------------------------------------------------------
+	void setup();
 	void update();
 	void newBubbleRecieved(Donk::BubbleData * data);
 	void drawContent();
@@ -42,19 +45,23 @@ public:
 	//void newContainerReceived( containerData * data );
 
 	//--------------------------------------------------------
-	int createContainerBubble(/*Donk::BubbleData * data*/);
+	void createMomAndChildBubbles();
+	void createMomBubble(string group);
 	void createChildBubble(int momID, Donk::BubbleData * data, float radius);
 	
-	void clearOldBubbles();
-	void releaseContainedBubbles(int poppedID);
+	void clearOutBubbles();
+	void releaseInBubbles(int poppedID);
 	void clearContainer( int index );
 	
 	//--------------------------------------------------------
 	void setCollisionFilter(ofxBulletRigidBody * rigidBody, int filter, int mask);
 	
 	//--------------------------------------------------------
-	//vector<int> bubbleTypes;
 	map<int,int> bubbleToContIndex;
-	int momNowID;
+	int		momNowID;
 	
+	//--------------------------------------------------------
+	vector<Donk::BubbleData *> polledData;
+	string	momPollGroup;
+	int startPoll;
 };

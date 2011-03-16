@@ -55,7 +55,11 @@ public:
 	void touchDown(float x, float y, int touchId);
 	void touchMoved(float x, float y, int touchId);
 	void touchUp(float x, float y, int touchId);
-
+	
+	//--------------------------------------------------------
+	void drawOnModel(Model *model); // just for testing
+	
+	
 	//--------------------------------------------------------
 	void bubbleReceived(Donk::BubbleData *bubbleData);
 	void interactionModeChange(string modeName); 
@@ -72,7 +76,11 @@ public:
 	
 	/// fluid sim //
 	bool			drawingParticles;
+	bool			drawingChampagne;
 	ParticleSystem	particleSys;
+
+	/** champagne bubbles */
+	Champagne champagne;
 	
 private:
 	
@@ -109,7 +117,5 @@ private:
 	
 	/** Convenience so you don't have to keep typing it */
 	map<int,BubbleTouch>::iterator tIt;
-public:	
-	/** champagne bubbles */
-	Champagne champagne;
+
 };

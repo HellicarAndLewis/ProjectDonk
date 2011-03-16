@@ -89,13 +89,18 @@ void App::drawAllProjectors() {
 			
 			scene->projectors[i]->end();
 			screenFbo.end();
+			
+			ofSetupScreen();
+			
+			glPushMatrix();
+			
 			screenFbo.draw(scene->projectors[i]->x, scene->projectors[i]->y);
+			glPopMatrix();
 		}
 	}
 	
 	
-	ofViewport(0, 0, ofGetWidth(), ofGetHeight());
-	ofSetupScreen();
+	
 	
 }
 
