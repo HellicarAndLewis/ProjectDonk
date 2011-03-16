@@ -43,6 +43,8 @@ void ParticleSystem::init(ofVec2f simulationPixelSize)
 	
 	prevForcePosition = ofVec2f(windowSize.x/2, windowSize.y/2);
 	
+	particleColor.set(1, 1, 1, 1);
+	
 	currentEmitter = 0;
 	float inc = windowSize.y/3.f;
 	for(int i = 0; i<NUM_EMITTERS/2; i++)
@@ -87,7 +89,6 @@ void ParticleSystem::draw( bool drawingFluid ){
 		case POINT_SPRITE:
 		{
 			glEnable(GL_BLEND);
-			//glDisable( GL_TEXTURE_2D );
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 			
 			glDisable(GL_DEPTH_TEST);
@@ -99,8 +100,7 @@ void ParticleSystem::draw( bool drawingFluid ){
 			glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
 			
 			// Enable Vertex Points
-			// Enable the Vertex Array and PixelSize Attribute
-			
+			// Enable the Vertex Array
 			glEnableClientState(GL_VERTEX_ARRAY);
 			glVertexPointer(2, GL_FLOAT, 0, posArray);
 
@@ -121,10 +121,13 @@ void ParticleSystem::draw( bool drawingFluid ){
 		case SHADED_POINT_SPRITE:
 		{
 			
-			glPointSize(5);
+			glPointSize(pointSize);
 			
 			//glEnable(GL_BLEND);
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			
+			glColor3f(particleColor.r, particleColor.g, particleColor.b);
+			//ofSetColor(particleColor);
 			
 			// Get the attribute and bind it
 			
@@ -138,10 +141,10 @@ void ParticleSystem::draw( bool drawingFluid ){
 			glDisable(GL_DEPTH_TEST);
 			glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
 			
-			dustParticle.bind();
-			
 			glEnable(GL_POINT_SPRITE);
 			glTexEnvi(GL_POINT_SPRITE, GL_COORD_REPLACE, GL_TRUE);
+			
+			dustParticle.bind();
 			
 			glEnableClientState(GL_VERTEX_ARRAY);
 			glVertexPointer(2, GL_FLOAT, 0, posArray);
@@ -152,7 +155,7 @@ void ParticleSystem::draw( bool drawingFluid ){
 			glDrawArrays(GL_POINTS, 0, MAX_PARTICLES * 2);
 			
 			glDisableClientState(GL_VERTEX_ARRAY);
-			glDisableClientState(GL_COLOR_ARRAY);
+			//glDisableClientState(GL_COLOR_ARRAY);
 				
 			dustParticle.unbind();
 			
@@ -173,40 +176,9 @@ void ParticleSystem::draw( bool drawingFluid ){
 	
 }
 
-
-void ParticleSystem::addParticles( const ofVec2f &pos, int count ){
-	for(int i=0; i<count; i++)
-		//addParticle( pos + Rand::randofVec2f() * 15 );
-		addParticle( pos + ofVec2f(ofRandom(20), ofRandom(20)) );
-}
-
-
-void ParticleSystem::addParticle( const ofVec2f &pos ) {
-	
-	if(curIndex < MAX_PARTICLES) 
-	{
-		particles[curIndex].init( pos.x, pos.y );
-		curIndex++;
-	}
-	
-	if(curIndex == MAX_PARTICLES) {
-		curIndex = 0;
-	}
-}
-
 void ParticleSystem::update()
-{
-	/*if(resizeFluid)
-	 {
-	 
-	 //float hwRatio = ofGetHeight()/ofGetWidth();
-	 float hwRatio = 1200/800;
-	 fluidSolver.setSize(fluidCellsX, fluidCellsX / hwRatio);
-	 fluidDrawer.setup(&fluidSolver);
-	 resizeFluid = false;
-	 }*/
+{	
 	
-	// manage
 	fluidSolver.update();
 	
 	for(int i = 0 ; i<NUM_EMITTERS; i++)
@@ -222,7 +194,7 @@ void ParticleSystem::update()
 		const float colorMult = 100;
 		const float velocityMult = 0.3;
 		
-		//addToFluid(forceEmitters[i], vel, true, true);
+		//addForceAndParticle(forceEmitters[i], vel, true, true);
 		int index = fluidSolver.getIndexForPos(constrainPos);
 		fluidSolver.addForceAtIndex(index, vel * velocityMult);
 	}
@@ -231,7 +203,7 @@ void ParticleSystem::update()
 		
 		ofVec2f pos(ofRandom(windowSize.x), ofRandom(windowSize.y));
 		ofVec2f vel(sin(ofGetFrameNum()), cos(ofGetFrameNum()));
-		addToFluid(pos, vel, true, true);
+		addForceAndParticle(pos, vel, true, true);
 		
 	}
 	
@@ -245,7 +217,7 @@ void ParticleSystem::update()
 	}
 }
 
-
+// just add force, no new particles
 void ParticleSystem::addForceAtPoint( ofVec2f position )
 {
 	
@@ -269,7 +241,7 @@ void ParticleSystem::addForceAtPoint( ofVec2f position )
 }
 
 // add force and dye to fluid, and create particles
-void ParticleSystem::addToFluid( ofVec2f pos, ofVec2f vel, bool addColor, bool addForce ) {
+void ParticleSystem::addForceAndParticle( ofVec2f pos, ofVec2f vel, bool addColor, bool addForce ) {
     //float speed = vel.x * vel.x  + vel.y * vel.y * getWindowAspectRatio() * getWindowAspectRatio();    
 	//balance the x and y components of speed with the screen aspect ratio
 	float aspectRatio = windowSize.x/windowSize.y;
@@ -293,8 +265,33 @@ void ParticleSystem::addToFluid( ofVec2f pos, ofVec2f vel, bool addColor, bool a
 		}
 		
 		//particleSystem.addParticles( pos * ofVec2f( ofGetWindowSize() ), 5 );
-		addParticles( pos, 3 );
+			addParticles( pos, 3 );
 		//fluidSolver.addForceAtIndex(index, vel * velocityMult);
     }
+}
+
+
+void ParticleSystem::addParticles( const ofVec2f &pos, int count ){
+	for(int i=0; i<count; i++)
+		//addParticle( pos + Rand::randofVec2f() * 15 );
+		addParticle( pos + ofVec2f(ofRandom(20), ofRandom(20)) );
+}
+
+
+void ParticleSystem::addParticle( const ofVec2f &pos ) {
+	
+	if(curIndex < MAX_PARTICLES) 
+	{
+		if(useGravity) {
+			particles[curIndex].init( pos.x, pos.y );
+		} else {
+			particles[curIndex].init( pos.x, pos.y, ofVec2f(0, -1));
+		}
+		curIndex++;
+	}
+
+	if(curIndex == MAX_PARTICLES) {
+		curIndex = 0;
+	}
 }
 

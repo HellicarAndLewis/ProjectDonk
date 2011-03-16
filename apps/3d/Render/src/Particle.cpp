@@ -18,6 +18,19 @@ Particle::Particle() {
 	incAlpha = true;
 }
 
+void Particle::init(float x, float y, ofVec2f gravitionalForce) {
+	
+	incAlpha = true;
+	
+	pos.set(x, y);
+	gravity.set(gravitionalForce); 
+	vel.set(0, 0);
+	radius = 5;
+	alpha = 0.1; //Rand::randFloat( 0.3f, 1 );
+	mass = ofRandom(0.3f)+0.1; //Rand::randFloat( 0.1f, 1 );
+	
+}
+
 void Particle::init(float x, float y) {
 
 	incAlpha = true;
@@ -62,11 +75,22 @@ void Particle::update( const FluidSolver &solver, const ofVec2f &windowSize, con
 
 void Particle::updateVertexArrays( bool drawingFluid, const ofVec2f &invWindowSize, int i, float* posBuffer, float* colBuffer, float* heightBuffer) {
 	int vi = i * 4;
-	posBuffer[vi++] = pos.x - vel.x;
-	posBuffer[vi++] = pos.y - vel.y;
-	posBuffer[vi++] = pos.x;
-	posBuffer[vi++] = pos.y;
-	
+	if( gravity.y != 0 )
+	{
+		posBuffer[vi++] = pos.x - vel.x;
+		posBuffer[vi++] = pos.y - vel.y + gravity.y;
+		posBuffer[vi++] = pos.x;
+		posBuffer[vi++] = pos.y + gravity.y;
+	}
+	else 
+	{
+		posBuffer[vi++] = pos.x - vel.x;
+		posBuffer[vi++] = pos.y - vel.y;
+		posBuffer[vi++] = pos.x;
+		posBuffer[vi++] = pos.y;
+	}
+
+		
 	heightBuffer[vi++] = alpha * 16;
 	heightBuffer[vi++] = alpha * 16;
 	heightBuffer[vi++] = alpha * 16;
@@ -97,7 +121,8 @@ void Particle::updateVertexArrays( bool drawingFluid, const ofVec2f &invWindowSi
 		
 		//ofColor color( ci::CM_HSV, 0, v2 / ( VMAX * VMAX ), lerp( 0.5f, 1.0f, mass ) * alpha ); 
 		ofColor color;
-		color.setHsb( 0, v2 / ( VMAX * VMAX ), lerp( 0.5f, 1.0f, mass ) * alpha);
+		//color.setHsb( 255, v2 / ( VMAX * VMAX ), lerp( 0.5f, 1.0f, mass ) * alpha);
+		color.setHsb( 0, 0, 255);
 		
 		colBuffer[ci++] = color.r;
 		colBuffer[ci++] = color.g;

@@ -14,7 +14,7 @@
 #include "MSAFluid.h"
 
 #define NUM_EMITTERS		6
-#define MAX_PARTICLES		2000 //50000
+#define MAX_PARTICLES		1000 //50000
 
 enum DRAWING_TYPE { SIMPLE_POINTS, POINT_SPRITE, SHADED_POINT_SPRITE };
 
@@ -32,7 +32,7 @@ public:
 	void addParticle( const ofVec2f &pos );
 	//void setWindowSize( ofVec2f winSize );
 	void fadeToColor(float r, float g, float b, float speed);
-	void addToFluid(ofVec2f pos, ofVec2f vel, bool addColor, bool addForce);
+	void addForceAndParticle(ofVec2f pos, ofVec2f vel, bool addColor, bool addForce);
 	void addForceAtPoint( ofVec2f position );
 	
     float				posArray[MAX_PARTICLES * 2 * 2];
@@ -56,6 +56,13 @@ public:
 	ofShader			shader;
 	ofTexture			pointSpriteTexture;
 	DRAWING_TYPE		drawingType;
+	
+	/// mode options
+	bool				useGravity;
+	// only using this b/c point sprite is broken due to secret OF-magic GL conflicts
+	ofColor				particleColor;
+	// only using this b/c point sprite is broken due to secret OF-magic GL conflicts
+	float				pointSize;
 	
 };
 
