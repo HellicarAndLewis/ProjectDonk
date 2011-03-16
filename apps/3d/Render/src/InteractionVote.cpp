@@ -47,8 +47,8 @@ void InteractionVote::addVoteToBubble(int voteID, int amt, Donk::BubbleData * da
 		ofVec3f center(interactiveRect.width/2, 0, 0);
 		
 		ofVec3f startPos;
-		startPos.x = (int)ofRandom(0,2) ? -100 : interactiveRect.width+100;
-		startPos.y = (int)ofRandom(0,2) ? -100 : interactiveRect.height+100;		
+		startPos.x = (int)ofRandom(0,2) ? -ofRandom(-300, -200) : interactiveRect.width+ofRandom(-300, -200);
+		startPos.y = (int)ofRandom(0,2) ? -ofRandom(-300, -200) : interactiveRect.height+ofRandom(-300, -200);		
 		startPos.z = ofRandom(-300, 300);
 		
 		float   radius = 40;
