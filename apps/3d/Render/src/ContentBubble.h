@@ -45,7 +45,8 @@ public:
 	int					 performceImageID;
 	int					 performanceChannel;
 	ofVec3f				 performanceStartTarget;
-
+	float				 startRadius;
+	
 	// --------------------------------- things for vote
 	int					 voteBubbleID;
 	int					 voteImageID;

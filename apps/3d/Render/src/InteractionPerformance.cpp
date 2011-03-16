@@ -65,15 +65,16 @@ void InteractionPerformance::addBubbles() {
 		for(int i=0; i<nBands; i++) {
 			
 			ofVec3f center(interactiveRect.width/2, 0, 0);
-			float radius = 200;
+			float radius = ofRandom(70, 120);
 			
 			ofVec3f startPos;
 			startPos.x = (int)ofRandom(0,2) ? -100 : interactiveRect.width+100;
 			startPos.y = (int)ofRandom(0,2) ? -100 : interactiveRect.height+100;		
-			startPos.z = 0;
+			startPos.z = ofRandom(-500, 500);
 			
 			ContentBubble * bubble = new ContentBubble();
 			
+			bubble->startRadius = radius;
 			bubble->data	  = NULL;
 			bubble->radius    = radius;
 			bubble->rigidBody = bullet->createSphere(startPos, radius, 1);
@@ -121,8 +122,8 @@ void InteractionPerformance::update() {
 		
 		bubbles[i]->update();
 		
-        float newRad = freq[ bubbles[i]->performanceChannel ] * 60.0;
-		bubbles[i]->setRadius(120 + newRad);
+        float newRad = freq[ bubbles[i]->performanceChannel ] * 100.0;
+		bubbles[i]->lerpRadius(bubbles[i]->startRadius + newRad, 0.94);
 		
 		champagne(bubbles[i]->pos);
 		
@@ -147,6 +148,7 @@ void InteractionPerformance::update() {
 		if(bAllOffScreen && !bDoneAnimatingOut || time > 3.0) {
 			bDoneAnimatingOut = true;
 			killallBubbles();
+			printf("-- killed all performance bubbles --\n");
 		}
 	}
 	
@@ -305,8 +307,8 @@ void InteractionPerformance::animatedOut() {
 		bubbles[i]->bAnimateOut = true;
 		
 		bubbles[i]->offScreenTaget.x = bubbles[i]->getPosition().x;
-		bubbles[i]->offScreenTaget.y = -400;
-		bubbles[i]->offScreenTaget.z = 0;
+		bubbles[i]->offScreenTaget.y = -1000;
+		bubbles[i]->offScreenTaget.z = ofRandom(-200, -400);
 	}	
 	
 	bAnimateIn  = false;

@@ -60,9 +60,12 @@ void InteractionInterview::update() {
 	}
 	
 	
-	if(bAnimateOut && bAllOffScreen) {
-		bDoneAnimatingOut = true;
-		killallBubbles();
+	if(bAnimateOut) {
+		float time = (ofGetElapsedTimeMillis()-animatedOutTimer) / 1000.0;
+		if(time > 3 || bAllOffScreen && !bDoneAnimatingOut) {
+			bDoneAnimatingOut = true;
+			killallBubbles();
+		}
 	}
 }
 
@@ -100,11 +103,12 @@ void InteractionInterview::animatedOut() {
 	for(int i=0; i<bubbles.size(); i++) {
 		
 		bubbles[i]->bAnimateOut = true;
-		bubbles[i]->offScreenTaget.x = (int)ofRandom(0,2) ? -100 : interactiveRect.width+100;
-		bubbles[i]->offScreenTaget.y = (int)ofRandom(0,2) ? -100 : interactiveRect.height+100;		
+		bubbles[i]->offScreenTaget.x = (int)ofRandom(0,2) ? -500 : interactiveRect.width+500;
+		bubbles[i]->offScreenTaget.y = (int)ofRandom(0,2) ? -500 : interactiveRect.height+500;		
 		bubbles[i]->offScreenTaget.z = 0;
 	}
 	
+	animatedOutTimer = ofGetElapsedTimeMillis();
 }
 
 //--------------------------------------------------------
