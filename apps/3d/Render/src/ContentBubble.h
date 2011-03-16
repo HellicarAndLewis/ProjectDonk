@@ -51,7 +51,11 @@ public:
 
 	// ---------------------------------
 	int					 buzzID;
+	float				 buzzWait;
+	float				 buzzTime;
+	ofVec3f				 buzzDest,buzzOrig;
 	
+	float				 loopCounter;
 	// ---------------------------------
 	ContentBubble();
 	
@@ -71,7 +75,11 @@ public:
 	void update();
 	void gotoTarget(float scale=1.0);
 	void goOffScreen();
+	
+	// idle behaviours
 	void bobMe();
+	void buzzMe();
+	void loopMe(float interactiveWidth,float interactiveHeight);
 	
 	void pushBubble();
 	void popBubble();
