@@ -320,21 +320,23 @@ void ContentBubble::drawTwitterData() {
 				if(data->media.size()){
 					ofSetColor(255,255,255, alpha);
 					data->media[0].mediaImage.bind();
+
+					float w = data->media[0].mediaImage.width;
+					float h = data->media[0].mediaImage.height;
+					//draw the circle-masked thumbnail
+					int steps = 60;
+					float inc = TWO_PI/(float)steps;
+					glBegin(GL_TRIANGLE_FAN);
+					for(int i=0;i<steps;i++){
+						float x = cos(inc*i);
+						float y = sin(inc*i);
+						glTexCoord2f((x+1)*w*0.5,(y+1)*h*0.5);
+						glVertex2f(x*data_radius,y*data_radius);
+					}
+					glEnd();
+					
+					data->media[0].mediaImage.unbind();
 				}
-				float w = data->profileImage.width;
-				float h = data->profileImage.height;
-				//draw the circle-masked thumbnail
-				int steps = 60;
-				float inc = TWO_PI/(float)steps;
-				glBegin(GL_TRIANGLE_FAN);
-				for(int i=0;i<steps;i++){
-					float x = cos(inc*i);
-					float y = sin(inc*i);
-					glTexCoord2f((x+1)*w*0.5,(y+1)*h*0.5);
-					glVertex2f(x*data_radius,y*data_radius);
-				}
-				glEnd();
-				data->profileImage.unbind();
 				glPopMatrix();
 			}
 			
@@ -350,15 +352,18 @@ void ContentBubble::drawTwitterData() {
 				glTranslatef(2,2,0.2);
 				ofSetColor(255,255,255, alpha);
 				font.drawString(data->userName,0,0);
-				data->profileImage.unbind();			
+				data->profileImage.unbind();	 //if i take these out, the GUI doesn't draw?		
 				glPopMatrix();
 			}
 			
 			{
 				//draw twitter text content
 				string txt = data->text;
+				
+				cout << "Trying to draw the text " << txt << endl;
+				
 				if(txt.empty())txt="lorem ipsum";
-				ofRectangle textBB = font.getStringBoundingBox(txt, 0,0);
+				ofRectangle textBB = font.getStringBoundingBox(txt, 0,0); //need to cope with up to 140 characters here and UTF strings...
 				glPushMatrix();
 				float s = data_radius/textBB.width*1.75;
 				glScalef(s,s,s);
@@ -370,7 +375,7 @@ void ContentBubble::drawTwitterData() {
 				ofSetColor(255,255,255, alpha);
 				font.drawString(txt,0,0);
 				data->profileImage.unbind();			
-				glPopMatrix();
+				glPopMatrix(); //if i take these out, the GUI doesn't draw?		
 			}
 			
 			

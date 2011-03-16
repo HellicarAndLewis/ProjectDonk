@@ -81,7 +81,7 @@ public:
 	virtual void drawTwitterData();
 	virtual void drawHighLight();
 	virtual void draw();
-	static ofTrueTypeFont font;
+	static ofTrueTypeFont font; //does this need to be ofxpango - as it lets you fit to a width....
 	
 	/**
 	  for 2d layer to flip around when selected

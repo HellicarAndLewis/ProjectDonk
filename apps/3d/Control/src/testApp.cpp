@@ -367,15 +367,26 @@ void testApp::populateBubble(ofxOscMessage &m,Json::Value &bubble){
 	m.addStringArg("text");
 	m.addStringArg(bubble["text"].asString());
 	
+		//W+K guarantees only one twitpic per message now...
+		//	if(bubble["hasMedia"].asString()=="1"){
+		//		for(int k=0;k<bubble["media"].size();k++){
+		//			m.addStringArg("mediaID");
+		//			m.addStringArg(bubble["media"][k]["mediaID"].asString());
+		//			m.addStringArg("mediaThumbURL");
+		//			m.addStringArg(bubble["media"][k]["mediaThumbURL"].asString());
+		//			m.addStringArg("mediaURL");
+		//			m.addStringArg(bubble["media"][k]["mediaURL"].asString());
+		//		}
+		//	}
+		//trying to iterate through something that doesn't have an array!
+	
 	if(bubble["hasMedia"].asString()=="1"){
-		for(int k=0;k<bubble["media"].size();k++){
-			m.addStringArg("mediaID");
-			m.addStringArg(bubble["media"][k]["mediaID"].asString());
-			m.addStringArg("mediaThumbURL");
-			m.addStringArg(bubble["media"][k]["mediaThumbURL"].asString());
-			m.addStringArg("mediaURL");
-			m.addStringArg(bubble["media"][k]["mediaURL"].asString());
-		}
+		m.addStringArg("mediaID");
+		m.addStringArg(bubble["media"]["mediaID"].asString());
+		m.addStringArg("mediaThumbURL");
+		m.addStringArg(bubble["media"]["mediaThumbURL"].asString());
+		m.addStringArg("mediaURL");
+		m.addStringArg(bubble["media"]["mediaURL"].asString());
 	}
 	
 }

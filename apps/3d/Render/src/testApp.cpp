@@ -141,7 +141,7 @@ void testApp::keyPressed(int key){
 		if(ofRandomuf()>0.5){
 			data->media.push_back(Donk::BubbleData::MediaEntry());
 			char fname[64];
-			sprintf(fname,"images/performance/%i.png",(int)ofRandom(1,13));
+			sprintf(fname,"images/performance/%i.png",(int)ofRandom(10,20)); //numbering of files is with leading zeros, so go from 10 to 20
 			cout << fname << endl;
 			data->media.back().mediaImage.loadImage(fname);
 			data->media.back().thumbImage = data->media.back().mediaImage;
