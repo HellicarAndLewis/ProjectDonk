@@ -174,6 +174,10 @@ void InteractionVote::drawSphere(BubbleShader * shader) {
 
 //--------------------------------------------------------
 void InteractionVote::animatedOut() {
+	// temp for debugging other modes!
+	bAnimateOut  = true;
+	bDoneAnimatingOut = true;
+	killallBubbles();
 }
 
 //--------------------------------------------------------
