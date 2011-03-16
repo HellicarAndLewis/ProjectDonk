@@ -69,6 +69,16 @@ void BubbleProjection::setup() {
 }
 
 //--------------------------------------------------------
+BaseInteraction * BubbleProjection::getInteraction(int mode) {
+	if(mode		 == MODE_BUZZ)			return interactions[mode];
+	else if(mode == MODE_INSPIRATION)	return interactions[mode];
+	else if(mode == MODE_INTERVIEW)		return interactions[mode];
+	else if(mode == MODE_VOTE)			return interactions[mode];
+	else if(mode == MODE_PERFORMANCE)	return interactions[mode];
+	else return NULL;	
+}
+
+//--------------------------------------------------------
 void BubbleProjection::interactionModeChange(string modeName) {
 	
 	printf("The New Interaction Mode: %s\n", modeName.c_str());	

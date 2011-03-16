@@ -9,12 +9,15 @@
 
 #include "InteractionVote.h"
 #include "testApp.h"
+#include "InteractionPerformance.h"
 
 void InteractionVote::setup() {
 	voteBubbles[0]   = NULL;
 	voteBubbles[1]   = NULL;
 	bMadeVoteBubbles = false;
 	
+	pctA			  = 0;
+	pctB			  = 0;
 }
 
 //--------------------------------------------------------
@@ -40,78 +43,125 @@ void InteractionVote::setChoiceBubble(int i, string choice) {
 }
 
 //--------------------------------------------------------
-void InteractionVote::addVoteToBubble(int voteID, int amt, Donk::BubbleData * data) {
+ContentBubble * InteractionVote::addBubbleToVote(int voteID) {
 	
-	for (int i=0; i<amt; i++) {
-		
-		ofVec3f center(interactiveRect.width/2, 0, 0);
-		
-		ofVec3f startPos;
-		startPos.x = (int)ofRandom(0,2) ? -ofRandom(-300, -200) : interactiveRect.width+ofRandom(-300, -200);
-		startPos.y = (int)ofRandom(0,2) ? -ofRandom(-300, -200) : interactiveRect.height+ofRandom(-300, -200);		
-		startPos.z = ofRandom(-300, 300);
-		
-		float   radius = 40;
-		
-		ContentBubble * bubble = new ContentBubble();
-		
-		bubble->voteBubbleID = voteID;
-		bubble->data		 = data;
-		bubble->radius		 = radius;
-		bubble->rigidBody	 = bullet->createSphere(startPos, radius, 1);
-		bubble->createContentBubble();
-		
-		bubble->setTarget( voteBubbles[voteID]->getPosition() );
-		bubbles.push_back(bubble);
-		
-		voteBubbles[voteID]->totalVotes ++;
-	}
+	float   radius = 40;
+	ofVec3f center(interactiveRect.width/2, 0, 0);
+	
+	ofVec3f startPos;
+	startPos.x = (int)ofRandom(0,2) ? -ofRandom(-300, -200) : interactiveRect.width+ofRandom(-300, -200);
+	startPos.y = (int)ofRandom(0,2) ? -ofRandom(-300, -200) : interactiveRect.height+ofRandom(-300, -200);		
+	startPos.z = ofRandom(-300, 300);
+	
+	ContentBubble * bubble = new ContentBubble();
+	
+	bubble->voteBubbleID = voteID;
+	bubble->data		 = NULL;
+	bubble->radius		 = radius;
+	bubble->rigidBody	 = bullet->createSphere(startPos, radius, 1);
+	bubble->bVoteEnabled = false;
+	bubble->voteTimer	 = 0;
+	bubble->voteDelay	 = 0;
+	bubble->bVoteNeedsUpdate = false;
+	
+	bubble->createContentBubble();
+	
+	//bubble->setTarget( voteBubbles[voteID]->getPosition() );
+	bubbles.push_back(bubble);
+	return bubbles.back();
+		// voteBubbles[voteID]->totalVotes ++;
 }
 
 //--------------------------------------------------------
 void InteractionVote::newBubbleRecieved(Donk::BubbleData * data) { 
+
+	int totalA     = ofRandom(2, 40);	// need this from data
+	int totalB     = ofRandom(2, 40);	// need this from data
 	
-	int questionID = (int)ofRandom(0, 2);
-	int totalA     = ofRandom(2, 40);
-	int totalB     = ofRandom(2, 40);
+	int total      = totalA + totalB;
+	pctA		   = round( ((float)totalA / (float)total) * 100.0);
+	pctB           = round( ((float)totalB / (float)total) * 100.0);
 	
-	if(questionID == 0) {
-		if(voteBubbles[0] == NULL) setChoiceBubble(0, "Option A");
-		if(voteBubbles[0]->totalVotes < totalA) {
-			int amt = totalA - voteBubbles[0]->totalVotes;
-			printf("need to make: %i\n", amt);
-			addVoteToBubble(0, amt, data);
-		}		
-	}
+	// Option A
+	if(voteBubbles[0] == NULL) setChoiceBubble(0, "Option A");
+	voteBubbles[0]->pct = pctA;	
 	
-	if(questionID == 1) {
-		if(voteBubbles[1] == NULL) setChoiceBubble(1, "Option B");
-		if(voteBubbles[1]->totalVotes < totalB) {
-			int amt = totalB - voteBubbles[1]->totalVotes;
-			printf("need to make: %i\n", amt);
-			addVoteToBubble(1, amt, data);
+	// Option B
+	if(voteBubbles[1] == NULL) setChoiceBubble(1, "Option B");
+	voteBubbles[1]->pct = pctB;	
+	
+	
+	// the first time we are going to make the 
+	// bubbles they will not be active...
+	if(bubbles.size() < 100) {
+		
+		InteractionPerformance * interaction = (InteractionPerformance*)testApp::instance->projection->getInteraction(MODE_PERFORMANCE);
+
+		for (int i=0; i<100; i++) {
+			ContentBubble * bubble = addBubbleToVote(-1); // -1 for initial setting
+			if(interaction != NULL) bubble->voteImageID  = MIN(i, interaction->images.size()-1);
+			else bubble->voteImageID = -1;
 		}
+		printf("just made %i bubbles!\n", (int)bubbles.size());
 	}
+	printf("A:%i\nB:%i\nT:%i\n", pctA, pctB, pctA+pctB);
+	
+	
+	// now loop through all the bubbles and set them to 
+	// the vote bubble that they should be on...
+	int incA = 0;
+	int incB = 0;
+	for (int i=0; i<100; i++) {
+		ContentBubble * bubble = bubbles[i];
+		
+		if(incA < pctA) {
+			bubble->setTarget( voteBubbles[0]->getPosition() );
+			bubble->bVoteEnabled = true;
+			//bubble->voteBubbleID = 0;
+			incA ++;	
+			voteIds[i] = 0;
+		}
+		if(incA == pctA && incB < pctB) {
+			bubble->setTarget( voteBubbles[1]->getPosition() );
+			bubble->bVoteEnabled = true;
+			//bubble->voteBubbleID = 1;
+			incB ++;	
+			voteIds[i] = 1;
+		}
+		bubble->voteDelay = ofRandom(0.5, 2.0);		
+		bubble->voteTimer = ofGetElapsedTimeMillis();
+		bubble->bVoteNeedsUpdate = true;
+	}
+	
+	printf("pctA:%i - %i\n", pctA, incA);
+	printf("pctB:%i - %i\n", pctB, incB);
+
 	
 };
 
 //--------------------------------------------------------
 void InteractionVote::update() {
-	
+		
 	for(int i=0; i<bubbles.size(); i++) {
 		
-		int voteID   = bubbles[i]->voteBubbleID;
-		ofVec3f  pos = voteBubbles[ voteID ]->getPosition();
+		float time = (ofGetElapsedTimeMillis() - bubbles[i]->voteTimer) / 1000.0;
+		if(time > bubbles[i]->voteDelay && bubbles[i]->bVoteNeedsUpdate) {
+			bubbles[i]->voteBubbleID = voteIds[i];
+			bubbles[i]->bVoteNeedsUpdate = false;
+		}
 		
-		bubbles[i]->setTarget( pos );
-		//bubbles[i]->addAtrractionForce(pos, 100.0);
-		
-		bubbles[i]->rigidBody->body->setDamping(0.999, 0.999); // <-- add some crazy damping
-		bubbles[i]->gotoTarget(1.0);
-		
-		bubbles[i]->update();	
-		champagne(bubbles[i]->pos);
-		
+		if(bubbles[i]->bVoteEnabled) {
+			
+			int voteID   = bubbles[i]->voteBubbleID;
+			if(voteID != -1) {
+				ofVec3f  pos = voteBubbles[ voteID ]->getPosition();
+				bubbles[i]->setTarget( pos );
+			}
+				
+			bubbles[i]->rigidBody->body->setDamping(0.999, 0.999); // <-- add some crazy damping
+			bubbles[i]->gotoTarget(1.0);
+			bubbles[i]->update();	
+		}
 		
 	}	
 	
@@ -120,7 +170,6 @@ void InteractionVote::update() {
 		if(!voteBubbles[i]) continue;
 		
 		voteBubbles[i]->rigidBody->body->setDamping(0.999, 0.999); // <-- add some crazy damping
-		
 		voteBubbles[i]->gotoTarget(50.0);
 		voteBubbles[i]->bobMe();
 		voteBubbles[i]->update();
@@ -139,8 +188,10 @@ void InteractionVote::drawContent() {
 	}
 	
 	for(int i=0; i<bubbles.size(); i++) {
-		bubbles[i]->drawHighLight();
-		bubbles[i]->drawTwitterData();
+		if(bubbles[i]->bVoteEnabled) {
+			bubbles[i]->drawHighLight();
+			bubbles[i]->drawTwitterData();
+		}
 	}
 	
 	

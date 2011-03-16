@@ -10,7 +10,7 @@
 #include "VoteBubble.h"
 
 VoteBubble::VoteBubble() {
-	totalVotes = 0;	
+	pct = 0;	
 }
 
 void VoteBubble::setOptionString(string str) {
@@ -30,7 +30,7 @@ void VoteBubble::drawInsideContent() {
 	if(font.bLoadedOk) {
 		if(optionStr == "") optionStr = "OPTION STR";
 		float strW = font.stringWidth(optionStr);
-		font.drawString(optionStr, -(strW/2), 0);
+		font.drawString(optionStr+"\n"+ofToString(pct)+"%", -(strW/2), 0);
 	}
 	glPopMatrix();
 }

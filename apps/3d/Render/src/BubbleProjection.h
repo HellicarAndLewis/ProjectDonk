@@ -81,7 +81,8 @@ public:
 
 	/** champagne bubbles */
 	Champagne champagne;
-	
+	BaseInteraction *           getInteraction(int mode);
+
 private:
 	
 	//--------------------------------------------------------

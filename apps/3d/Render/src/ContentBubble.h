@@ -48,7 +48,10 @@ public:
 
 	// --------------------------------- things for vote
 	int					 voteBubbleID;
-
+	int					 voteImageID;
+	bool				 bVoteEnabled, bVoteNeedsUpdate;
+	float				 voteDelay, voteTimer;
+	
 	// ---------------------------------
 	int					 buzzID;
 	float				 buzzWait;

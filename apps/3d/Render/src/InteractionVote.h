@@ -26,7 +26,7 @@ public:
 	//--------------------------------------------------------
 	void update();
 	void newBubbleRecieved(Donk::BubbleData * data);
-	void addVoteToBubble(int voteID, int amt, Donk::BubbleData * data);
+	ContentBubble * addBubbleToVote(int voteID);
 	
 	void drawContent();
 	void drawSphere(BubbleShader * shader);
@@ -37,7 +37,10 @@ public:
 	void			setChoiceBubble(int i, string choice);
 	bool			bMadeVoteBubbles;
 	VoteBubble *	voteBubbles[2];
+	int				voteIds[100];
 	
+	// animation
+	int				pctA, pctB;
 };
 
 

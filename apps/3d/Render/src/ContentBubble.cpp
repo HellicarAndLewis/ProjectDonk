@@ -411,7 +411,7 @@ void ContentBubble::drawTwitterData() {
 				//draw twitter text content
 				string txt = data->text;
 				
-				cout << "Trying to draw the text " << txt << endl;
+				// cout << "Trying to draw the text " << txt << endl;
 				
 				if(txt.empty())txt="lorem ipsum";
 				ofRectangle textBB = font.getStringBoundingBox(txt, 0,0); //need to cope with up to 140 characters here and UTF strings...

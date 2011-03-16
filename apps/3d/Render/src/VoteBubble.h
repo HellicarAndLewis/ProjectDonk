@@ -17,7 +17,7 @@ public:
 	VoteBubble();
 	
 	string optionStr;
-	int	   totalVotes;
+	int	   pct;
 	
 	void setOptionString(string str);
 	void drawInsideContent();
