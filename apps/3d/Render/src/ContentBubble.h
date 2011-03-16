@@ -49,7 +49,6 @@ public:
 	// --------------------------------- things for vote
 	int					 voteBubbleID;
 
-	
 	// ---------------------------------
 	int					 buzzID;
 	

@@ -14,7 +14,7 @@ void InteractionVote::setup() {
 	voteBubbles[0]   = NULL;
 	voteBubbles[1]   = NULL;
 	bMadeVoteBubbles = false;
-		
+	
 }
 
 //--------------------------------------------------------
@@ -63,7 +63,7 @@ void InteractionVote::addVoteToBubble(int voteID, int amt, Donk::BubbleData * da
 		
 		bubble->setTarget( voteBubbles[voteID]->getPosition() );
 		bubbles.push_back(bubble);
-	
+		
 		voteBubbles[voteID]->totalVotes ++;
 	}
 }
@@ -93,7 +93,6 @@ void InteractionVote::newBubbleRecieved(Donk::BubbleData * data) {
 		}
 	}
 	
-	
 };
 
 //--------------------------------------------------------
@@ -108,8 +107,8 @@ void InteractionVote::update() {
 		//bubbles[i]->addAtrractionForce(pos, 100.0);
 		
 		bubbles[i]->rigidBody->body->setDamping(0.999, 0.999); // <-- add some crazy damping
-		
 		bubbles[i]->gotoTarget(1.0);
+		
 		bubbles[i]->update();	
 		champagne(bubbles[i]->pos);
 		
@@ -121,13 +120,13 @@ void InteractionVote::update() {
 		if(!voteBubbles[i]) continue;
 		
 		voteBubbles[i]->rigidBody->body->setDamping(0.999, 0.999); // <-- add some crazy damping
-
+		
 		voteBubbles[i]->gotoTarget(50.0);
 		voteBubbles[i]->bobMe();
 		voteBubbles[i]->update();
 		
 	}
-		
+	
 	
 	
 }
