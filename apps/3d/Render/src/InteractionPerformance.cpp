@@ -44,8 +44,23 @@ void InteractionPerformance::setup() {
 		}
 	}
 	
-		//now lets have 36 bubbles in total, in random positions
+	//now lets have 36 bubbles in total, in random positions
+	// addBubbles();
 	
+	
+    
+    maxRibbonsPerChannel = 100;
+    //add uggo-matic colors on purpose for debug
+    colors[0] = ofColor(1.0, 0.0, 0.0);
+    colors[1] = ofColor(1.0, 1.0, 0.0);
+    colors[2] = ofColor(0.0, 1.0, 1.0);
+    colors[3] = ofColor(1.0, 0.0, 1.0);
+    colors[4] = ofColor(0.0, 1.0, 0.0);
+    colors[5] = ofColor(1.0, 1.0, 1.0);
+}
+
+//--------------------------------------------------------
+void InteractionPerformance::addBubbles() {
 	for(int j=0; j<nBands; j++){
 		for(int i=0; i<nBands; i++) {
 			
@@ -64,8 +79,8 @@ void InteractionPerformance::setup() {
 			bubble->rigidBody = bullet->createSphere(startPos, radius, 1);
 			bubble->createContentBubble();
 			bubble->setTarget(center.x + ofRandom(-300, 300), ofRandom(500, interactiveRect.height-300), 0);			
-
-			bubble->performceImageID   = (int)ofRandom(nFiles);//(j*6)+i; //now we are making 36, so go deeper into the image array
+			
+			bubble->performceImageID   = (int)ofRandom(0, images.size());//(j*6)+i; //now we are making 36, so go deeper into the image array
 			bubble->performanceChannel = i;
 			
 			bubble->performanceStartTarget = bubble->target;
@@ -75,17 +90,7 @@ void InteractionPerformance::setup() {
 			bubbles.push_back(bubble);        
 		}		
 	}
-    
-    maxRibbonsPerChannel = 100;
-    //add uggo-matic colors on purpose for debug
-    colors[0] = ofColor(1.0, 0.0, 0.0);
-    colors[1] = ofColor(1.0, 1.0, 0.0);
-    colors[2] = ofColor(0.0, 1.0, 1.0);
-    colors[3] = ofColor(1.0, 0.0, 1.0);
-    colors[4] = ofColor(0.0, 1.0, 0.0);
-    colors[5] = ofColor(1.0, 1.0, 1.0);
 }
-
 
 //--------------------------------------------------------
 void InteractionPerformance::newBubbleRecieved(Donk::BubbleData * data) { 
@@ -137,8 +142,12 @@ void InteractionPerformance::update() {
         lastFreq[ bubbles[i]->performanceChannel ] = freq[ bubbles[i]->performanceChannel ];
 	}	
 	
-	if(bAllOffScreen && bAnimateOut) {
-		bDoneAnimatingOut = true;
+	if(bAnimateOut) {
+		float time = (ofGetElapsedTimeMillis()-animatedOutTimer) / 1000.0;
+		if(bAllOffScreen && !bDoneAnimatingOut || time > 3.0) {
+			bDoneAnimatingOut = true;
+			killallBubbles();
+		}
 	}
 	
 	lineAlpha += (lineAlphaDes-lineAlpha) * 0.02;
@@ -288,10 +297,16 @@ void InteractionPerformance::putToRest() {
 
 //--------------------------------------------------------
 void InteractionPerformance::animatedOut() {
+	
+	animatedOutTimer = ofGetElapsedTimeMillis();
+	
 	for(int i=0; i<bubbles.size(); i++) {
 		bubbles[i]->bAnimateIn  = false;
 		bubbles[i]->bAnimateOut = true;
 		
+		bubbles[i]->offScreenTaget.x = bubbles[i]->getPosition().x;
+		bubbles[i]->offScreenTaget.y = -400;
+		bubbles[i]->offScreenTaget.z = 0;
 	}	
 	
 	bAnimateIn  = false;
@@ -308,12 +323,7 @@ void InteractionPerformance::animatedOut() {
 void InteractionPerformance::animatedIn() {
 	
 	lineAlphaDes = 255;
-	
-	for(int i=0; i<bubbles.size(); i++) {
-		bubbles[i]->bAnimateIn  = true;
-		bubbles[i]->bAnimateOut =false;
-		bubbles[i]->rigidBody->body->setActivationState(DISABLE_DEACTIVATION);
-	}
+	addBubbles();
 	
 	bAnimateIn  = true;
 	bAnimateOut = false;
