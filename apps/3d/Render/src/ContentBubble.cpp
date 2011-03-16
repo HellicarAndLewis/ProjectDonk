@@ -38,6 +38,8 @@ ContentBubble::ContentBubble() {
 	// for now!
 	offScreenTaget.y = -100;
 	offScreenTaget.z = -200;
+	
+	
 }
 
 //--------------------------------------------------------------
@@ -172,6 +174,14 @@ void ContentBubble::lerpRadius(float r,float speed) {
 
 //--------------------------------------------------------------
 void ContentBubble::update() {
+	
+	//lazyload the font
+	if(!font.bLoadedOk){
+		font.loadFont("global/font/Gotham-Bold.otf",50);
+		if(font.bLoadedOk) {
+			printf("--- font is loaded ---\n");	
+		}
+	}
 	
 	touchAlpha += (touchAlphaTarget-touchAlpha) * 0.1;
 	rotateY += (rotateYTarget-rotateY) * 0.05;
