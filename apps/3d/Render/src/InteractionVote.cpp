@@ -18,6 +18,10 @@ void InteractionVote::setup() {
 	
 	pctA			  = 0;
 	pctB			  = 0;
+	
+	for (int i=0; i<100; i++) {
+		voteIds[i] = 0;
+	}
 }
 
 //--------------------------------------------------------
@@ -98,7 +102,7 @@ void InteractionVote::newBubbleRecieved(Donk::BubbleData * data) {
 		InteractionPerformance * interaction = (InteractionPerformance*)testApp::instance->projection->getInteraction(MODE_PERFORMANCE);
 
 		for (int i=0; i<100; i++) {
-			ContentBubble * bubble = addBubbleToVote(-1); // -1 for initial setting
+			ContentBubble * bubble = addBubbleToVote(0); // 0 for initial setting
 			if(interaction != NULL) bubble->voteImageID  = MIN(i, interaction->images.size()-1);
 			else bubble->voteImageID = -1;
 		}
@@ -183,14 +187,29 @@ void InteractionVote::update() {
 //--------------------------------------------------------
 void InteractionVote::drawContent() {
 	
+	
 	for(int i=0; i<2; i++) {
 		if(voteBubbles[i]) voteBubbles[i]->drawInsideContent();
 	}
+
 	
+	InteractionPerformance * interaction = (InteractionPerformance*)testApp::instance->projection->getInteraction(MODE_PERFORMANCE);
+
+	ofEnableAlphaBlending();
 	for(int i=0; i<bubbles.size(); i++) {
 		if(bubbles[i]->bVoteEnabled) {
-			bubbles[i]->drawHighLight();
-			bubbles[i]->drawTwitterData();
+			
+			// bubbles[i]->drawHighLight();
+			// bubbles[i]->drawTwitterData();
+			
+			if( bubbles[i]->voteImageID != -1) {
+				bubbles[i]->pushBillboard();
+				int     w = bubbles[i]->radius * 2;
+				ofSetRectMode(OF_RECTMODE_CENTER);
+				interaction->images[ bubbles[i]->voteImageID ].draw(0, 0, w, w);
+				ofSetRectMode(OF_RECTMODE_CORNER);
+				bubbles[i]->popBillboard();
+			}
 		}
 	}
 	
