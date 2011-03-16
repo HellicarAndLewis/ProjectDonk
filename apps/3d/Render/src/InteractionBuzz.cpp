@@ -117,24 +117,27 @@ void InteractionBuzz::update(){
 			//bubble->bDoubleTouched	= false;		
 		}
 		
-		//---- update sizes
-		if(bubble->buzzID == BUZZ_TYPE_BUBBLE_OUT){
-			if(bubble->bDoubleTouched)	bubble->lerpRadius(150,0.1);
-			else						bubble->lerpRadius(90,0.1);
-		}
-		
-		
 		
 		//----- when not touched
 		if(!bubble->bTouched) {
 			
 			if(bAnimateIn){
 				
+				//---- update sizes
+				if(bubble->buzzID == BUZZ_TYPE_BUBBLE_OUT){
+					if(bubble->bDoubleTouched)	bubble->lerpRadius(150,0.1);
+					else						bubble->lerpRadius(90,0.1);
+				}
+				
+				
 				if(bubble->alpha <= 255) bubble->alpha += 10;
 				
 				// inner bubbles do not seek targets
-				if(bubble->buzzID != BUZZ_TYPE_BUBBLE_IN) 
+				if(bubble->buzzID != BUZZ_TYPE_BUBBLE_IN)  
 					bubble->gotoTarget();
+				
+				if(bubble->buzzID == BUZZ_TYPE_BUBBLE_OUT && !bubble->bDoubleTouched)
+					bubble->buzzMe();
 				
 				// inner bubbles fall to bottom
 				if(bubble->buzzID == BUZZ_TYPE_BUBBLE_IN)
@@ -422,7 +425,7 @@ void InteractionBuzz::createMomBubble(string group){
 	container->rigidBody->shape = new btSphereShape(radius/SCALE);
 	container->rigidBody->createRigidBody(1, startTransform);
 	
-	container->target.set(center.x + ofRandom(-200, 200), center.y+ ofRandom(-100,100), 0);
+	container->setTarget(center.x + ofRandom(-200, 200), center.y+ ofRandom(-100,100), 0);
 	container->targetForce = 5;
 	container->offScreenTaget.x = container->target.x;
 	container->offScreenTaget.y = -300;
@@ -467,7 +470,7 @@ void InteractionBuzz::createChildBubble(int momID, Donk::BubbleData * data, floa
 	bullet->rigidBodies.push_back(bubble->rigidBody);
 	
 	bubble->createContentBubble();
-	bubble->target = momPos;
+	bubble->setTarget(momPos.x,momPos.y,momPos.z);
 	bubble->targetForce = 20.f;
 	
 	bubble->offScreenTaget.x = bubble->target.x;
@@ -490,7 +493,8 @@ void InteractionBuzz::clearContainer( int index ){
 	bubble->pop();
 	
 	setCollisionFilter(bubble->rigidBody,COL_NOTHING,collidesWithNone);
-	bubble->target.y = -300;
+	ofVec3f oldTarget = bubble->target;
+	bubble->setTarget(oldTarget.x,-300,oldTarget.y);
 }
 
 //--------------------------------------------------------
@@ -498,11 +502,14 @@ void InteractionBuzz::clearOutBubbles()
 {
 	for(int i=0; i<bubbles.size(); i++)
 	{
-		if(bubbles[i]->buzzID == BUZZ_TYPE_BUBBLE_OUT)
+		ContentBubble * bubble = bubbles[i];
+		
+		if(bubble->buzzID == BUZZ_TYPE_BUBBLE_OUT)
 		{
-			bubbles[i]->target.x = bubbles[i]->rigidBody->getPosition().x;
-			bubbles[i]->target.y = -300;
-			bubbles[i]->buzzID = BUZZ_TYPE_BUBBLE_OLD;
+			ofVec3f oldTarget = bubble->target;
+			bubble->setTarget(bubble->rigidBody->getPosition().x,-300,oldTarget.y);
+			bubble->buzzID = BUZZ_TYPE_BUBBLE_OLD;
+			bubble->targetForce = 10;
 		}
 	}
 }
@@ -522,11 +529,13 @@ void InteractionBuzz::releaseInBubbles(int poppedID)
 			if( it != bubbleToContIndex.end() && it->second == poppedID )
 			{
 				bubble->buzzID  = BUZZ_TYPE_BUBBLE_OUT;
-				bubble->target = bubble->rigidBody->getPosition();
-				bubble->target.x += ofRandom(-200, 200);
-				bubble->target.y += ofRandom(-200, 200);
-				bubble->targetForce = 10.f;
-				
+				ofVec3f target = bubble->rigidBody->getPosition();
+				target.x += ofRandom(-200, 200);
+				target.y += ofRandom(-200, 200);
+				bubble->setTarget(target.x,target.y,target.z);
+				bubble->targetForce = 20;//10.f;
+				bubble->buzzDest = target;
+				bubble->buzzOrig = target;
 				bubble->rigidBody->body->clearForces();
 				setCollisionFilter(bubble->rigidBody,COL_BUBBLE_OUT,bubbleOutCollidesWith);				
 			}
