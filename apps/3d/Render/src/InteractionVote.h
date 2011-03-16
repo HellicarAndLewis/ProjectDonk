@@ -9,22 +9,8 @@
 
 #pragma once
 #include "BaseInteraction.h"
+#include "VoteBubble.h"
 
-class VoteBubble : public ContentBubble {
-
-public:
-	
-	string optionStr;
-	
-	
-	void draw() {
-	
-		ofSetColor(255, 255, 255);
-		font.drawString(optionStr, 0, 0);
-		ContentBubble::draw();
-	
-	}
-};
 
 class InteractionVote : public BaseInteraction {
 	
@@ -49,6 +35,7 @@ public:
 	void			setChoiceBubble(int i, string choice);
 	bool			bMadeVoteBubbles;
 	VoteBubble *	voteBubbles[2];
+	
 };
 
 

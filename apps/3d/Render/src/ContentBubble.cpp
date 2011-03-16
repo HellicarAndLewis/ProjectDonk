@@ -39,7 +39,9 @@ ContentBubble::ContentBubble() {
 	offScreenTaget.y = -100;
 	offScreenTaget.z = -200;
 	
-	
+	bobTheta.x = ofRandomuf() * PI;
+	bobTheta.y = ofRandomuf() * PI;
+	bobTheta.z = ofRandomuf() * PI;
 }
 
 //--------------------------------------------------------------
@@ -63,14 +65,14 @@ void ContentBubble::createContentBubble() {
 }
 
 //--------------------------------------------------------------
-void ContentBubble::gotoTarget() {
+void ContentBubble::gotoTarget(float scale) {
 	if(rigidBody->isBody()) {
 		
 		rigidBody->body->setDamping(0.99, 0.99); // <-- add some crazy damping
 		
 		ofVec3f frc = target - rigidBody->getBulletPosition();
 		distanceToTarget = frc.length();
-		float d = ABS(distanceToTarget);
+		float d = ABS(distanceToTarget) * scale;
 		d *= targetForce;
 		frc.normalize();
 		frc *= d;
@@ -81,19 +83,26 @@ void ContentBubble::gotoTarget() {
 		// printf("taget\n");
 	}
 }
-
 //--------------------------------------------------------------
 void ContentBubble::bobMe() {
 
-	target.x = resetTarget.x + ofRandom(-10, 10);
-	target.y = resetTarget.y + ofRandom(-10, 10);
-	target.z = resetTarget.z + ofRandom(-10, 10);
+	bobTheta += 0.02;
+	
+	float amp = 100;
+	target.x = resetTarget.x + cos(	bobTheta.x ) * 10.0;
+	target.y = resetTarget.y + sin(	bobTheta.y ) * amp;
+	target.z = resetTarget.z + sin(	bobTheta.z ) * 30.0;
 }
 
 //--------------------------------------------------------------
 void ContentBubble::setTarget(float x, float y, float z) {
 	target = ofVec3f(x, y, z);
 	resetTarget = ofVec3f(x, y, z);
+}
+
+//--------------------------------------------------------------
+void ContentBubble::setTarget(ofVec3f v) {
+	setTarget(v.x, v.y, v.z);
 }
 
 //--------------------------------------------------------------
@@ -154,6 +163,11 @@ void ContentBubble::addAtrractionForce(float x, float y, float z, float scale) {
 }
 
 //--------------------------------------------------------------
+void ContentBubble::addAtrractionForce(ofVec3f &p, float scale) {
+	addAtrractionForce(p.x, p.y, p.z, scale);	
+}
+
+//--------------------------------------------------------------
 void ContentBubble::doubleTouched() {
 	bDoubleTouched = true;	
 }
@@ -177,7 +191,7 @@ void ContentBubble::update() {
 	
 	//lazyload the font
 	if(!font.bLoadedOk){
-		font.loadFont("global/font/Gotham-Bold.otf",50);
+		font.loadFont("global/font/Gotham-Bold.otf", 50);
 		if(font.bLoadedOk) {
 			printf("--- font is loaded ---\n");	
 		}

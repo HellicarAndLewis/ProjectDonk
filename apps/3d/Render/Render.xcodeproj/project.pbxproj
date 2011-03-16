@@ -14,6 +14,7 @@
 		5D04B68D1328F58D0082AFA4 /* ParticleSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5D04B68A1328F58D0082AFA4 /* ParticleSystem.cpp */; };
 		5D5E81A2132E4A8800EF2276 /* Ribbon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E819E132E4A8800EF2276 /* Ribbon.cpp */; };
 		5D5E81A3132E4A8800EF2276 /* RibbonSegment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E81A0132E4A8800EF2276 /* RibbonSegment.cpp */; };
+		5F15EC3813304F24008D9396 /* VoteBubble.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F15EC3713304F24008D9396 /* VoteBubble.cpp */; };
 		5F586E18132541B8000E5FB7 /* TouchedConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F586E16132541B8000E5FB7 /* TouchedConstraint.cpp */; };
 		5FC27C0A13196E13005F76C7 /* ContentBubble.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC27C0913196E13005F76C7 /* ContentBubble.cpp */; };
 		5FC27F40131BCFDD005F76C7 /* ofxCubeMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC27F3E131BCFDD005F76C7 /* ofxCubeMap.cpp */; };
@@ -196,7 +197,7 @@
 		E45BE9830E8CC7DD009D7055 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9790E8CC7DD009D7055 /* OpenGL.framework */; };
 		E45BE9840E8CC7DD009D7055 /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE97A0E8CC7DD009D7055 /* QuickTime.framework */; };
 		E4B69E210A3A1BDC003C02F2 /* testApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */; };
-		E4C2422B10CC554B004149E2 /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2421E10CC549C004149E2 /* openFrameworksDebug.a */; };
+		E4C2422B10CC554B004149E2 /* openFrameworks.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2421E10CC549C004149E2 /* openFrameworks.a */; };
 		E4C2424710CC5A17004149E2 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424410CC5A17004149E2 /* AppKit.framework */; };
 		E4C2424810CC5A17004149E2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424510CC5A17004149E2 /* Cocoa.framework */; };
 		E4C2424910CC5A17004149E2 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424610CC5A17004149E2 /* IOKit.framework */; };
@@ -324,6 +325,8 @@
 		5D5E819F132E4A8800EF2276 /* Ribbon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Ribbon.h; path = src/Ribbon.h; sourceTree = SOURCE_ROOT; };
 		5D5E81A0132E4A8800EF2276 /* RibbonSegment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RibbonSegment.cpp; path = src/RibbonSegment.cpp; sourceTree = SOURCE_ROOT; };
 		5D5E81A1132E4A8800EF2276 /* RibbonSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RibbonSegment.h; path = src/RibbonSegment.h; sourceTree = SOURCE_ROOT; };
+		5F15EC3613304F24008D9396 /* VoteBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteBubble.h; sourceTree = "<group>"; };
+		5F15EC3713304F24008D9396 /* VoteBubble.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VoteBubble.cpp; sourceTree = "<group>"; };
 		5F586E16132541B8000E5FB7 /* TouchedConstraint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TouchedConstraint.cpp; sourceTree = "<group>"; };
 		5F586E17132541B8000E5FB7 /* TouchedConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchedConstraint.h; sourceTree = "<group>"; };
 		5FC27C0813196E13005F76C7 /* ContentBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentBubble.h; sourceTree = "<group>"; };
@@ -985,7 +988,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E4C2422B10CC554B004149E2 /* openFrameworksDebug.a in Frameworks */,
+				E4C2422B10CC554B004149E2 /* openFrameworks.a in Frameworks */,
 				E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */,
 				E45BE97C0E8CC7DD009D7055 /* ApplicationServices.framework in Frameworks */,
 				E45BE97D0E8CC7DD009D7055 /* AudioToolbox.framework in Frameworks */,
@@ -1106,6 +1109,8 @@
 			children = (
 				5FDBD74713244BBF00A02A05 /* InteractionVote.h */,
 				5FDBD74813244BBF00A02A05 /* InteractionVote.cpp */,
+				5F15EC3613304F24008D9396 /* VoteBubble.h */,
+				5F15EC3713304F24008D9396 /* VoteBubble.cpp */,
 			);
 			name = Vote;
 			sourceTree = "<group>";
@@ -1999,7 +2004,7 @@
 		E4C2421710CC549C004149E2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E4C2421E10CC549C004149E2 /* openFrameworksDebug.a */,
+				E4C2421E10CC549C004149E2 /* openFrameworks.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2615,10 +2620,10 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		E4C2421E10CC549C004149E2 /* openFrameworksDebug.a */ = {
+		E4C2421E10CC549C004149E2 /* openFrameworks.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = openFrameworksDebug.a;
+			path = openFrameworks.a;
 			remoteRef = E4C2421D10CC549C004149E2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -2880,6 +2885,7 @@
 				81CBEF9F1329B41E009DD635 /* ofxBulletCompoundBody.cpp in Sources */,
 				5D5E81A2132E4A8800EF2276 /* Ribbon.cpp in Sources */,
 				5D5E81A3132E4A8800EF2276 /* RibbonSegment.cpp in Sources */,
+				5F15EC3813304F24008D9396 /* VoteBubble.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
