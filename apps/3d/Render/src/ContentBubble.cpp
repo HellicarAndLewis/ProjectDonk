@@ -42,6 +42,10 @@ ContentBubble::ContentBubble() {
 	bobTheta.x = ofRandomuf() * PI;
 	bobTheta.y = ofRandomuf() * PI;
 	bobTheta.z = ofRandomuf() * PI;
+	
+	buzzTime	= 0;
+	buzzWait	= 0.1;
+	loopCounter = 0;
 }
 
 //--------------------------------------------------------------
@@ -92,6 +96,53 @@ void ContentBubble::bobMe() {
 	target.x = resetTarget.x + cos(	bobTheta.x ) * 10.0;
 	target.y = resetTarget.y + sin(	bobTheta.y ) * amp;
 	target.z = resetTarget.z + sin(	bobTheta.z ) * 30.0;
+}
+
+//--------------------------------------------------------------
+void ContentBubble::buzzMe() {
+	
+	// maybe there is a moe elegant solution...
+	
+	float tForce = 50.f;
+	if(targetForce < tForce) 
+		targetForce = targetForce + (tForce-targetForce)*.1;
+	
+	float dt = ofGetElapsedTimef() - buzzTime;
+	
+	if(dt > buzzWait)
+	{
+		buzzTime = ofGetElapsedTimef();
+		buzzWait = ofRandom(.1,.5);
+		
+		float rads = ofRandom(60,80);
+		float angle = ofRandom(0,TWO_PI);
+		buzzDest.x = resetTarget.x + rads * cos(angle);
+		buzzDest.y = resetTarget.y + rads * sin(angle);
+				
+		buzzOrig = getPosition();
+	}
+	
+	float pct = 1 - powf( (dt / buzzWait),.75);
+	
+	target.x = pct * buzzOrig.x + (1-pct) * buzzDest.x;
+	target.y = pct * buzzOrig.y + (1-pct) * buzzDest.y;
+
+	
+}
+
+//--------------------------------------------------------------
+void ContentBubble::loopMe(float interactiveWidth,float interactiveHeight){
+	
+	if(loopCounter < 1 ) loopCounter += .0015;
+	
+	if( getPosition().y < -radius )
+	{
+		loopCounter = 0;
+		rigidBody->setPosition(ofVec3f( (interactiveWidth/2.f) + ofRandom(-300, 300), interactiveHeight+radius, getPosition().z ), ofVec3f(0,0,0), 0);
+	}
+	
+	target.x = getPosition().x;
+	target.y = ofLerp(interactiveHeight,-radius,loopCounter);
 }
 
 //--------------------------------------------------------------
