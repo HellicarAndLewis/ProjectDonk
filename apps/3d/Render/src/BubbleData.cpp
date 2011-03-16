@@ -100,8 +100,8 @@ namespace Donk{
 				text = m.getArgAsString(index);
 			}else if(key=="questionID"){
 				questionID = m.getArgAsString(index);
-			}else if(key=="text"){
-				tag = m.getArgAsString(index);
+//			}else if(key=="text"){ //think this is extraneous JGL
+//				tag = m.getArgAsString(index);
 			}else if(key=="mediaID"){
 				media.push_back(MediaEntry());
 				media.back().id = m.getArgAsString(index);
@@ -124,6 +124,8 @@ namespace Donk{
 	//--------------------------------------------------------
 	BubbleData::~BubbleData(){
 		if(profileImageLoader!=NULL)delete profileImageLoader;
+		
+			//what about the media that might have been loaded in? 
 	}
 	
 	//--------------------------------------------------------

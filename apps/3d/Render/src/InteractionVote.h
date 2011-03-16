@@ -9,6 +9,8 @@
 
 #pragma once
 #include "BaseInteraction.h"
+#include "VoteBubble.h"
+
 
 class InteractionVote : public BaseInteraction {
 	
@@ -19,11 +21,29 @@ public:
 		mode = MODE_VOTE;
 	}
 	
+	void setup();
+	
 	//--------------------------------------------------------
 	void update();
 	void newBubbleRecieved(Donk::BubbleData * data);
+	void addVoteToBubble(int voteID, int amt, Donk::BubbleData * data);
+	
 	void drawContent();
 	void drawSphere(BubbleShader * shader);
 	void animatedOut();
 	void animatedIn();	
+	
+	//--------------------------------------------------------
+	void			setChoiceBubble(int i, string choice);
+	bool			bMadeVoteBubbles;
+	VoteBubble *	voteBubbles[2];
+	
 };
+
+
+
+
+
+
+
+

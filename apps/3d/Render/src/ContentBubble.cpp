@@ -38,6 +38,14 @@ ContentBubble::ContentBubble() {
 	// for now!
 	offScreenTaget.y = -100;
 	offScreenTaget.z = -200;
+	
+	bobTheta.x = ofRandomuf() * PI;
+	bobTheta.y = ofRandomuf() * PI;
+	bobTheta.z = ofRandomuf() * PI;
+	
+	buzzTime	= 0;
+	buzzWait	= 0.1;
+	loopCounter = 0;
 }
 
 //--------------------------------------------------------------
@@ -61,14 +69,14 @@ void ContentBubble::createContentBubble() {
 }
 
 //--------------------------------------------------------------
-void ContentBubble::gotoTarget() {
+void ContentBubble::gotoTarget(float scale) {
 	if(rigidBody->isBody()) {
 		
 		rigidBody->body->setDamping(0.99, 0.99); // <-- add some crazy damping
 		
 		ofVec3f frc = target - rigidBody->getBulletPosition();
 		distanceToTarget = frc.length();
-		float d = ABS(distanceToTarget);
+		float d = ABS(distanceToTarget) * scale;
 		d *= targetForce;
 		frc.normalize();
 		frc *= d;
@@ -79,19 +87,73 @@ void ContentBubble::gotoTarget() {
 		// printf("taget\n");
 	}
 }
-
 //--------------------------------------------------------------
 void ContentBubble::bobMe() {
 
-	target.x = resetTarget.x + ofRandom(-10, 10);
-	target.y = resetTarget.y + ofRandom(-10, 10);
-	target.z = resetTarget.z + ofRandom(-10, 10);
+	bobTheta += 0.02;
+	
+	float amp = 100;
+	target.x = resetTarget.x + cos(	bobTheta.x ) * 10.0;
+	target.y = resetTarget.y + sin(	bobTheta.y ) * amp;
+	target.z = resetTarget.z + sin(	bobTheta.z ) * 30.0;
+}
+
+//--------------------------------------------------------------
+void ContentBubble::buzzMe() {
+	
+	// maybe there is a moe elegant solution...
+	
+	float tForce = 50.f;
+	if(targetForce < tForce) 
+		targetForce = targetForce + (tForce-targetForce)*.1;
+	
+	float dt = ofGetElapsedTimef() - buzzTime;
+	
+	if(dt > buzzWait)
+	{
+		buzzTime = ofGetElapsedTimef();
+		buzzWait = ofRandom(.1,.5);
+		
+		float rads = ofRandom(60,80);
+		float angle = ofRandom(0,TWO_PI);
+		buzzDest.x = resetTarget.x + rads * cos(angle);
+		buzzDest.y = resetTarget.y + rads * sin(angle);
+				
+		buzzOrig = getPosition();
+	}
+	
+	float pct = 1 - powf( (dt / buzzWait),.75);
+	
+	target.x = pct * buzzOrig.x + (1-pct) * buzzDest.x;
+	target.y = pct * buzzOrig.y + (1-pct) * buzzDest.y;
+
+	
+}
+
+//--------------------------------------------------------------
+void ContentBubble::loopMe(float interactiveWidth,float interactiveHeight){
+	
+	if(loopCounter < 1 ) loopCounter += .0015;
+	
+	if( getPosition().y < -radius )
+	{
+		loopCounter = 0;
+		rigidBody->setPosition(ofVec3f( (interactiveWidth/2.f) + ofRandom(-300, 300), interactiveHeight+radius, getPosition().z ), ofVec3f(0,0,0), 0);
+	}
+	
+	target.x = getPosition().x;
+	target.y = ofLerp(interactiveHeight,-radius,loopCounter);
 }
 
 //--------------------------------------------------------------
 void ContentBubble::setTarget(float x, float y, float z) {
 	target = ofVec3f(x, y, z);
 	resetTarget = ofVec3f(x, y, z);
+}
+
+//--------------------------------------------------------------
+void ContentBubble::setTarget(ofVec3f v) {
+	setTarget(v.x, v.y, v.z);
 }
 
 //--------------------------------------------------------------
@@ -152,6 +214,11 @@ void ContentBubble::addAtrractionForce(float x, float y, float z, float scale) {
 }
 
 //--------------------------------------------------------------
+void ContentBubble::addAtrractionForce(ofVec3f &p, float scale) {
+	addAtrractionForce(p.x, p.y, p.z, scale);	
+}
+
+//--------------------------------------------------------------
 void ContentBubble::doubleTouched() {
 	bDoubleTouched = true;	
 }
@@ -172,6 +239,14 @@ void ContentBubble::lerpRadius(float r,float speed) {
 
 //--------------------------------------------------------------
 void ContentBubble::update() {
+	
+	//lazyload the font
+	if(!font.bLoadedOk){
+		font.loadFont("global/font/Gotham-Bold.otf", 50);
+		if(font.bLoadedOk) {
+			printf("--- font is loaded ---\n");	
+		}
+	}
 	
 	touchAlpha += (touchAlphaTarget-touchAlpha) * 0.1;
 	rotateY += (rotateYTarget-rotateY) * 0.05;
@@ -296,21 +371,23 @@ void ContentBubble::drawTwitterData() {
 				if(data->media.size()){
 					ofSetColor(255,255,255, alpha);
 					data->media[0].mediaImage.bind();
+
+					float w = data->media[0].mediaImage.width;
+					float h = data->media[0].mediaImage.height;
+					//draw the circle-masked thumbnail
+					int steps = 60;
+					float inc = TWO_PI/(float)steps;
+					glBegin(GL_TRIANGLE_FAN);
+					for(int i=0;i<steps;i++){
+						float x = cos(inc*i);
+						float y = sin(inc*i);
+						glTexCoord2f((x+1)*w*0.5,(y+1)*h*0.5);
+						glVertex2f(x*data_radius,y*data_radius);
+					}
+					glEnd();
+					
+					data->media[0].mediaImage.unbind();
 				}
-				float w = data->profileImage.width;
-				float h = data->profileImage.height;
-				//draw the circle-masked thumbnail
-				int steps = 60;
-				float inc = TWO_PI/(float)steps;
-				glBegin(GL_TRIANGLE_FAN);
-				for(int i=0;i<steps;i++){
-					float x = cos(inc*i);
-					float y = sin(inc*i);
-					glTexCoord2f((x+1)*w*0.5,(y+1)*h*0.5);
-					glVertex2f(x*data_radius,y*data_radius);
-				}
-				glEnd();
-				data->profileImage.unbind();
 				glPopMatrix();
 			}
 			
@@ -326,15 +403,18 @@ void ContentBubble::drawTwitterData() {
 				glTranslatef(2,2,0.2);
 				ofSetColor(255,255,255, alpha);
 				font.drawString(data->userName,0,0);
-				data->profileImage.unbind();			
+				data->profileImage.unbind();	 //if i take these out, the GUI doesn't draw?		
 				glPopMatrix();
 			}
 			
 			{
 				//draw twitter text content
 				string txt = data->text;
+				
+				cout << "Trying to draw the text " << txt << endl;
+				
 				if(txt.empty())txt="lorem ipsum";
-				ofRectangle textBB = font.getStringBoundingBox(txt, 0,0);
+				ofRectangle textBB = font.getStringBoundingBox(txt, 0,0); //need to cope with up to 140 characters here and UTF strings...
 				glPushMatrix();
 				float s = data_radius/textBB.width*1.75;
 				glScalef(s,s,s);
@@ -346,7 +426,7 @@ void ContentBubble::drawTwitterData() {
 				ofSetColor(255,255,255, alpha);
 				font.drawString(txt,0,0);
 				data->profileImage.unbind();			
-				glPopMatrix();
+				glPopMatrix(); //if i take these out, the GUI doesn't draw?		
 			}
 			
 			

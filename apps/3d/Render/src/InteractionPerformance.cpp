@@ -36,41 +36,44 @@ void InteractionPerformance::setup() {
 	ofxDirList			lister;
 	lister.setVerbose(false);
 	int nFiles = lister.listDir("images/performance");
-	
+	printf("found %i files for performance\n", nFiles);
 	for (int i=0; i<nFiles; i++) {
 		images.push_back(ofImage());
-		if(images.back().loadImage(lister.getPath(i))) {
-			printf("loaded image in performance\n");
+		if(!images.back().loadImage(lister.getPath(i))) {
+			printf("error loaded image in performance\n");
 		}
 	}
 	
+		//now lets have 36 bubbles in total, in random positions
 	
-	for(int i=0; i<nBands; i++) {
-		
-		float offset = 500;
-		float radius = 110;
-		float x = offset + ((interactiveRect.width-offset)/nBands) * i;
-		ofVec3f center(interactiveRect.width/2, 0, 0);
-		ofVec3f startPos(center.x + ofRandom(-300, 300), 
-						 interactiveRect.height, 
-						 ofRandom(-100, 100));
-		
-		ContentBubble * bubble = new ContentBubble();
-		bubble->performceImageID   = i;
-		bubble->performanceChannel = i;
-		
-		bubble->data	  = NULL;
-		bubble->radius    = radius;
-		bubble->rigidBody = bullet->createSphere(startPos, radius, 1);
-		bubble->createContentBubble();
-		ofRandom(500, interactiveRect.height-300);
-		bubble->target.set(x, (interactiveRect.height/2), 0);
-		bubble->performanceStartTarget = bubble->target;
-		bubble->offScreenTaget = bubble->performanceStartTarget;
-		bubble->offScreenTaget.y = -100;
-		
-        
-		bubbles.push_back(bubble);        
+	for(int j=0; j<nBands; j++){
+		for(int i=0; i<nBands; i++) {
+			
+			ofVec3f center(interactiveRect.width/2, 0, 0);
+			float radius = 200;
+			
+			ofVec3f startPos;
+			startPos.x = (int)ofRandom(0,2) ? -100 : interactiveRect.width+100;
+			startPos.y = (int)ofRandom(0,2) ? -100 : interactiveRect.height+100;		
+			startPos.z = 0;
+			
+			ContentBubble * bubble = new ContentBubble();
+			
+			bubble->data	  = NULL;
+			bubble->radius    = radius;
+			bubble->rigidBody = bullet->createSphere(startPos, radius, 1);
+			bubble->createContentBubble();
+			bubble->setTarget(center.x + ofRandom(-300, 300), ofRandom(500, interactiveRect.height-300), 0);			
+
+			bubble->performceImageID   = (int)ofRandom(nFiles);//(j*6)+i; //now we are making 36, so go deeper into the image array
+			bubble->performanceChannel = i;
+			
+			bubble->performanceStartTarget = bubble->target;
+			bubble->offScreenTaget = bubble->performanceStartTarget;
+			bubble->offScreenTaget.y = -100;
+			
+			bubbles.push_back(bubble);        
+		}		
 	}
     
     maxRibbonsPerChannel = 100;
@@ -114,7 +117,7 @@ void InteractionPerformance::update() {
 		bubbles[i]->update();
 		
         float newRad = freq[ bubbles[i]->performanceChannel ] * 60.0;
-		bubbles[i]->setRadius(30 + newRad);
+		bubbles[i]->setRadius(120 + newRad);
 		
 		champagne(bubbles[i]->pos);
 		

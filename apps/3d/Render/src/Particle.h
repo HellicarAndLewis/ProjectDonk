@@ -16,7 +16,7 @@ using namespace MSA;
 
 class Particle {
 public:	
-    ofVec2f	pos, vel;
+    ofVec2f	pos, vel, gravity;
     float	radius;
     float	alpha;
     float	mass;
@@ -24,7 +24,8 @@ public:
 	bool	incAlpha;
 	
 	Particle();
-    void init(float x, float y);
+	void init(float x, float y);
+    void init(float x, float y, ofVec2f gravitationalForce);
     void update( const FluidSolver &solver, const ofVec2f &windowSize, const ofVec2f &invWindowSize );
 	void updateVertexArrays( bool drawingFluid, const ofVec2f &invWindowSize, int i, float* posBuffer, float* colBuffer, float* heightBuffer);
 };

@@ -14,6 +14,7 @@
 		5D04B68D1328F58D0082AFA4 /* ParticleSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5D04B68A1328F58D0082AFA4 /* ParticleSystem.cpp */; };
 		5D5E81A2132E4A8800EF2276 /* Ribbon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E819E132E4A8800EF2276 /* Ribbon.cpp */; };
 		5D5E81A3132E4A8800EF2276 /* RibbonSegment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E81A0132E4A8800EF2276 /* RibbonSegment.cpp */; };
+		5F15EC3813304F24008D9396 /* VoteBubble.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F15EC3713304F24008D9396 /* VoteBubble.cpp */; };
 		5F586E18132541B8000E5FB7 /* TouchedConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F586E16132541B8000E5FB7 /* TouchedConstraint.cpp */; };
 		5FC27C0A13196E13005F76C7 /* ContentBubble.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC27C0913196E13005F76C7 /* ContentBubble.cpp */; };
 		5FC27F40131BCFDD005F76C7 /* ofxCubeMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC27F3E131BCFDD005F76C7 /* ofxCubeMap.cpp */; };
@@ -324,6 +325,8 @@
 		5D5E819F132E4A8800EF2276 /* Ribbon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Ribbon.h; path = src/Ribbon.h; sourceTree = SOURCE_ROOT; };
 		5D5E81A0132E4A8800EF2276 /* RibbonSegment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RibbonSegment.cpp; path = src/RibbonSegment.cpp; sourceTree = SOURCE_ROOT; };
 		5D5E81A1132E4A8800EF2276 /* RibbonSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RibbonSegment.h; path = src/RibbonSegment.h; sourceTree = SOURCE_ROOT; };
+		5F15EC3613304F24008D9396 /* VoteBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteBubble.h; sourceTree = "<group>"; };
+		5F15EC3713304F24008D9396 /* VoteBubble.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VoteBubble.cpp; sourceTree = "<group>"; };
 		5F586E16132541B8000E5FB7 /* TouchedConstraint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TouchedConstraint.cpp; sourceTree = "<group>"; };
 		5F586E17132541B8000E5FB7 /* TouchedConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchedConstraint.h; sourceTree = "<group>"; };
 		5FC27C0813196E13005F76C7 /* ContentBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentBubble.h; sourceTree = "<group>"; };
@@ -1106,6 +1109,8 @@
 			children = (
 				5FDBD74713244BBF00A02A05 /* InteractionVote.h */,
 				5FDBD74813244BBF00A02A05 /* InteractionVote.cpp */,
+				5F15EC3613304F24008D9396 /* VoteBubble.h */,
+				5F15EC3713304F24008D9396 /* VoteBubble.cpp */,
 			);
 			name = Vote;
 			sourceTree = "<group>";
@@ -2590,6 +2595,7 @@
 			isa = PBXProject;
 			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "Render" */;
 			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				English,
@@ -2879,6 +2885,7 @@
 				81CBEF9F1329B41E009DD635 /* ofxBulletCompoundBody.cpp in Sources */,
 				5D5E81A2132E4A8800EF2276 /* Ribbon.cpp in Sources */,
 				5D5E81A3132E4A8800EF2276 /* RibbonSegment.cpp in Sources */,
+				5F15EC3813304F24008D9396 /* VoteBubble.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

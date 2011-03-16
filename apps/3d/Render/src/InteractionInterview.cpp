@@ -12,9 +12,11 @@
 
 //--------------------------------------------------------
 void InteractionInterview::newBubbleRecieved(Donk::BubbleData * data) { 
-	ofVec3f center(interactiveRect.width/2, 0, 0);
-	ofVec3f startPos(center.x + ofRandom(-300, 300), interactiveRect.height, ofRandom(-100, 100));
+	
 	float   radius = 180;
+	ofVec3f center(interactiveRect.width/2, 0, 0);
+	ofVec3f startPos(center.x + ofRandom(-300, 300), interactiveRect.height+radius, ofRandom(-100, 100));
+	
 	
 	ContentBubble * bubble = new ContentBubble();
 	
@@ -47,6 +49,7 @@ void InteractionInterview::update() {
 		}
 		else {
 			bubbles[i]->gotoTarget();
+			bubbles[i]->loopMe(interactiveRect.width,interactiveRect.height);
 		}
 		
 		

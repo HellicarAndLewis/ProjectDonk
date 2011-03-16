@@ -24,6 +24,7 @@ public:
 	btScalar			 m[16];
 	float				 billboadMatrix[16];
 	
+	ofVec3f				 bobTheta;
 	ofVec3f				 target, pos, resetTarget;
 	ofVec3f				 offScreenTaget;
 	float				 distanceToTarget;
@@ -44,10 +45,17 @@ public:
 	int					 performceImageID;
 	int					 performanceChannel;
 	ofVec3f				 performanceStartTarget;
-	
+
+	// --------------------------------- things for vote
+	int					 voteBubbleID;
+
 	// ---------------------------------
-	int					buzzID;
+	int					 buzzID;
+	float				 buzzWait;
+	float				 buzzTime;
+	ofVec3f				 buzzDest,buzzOrig;
 	
+	float				 loopCounter;
 	// ---------------------------------
 	ContentBubble();
 	
@@ -57,15 +65,21 @@ public:
 	void lerpRadius(float r,float speed);
 	ofVec3f getPosition();
 	void setTarget(float x, float y, float z=0);
+	void setTarget(ofVec3f v);
 	void addForce(float x, float y, float z=0, float scale=1.0);
 	void addAtrractionForce(float x, float y, float z=0, float scale=1.0);
+	void addAtrractionForce(ofVec3f &p, float scale=1.0);
 	
 	// ---------------------------------
 	void createContentBubble();
 	void update();
-	void gotoTarget();
+	void gotoTarget(float scale=1.0);
 	void goOffScreen();
+	
+	// idle behaviours
 	void bobMe();
+	void buzzMe();
+	void loopMe(float interactiveWidth,float interactiveHeight);
 	
 	void pushBubble();
 	void popBubble();
@@ -75,7 +89,7 @@ public:
 	virtual void drawTwitterData();
 	virtual void drawHighLight();
 	virtual void draw();
-	static ofTrueTypeFont font;
+	static ofTrueTypeFont font; //does this need to be ofxpango - as it lets you fit to a width....
 	
 	/**
 	  for 2d layer to flip around when selected

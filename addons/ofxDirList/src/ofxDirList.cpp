@@ -136,10 +136,10 @@ int ofxDirList::listDir(string directory){
         pathArray.push_back(directory + entry_name);
         nameArray.push_back(entry_name);
 
-		ofLog(OF_LOG_VERBOSE, "ofxDirList - listing %s ", nameArray.back().c_str());
+		// ofLog(OF_LOG_VERBOSE, "ofxDirList - listing %s ", nameArray.back().c_str());
 	}
 	if(dir != NULL) closedir(dir);
 
-	ofLog(OF_LOG_VERBOSE, "ofxDirList - listed %i files in %s", nameArray.size(), directory.c_str());
+	// ofLog(OF_LOG_VERBOSE, "ofxDirList - listed %i files in %s", nameArray.size(), directory.c_str());
 	return nameArray.size();
 }
