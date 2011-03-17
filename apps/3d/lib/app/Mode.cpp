@@ -116,6 +116,10 @@ Mode *Mode::getInstance() {
 	return instance;
 }
 
+string Mode::getMode()
+{
+    return currModeName;
+}
 
 void Mode::setMode(string modeName) {
 	if(currModeName==modeName) {

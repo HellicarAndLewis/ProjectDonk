@@ -120,8 +120,34 @@ void testApp::keyPressed(int key){
 	if(key=='b'||key=='B') {
 		ofxOscMessage m;
 		Donk::BubbleData *data = new Donk::BubbleData(m);
-		data->mode = "buzz";
+		//data->mode = "buzz";
+        data->mode = mode->getMode();
 		data->id = "39A5D49FE5";
+        if(data->mode == "buzz"){
+            data->userName = "mazzbuzz";
+            data->text = "Just a little tweet";
+        }
+        else if(data->mode == "inspiration"){
+            data->userName = "inspirmaz";
+            data->text = "Feel the poison in my veins. Tell me are you strong enough. To keep up with my life. Welcome to the dangerzone. What you see ain't what you get. Let us fly this aeroplane. 1";
+        }
+        else if(data->mode == "interview"){
+            data->userName = "boxtalks";
+            data->text = "A medium sized tweet for those who can't commit to long or short";
+        }
+        else if(data->mode == "question"){
+            data->userName = "wonderbox";
+            data->text = "This is test 1";
+        }
+        else if(data->mode == "performance"){
+            data->userName = "boxrox";
+            data->text = "This is test 1";        
+        }
+        else{
+            ofLog(OF_LOG_ERROR, "Test Bubble in invalid mode");
+        }
+        
+        /*
 		switch((int)ofRandom(5)) {
 			case 0: data->text = "This is test 1"; break;
 			case 1: data->text = "Bubble bubble bubble"; break;
@@ -136,7 +162,7 @@ void testApp::keyPressed(int key){
 			case 3: data->userName = "jtnimoy"; break;
 			case 4: data->userName = "timeteam"; break;
 		}
-		
+		*/
 		
 		if(ofRandomuf()>0.5){
 			data->media.push_back(Donk::BubbleData::MediaEntry());

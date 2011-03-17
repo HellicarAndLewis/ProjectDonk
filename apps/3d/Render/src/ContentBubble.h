@@ -12,6 +12,7 @@
 #include "ofxBullet.h"
 #include "BubbleData.h"
 #include "ofxCubeMap.h"
+#include "txtDisplay.h"
 
 //--------------------------------------------------------------
 class ContentBubble {
@@ -60,6 +61,14 @@ public:
 	ofVec3f				 buzzDest,buzzOrig;
 	
 	float				 loopCounter;
+    
+    //------------------------ text formatting
+    
+	static ofTrueTypeFont   font; //JG now this is just used on VOTE
+	TxtDisplay              textDisplay;
+    ofPoint                 contentExpand;
+    int                     minFontSize;
+    int                     maxFontSize;
 	// ---------------------------------
 	ContentBubble();
 	
@@ -93,8 +102,8 @@ public:
 	virtual void drawTwitterData();
 	virtual void drawHighLight();
 	virtual void draw();
-	static ofTrueTypeFont font; //does this need to be ofxpango - as it lets you fit to a width....
-	
+    
+    void loadFont(float data_radius);
 	/**
 	  for 2d layer to flip around when selected
 	 */

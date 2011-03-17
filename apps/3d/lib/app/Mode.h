@@ -28,7 +28,8 @@ namespace Donk {
 		
 		/** Give this method the name of the new mode and it will start tweening to it */
 		void setMode(string modeName);
-		
+		string getMode();
+        
 		float getValue(const string &name);
 		
 		

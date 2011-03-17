@@ -27,6 +27,14 @@ void VoteBubble::drawInsideContent() {
 	glMultMatrixf(billboadMatrix);
 	
 	ofSetColor(255, 255, 255);
+    
+
+    //load font the first time around
+    if(!font.bLoadedOk){
+        font.loadFont("global/font/Gotham-Bold.otf",50);        
+        printf("--- font is loaded for vote ---\n");	
+    }
+        
 	if(font.bLoadedOk) {
 		if(optionStr == "") optionStr = "OPTION STR";
 		float strW = font.stringWidth(optionStr);

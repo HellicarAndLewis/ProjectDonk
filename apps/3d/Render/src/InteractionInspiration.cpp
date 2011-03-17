@@ -87,8 +87,6 @@ void InteractionInspiration::update() {
 		
 		
 		champagne(bubbles[i]->pos);
-
-		
 		
 	}	
 	

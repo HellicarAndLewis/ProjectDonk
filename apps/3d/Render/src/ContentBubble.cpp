@@ -49,6 +49,12 @@ ContentBubble::ContentBubble() {
 	buzzTime	= 0;
 	buzzWait	= 0.1;
 	loopCounter = 0;
+    
+    //JG added these vars for formatting font under different conditions.
+    contentExpand = ofPoint(1.7, 1.5); //needed for formatting, multiplied by the radius. 1,1 is no change
+    maxFontSize = 15;
+    minFontSize = 9;
+
 }
 
 //--------------------------------------------------------------
@@ -271,13 +277,18 @@ void ContentBubble::lerpRadius(float r,float speed) {
 void ContentBubble::update() {
 	
 	//lazyload the font
+    
+    /*
 	if(!font.bLoadedOk){
 		font.loadFont("global/font/Gotham-Bold.otf", 50);
 		if(font.bLoadedOk) {
 			printf("--- font is loaded ---\n");	
 		}
 	}
-	
+	*/
+    
+    //loadFont(radius*.9);
+    
 	touchAlpha += (touchAlphaTarget-touchAlpha) * 0.1;
 	rotateY += (rotateYTarget-rotateY) * 0.05;
 	if(bDoubleTouched){
@@ -348,6 +359,20 @@ void ContentBubble::popBillboard() {
 	glPopMatrix();
 }
 
+void ContentBubble::loadFont(float data_radius)
+{
+    //lazyload the font
+    if(!textDisplay.bFontsLoaded){
+        textDisplay.textBoxWidth = data_radius*contentExpand.x; //skootch it wide a bit.
+        textDisplay.textBoxHeight = data_radius*contentExpand.y;
+        textDisplay.setup("global/font/Gotham-Bold.otf", minFontSize, maxFontSize, 1); 
+        
+        string txt = data->text;
+        if(txt.empty())txt="lorem ipsum"; //hmmm....maybe better answer?
+        
+        textDisplay.setMessage( txt );        
+    }
+}
 
 //--------------------------------------------------------------
 void ContentBubble::drawTwitterData() {
@@ -356,21 +381,16 @@ void ContentBubble::drawTwitterData() {
 	glMultMatrixf(billboadMatrix);
 	
 	glRotatef(rotateY,0,1,0);
+
 	// the twitter icon and text
 	if(data) {
 		//if no twitter icon, don't draw.
 		if(data->profileImage.width != 0){
 			
-			float data_radius = radius*0.9;
-			
-			//lazyload the font
-			if(!font.bLoadedOk){
-				font.loadFont("global/font/Gotham-Bold.otf",50);
-				if(font.bLoadedOk) {
-					printf("--- font is loaded ---\n");	
-				}
-			}
-			
+			float data_radius = radius;//*0.9;
+			            
+            loadFont(data_radius);
+            
 			{
 				//draw twitter icon as a disk
 				ofSetColor(255,255,255, alpha);
@@ -422,6 +442,8 @@ void ContentBubble::drawTwitterData() {
 			}
 			
 			{
+                /*
+                 //JG swapped with text box
 				//draw twitter text content
 				ofRectangle textBB = font.getStringBoundingBox(data->userName, 0,0);
 				glPushMatrix();
@@ -435,33 +457,58 @@ void ContentBubble::drawTwitterData() {
 				font.drawString(data->userName,0,0);
 				data->profileImage.unbind();	 //if i take these out, the GUI doesn't draw?		
 				glPopMatrix();
-			}
-			
-			{
-				//draw twitter text content
-				string txt = data->text;
+                 */
+                
 				
-				// cout << "Trying to draw the text " << txt << endl;
-				
-				if(txt.empty())txt="lorem ipsum";
-				ofRectangle textBB = font.getStringBoundingBox(txt, 0,0); //need to cope with up to 140 characters here and UTF strings...
-				glPushMatrix();
-				float s = data_radius/textBB.width*1.75;
-				glScalef(s,s,s);
-				glRotatef(180,0,1,0);
-				glTranslated(-textBB.width/2, 0,0.2);
-				ofSetColor(0,0,0, alpha);
-				font.drawString(txt,0,0);
-				glTranslatef(2,2,0.2);
-				ofSetColor(255,255,255, alpha);
-				font.drawString(txt,0,0);
-				data->profileImage.unbind();			
-				glPopMatrix(); //if i take these out, the GUI doesn't draw?		
+//				if(txt.empty())txt="lorem ipsum";
+//				ofRectangle textBB = font.getStringBoundingBox(txt, 0,0); //need to cope with up to 140 characters here and UTF strings...
+//				glPushMatrix();
+//				float s = data_radius/textBB.width*1.75;
+//				glScalef(s,s,s);
+//				glRotatef(180,0,1,0);
+//				glTranslated(-textBB.width/2, 0,0.2);
+//				ofSetColor(0,0,0, alpha);
+//				font.drawString(txt,0,0);
+//				glTranslatef(2,2,0.2);
+//				ofSetColor(255,255,255, alpha);
+//				font.drawString(txt,0,0);
+//				data->profileImage.unbind();			
+//				glPopMatrix(); //if i take these out, the GUI doesn't draw?		
+                
+                //data->profileImage.unbind();	 //if i take these out, the GUI doesn't draw?		
+                
+                //DRAW Twitter Text
+                glPushMatrix();
+                ofSetColor(0,0,0, alpha);
+                textDisplay.draw(0, 10);
+                glTranslatef(0,0,-2);
+                ofSetColor(255,255,255, alpha);
+                textDisplay.draw(2, 12);
+                glPopMatrix();
+               
+                string userToDraw = "@"+data->userName;
+                //Draw who it's from, using the other as reference
+                glPushMatrix();
+                ofTrueTypeFont* theFont = textDisplay.getBestFont();
+                ofPoint nameDrawPoint(-theFont->stringWidth(userToDraw) * .5, textDisplay.getTopLeft(0, 10).y - textDisplay.getLineHeight() );
+
+                //draw the name above
+                ofSetColor(0,0,0, alpha);
+                theFont->drawString(userToDraw, nameDrawPoint.x, nameDrawPoint.y );
+                ofTranslate(0,0,-2);
+                ofSetColor(255,255,255,alpha);
+                theFont->drawString(userToDraw, nameDrawPoint.x + 2, nameDrawPoint.y + 2 );
+                glPopMatrix();
+                
+                //JG debug square - leave in plz
+//                ofPushStyle();
+//                ofSetRectMode(OF_RECTMODE_CENTER);
+//                ofNoFill();
+//                ofSetColor(0,255,0, alpha);
+//                ofRect(0, 0, data_radius*contentExpand.x, data_radius*contentExpand.y);
+//                ofPopStyle();                
+                
 			}
-			
-			
-			
-			
 		}
 		
 	}

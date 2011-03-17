@@ -471,11 +471,15 @@ void InteractionBuzz::createChildBubble(int momID, Donk::BubbleData * data, floa
 	
 	bubble->offScreenTaget.x = bubble->target.x;
 	bubble->offScreenTaget.y = -300;
+    
+    //JG added b/c Buzz bubbles were flipped around wrong and text was backwardss
+    bubble->setContentSideUp();
 	
 	bubbles.push_back(bubble);
 	
 	bubble->buzzID = BUZZ_TYPE_BUBBLE_IN;
 	
+    
 	// record types and mom index
 	bubbleToContIndex.insert( pair<int,int>(bubbles.size()-1,momID) );
 	
