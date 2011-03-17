@@ -100,7 +100,10 @@ public:
 	 */
 	float rotateYTarget;
 	float rotateY;
-	float rotateYDirection;
+	float rotateYDirectionOff,rotateYDirectionOn;
+	
+	void setContentSideUp();
+	void setUserSizeUp();
 };
 
 
