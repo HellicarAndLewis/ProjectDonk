@@ -15,6 +15,8 @@
 #include "BubbleShader.h"
 #include "TouchedConstraint.h"
 
+#define MAX_ANIMATION_TIME 3.0 // seconds
+
 enum {
 	MODE_BUZZ		 = 0,
 	MODE_INSPIRATION = 1,
@@ -34,6 +36,7 @@ public:
 	ofRectangle	interactiveRect;
 	bool		bDoneAnimatingOut, bDoneAnimatingIn;
 	bool		bAnimateOut, bAnimateIn;
+	bool		bActive;
 	int			nTouches;
 	string		name;	// for debug printing
 	float		animatedOutTimer;
@@ -47,6 +50,7 @@ public:
 		bDoneAnimatingIn  = false;
 		bAnimateOut		  = false;
 		bAnimateIn		  = false;
+		bActive			  = false;
 	}
 	
 	~BaseInteraction() {}

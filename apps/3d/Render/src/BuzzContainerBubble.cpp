@@ -67,7 +67,7 @@ void BuzzContainerBubble::createContainerBubble(ofxBullet * bullet, ofVec3f _pos
 		}
 	}
 	
-	globe->createCompoundBody(10, startTrans);
+	globe->createCompoundBody(20, startTrans);
 	
 	// constraint to rigidBody
 	//btVector3 localPivot = rigidBody->body->getCenterOfMassPosition();
@@ -106,12 +106,12 @@ void BuzzContainerBubble::updateConstraint() {
 		btVector3 globeOrigin	= globeTrans.getOrigin();
 		ofVec3f globePos		= ofVec3f( globeOrigin.x(),globeOrigin.y(),globeOrigin.z() );
 		
-		globe->body->setDamping(0.99, 0.99);
+		globe->body->setDamping(0.999, 0.99);
 		
 		ofVec3f frc = rigidPos - globePos;
 		distanceToTarget = frc.length();
 		float d = ABS(distanceToTarget) * 1;
-		d *= 25000; // um this is a crazy big number... but works...
+		d *= 10000; // um this is a crazy big number... but works...
 		frc.normalize();
 		frc *= d;
 		

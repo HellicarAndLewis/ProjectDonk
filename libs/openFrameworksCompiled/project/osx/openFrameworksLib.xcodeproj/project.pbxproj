@@ -834,7 +834,7 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../glew/libs/osx\"";
 				PREBINDING = NO;
 				PRODUCT_NAME = openFrameworksDebug;
-				SDKROOT = "";
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
 			};
 			name = Debug;
 		};
@@ -854,7 +854,7 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../glew/libs/osx\"";
 				PREBINDING = NO;
 				PRODUCT_NAME = openFrameworks;
-				SDKROOT = "";
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
 				ZERO_LINK = NO;
 			};
 			name = Release;

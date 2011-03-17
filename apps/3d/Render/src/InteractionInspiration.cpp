@@ -10,12 +10,13 @@
 #include "InteractionInspiration.h"
 #include "testApp.h"
 
-
 //--------------------------------------------------------
 void InteractionInspiration::newBubbleRecieved(Donk::BubbleData * data) { 
 
+	if(bAnimateOut) return;
+
 	ofVec3f center(interactiveRect.width/2, 0, 0);
-	float   radius = 80;
+	float   radius = ofRandom( 20, 80 );
 	
 	ofVec3f startPos;
 	startPos.x = (int)ofRandom(0,2) ? -100 : interactiveRect.width+100;
@@ -49,7 +50,7 @@ void InteractionInspiration::update() {
 	for(int i=0; i<bubbles.size(); i++) {
 
 		
-		if(bubbles[i]->bDoubleTouched) {
+		if(bubbles[i]->zoomTouched) {
 			bubbles[i]->lerpRadius(150,0.1);
 		}else{
 			bubbles[i]->lerpRadius(90,0.1);
@@ -90,8 +91,8 @@ void InteractionInspiration::update() {
 		
 	}	
 	
-	float animateOutTime = (ofGetElapsedTimeMillis()-timeAnimateOut)/1000.0;
-	if(bAnimateOut && animateOutTime > 4.0 && !bDoneAnimatingOut) {
+	float animateOutTime = (ofGetElapsedTimeMillis()-animatedOutTimer)/1000.0;
+	if(bAnimateOut && animateOutTime > MAX_ANIMATION_TIME && !bDoneAnimatingOut) {
 		bDoneAnimatingOut = true;
 		killallBubbles();
 	}
@@ -141,7 +142,7 @@ void InteractionInspiration::animatedOut() {
 		bubbles[i]->offScreenTaget.z = 0;
 	}
 	
-	timeAnimateOut = ofGetElapsedTimeMillis();
+	animatedOutTimer = ofGetElapsedTimeMillis();
 }
 
 //--------------------------------------------------------
@@ -169,7 +170,17 @@ void InteractionInspiration::doubleTouched(ofVec2f touchpos) {
 		
 		if(dis < bubble->radius + 10.0) {
 			//bubble->setRadius(150);
-			bubble->doubleTouched();
+			//bubble->doubleTouched();
+			
+			if(bubble->zoomTouched){
+				bubble->zoomTouched = false;
+			}
+			else{
+				bubble->doubleTouched();
+				bubble->zoomTouched = true;
+			}
+
+			
 			printf("hit this bubble: %p\n", bubble);
 			break;
 		}

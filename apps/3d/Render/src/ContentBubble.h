@@ -59,6 +59,7 @@ public:
 	float				 buzzWait;
 	float				 buzzTime;
 	ofVec3f				 buzzDest,buzzOrig;
+	bool				 zoomTouched;	
 	
 	float				 loopCounter;
     

@@ -53,7 +53,7 @@ void BubbleProjection::setup() {
 	
 	activeInteraction   = interactions[MODE_BUZZ];//INSPIRATION];
 	activeInteraction->animatedIn();
-	
+	activeInteraction->bActive = true;
 	
 	// we have a ref to the previous interaction
 	// so that we can have one animated out as the 
@@ -66,6 +66,8 @@ void BubbleProjection::setup() {
 	// probably only want to do this when the particle system is used //
 	if(drawingParticles)
 		particleSys.init(ofVec2f(2000, 2000));
+		
+	bTouchDown = false;
 }
 
 //--------------------------------------------------------
@@ -86,6 +88,7 @@ void BubbleProjection::interactionModeChange(string modeName) {
 	if(activeInteraction) {
 		activeInteraction->animatedOut();
 		previousInteraction = activeInteraction;
+		previousInteraction->bActive = false;
 	}
 	
 	// still need to add the rest...
@@ -133,6 +136,7 @@ void BubbleProjection::interactionModeChange(string modeName) {
 	
 	if(mode != -1) {
 		nextInteraction = interactions[mode];
+		nextInteraction->bActive = true;
 	}
 }
 
@@ -140,49 +144,25 @@ void BubbleProjection::interactionModeChange(string modeName) {
 void BubbleProjection::update() {
 	
 	
-	// ******* DEBUG	  *******
-	/*if(DEBUG_INTERATIONS) {
-		
-		if(debugCount < 10) {
-			if(ofGetFrameNum() % 20==0) {
-				
-				ofxOscMessage m;
-				Donk::BubbleData *data = new Donk::BubbleData(m);
-				data->mode = "inspiration";
-				data->id = "39A5D49FE5";
-				switch((int)ofRandom(5)) {
-					case 0: data->text = "This is test 1"; break;
-					case 1: data->text = "Bubble bubble bubble"; break;
-					case 2: data->text = "Project donk here"; break;
-					case 3: data->text = "Who is this Maroon 5 band anyway?"; break;
-					case 4: data->text = "MMmmm... brown sticky liquid!"; break;
-				}
-				switch((int)ofRandom(5)) {
-					case 0: data->userName = "mazbox"; break;
-					case 1: data->userName = "cokeMe!"; break;
-					case 2: data->userName = "DeadSaxon"; break;
-					case 3: data->userName = "bluntInstrument"; break;
-					case 4: data->userName = "timeteam"; break;
-				}
-				
-				
-				data->media.push_back(Donk::BubbleData::MediaEntry());
-				data->media.back().mediaImage.loadImage("lena.png");
-				data->media.back().thumbImage = data->media.back().mediaImage;
-				data->media.back().thumbImage.resize(128, 128);
-				
-				data->profileImage.loadImage("lena.png");
-				
-				// now add to the active interaction
-				activeInteraction->newBubbleRecieved(data);
-				
-				debugCount ++;
+	//if(bAnimateOut) {
+//		float time = (ofGetElapsedTimeMillis()-animatedOutTimer) / 1000.0;
+//		if(time > MAX_ANIMATION_TIME || bAllOffScreen && !bDoneAnimatingOut) {
+//			bDoneAnimatingOut = true;
+//			killallBubbles();
+//		}
+//	}
+//	
+	
+	for (int i=0; i<interactions.size(); i++) {
+		if(!interactions[i]->bActive && interactions[i]->bAnimateOut) {
+			float time = (ofGetElapsedTimeMillis()-interactions[i]->animatedOutTimer) / 1000.0;
+			if(time > 6.0 && !interactions[i]->bDoneAnimatingOut) {
+				interactions[i]->bDoneAnimatingOut = true;
+				interactions[i]->killallBubbles();
+				printf("*** emergency clean up ***\n");
 			}
 		}
-	}*/
-	// ******* END DEBUG  *******
-	
-	
+	}
 	
 	// -------------------
 	// Previous Interaction
@@ -239,6 +219,23 @@ void BubbleProjection::update() {
 	if(drawingParticles) {
 		particleSys.update();
 	}
+
+
+	//----------------
+	// check to clean up touch constraints
+	// need to check that this works!
+	if(!bTouchDown && activeInteraction) {
+		
+		for (int i=touchConstraints.size()-1; i>=0; i--) {
+			touchConstraints[i]->destroy();
+			delete touchConstraints[i];
+			touchConstraints[i] = NULL;
+			touchConstraints.erase(touchConstraints.begin() + i);
+		}
+
+	}
+	
+	
 }
 
 
@@ -416,7 +413,8 @@ void BubbleProjection::removeTouchConstraint(ContentBubble * bubble) {
 void BubbleProjection::touchDown(float x, float y, int touchId) {
 	
 	// cout << touchId << endl;
-	
+	bTouchDown = true;
+
 	ofVec2f touchCoords(x, y);
 	ofVec2f pos = mapToInteractiveArea(touchCoords);
 	
@@ -550,6 +548,8 @@ void BubbleProjection::touchMoved(float x, float y, int touchId) {
 //--------------------------------------------------------
 void BubbleProjection::touchUp(float x, float y, int touchId) {
 	
+	bTouchDown = false;
+	
 	ofVec2f pos = mapToInteractiveArea(ofVec2f(x, y));
 	
 	if(activeInteraction) {
@@ -561,13 +561,17 @@ void BubbleProjection::touchUp(float x, float y, int touchId) {
 			
 			if(bubble->bTouched) {
 				
+				if (activeInteraction->name == "interview") {
+					bubble->setTarget(pos.x, pos.y);
+				}
+				
 				if (activeInteraction->name == "inspiration") {
 					bubble->setTarget(pos.x, pos.y);
 				}
 				
 				
 				if (activeInteraction->name == "buzz") {
-					bubble->setTarget(pos.x, pos.y);
+					if( !activeInteraction->bAnimateOut ) bubble->setTarget(pos.x, pos.y);
 				}
 				
 				bubble->bTouched = false;

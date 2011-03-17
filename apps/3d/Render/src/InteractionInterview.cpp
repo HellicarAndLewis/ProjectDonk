@@ -13,6 +13,8 @@
 //--------------------------------------------------------
 void InteractionInterview::newBubbleRecieved(Donk::BubbleData * data) { 
 	
+	if(bAnimateOut) return;
+
 	float   radius = 180;
 	ofVec3f center(interactiveRect.width/2, 0, 0);
 	ofVec3f startPos(center.x + ofRandom(-300, 300), interactiveRect.height+radius, ofRandom(-100, 100));
@@ -37,13 +39,24 @@ void InteractionInterview::update() {
 	bool bAllOffScreen = true;
 	for(int i=0; i<bubbles.size(); i++) {
 	
+		
+		if(nTouches == 0) {
+			if(bubbles[i]->bDoubleTouched) {
+				printf("Double Touched Off!\n");
+			}
+			bubbles[i]->bTouched	   = false;
+			bubbles[i]->bDoubleTouched = false;
+		}
+		
+		
 		if(bubbles[i]->bDoubleTouched) {
-			bubbles[i]->lerpRadius(240,0.1);
+			bubbles[i]->lerpRadius(240, 0.1);
 		}else{
-			bubbles[i]->lerpRadius(180,0.1);
+			bubbles[i]->lerpRadius(180, 0.1);
 		}
 		
 		if(bAnimateOut) {
+			
 			bubbles[i]->goOffScreen();
 			float disToOffScreenTarget = bubbles[i]->getPosition().distance(bubbles[i]->offScreenTaget);
 			if(disToOffScreenTarget > 300) {
@@ -51,21 +64,25 @@ void InteractionInterview::update() {
 			}
 		}
 		else {
+			
 			bubbles[i]->gotoTarget();
-			bubbles[i]->loopMe(interactiveRect.width,interactiveRect.height);
+			if(!bubbles[i]->bTouched) {
+				bubbles[i]->loopMe(interactiveRect.width, interactiveRect.height);
+			}
+			
 		}
 		
 		
 		bubbles[i]->update();	
-		
 		champagne(bubbles[i]->pos);
 
 	}
 	
-	
+	// we are now animating out lets also make sure that
+	// for some reason it takes to long we just kill it all!
 	if(bAnimateOut) {
 		float time = (ofGetElapsedTimeMillis()-animatedOutTimer) / 1000.0;
-		if(time > 3 || bAllOffScreen && !bDoneAnimatingOut) {
+		if(time > MAX_ANIMATION_TIME || bAllOffScreen && !bDoneAnimatingOut) {
 			bDoneAnimatingOut = true;
 			killallBubbles();
 		}
@@ -124,5 +141,22 @@ void InteractionInterview::animatedIn() {
 
 }
 
-
+//--------------------------------------------------------
+void InteractionInterview::doubleTouched(ofVec2f touchpos) {
+	
+	for(int i=0; i<bubbles.size(); i++) {
+		
+		ContentBubble * bubble = bubbles[i];
+		ofVec2f p1  = touchpos;
+		ofVec2f p2  = bubble->rigidBody->getPosition();
+		float	dis = p1.distance(p2);
+		
+		if(dis < bubble->radius + 10.0) {
+			//bubble->setRadius(150);
+			bubble->doubleTouched();
+			printf("hit this bubble: %p\n", bubble);
+			break;
+		}
+	}
+}
 

@@ -49,11 +49,16 @@ ContentBubble::ContentBubble() {
 	buzzTime	= 0;
 	buzzWait	= 0.1;
 	loopCounter = 0;
+<<<<<<< HEAD
     
     //JG added these vars for formatting font under different conditions.
     contentExpand = ofPoint(1.7, 1.5); //needed for formatting, multiplied by the radius. 1,1 is no change
     maxFontSize = 15;
     minFontSize = 9;
+=======
+	
+	zoomTouched	= false;
+>>>>>>> dfc755c8f81f60ed7f9be21b200a4ae18027b32a
 
 }
 

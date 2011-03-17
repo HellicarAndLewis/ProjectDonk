@@ -31,6 +31,7 @@ namespace Donk {
 		string getMode();
         
 		float getValue(const string &name);
+		string getMode();
 		
 		
 		/** for debugging */
@@ -38,6 +39,7 @@ namespace Donk {
 		
 		ofxXmlGui *getGui();
 		void controlChanged(GuiControl *control);
+		
 	private:
 		
 		Mode();
