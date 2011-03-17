@@ -66,7 +66,7 @@ void InteractionBuzz::newBubbleRecieved(Donk::BubbleData * data) {
 	
 	
 	string currentPollGroup = data->polledGroup;
-	cout << "polled group " << currentPollGroup << endl;
+	//cout << "polled group " << currentPollGroup << endl;
 	
 	// initialize the current pollGroup
 	if(polledData.size()<=0) momPollGroup = currentPollGroup;
@@ -87,7 +87,10 @@ void InteractionBuzz::newBubbleRecieved(Donk::BubbleData * data) {
 	// efficient? maybe iterate backwards is better method
 	bool bAllDone = true;
 	vector<Donk::BubbleData*>::iterator bdit;
-	for(bdit=data->all.begin();bdit!=data->all.end();bdit++){
+	
+	int startFrom = (data->all.size() > startPoll) ? startPoll : 0;	//--> start from last polled if can
+	
+	for(bdit=data->all.begin()+startFrom;bdit!=data->all.end();bdit++){
 		if((*bdit)->mode == "buzz" && !(*bdit)->doneLoading()) {
 			bAllDone = false;
 			break;
@@ -121,21 +124,21 @@ void InteractionBuzz::update(){
 		//----- when not touched
 		if(!bubble->bTouched) {
 			
-			if(bAnimateIn){
+			
+		
+				if(bAnimateIn){
 				
-				//---- update sizes
+				// update sizes
 				if(bubble->buzzID == BUZZ_TYPE_BUBBLE_OUT){
 					if(bubble->bDoubleTouched)	bubble->lerpRadius(150,0.1);
 					else						bubble->lerpRadius(90,0.1);
 				}
 				
-				
-				if(bubble->alpha <= 255) bubble->alpha += 10;
-				
 				// inner bubbles do not seek targets
 				if(bubble->buzzID != BUZZ_TYPE_BUBBLE_IN)  
 					bubble->gotoTarget();
 				
+				// lil ones buzz around
 				if(bubble->buzzID == BUZZ_TYPE_BUBBLE_OUT && !bubble->bDoubleTouched)
 					bubble->buzzMe();
 				
@@ -162,25 +165,22 @@ void InteractionBuzz::update(){
 		}
 			
 		
-		
-		
 		// always constrain container structure to rigid body bubbles
 		if(bubble->buzzID == BUZZ_TYPE_CONTAINER)
 		{
 			((BuzzContainerBubble*)bubble)->updateConstraint();
 		}
 		
-		
+		//---- main bubble update + beauty bubblies
 		bubble->update();
-		
 		champagne(bubble->pos);
+		
 		
 		//---- check kill removed bubbles
 		if(bubble->buzzID == BUZZ_TYPE_BUBBLE_OLD){
 			
 			if(bubble->bAlive && bubbles[i]->getPosition().y < -90){
 				bubble->bAlive = false;
-				ofVec3f startPos = bubble->rigidBody->getPosition();
 				setCollisionFilter(bubble->rigidBody,COL_NOTHING,collidesWithNone);
 			}
 		}
@@ -206,11 +206,11 @@ void InteractionBuzz::update(){
 void InteractionBuzz::drawContent(){
 	
 	
-	 /*for(int i=0; i<bubbles.size(); i++){
+	/*for(int i=0; i<bubbles.size(); i++){
 		if(bubbles[i]->bAlive){
 		 if(bubbles[i]->buzzID == BUZZ_TYPE_CONTAINER)
 		 {
-			((BuzzContainerBubble*)bubbles[i])->globe->drawChildren();
+			//((BuzzContainerBubble*)bubbles[i])->globe->drawChildren();
 		 }
 		}
 	 }*/
@@ -287,7 +287,7 @@ void InteractionBuzz::killallBubbles() {
 		if(bubbles[i]->buzzID == BUZZ_TYPE_CONTAINER)
 		{
 			((BuzzContainerBubble*)bubbles[i])->globe->destroy();
-			bullet->world->removeConstraint(((BuzzContainerBubble*)bubbles[i])->p2p);
+			//bullet->world->removeConstraint(((BuzzContainerBubble*)bubbles[i])->p2p);
 		}
 		bubbles[i]->rigidBody->destroy();
 		delete bubbles[i];
@@ -307,10 +307,6 @@ void InteractionBuzz::doubleTouched(ofVec2f touchpos)
 	
 	// find out who has been popped
 	int poppedID = -1;
-	
-	// reset double touches
-	//for(int i=0; i<bubbles.size(); i++)
-	//	bubbles[i]->bDoubleTouched	= false;	
 	
 	for(int i=0; i<bubbles.size(); i++)
 	{
@@ -412,7 +408,7 @@ void InteractionBuzz::createMomBubble(string group){
 	startTransform.setIdentity();
 	startTransform.setOrigin(btVector3(startPos.x/SCALE, startPos.y/SCALE, startPos.z/SCALE));
 	
-	float	radius = CONTAINER_RADIUS+20;
+	float	radius = CONTAINER_RADIUS+5;//20;
 	
 	BuzzContainerBubble * container = new BuzzContainerBubble();
 	
@@ -490,11 +486,12 @@ void InteractionBuzz::createChildBubble(int momID, Donk::BubbleData * data, floa
 void InteractionBuzz::clearContainer( int index ){
 	
 	BuzzContainerBubble* bubble = (BuzzContainerBubble*)bubbles[index];
-	bubble->pop();
+	bubble->pop(); // removes children of container
 	
-	setCollisionFilter(bubble->rigidBody,COL_NOTHING,collidesWithNone);
-	ofVec3f oldTarget = bubble->target;
-	bubble->setTarget(oldTarget.x,-300,oldTarget.y);
+	setCollisionFilter(bubble->rigidBody,COL_NOTHING,collidesWithNone); 
+	bubble->rigidBody->setPosition(ofVec3f(bubble->getPosition().x,-300,0),ofVec3f(0,0,0),0);
+	//ofVec3f oldTarget = bubble->target;
+	//bubble->setTarget(oldTarget.x,-300,oldTarget.y);
 }
 
 //--------------------------------------------------------
@@ -529,13 +526,16 @@ void InteractionBuzz::releaseInBubbles(int poppedID)
 			if( it != bubbleToContIndex.end() && it->second == poppedID )
 			{
 				bubble->buzzID  = BUZZ_TYPE_BUBBLE_OUT;
+				
 				ofVec3f target = bubble->rigidBody->getPosition();
 				target.x += ofRandom(-200, 200);
 				target.y += ofRandom(-200, 200);
 				bubble->setTarget(target.x,target.y,target.z);
 				bubble->targetForce = 20;//10.f;
+				
 				bubble->buzzDest = target;
 				bubble->buzzOrig = target;
+				
 				bubble->rigidBody->body->clearForces();
 				setCollisionFilter(bubble->rigidBody,COL_BUBBLE_OUT,bubbleOutCollidesWith);				
 			}
@@ -546,7 +546,6 @@ void InteractionBuzz::releaseInBubbles(int poppedID)
 //--------------------------------------------------------
 void InteractionBuzz::setCollisionFilter(ofxBulletRigidBody * rigidBody, int filter, int mask)
 {
-	//ofVec3f startPos = rigidBody->getPosition();
 	
 	btBroadphaseProxy* bp = rigidBody->body->getBroadphaseProxy();
 	bp->m_collisionFilterGroup = filter;
