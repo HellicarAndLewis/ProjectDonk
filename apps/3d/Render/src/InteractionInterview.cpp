@@ -25,6 +25,9 @@ void InteractionInterview::newBubbleRecieved(Donk::BubbleData * data) {
 	bubble->rigidBody = bullet->createSphere(startPos, radius, 1);
 	bubble->createContentBubble();
 	bubble->setTarget(center.x + ofRandom(-300, 300), ofRandom(500, interactiveRect.height-300), 0);
+	
+	bubble->setContentSideUp();
+	
 	bubbles.push_back(bubble);
 };
 
