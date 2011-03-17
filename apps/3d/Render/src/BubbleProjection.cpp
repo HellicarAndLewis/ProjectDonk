@@ -66,6 +66,8 @@ void BubbleProjection::setup() {
 	// probably only want to do this when the particle system is used //
 	if(drawingParticles)
 		particleSys.init(ofVec2f(2000, 2000));
+		
+	bTouchDown = false;
 }
 
 //--------------------------------------------------------
@@ -217,6 +219,23 @@ void BubbleProjection::update() {
 	if(drawingParticles) {
 		particleSys.update();
 	}
+
+
+	//----------------
+	// check to clean up touch constraints
+	// need to check that this works!
+	if(!bTouchDown && activeInteraction) {
+		
+		for (int i=touchConstraints.size()-1; i>=0; i--) {
+			touchConstraints[i]->destroy();
+			delete touchConstraints[i];
+			touchConstraints[i] = NULL;
+			touchConstraints.erase(touchConstraints.begin() + i);
+		}
+
+	}
+	
+	
 }
 
 
@@ -394,7 +413,8 @@ void BubbleProjection::removeTouchConstraint(ContentBubble * bubble) {
 void BubbleProjection::touchDown(float x, float y, int touchId) {
 	
 	// cout << touchId << endl;
-	
+	bTouchDown = true;
+
 	ofVec2f touchCoords(x, y);
 	ofVec2f pos = mapToInteractiveArea(touchCoords);
 	
@@ -527,6 +547,8 @@ void BubbleProjection::touchMoved(float x, float y, int touchId) {
 
 //--------------------------------------------------------
 void BubbleProjection::touchUp(float x, float y, int touchId) {
+	
+	bTouchDown = false;
 	
 	ofVec2f pos = mapToInteractiveArea(ofVec2f(x, y));
 	
