@@ -100,7 +100,7 @@ void InteractionBuzz::newBubbleRecieved(Donk::BubbleData * data) {
 		}
 	}
 	
-	if( bAllDone){
+	if( bAllDone /*&& polledData.size() > ofRandom(3,10)*/){
 		createMomAndChildBubbles();
 		startPoll = data->all.size()-1;
 	}
@@ -133,7 +133,7 @@ void InteractionBuzz::update(){
 				
 				// update sizes
 				if(bubble->buzzID == BUZZ_TYPE_BUBBLE_OUT){
-					if(bubble->buzzTouched)		bubble->lerpRadius(150,0.1);
+					if(bubble->zoomTouched)		bubble->lerpRadius(150,0.1);
 					else						bubble->lerpRadius(90,0.1);
 				}
 				
@@ -142,7 +142,7 @@ void InteractionBuzz::update(){
 					bubble->gotoTarget();
 				
 				// lil ones buzz around
-				if(bubble->buzzID == BUZZ_TYPE_BUBBLE_OUT && !bubble->buzzTouched)
+				if(bubble->buzzID == BUZZ_TYPE_BUBBLE_OUT && !bubble->zoomTouched)
 					bubble->buzzMe();
 				
 				// inner bubbles fall to bottom
@@ -218,7 +218,7 @@ void InteractionBuzz::drawContent(){
 	 if(bubbles[i]->bAlive){
 	 if(bubbles[i]->buzzID == BUZZ_TYPE_CONTAINER)
 	 {
-	 //((BuzzContainerBubble*)bubbles[i])->globe->drawChildren();
+	 ((BuzzContainerBubble*)bubbles[i])->globe->drawChildren();
 	 }
 	 }
 	 }*/
@@ -353,12 +353,12 @@ void InteractionBuzz::doubleTouched(ofVec2f touchpos)
 			float	dis = p1.distance(p2);
 			
 			if(dis < bubble->radius + 10.0) {
-				if(bubble->buzzTouched){
-					bubble->buzzTouched = false;
+				if(bubble->zoomTouched){
+					bubble->zoomTouched = false;
 				}
 				else{
 					bubble->doubleTouched();
-					bubble->buzzTouched = true;
+					bubble->zoomTouched = true;
 				}
 				
 				printf("hit this bubble: %p\n", bubble);
@@ -388,9 +388,10 @@ void InteractionBuzz::createMomAndChildBubbles()
 	// base size on how many we have
 	float cRad		= CONTAINER_RADIUS;
 	float volCont	= (( 4.0/3.0)*PI )*(cRad*cRad*cRad);
-	float volBubb	= volCont / (numChildren * 5.f);	
-	float radius	= volBubb / (( 4.0/3.0)*PI );
-	radius			= pow(radius, 1.0f/3.0f);
+	float volBubb	= volCont / (numChildren * 3.f);	
+	float maxRadius	= volBubb / (( 4.0/3.0)*PI );
+	maxRadius	= pow(maxRadius, 1.0f/3.0f);
+	float radius	= ofRandom(maxRadius*.5,maxRadius);
 	
 	// create inner content bubbles
 	for( int i = 0; i < numChildren; i++)
@@ -414,7 +415,18 @@ void InteractionBuzz::createMomBubble(string group){
 	momPollGroup = group;
 	
 	ofVec3f center(interactiveRect.width/2,interactiveRect.height/2, 0);
-	ofVec3f startPos(center.x + ofRandom(-500, 500), interactiveRect.height+300, ofRandom(-100, 100) );
+	
+	ofVec3f startPos;
+	int corner = ofRandom(0,4);
+	switch(corner)
+	{
+		case 0: startPos.set(-300,-300); break; // upper left
+		case 1: startPos.set(interactiveRect.width+300,-300);break;
+		case 2: startPos.set(interactiveRect.width+300,interactiveRect.height+300);break;
+		case 3: startPos.set(-300,interactiveRect.height+300);break;
+	}
+	
+	//ofVec3f startPos(center.x + ofRandom(-500, 500), interactiveRect.height+300, ofRandom(-100, 100) );
 	
 	btTransform startTransform;
 	startTransform.setIdentity();
@@ -433,7 +445,7 @@ void InteractionBuzz::createMomBubble(string group){
 	container->rigidBody->shape = new btSphereShape(radius/SCALE);
 	container->rigidBody->createRigidBody(1, startTransform);
 	
-	container->setTarget(center.x + ofRandom(-200, 200), center.y+ ofRandom(-100,100), 0);
+	container->setTarget(center.x + ofRandom(-200, 200), center.y+ ofRandom(-300,300), 0);
 	container->targetForce = 5;
 	container->offScreenTaget.x = container->target.x;
 	container->offScreenTaget.y = -300;
