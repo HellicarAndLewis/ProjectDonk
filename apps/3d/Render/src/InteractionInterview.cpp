@@ -13,6 +13,8 @@
 //--------------------------------------------------------
 void InteractionInterview::newBubbleRecieved(Donk::BubbleData * data) { 
 	
+	if(bAnimateOut) return;
+
 	float   radius = 180;
 	ofVec3f center(interactiveRect.width/2, 0, 0);
 	ofVec3f startPos(center.x + ofRandom(-300, 300), interactiveRect.height+radius, ofRandom(-100, 100));

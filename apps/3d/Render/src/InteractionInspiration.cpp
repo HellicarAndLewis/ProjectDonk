@@ -13,6 +13,8 @@
 //--------------------------------------------------------
 void InteractionInspiration::newBubbleRecieved(Donk::BubbleData * data) { 
 
+	if(bAnimateOut) return;
+
 	ofVec3f center(interactiveRect.width/2, 0, 0);
 	float   radius = ofRandom( 20, 80 );
 	

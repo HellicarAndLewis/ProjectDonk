@@ -63,7 +63,8 @@ void InteractionBuzz::setup()
 //--------------------------------------------------------
 void InteractionBuzz::newBubbleRecieved(Donk::BubbleData * data) { 
 	
-	
+	if(bAnimateOut) return;
+
 	
 	string currentPollGroup = data->polledGroup;
 	//cout << "polled group " << currentPollGroup << endl;
