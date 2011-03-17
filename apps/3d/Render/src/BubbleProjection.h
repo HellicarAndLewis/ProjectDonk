@@ -118,5 +118,7 @@ private:
 	
 	/** Convenience so you don't have to keep typing it */
 	map<int,BubbleTouch>::iterator tIt;
-
+	
+	// safety for touch clean up
+	bool bTouchDown;
 };
