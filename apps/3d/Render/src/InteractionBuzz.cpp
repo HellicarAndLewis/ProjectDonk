@@ -133,7 +133,7 @@ void InteractionBuzz::update(){
 				
 				// update sizes
 				if(bubble->buzzID == BUZZ_TYPE_BUBBLE_OUT){
-					if(bubble->bDoubleTouched)	bubble->lerpRadius(150,0.1);
+					if(bubble->buzzTouched)		bubble->lerpRadius(150,0.1);
 					else						bubble->lerpRadius(90,0.1);
 				}
 				
