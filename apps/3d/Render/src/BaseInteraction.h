@@ -36,6 +36,7 @@ public:
 	ofRectangle	interactiveRect;
 	bool		bDoneAnimatingOut, bDoneAnimatingIn;
 	bool		bAnimateOut, bAnimateIn;
+	bool		bActive;
 	int			nTouches;
 	string		name;	// for debug printing
 	float		animatedOutTimer;
@@ -49,6 +50,7 @@ public:
 		bDoneAnimatingIn  = false;
 		bAnimateOut		  = false;
 		bAnimateIn		  = false;
+		bActive			  = false;
 	}
 	
 	~BaseInteraction() {}

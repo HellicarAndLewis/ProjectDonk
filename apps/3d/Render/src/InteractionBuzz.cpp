@@ -265,7 +265,9 @@ void InteractionBuzz::animatedOut() {
 		bubbles[i]->offScreenTaget = bubbles[i]->rigidBody->getPosition();
 		bubbles[i]->offScreenTaget.y = -300;
 	}
-	
+
+	animatedOutTimer = ofGetElapsedTimeMillis();
+
 }
 
 //--------------------------------------------------------

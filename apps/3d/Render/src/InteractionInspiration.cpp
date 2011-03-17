@@ -91,8 +91,8 @@ void InteractionInspiration::update() {
 		
 	}	
 	
-	float animateOutTime = (ofGetElapsedTimeMillis()-timeAnimateOut)/1000.0;
-	if(bAnimateOut && animateOutTime > 4.0 && !bDoneAnimatingOut) {
+	float animateOutTime = (ofGetElapsedTimeMillis()-animatedOutTimer)/1000.0;
+	if(bAnimateOut && animateOutTime > MAX_ANIMATION_TIME && !bDoneAnimatingOut) {
 		bDoneAnimatingOut = true;
 		killallBubbles();
 	}
@@ -142,7 +142,7 @@ void InteractionInspiration::animatedOut() {
 		bubbles[i]->offScreenTaget.z = 0;
 	}
 	
-	timeAnimateOut = ofGetElapsedTimeMillis();
+	animatedOutTimer = ofGetElapsedTimeMillis();
 }
 
 //--------------------------------------------------------
