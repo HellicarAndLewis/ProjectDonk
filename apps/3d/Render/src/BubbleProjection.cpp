@@ -571,7 +571,7 @@ void BubbleProjection::touchUp(float x, float y, int touchId) {
 				
 				
 				if (activeInteraction->name == "buzz") {
-					bubble->setTarget(pos.x, pos.y);
+					if( !activeInteraction->bAnimateOut ) bubble->setTarget(pos.x, pos.y);
 				}
 				
 				bubble->bTouched = false;
