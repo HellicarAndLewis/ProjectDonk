@@ -49,6 +49,9 @@ ContentBubble::ContentBubble() {
 	buzzTime	= 0;
 	buzzWait	= 0.1;
 	loopCounter = 0;
+	
+	buzzTouched	= false;
+
 }
 
 //--------------------------------------------------------------
