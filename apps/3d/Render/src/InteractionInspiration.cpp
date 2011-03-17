@@ -30,6 +30,8 @@ void InteractionInspiration::newBubbleRecieved(Donk::BubbleData * data) {
 	bubble->createContentBubble();
 	bubble->setTarget(center.x + ofRandom(-300, 300), ofRandom(500, interactiveRect.height-300), 0);
 	
+	bubble->setContentSideUp();
+	
 	bubble->offScreenTaget.x = bubble->target.x;
 	bubble->offScreenTaget.y = -300;
 	
