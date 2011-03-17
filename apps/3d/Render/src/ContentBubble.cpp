@@ -50,7 +50,7 @@ ContentBubble::ContentBubble() {
 	buzzWait	= 0.1;
 	loopCounter = 0;
 	
-	buzzTouched	= false;
+	zoomTouched	= false;
 
 }
 
