@@ -27,10 +27,13 @@ ContentBubble::ContentBubble() {
 	targetForce		= 20.f;
 	
 	if(ofRandomuf()>0.5){
-		rotateYDirection = 180;
+		rotateYDirectionOn = 180;
 	}else{
-		rotateYDirection = -180;
+		rotateYDirectionOn = -180;
 	}
+	
+	rotateYDirectionOff = 0;
+	
 	alpha = 255;
 	
 	bAlive = false;
@@ -66,6 +69,33 @@ void ContentBubble::createContentBubble() {
 	
 	bAlive = true;
 	birthDate = ofGetElapsedTimeMillis();
+}
+//--------------------------------------------------------------
+void ContentBubble::setContentSideUp()
+{
+	if(ofRandomuf()>0.5){
+		rotateYDirectionOff = 180;
+	}else{
+		rotateYDirectionOff = -180;
+	}
+	
+	rotateYDirectionOn = 0;
+	rotateYTarget = rotateYDirectionOff;
+	rotateY = rotateYDirectionOff;
+}
+
+//--------------------------------------------------------------
+void ContentBubble::setUserSizeUp()
+{
+	if(ofRandomuf()>0.5){
+		rotateYDirectionOn = 180;
+	}else{
+		rotateYDirectionOn = -180;
+	}
+	
+	rotateYDirectionOff = 0;
+	rotateYTarget = rotateYDirectionOff;
+	rotateY = rotateYDirectionOff;
 }
 
 //--------------------------------------------------------------
@@ -252,10 +282,10 @@ void ContentBubble::update() {
 	rotateY += (rotateYTarget-rotateY) * 0.05;
 	if(bDoubleTouched){
 		touchAlphaTarget = 160;
-		rotateYTarget = rotateYDirection;
+		rotateYTarget = rotateYDirectionOn;
 	}else{
 		touchAlphaTarget = 0;
-		rotateYTarget = 0;
+		rotateYTarget = rotateYDirectionOff;
 	}
 	
 	age = ofGetElapsedTimeMillis()-birthDate;
