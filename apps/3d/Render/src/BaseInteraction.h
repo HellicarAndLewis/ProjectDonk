@@ -15,6 +15,8 @@
 #include "BubbleShader.h"
 #include "TouchedConstraint.h"
 
+#define MAX_ANIMATION_TIME 3.0 // seconds
+
 enum {
 	MODE_BUZZ		 = 0,
 	MODE_INSPIRATION = 1,

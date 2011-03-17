@@ -561,6 +561,10 @@ void BubbleProjection::touchUp(float x, float y, int touchId) {
 			
 			if(bubble->bTouched) {
 				
+				if (activeInteraction->name == "interview") {
+					bubble->setTarget(pos.x, pos.y);
+				}
+				
 				if (activeInteraction->name == "inspiration") {
 					bubble->setTarget(pos.x, pos.y);
 				}

@@ -51,21 +51,24 @@ void InteractionInterview::update() {
 			}
 		}
 		else {
+			
 			bubbles[i]->gotoTarget();
-			bubbles[i]->loopMe(interactiveRect.width,interactiveRect.height);
+			if(!bubbles[i]->bTouched) {
+				bubbles[i]->loopMe(interactiveRect.width, interactiveRect.height);
+			}
 		}
 		
 		
 		bubbles[i]->update();	
-		
 		champagne(bubbles[i]->pos);
 
 	}
 	
-	
+	// we are now animating out lets also make sure that
+	// for some reason it takes to long we just kill it all!
 	if(bAnimateOut) {
 		float time = (ofGetElapsedTimeMillis()-animatedOutTimer) / 1000.0;
-		if(time > 3 || bAllOffScreen && !bDoneAnimatingOut) {
+		if(time > MAX_ANIMATION_TIME || bAllOffScreen && !bDoneAnimatingOut) {
 			bDoneAnimatingOut = true;
 			killallBubbles();
 		}
