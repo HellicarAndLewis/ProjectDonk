@@ -62,4 +62,6 @@ public:
 	vector<Donk::BubbleData *> polledData;
 	string	momPollGroup;
 	int startPoll;
+		
+	
 };
