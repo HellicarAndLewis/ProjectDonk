@@ -151,6 +151,10 @@ void Mode::setMode(string modeName) {
 	
 }
 
+string Mode::getMode() {
+	return currModeName;
+}
+
 float Mode::getValue(const string& key) {
 	
 	// for now this just switches, but we'll make it lerp soon

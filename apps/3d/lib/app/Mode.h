@@ -30,13 +30,14 @@ namespace Donk {
 		void setMode(string modeName);
 		
 		float getValue(const string &name);
-		
+		string getMode();
 		
 		/** for debugging */
 		void print(); 
 		
 		ofxXmlGui *getGui();
 		void controlChanged(GuiControl *control);
+		
 	private:
 		
 		Mode();
