@@ -42,8 +42,6 @@ public:
 	void doubleTouched(ofVec2f touchpos);
 	void killallBubbles();
 
-	//void newContainerReceived( containerData * data );
-
 	//--------------------------------------------------------
 	void createMomAndChildBubbles();
 	void createMomBubble(string group);
