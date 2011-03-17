@@ -23,7 +23,7 @@ public:
 	void updateConstraint();
 	
 	ofxBulletCompoundBody   * globe;
-	btPoint2PointConstraint * p2p;
+	//btPoint2PointConstraint * p2p;
 	int nChildren;
 	string pollingGroup;
 	
