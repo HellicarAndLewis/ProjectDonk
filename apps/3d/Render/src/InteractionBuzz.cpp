@@ -91,7 +91,10 @@ void InteractionBuzz::newBubbleRecieved(Donk::BubbleData * data) {
 	int startFrom = (data->all.size() > startPoll) ? startPoll : 0;	//--> start from last polled if can
 	
 	for(bdit=data->all.begin()+startFrom;bdit!=data->all.end();bdit++){
-		if((*bdit)->mode == "buzz" && !(*bdit)->doneLoading()) {
+		if(		
+		   (*bdit)->mode == "buzz" && 
+		   !(*bdit)->doneLoading() && 
+		   (*bdit)->polledGroup == data->polledGroup) {
 			bAllDone = false;
 			break;
 		}
@@ -110,14 +113,14 @@ void InteractionBuzz::update(){
 	map <int, int> :: const_iterator it;
 	
 	for(int i=0; i<bubbles.size(); i++){
-				
+		
 		ContentBubble * bubble = bubbles[i];
 		
 		//---- update touch
 		if(nTouches == 0) {
 			
 			bubble->bTouched		= false;	
-			//bubble->bDoubleTouched	= false;		
+			bubble->bDoubleTouched	= false;		
 		}
 		
 		
@@ -125,8 +128,8 @@ void InteractionBuzz::update(){
 		if(!bubble->bTouched) {
 			
 			
-		
-				if(bAnimateIn){
+			
+			if(bAnimateIn){
 				
 				// update sizes
 				if(bubble->buzzID == BUZZ_TYPE_BUBBLE_OUT){
@@ -139,7 +142,7 @@ void InteractionBuzz::update(){
 					bubble->gotoTarget();
 				
 				// lil ones buzz around
-				if(bubble->buzzID == BUZZ_TYPE_BUBBLE_OUT && !bubble->bDoubleTouched)
+				if(bubble->buzzID == BUZZ_TYPE_BUBBLE_OUT && !bubble->buzzTouched)
 					bubble->buzzMe();
 				
 				// inner bubbles fall to bottom
@@ -147,23 +150,28 @@ void InteractionBuzz::update(){
 					bubble->rigidBody->body->applyCentralForce(btVector3(0,60,0));
 				
 			}
-		
-		}
 			
+		}
+		
 		
 		//--- animate out
 		if(bAnimateOut && !bDoneAnimatingOut) {
-				
+			
+			
+			bubble->bTouched		= false;	
+			bubble->bDoubleTouched	= false;
+			
 			// move off screen
 			bubble->goOffScreen();
-				
+			
 			// dead containers should count as offscreen
 			if(bubble->getPosition().y > 0 && bubble->bAlive) {
 				bAllOffScreen = false;
+				bubble->offScreenTaget.y = -300;
 			}
-				
-		}
 			
+		}
+		
 		
 		// always constrain container structure to rigid body bubbles
 		if(bubble->buzzID == BUZZ_TYPE_CONTAINER)
@@ -184,7 +192,7 @@ void InteractionBuzz::update(){
 				setCollisionFilter(bubble->rigidBody,COL_NOTHING,collidesWithNone);
 			}
 		}
-
+		
 		//if( bubble->bTouched ) cout << i << " touched " <<endl;
 		//if( bubble->touchID > -1 ) cout << i << " touch id " << bubble->touchID << endl;
 	}	
@@ -207,14 +215,14 @@ void InteractionBuzz::drawContent(){
 	
 	
 	/*for(int i=0; i<bubbles.size(); i++){
-		if(bubbles[i]->bAlive){
-		 if(bubbles[i]->buzzID == BUZZ_TYPE_CONTAINER)
-		 {
-			//((BuzzContainerBubble*)bubbles[i])->globe->drawChildren();
-		 }
-		}
+	 if(bubbles[i]->bAlive){
+	 if(bubbles[i]->buzzID == BUZZ_TYPE_CONTAINER)
+	 {
+	 //((BuzzContainerBubble*)bubbles[i])->globe->drawChildren();
+	 }
+	 }
 	 }*/
-	 
+	
 	
 	for(int i=0; i<bubbles.size(); i++) {
 		if(bubbles[i]->bAlive){
@@ -345,10 +353,14 @@ void InteractionBuzz::doubleTouched(ofVec2f touchpos)
 			float	dis = p1.distance(p2);
 			
 			if(dis < bubble->radius + 10.0) {
-				if(bubble->bDoubleTouched)
-					bubble->bDoubleTouched = false;
-				else
+				if(bubble->buzzTouched){
+					bubble->buzzTouched = false;
+				}
+				else{
 					bubble->doubleTouched();
+					bubble->buzzTouched = true;
+				}
+				
 				printf("hit this bubble: %p\n", bubble);
 				break;
 			}
@@ -472,6 +484,8 @@ void InteractionBuzz::createChildBubble(int momID, Donk::BubbleData * data, floa
 	bubble->offScreenTaget.x = bubble->target.x;
 	bubble->offScreenTaget.y = -300;
 	
+	bubble->setContentSideUp();
+	
 	bubbles.push_back(bubble);
 	
 	bubble->buzzID = BUZZ_TYPE_BUBBLE_IN;
@@ -520,7 +534,7 @@ void InteractionBuzz::releaseInBubbles(int poppedID)
 		ContentBubble * bubble = bubbles[i];
 		if(bubble->buzzID == BUZZ_TYPE_BUBBLE_IN)
 		{
-						
+			
 			it =  bubbleToContIndex.find(i);
 			
 			if( it != bubbleToContIndex.end() && it->second == poppedID )
@@ -553,13 +567,13 @@ void InteractionBuzz::setCollisionFilter(ofxBulletRigidBody * rigidBody, int fil
 	
 	
 	/*btTransform startTransform;
-	startTransform.setIdentity();
-	startTransform.setOrigin(btVector3(startPos.x, startPos.y, startPos.z));
-	
-	bullet->world->removeRigidBody(rigidBody->body);
-	rigidBody->createRigidBody(1, startTransform);
-	
-	bullet->world->addRigidBody(rigidBody->body, filter, mask);*/
+	 startTransform.setIdentity();
+	 startTransform.setOrigin(btVector3(startPos.x, startPos.y, startPos.z));
+	 
+	 bullet->world->removeRigidBody(rigidBody->body);
+	 rigidBody->createRigidBody(1, startTransform);
+	 
+	 bullet->world->addRigidBody(rigidBody->body, filter, mask);*/
 	
 	
 }
