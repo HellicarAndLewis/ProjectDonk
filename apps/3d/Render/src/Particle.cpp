@@ -56,17 +56,18 @@ void Particle::update( const FluidSolver &solver, const ofVec2f &windowSize, con
 	
 	// wrap positions
 	if( pos.x < 0 ) {
-		pos.x = windowSize.x;
+		pos.x = windowSize.x - ofRandom(2);
 	}
 	else if( pos.x > windowSize.x ) {
-		pos.x = 0;
+		pos.x = ofRandom(2);
 	}
 	
 	if( pos.y < 0 ) {
-		pos.y = windowSize.y;
+		pos.y = windowSize.y - ofRandom(2);
+		pos.x = ofRandom(windowSize.x);
 	}
 	else if( pos.y > windowSize.y ) {
-		pos.y = 0;
+		pos.y = ofRandom(2);
 	}
 	
 	// hackish way to make particles glitter when the slow down a lot
@@ -105,10 +106,10 @@ void Particle::updateVertexArrays( bool drawingFluid, const ofVec2f &invWindowSi
 	posBuffer[vi++] = pos.y;
 
 		
-	heightBuffer[hi++] = alpha*16;
-	heightBuffer[hi++] = alpha*16;
-	heightBuffer[hi++] = alpha*16;
-	heightBuffer[hi++] = alpha*16;
+	heightBuffer[hi++] = alpha*32;
+	heightBuffer[hi++] = alpha*32;
+	heightBuffer[hi++] = alpha*32;
+	heightBuffer[hi++] = alpha*32;
 	
 	int ci = i * 6;
 	if( drawingFluid ) {
