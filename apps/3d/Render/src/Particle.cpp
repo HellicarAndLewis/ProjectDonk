@@ -53,6 +53,22 @@ void Particle::update( const FluidSolver &solver, const ofVec2f &windowSize, con
 	vel = solver.getVelocityAtPos( pos * invWindowSize ) * (mass * FLUID_FORCE ) * windowSize + vel * MOMENTUM;
 	pos += vel;	
 	
+	
+	// wrap positions
+	if( pos.x < 0 ) {
+		pos.x = windowSize.x;
+	}
+	else if( pos.x > windowSize.x ) {
+		pos.x = 0;
+	}
+	
+	if( pos.y < 0 ) {
+		pos.y = windowSize.y;
+	}
+	else if( pos.y > windowSize.y ) {
+		pos.y = 0;
+	}
+	
 	// hackish way to make particles glitter when the slow down a lot
 	/*if( vel.lengthSquared() < 1 ) {
 		vel += ofVec2f(ofRandom(-0.5, 0.5), ofRandom(-0.5, 0.0));
@@ -65,11 +81,11 @@ void Particle::update( const FluidSolver &solver, const ofVec2f &windowSize, con
 		if(alpha > 0.95) {
 			incAlpha = false;
 		}
-	} else {
+	}/* else {
 		alpha *= 0.996;
 	}
 	if( alpha < 0.01f )
-		alpha = 0;
+		alpha = 0;*/
 }
 
 
@@ -77,25 +93,22 @@ void Particle::update( const FluidSolver &solver, const ofVec2f &windowSize, con
 void Particle::updateVertexArrays( bool drawingFluid, const ofVec2f &invWindowSize, int i, float* posBuffer, float* colBuffer, float* heightBuffer) {
 	int vi = i * 4;
 	int hi = i * 4;
+
 	if( gravity.y != 0 )
 	{
-		posBuffer[vi++] = pos.x - vel.x;
-		posBuffer[vi++] = pos.y - vel.y + gravity.y;
-		posBuffer[vi++] = pos.x;
-		posBuffer[vi++] = pos.y + gravity.y;
+		vel.y += gravity.y;
 	}
-	else 
-	{
-		posBuffer[vi++] = pos.x - vel.x;
-		posBuffer[vi++] = pos.y - vel.y;
-		posBuffer[vi++] = pos.x;
-		posBuffer[vi++] = pos.y;
-	}
+
+	posBuffer[vi++] = pos.x - vel.x;
+	posBuffer[vi++] = pos.y - vel.y;
+	posBuffer[vi++] = pos.x;
+	posBuffer[vi++] = pos.y;
+
 		
-	heightBuffer[hi++] = alpha;
-	heightBuffer[hi++] = alpha;
-	heightBuffer[hi++] = alpha;
-	heightBuffer[hi++] = alpha;
+	heightBuffer[hi++] = alpha*16;
+	heightBuffer[hi++] = alpha*16;
+	heightBuffer[hi++] = alpha*16;
+	heightBuffer[hi++] = alpha*16;
 	
 	int ci = i * 6;
 	if( drawingFluid ) {
