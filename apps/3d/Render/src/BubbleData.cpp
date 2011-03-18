@@ -115,6 +115,7 @@ namespace Donk{
 				media.back().url = m.getArgAsString(index);
 				media.back().mediaLoader = new AsyncHttpLoader();
 				media.back().mediaLoader->get( media.back().url, "" );
+				
 			}
 			index++;
 		}
@@ -146,6 +147,7 @@ namespace Donk{
 		if(thumbLoader!=NULL){
 			if(thumbLoader->status==2){
 				ofBuffer buff;
+				
 				buff.set(thumbLoader->data.c_str(), thumbLoader->data.size());
 				thumbImage.loadImage(buff);
 				delete thumbLoader;
@@ -156,6 +158,7 @@ namespace Donk{
 		if(mediaLoader!=NULL){
 			if(mediaLoader->status==2){
 				ofBuffer buff;
+				
 				buff.set(mediaLoader->data.c_str(), mediaLoader->data.size());
 				mediaImage.loadImage(buff);
 				delete mediaLoader;

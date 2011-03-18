@@ -106,6 +106,11 @@ public:
 	string authInfo;
 private:
 	volatile bool stopping;
+	/**
+	 replaces all %xx values with their according ascii
+	 http://bytes.com/topic/c/answers/502491-efficient-url-decoding
+	 */
+	static string urlDecode(string inStr);
 };
 
 

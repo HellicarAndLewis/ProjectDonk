@@ -1,6 +1,6 @@
 <values>
     <value controlId="enabled" value="true"></value>
-    <value controlId="fov" value="26.526315689"></value>
+    <value controlId="fov" value="44.526317596"></value>
     <value controlId="xy position" value="-0.526315689,-1.000000000"></value>
     <value controlId="z position" value="4.631578445"></value>
     <value controlId="xy rotation" value="-20.837102890,165.600006104"></value>
