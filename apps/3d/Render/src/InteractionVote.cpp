@@ -10,6 +10,7 @@
 #include "InteractionVote.h"
 #include "testApp.h"
 #include "InteractionPerformance.h"
+#include "QuestionData.h"
 
 void InteractionVote::setup() {
 	voteBubbles[0]   = NULL;
@@ -84,8 +85,10 @@ void InteractionVote::newBubbleRecieved(Donk::BubbleData * data) {
 
 	if(bAnimateOut) return;
 	
-	int totalA     = ofRandom(2, 40);	// need this from data
-	int totalB     = ofRandom(2, 40);	// need this from data
+	//int totalA     = ofRandom(2, 40);	// need this from data
+	//int totalB     = ofRandom(2, 40);	// need this from data
+	int totalA = Donk::QuestionData::all[data->questionID].tag_counts[0];
+	int totalB = Donk::QuestionData::all[data->questionID].tag_counts[1];
 	
 	int total      = totalA + totalB;
 	pctA		   = round( ((float)totalA / (float)total) * 100.0);

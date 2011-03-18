@@ -10,6 +10,11 @@
 
 namespace Donk{
 	
+	map<string,QuestionData> QuestionData::all;
+	
+	QuestionData::QuestionData(){
+	}
+	
 	QuestionData::QuestionData(ofxOscMessage &m){
 		int index=0;
 		while(index<m.getNumArgs()){
