@@ -142,8 +142,8 @@ void InteractionBuzz::update(){
 				
 				// update sizes
 				if(bubble->buzzID == BUZZ_TYPE_BUBBLE_OUT){
-					if(bubble->zoomTouched)		bubble->lerpRadius(150,0.1);
-					else						bubble->lerpRadius(90,0.1);
+					if(bubble->zoomTouched)		bubble->lerpRadius(bubble->maxRadius,0.1);
+					else						bubble->lerpRadius(bubble->startRadius,0.1);
 				}
 				
 				// inner bubbles do not seek targets
@@ -504,9 +504,10 @@ void InteractionBuzz::createChildBubble(int momID, Donk::BubbleData * data, floa
 	
 	ContentBubble * bubble = new ContentBubble();
 	
-	bubble->data	  = data;
-	bubble->radius    = radius;
-	bubble->originalRadius = radius;
+	bubble->data			= data;
+	bubble->radius			= radius;
+	bubble->startRadius		= radius;
+	bubble->maxRadius		= 150.0f;
 	
 	btTransform startTransform;
 	startTransform.setIdentity();
@@ -591,10 +592,11 @@ void InteractionBuzz::releaseInBubbles(int poppedID)
 				target.x += ofRandom(-200, 200);
 				target.y += ofRandom(-200, 200);
 				bubble->setTarget(target.x,target.y,target.z);
-				bubble->targetForce = 20;//10.f;
+				bubble->targetForce = 20;
 				
 				bubble->buzzDest = target;
 				bubble->buzzOrig = target;
+				bubble->startRadius = ofRandom(70,90);
 				
 				bubble->rigidBody->body->clearForces();
 				setCollisionFilter(bubble->rigidBody,COL_BUBBLE_OUT,bubbleOutCollidesWith);				

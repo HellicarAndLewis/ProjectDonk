@@ -343,8 +343,9 @@ void testApp::processOsc() {
 		}else if(m.getAddress()=="/control/question/update") {
 			
 			Donk::QuestionData qd(m);
-			cout << "todo: handle question update \"" << qd.text << "\" " << qd.tags[0] << "=" <<
-			qd.tag_counts[0] << "," << qd.tags[1] << "=" << qd.tag_counts[1] << endl;
+			Donk::QuestionData::all[qd.id] = qd;
+			//cout << "todo: handle question update \"" << qd.text << "\" " << qd.tags[0] << "=" <<
+			//qd.tag_counts[0] << "," << qd.tags[1] << "=" << qd.tag_counts[1] << endl;
 			
 		}
 	}

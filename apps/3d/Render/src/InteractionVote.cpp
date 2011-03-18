@@ -10,6 +10,7 @@
 #include "InteractionVote.h"
 #include "testApp.h"
 #include "InteractionPerformance.h"
+#include "QuestionData.h"
 
 void InteractionVote::setup() {
 	voteBubbles[0]   = NULL;
@@ -36,6 +37,8 @@ void InteractionVote::setChoiceBubble(int i, string choice) {
 	
 	voteBubbles[i]->data	  = NULL;
 	voteBubbles[i]->radius    = radius;
+	voteBubbles[i]->startRadius = radius;
+	voteBubbles[i]->maxRadius = radius;
 	voteBubbles[i]->rigidBody = bullet->createSphere(startPos, radius, 1);
 	voteBubbles[i]->createContentBubble();
 	voteBubbles[i]->setTarget(target.x, target.y, target.z);
@@ -79,22 +82,26 @@ ContentBubble * InteractionVote::addBubbleToVote(int voteID) {
 
 //--------------------------------------------------------
 void InteractionVote::newBubbleRecieved(Donk::BubbleData * data) { 
-
+	
 	if(bAnimateOut) return;
 	
-	int totalA     = ofRandom(2, 40);	// need this from data
-	int totalB     = ofRandom(2, 40);	// need this from data
+	int totalA = Donk::QuestionData::all[data->questionID].tag_counts[0];
+	int totalB = Donk::QuestionData::all[data->questionID].tag_counts[1];
+	
+	string optA = Donk::QuestionData::all[data->questionID].tags[0];
+	string optB = Donk::QuestionData::all[data->questionID].tags[1];
+	
 	
 	int total      = totalA + totalB;
 	pctA		   = round( ((float)totalA / (float)total) * 100.0);
 	pctB           = round( ((float)totalB / (float)total) * 100.0);
 	
 	// Option A
-	if(voteBubbles[0] == NULL) setChoiceBubble(0, "Option A");
+	if(voteBubbles[0] == NULL) setChoiceBubble(0, optA);
 	voteBubbles[0]->pct = pctA;	
 	
 	// Option B
-	if(voteBubbles[1] == NULL) setChoiceBubble(1, "Option B");
+	if(voteBubbles[1] == NULL) setChoiceBubble(1, optB);
 	voteBubbles[1]->pct = pctB;	
 	
 	

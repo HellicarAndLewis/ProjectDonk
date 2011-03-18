@@ -12,7 +12,8 @@
 #include "ofxBullet.h"
 #include "BubbleData.h"
 #include "ofxCubeMap.h"
-#include "txtDisplay.h"
+//#include "txtDisplay.h"
+#include "ofxTextCircleFill.h"
 
 //--------------------------------------------------------------
 class ContentBubble {
@@ -31,7 +32,7 @@ public:
 	float				 distanceToTarget;
 	float				 alpha;
 	ofColor				 color;
-	float			     radius, originalRadius;
+	float			     radius;
 	float				 targetForce;
 	Donk::BubbleData *   data;
 	
@@ -46,7 +47,7 @@ public:
 	int					 performceImageID;
 	int					 performanceChannel;
 	ofVec3f				 performanceStartTarget;
-	float				 startRadius;
+	float				 startRadius, maxRadius;
 	
 	// --------------------------------- things for vote
 	int					 voteBubbleID;
@@ -66,8 +67,8 @@ public:
     //------------------------ text formatting
     
 	static ofTrueTypeFont   font; //JG now this is just used on VOTE
-	TxtDisplay              textDisplay;
-    ofPoint                 contentExpand;
+	//TxtDisplay              textDisplay;
+    ofxTextCircleFill  textDisplay;
     int                     minFontSize;
     int                     maxFontSize;
 	// ---------------------------------
@@ -105,7 +106,7 @@ public:
 	virtual void drawHighLight();
 	virtual void draw();
     
-    void loadFont(float data_radius);
+    void loadFont();
 	/**
 	  for 2d layer to flip around when selected
 	 */

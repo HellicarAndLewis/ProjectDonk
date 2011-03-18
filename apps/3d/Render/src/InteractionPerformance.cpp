@@ -75,6 +75,7 @@ void InteractionPerformance::addBubbles() {
 			ContentBubble * bubble = new ContentBubble();
 			
 			bubble->startRadius = radius;
+			bubble->maxRadius = radius; // not sure, maye set to larger for audio manipulation?
 			bubble->data	  = NULL;
 			bubble->radius    = radius;
 			bubble->rigidBody = bullet->createSphere(startPos, radius, 1);
