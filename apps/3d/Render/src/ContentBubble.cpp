@@ -51,8 +51,6 @@ ContentBubble::ContentBubble() {
 	loopCounter = 0;
     loopTime = ofRandom(.0015,.0025);
 	
-    //JG added these vars for formatting font under different conditions.
-    contentExpand = ofPoint(1.7, 1.5); //needed for formatting, multiplied by the radius. 1,1 is no change
     maxFontSize = 15;
     minFontSize = 9;
 	
@@ -298,8 +296,7 @@ void ContentBubble::update() {
 	}
 	*/
     
-    //loadFont(radius*.9);
-    
+
 	touchAlpha += (touchAlphaTarget-touchAlpha) * 0.1;
 	rotateY += (rotateYTarget-rotateY) * 0.05;
 	if(bDoubleTouched){
@@ -370,12 +367,12 @@ void ContentBubble::popBillboard() {
 	glPopMatrix();
 }
 
-void ContentBubble::loadFont(float data_radius)
+void ContentBubble::loadFont()
 {
     //lazyload the font
     if(!textDisplay.bFontsLoaded){
 
-        textDisplay.setup("global/font/Gotham-Bold.otf", minFontSize, maxFontSize, 1, data_radius*1.5); 
+        textDisplay.setup("global/font/Gotham-Bold.otf", minFontSize, maxFontSize, 1, maxRadius); 
         
         string txt = data->text;
         if(txt.empty())txt="lorem ipsum"; //hmmm....maybe better answer?
@@ -407,7 +404,7 @@ void ContentBubble::drawTwitterData() {
 			
 			float data_radius = radius;//*0.9;
 			            
-            loadFont(data_radius);
+            loadFont();
             
 			{
 				//draw twitter icon as a disk
@@ -495,10 +492,14 @@ void ContentBubble::drawTwitterData() {
                 
                 //data->profileImage.unbind();	 //if i take these out, the GUI doesn't draw?		
                 
+                //cout << "current radius is " << data_radius << " max radius is " << maxRadius << endl;
+                
                 //DRAW Twitter Text
                 glPushMatrix();
                 glRotatef(180,0,1,0); //always flip around or text is inverted
                 glTranslatef(0,0,1);
+                s = data_radius/maxRadius * 1.75;
+                ofScale(s,s,s);
                 ofSetColor(0,0,0, alpha);
                 textDisplay.draw(0, 10);
                 glTranslatef(-.75,-.75,1);

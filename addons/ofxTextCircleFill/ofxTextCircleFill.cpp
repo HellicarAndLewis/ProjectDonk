@@ -100,8 +100,6 @@ void ofxTextCircleFill::setMessage(string message)
     
     cout << "circle with radius " << mRadius << " fit the line with " << lines.size() << " lines and font size " << mFontSize << " and total height " << mTotalLineHeight << endl;
 	bSetMessage = true;
-  
-
 }
 
 void ofxTextCircleFill::draw(float centerX, float centerY)
@@ -122,9 +120,7 @@ void ofxTextCircleFill::draw(float centerX, float centerY)
         
 		myFont->drawString(lines[i].words, x, y);		
 	}
-
 }
-
 
 void ofxTextCircleFill::findBestTextFit()
 {
@@ -149,14 +145,25 @@ void ofxTextCircleFill::findBestTextFit()
             for(int i = -(numLines-1)/2; i <= (numLines/2); i++){
                 
                 float lineY = i*lineHeight;
+                //Nimoyian Theorm, tubular radiation!! 
                 float lineWidth = sqrt(mRadius*mRadius - lineY*lineY);
                 
                 //cout << " Line Y is " << lineY << " line width " << lineWidth << endl;
                 
                 MessageLine line;
                 line.words = "";
+                bool firstWordOnLine = true;
                 for(; currentWord < words.size(); currentWord++){
-                    string lineWithNextWord = line.words + " " + words[currentWord];
+                    
+                    string lineWithNextWord;
+                    if(firstWordOnLine){
+                        lineWithNextWord = words[currentWord];
+                        firstWordOnLine = false;
+                    }
+                    else{
+                        lineWithNextWord = line.words + " " + words[currentWord];
+                    }
+                    
                     float currentLineWidth = thisFont->stringWidth(lineWithNextWord);
                     if(currentLineWidth > lineWidth){
                         break;
@@ -182,7 +189,6 @@ void ofxTextCircleFill::findBestTextFit()
 ofTrueTypeFont * ofxTextCircleFill::getFontFromSize(int size)
 {
     return fonts[size];
-    
 }
 
 
