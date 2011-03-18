@@ -547,6 +547,7 @@ void BubbleProjection::touchMoved(float x, float y, int touchId) {
 //--------------------------------------------------------
 void BubbleProjection::touchUp(float x, float y, int touchId) {
 	
+	
 	bTouchDown = false;
 	
 	ofVec2f pos = mapToInteractiveArea(ofVec2f(x, y));
@@ -562,6 +563,7 @@ void BubbleProjection::touchUp(float x, float y, int touchId) {
 				
 				if (activeInteraction->name == "interview") {
 					bubble->setTarget(pos.x, pos.y);
+					bubble->setLoopStart( getHeight() );
 				}
 				
 				if (activeInteraction->name == "inspiration") {
@@ -571,6 +573,11 @@ void BubbleProjection::touchUp(float x, float y, int touchId) {
 				
 				if (activeInteraction->name == "buzz") {
 					if( !activeInteraction->bAnimateOut ) bubble->setTarget(pos.x, pos.y);
+				}
+				
+				if (activeInteraction->name == "performance") {
+					bubble->setTarget(pos.x, pos.y);
+					bubble->performanceStartTarget = bubble->target;
 				}
 				
 				bubble->bTouched = false;

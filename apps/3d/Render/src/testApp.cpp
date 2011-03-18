@@ -22,6 +22,13 @@ void testApp::setup(){
 	// default starting mode
 	nextMode = "vote";
 	mode->setMode(nextMode);
+	
+#ifdef AUTO_TESTING
+    switchModeTime = 12; 
+    switchModeLastTime = 0;
+    makeBubbleTime = 3; 
+    makeBubbleLastTime = 0;
+#endif
 }
 
 void testApp::setupGraphics() {
@@ -43,8 +50,38 @@ void testApp::update(){
 	
 	ofSetWindowTitle(ofToString(ofGetFrameRate(), 2) + "fps,  " + ofToString(ofGetWindowSize().x) + "x"+ofToString(ofGetWindowSize().y));
 	
+	#ifdef AUTO_TESTING
+	float dtSwitch = ofGetElapsedTimef() - switchModeLastTime;
+    float dtBub = ofGetElapsedTimef() - makeBubbleLastTime;
+    if(dtSwitch > switchModeTime)
+    {
+        switchModeLastTime = ofGetElapsedTimef();
+        
+		int newMode = ofRandom(0,5);
+		switch(newMode)
+		{
+			case 0: mode->setMode("buzz");break;
+			case 1: mode->setMode("inspiration");break;
+			case 2: mode->setMode("performance");break;
+			case 3: mode->setMode("interview");break;
+			case 4: mode->setMode("vote");break;
+
+		}
+		
+        switchModeTime = ofRandom(12,40);
+        string timeStamp = ofToString(ofGetHours() )+" : " + ofToString(ofGetMinutes()) + " : " + ofToString( ofGetSeconds() );
+        cout << "switched mode " << mode->getMode() << " " <<  timeStamp << endl;
+    }
 	
-	
+    if(dtBub > makeBubbleTime)
+    {
+        makeBubbleLastTime = ofGetElapsedTimef();
+        keyPressed('b');
+        makeBubbleTime = ofRandom(2,10);
+        cout << "made bubble" << endl;
+    }
+	#endif
+
 }
 
 

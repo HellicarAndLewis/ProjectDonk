@@ -101,7 +101,7 @@ void InteractionBuzz::newBubbleRecieved(Donk::BubbleData * data) {
 		}
 	}
 	
-	if( bAllDone /*&& polledData.size() > ofRandom(3,10)*/){
+	if( bAllDone){
 		createMomAndChildBubbles();
 		startPoll = data->all.size()-1;
 	}
@@ -227,13 +227,16 @@ void InteractionBuzz::update(){
 	}
 	
 	//--- fail safe timed kill
+	/*
+	// now in bubbleProjection
 	float animateOutTime = (ofGetElapsedTimeMillis()-animatedOutTimer)/1000.0;
 	if(bAnimateOut && animateOutTime > 8.0 && !bDoneAnimatingOut) {
 		bDoneAnimatingOut = true;
 		killallBubbles();
-	}
+	}*/
 	
-	
+	// use to debuG if sticking!!
+	// printBuzzBubblesStatus();
 }
 
 //--------------------------------------------------------
@@ -326,17 +329,20 @@ void InteractionBuzz::killallBubbles() {
 		delete bubbles[i];
 		bubbles[i] = NULL;
 	}
-	bubbles.clear();
+	
+	if( !bubbles.empty() ) bubbles.clear();
 	
 	// also clear types and map
-	bubbleToContIndex.clear();
+	if( !bubbleToContIndex.empty() ) bubbleToContIndex.clear();
 	
-	polledData.clear();
+	if( !polledData.empty() ) polledData.clear();
 }
 
 //--------------------------------------------------------
 void InteractionBuzz::doubleTouched(ofVec2f touchpos)
 {
+	
+	//if(bAnimateOut) return;
 	
 	// find out who has been popped
 	int poppedID = -1;
@@ -524,9 +530,7 @@ void InteractionBuzz::createChildBubble(int momID, Donk::BubbleData * data, floa
     
     //JG added b/c Buzz bubbles were flipped around wrong and text was backwardss
     bubble->setContentSideUp();
-	
-	bubble->setContentSideUp();
-	
+		
 	bubbles.push_back(bubble);
 	
 	bubble->buzzID = BUZZ_TYPE_BUBBLE_IN;
@@ -609,3 +613,43 @@ void InteractionBuzz::setCollisionFilter(ofxBulletRigidBody * rigidBody, int fil
 	
 }
 
+//--------------------------------------------------------
+void InteractionBuzz::printBuzzBubblesStatus()
+{
+	for( int i = 0; i < bubbles.size(); i++)
+	{
+		ContentBubble * bubble = bubbles[i];
+		
+		cout << "-----------------" << endl;
+		cout << i << " : ";
+		
+		switch(bubble->buzzID)
+		{
+		case BUZZ_TYPE_CONTAINER: cout << "MOM " << endl; break;
+		case BUZZ_TYPE_BUBBLE_IN: cout << "child - IN " << endl; break;
+		case BUZZ_TYPE_BUBBLE_OUT: cout << "child - OUT " << endl; break;
+		case BUZZ_TYPE_BUBBLE_OLD: cout << "child - OLD " << endl; break;
+		}
+		
+		cout << "bAlive: " << bubble->bAlive << " bTouched: " << bubble->bTouched << " bDoubleT: " << bubble->bDoubleTouched << " bZoomT: " << bubble->zoomTouched << endl;
+		cout << "pos  x: " << bubble->getPosition().x << " y: " << bubble->getPosition().y << endl; // position
+		cout << "targ x: " << bubble->target.x << " y: " << bubble->target.y << " "; // target
+		
+		btBroadphaseProxy* bp = bubble->rigidBody->body->getBroadphaseProxy();
+		cout << "filter: " << bp->m_collisionFilterGroup << " mask: " << bp->m_collisionFilterMask << endl;
+		
+		if(bubble->buzzID == BUZZ_TYPE_CONTAINER)
+		{
+		cout << "children: " << ((BuzzContainerBubble*)bubbles[i])->globe->compoundShape->getNumChildShapes();
+		
+		btTransform globeTrans	= ((BuzzContainerBubble*)bubble)->globe->body->getWorldTransform();
+		btVector3 globeOrigin	= globeTrans.getOrigin();
+		ofVec3f globePos		= ofVec3f( globeOrigin.x(),globeOrigin.y(),globeOrigin.z() );
+		cout << " globe pos: " << globePos.x << " " << globePos.y << endl;
+
+		}
+		
+		cout << "-----------------" << endl;
+
+	}
+}

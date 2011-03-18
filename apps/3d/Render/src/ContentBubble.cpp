@@ -49,7 +49,8 @@ ContentBubble::ContentBubble() {
 	buzzTime	= 0;
 	buzzWait	= 0.1;
 	loopCounter = 0;
-    
+    loopTime = ofRandom(.0015,.0025);
+	
     //JG added these vars for formatting font under different conditions.
     contentExpand = ofPoint(1.7, 1.5); //needed for formatting, multiplied by the radius. 1,1 is no change
     maxFontSize = 15;
@@ -172,7 +173,7 @@ void ContentBubble::buzzMe() {
 //--------------------------------------------------------------
 void ContentBubble::loopMe(float interactiveWidth,float interactiveHeight){
 	
-	if(loopCounter < 1 ) loopCounter += .0015;
+	if(loopCounter < 1 ) loopCounter += loopTime;//.0015;
 	
 	if( getPosition().y < -radius )
 	{
@@ -181,7 +182,14 @@ void ContentBubble::loopMe(float interactiveWidth,float interactiveHeight){
 	}
 	
 	target.x = getPosition().x;
-	target.y = ofLerp(interactiveHeight,-radius,loopCounter);
+	target.y = ofLerp(-radius,interactiveHeight,1-loopCounter);//-radius,loopCounter);
+}
+
+//--------------------------------------------------------------
+void ContentBubble::setLoopStart(float interactiveHeight){
+	
+	float scl = interactiveHeight / (interactiveHeight+radius);
+	loopCounter = 1 - (getPosition().y / interactiveHeight)*scl;
 }
 
 //--------------------------------------------------------------
@@ -375,6 +383,14 @@ void ContentBubble::loadFont(float data_radius)
         
         textDisplay.setMessage( txt );        
     }
+    
+   	if(!font.bLoadedOk){
+		font.loadFont("global/font/Gotham-Bold.otf", 50);
+		if(font.bLoadedOk) {
+			printf("--- font is loaded ---\n");	
+		}
+	}
+ 
 }
 
 //--------------------------------------------------------------
@@ -445,22 +461,22 @@ void ContentBubble::drawTwitterData() {
 			}
 			
 			{
-                /*
-                 //JG swapped with text box
 				//draw twitter text content
-				ofRectangle textBB = font.getStringBoundingBox(data->userName, 0,0);
+                string userName = data->userName;
+				ofRectangle textBB = font.getStringBoundingBox(userName, 0,0);
 				glPushMatrix();
 				float s = data_radius/textBB.width*1.75;
-				glScalef(s,s,s);
+                glScalef(s,s,s);
 				glTranslated(-textBB.width/2, 0,0.2);
+
 				ofSetColor(0,0,0, alpha);
-				font.drawString(data->userName,0,0);
-				glTranslatef(2,2,0.2);
+				font.drawString(userName,0,0);
+				glTranslatef(-2*s,-2*s,2);
+
 				ofSetColor(255,255,255, alpha);
-				font.drawString(data->userName,0,0);
-				data->profileImage.unbind();	 //if i take these out, the GUI doesn't draw?		
+                font.drawString(userName,0,0);
+				//data->profileImage.unbind();	 //if i take these out, the GUI doesn't draw?		//jg doesn't seem necessary anymore
 				glPopMatrix();
-                 */
                 
 				
 //				if(txt.empty())txt="lorem ipsum";
@@ -482,27 +498,15 @@ void ContentBubble::drawTwitterData() {
                 
                 //DRAW Twitter Text
                 glPushMatrix();
+                glRotatef(180,0,1,0); //always flip around or text is inverted
+                glTranslatef(0,0,1);
                 ofSetColor(0,0,0, alpha);
                 textDisplay.draw(0, 10);
-                glTranslatef(0,0,-2);
+                glTranslatef(-.75,-.75,1);
                 ofSetColor(255,255,255, alpha);
-                textDisplay.draw(2, 12);
+                textDisplay.draw(0, 10);
                 glPopMatrix();
                
-                string userToDraw = "@"+data->userName;
-                //Draw who it's from, using the other as reference
-                glPushMatrix();
-                ofTrueTypeFont* theFont = textDisplay.getBestFont();
-                ofPoint nameDrawPoint(-theFont->stringWidth(userToDraw) * .5, textDisplay.getTopLeft(0, 10).y - textDisplay.getLineHeight() );
-
-                //draw the name above
-                ofSetColor(0,0,0, alpha);
-                theFont->drawString(userToDraw, nameDrawPoint.x, nameDrawPoint.y );
-                ofTranslate(0,0,-2);
-                ofSetColor(255,255,255,alpha);
-                theFont->drawString(userToDraw, nameDrawPoint.x + 2, nameDrawPoint.y + 2 );
-                glPopMatrix();
-                
                 //JG debug square - leave in plz
 //                ofPushStyle();
 //                ofSetRectMode(OF_RECTMODE_CENTER);

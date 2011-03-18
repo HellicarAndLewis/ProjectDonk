@@ -15,7 +15,7 @@ void InteractionInterview::newBubbleRecieved(Donk::BubbleData * data) {
 	
 	if(bAnimateOut) return;
 
-	float   radius = 180;
+	float   radius = ofRandom(160,220);//180;
 	ofVec3f center(interactiveRect.width/2, 0, 0);
 	ofVec3f startPos(center.x + ofRandom(-300, 300), interactiveRect.height+radius, ofRandom(-100, 100));
 	
@@ -24,9 +24,10 @@ void InteractionInterview::newBubbleRecieved(Donk::BubbleData * data) {
 	
 	bubble->data	  = data;
 	bubble->radius    = radius;
+	bubble->startRadius = radius;
 	bubble->rigidBody = bullet->createSphere(startPos, radius, 1);
 	bubble->createContentBubble();
-	bubble->setTarget(center.x + ofRandom(-300, 300), ofRandom(500, interactiveRect.height-300), 0);
+	bubble->setTarget(center.x + ofRandom(-300, 300), startPos.y-radius, 0 );//ofRandom(500, interactiveRect.height-300), 0);
 	
 	bubble->setContentSideUp();
 	
@@ -52,7 +53,7 @@ void InteractionInterview::update() {
 		if(bubbles[i]->bDoubleTouched) {
 			bubbles[i]->lerpRadius(240, 0.1);
 		}else{
-			bubbles[i]->lerpRadius(180, 0.1);
+			bubbles[i]->lerpRadius(bubbles[i]->startRadius, 0.1);
 		}
 		
 		if(bAnimateOut) {
@@ -66,7 +67,7 @@ void InteractionInterview::update() {
 		else {
 			
 			bubbles[i]->gotoTarget();
-			if(!bubbles[i]->bTouched) {
+			if(!bubbles[i]->bTouched && !bubbles[i]->bDoubleTouched) {
 				bubbles[i]->loopMe(interactiveRect.width, interactiveRect.height);
 			}
 			

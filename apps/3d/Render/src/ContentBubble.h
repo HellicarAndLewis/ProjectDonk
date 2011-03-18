@@ -61,7 +61,7 @@ public:
 	ofVec3f				 buzzDest,buzzOrig;
 	bool				 zoomTouched;	
 	
-	float				 loopCounter;
+	float				 loopCounter,loopTime;
     
     //------------------------ text formatting
     
@@ -94,6 +94,7 @@ public:
 	void bobMe();
 	void buzzMe();
 	void loopMe(float interactiveWidth,float interactiveHeight);
+	void setLoopStart(float interactiveHeight);
 	
 	void pushBubble();
 	void popBubble();

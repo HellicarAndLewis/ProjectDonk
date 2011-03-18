@@ -111,7 +111,7 @@ void BuzzContainerBubble::updateConstraint() {
 		ofVec3f frc = rigidPos - globePos;
 		distanceToTarget = frc.length();
 		float d = ABS(distanceToTarget) * 1;
-		d *= 10000; // um this is a crazy big number... but works...
+		d *= 20000; // um this is a crazy big number... but works...
 		frc.normalize();
 		frc *= d;
 		
