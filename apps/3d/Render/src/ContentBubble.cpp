@@ -502,9 +502,9 @@ void ContentBubble::drawTwitterData() {
                 glTranslatef(0,0,1);
                 ofSetColor(0,0,0, alpha);
                 textDisplay.draw(0, 10);
-                glTranslatef(.2,.1,1);
+                glTranslatef(-.75,-.75,1);
                 ofSetColor(255,255,255, alpha);
-                textDisplay.draw(2, 12);
+                textDisplay.draw(0, 10);
                 glPopMatrix();
                
                 //JG debug square - leave in plz
