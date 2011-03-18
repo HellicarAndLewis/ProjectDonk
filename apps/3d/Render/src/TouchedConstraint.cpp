@@ -18,11 +18,27 @@ TouchedConstraint::TouchedConstraint() {
 	world	   = NULL;
 }
 
+TouchedConstraint::~TouchedConstraint() {
+	
+	if (constraint && world) {
+		world->removeConstraint(constraint);
+	}
+	
+	if(constraint) {
+		delete constraint;
+	}
+}
+
 //--------------------------------------------------------
 void TouchedConstraint::destroy() {
 	if (constraint && world) {
 		world->removeConstraint(constraint);
 	}
+	
+	if(constraint) {
+		delete constraint;
+	}
+	
 	if(body) {
 		body->forceActivationState(ACTIVE_TAG);
 		body->setDeactivationTime( 0.f );
@@ -50,13 +66,13 @@ void TouchedConstraint::setTouchBody(btDiscreteDynamicsWorld * world, btRigidBod
 	btVector3 localPivot = body->getCenterOfMassTransform().inverse() * pickPos;
 	
 	
-	btPoint2PointConstraint * p2p = new btPoint2PointConstraint(*body, localPivot);
+	constraint = new btPoint2PointConstraint(*body, localPivot);
 	
 	this->world = world;
-	world->addConstraint(p2p);
-	constraint = p2p;	
-	p2p->m_setting.m_tau = 0.1f;
+	world->addConstraint(constraint);	
+	static_cast<btPoint2PointConstraint*>(constraint)->m_setting.m_tau = 0.1f;
 	
+	//delete p2p;
 		
 }
 

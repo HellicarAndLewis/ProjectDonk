@@ -16,6 +16,7 @@ public:
 	
 	//--------------------------------------------------------
 	TouchedConstraint();
+	~TouchedConstraint();
 	
 	
 	void destroy();

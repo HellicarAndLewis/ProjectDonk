@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1F9DB94413279A7F00C8C174 /* BrownianObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F9DB94213279A7F00C8C174 /* BrownianObject.cpp */; };
+		4B733F8B1333FD22008BC0F8 /* ofxTextCircleFill.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B733F871333FD22008BC0F8 /* ofxTextCircleFill.cpp */; };
+		4B733F8C1333FD22008BC0F8 /* txtDisplay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B733F891333FD22008BC0F8 /* txtDisplay.cpp */; };
 		5D04B6861328F5660082AFA4 /* MSAFluidDrawerBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5D04B6801328F5660082AFA4 /* MSAFluidDrawerBase.cpp */; };
 		5D04B6871328F5660082AFA4 /* MSAFluidSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5D04B6841328F5660082AFA4 /* MSAFluidSolver.cpp */; };
 		5D04B68C1328F58D0082AFA4 /* Particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5D04B6881328F58D0082AFA4 /* Particle.cpp */; };
@@ -189,7 +191,6 @@
 		81A509A41308C42E00E1911C /* QuestionData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81A509A31308C42E00E1911C /* QuestionData.cpp */; };
 		81CBEF9F1329B41E009DD635 /* ofxBulletCompoundBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81CBEF9D1329B41E009DD635 /* ofxBulletCompoundBody.cpp */; };
 		81D550751327EFFA00BE67D2 /* Champagne.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81D550741327EFFA00BE67D2 /* Champagne.cpp */; };
-		A66D3567133271C5004AD3F2 /* txtDisplay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A66D3565133271C5004AD3F2 /* txtDisplay.cpp */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
 		E45BE97C0E8CC7DD009D7055 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */; };
 		E45BE97D0E8CC7DD009D7055 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9730E8CC7DD009D7055 /* AudioToolbox.framework */; };
@@ -309,6 +310,10 @@
 		1FA8D92B132A2E9D00080DC9 /* parameters.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = parameters.xml; path = bin/data/settings/parameters.xml; sourceTree = "<group>"; };
 		1FEBF35C1324F06F001D9100 /* Light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Light.h; sourceTree = "<group>"; };
 		1FEBF8D713254487001D9100 /* general.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = general.xml; path = bin/data/settings/general.xml; sourceTree = "<group>"; };
+		4B733F871333FD22008BC0F8 /* ofxTextCircleFill.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxTextCircleFill.cpp; sourceTree = "<group>"; };
+		4B733F881333FD22008BC0F8 /* ofxTextCircleFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxTextCircleFill.h; sourceTree = "<group>"; };
+		4B733F891333FD22008BC0F8 /* txtDisplay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = txtDisplay.cpp; sourceTree = "<group>"; };
+		4B733F8A1333FD22008BC0F8 /* txtDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = txtDisplay.h; sourceTree = "<group>"; };
 		5D04B67E1328F5660082AFA4 /* CinderMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CinderMath.h; path = ../../../addons/msaFluidSlim/CinderMath.h; sourceTree = SOURCE_ROOT; };
 		5D04B67F1328F5660082AFA4 /* MSAFluid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSAFluid.h; path = ../../../addons/msaFluidSlim/MSAFluid.h; sourceTree = SOURCE_ROOT; };
 		5D04B6801328F5660082AFA4 /* MSAFluidDrawerBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MSAFluidDrawerBase.cpp; path = ../../../addons/msaFluidSlim/MSAFluidDrawerBase.cpp; sourceTree = SOURCE_ROOT; };
@@ -919,8 +924,6 @@
 		81CBEF9D1329B41E009DD635 /* ofxBulletCompoundBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxBulletCompoundBody.cpp; path = ../../../addons/ofxBullet/src/ofxBulletCompoundBody.cpp; sourceTree = SOURCE_ROOT; };
 		81CBEF9E1329B41E009DD635 /* ofxBulletCompoundBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxBulletCompoundBody.h; path = ../../../addons/ofxBullet/src/ofxBulletCompoundBody.h; sourceTree = SOURCE_ROOT; };
 		81D550741327EFFA00BE67D2 /* Champagne.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Champagne.cpp; sourceTree = "<group>"; };
-		A66D3565133271C5004AD3F2 /* txtDisplay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = txtDisplay.cpp; sourceTree = "<group>"; };
-		A66D3566133271C5004AD3F2 /* txtDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = txtDisplay.h; sourceTree = "<group>"; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
 		E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
 		E45BE9730E8CC7DD009D7055 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
@@ -1171,6 +1174,18 @@
 			);
 			name = ofxMacKeys;
 			sourceTree = "<group>";
+		};
+		4B733F861333FD22008BC0F8 /* ofxTextCircleFill */ = {
+			isa = PBXGroup;
+			children = (
+				4B733F871333FD22008BC0F8 /* ofxTextCircleFill.cpp */,
+				4B733F881333FD22008BC0F8 /* ofxTextCircleFill.h */,
+				4B733F891333FD22008BC0F8 /* txtDisplay.cpp */,
+				4B733F8A1333FD22008BC0F8 /* txtDisplay.h */,
+			);
+			name = ofxTextCircleFill;
+			path = ../../../addons/ofxTextCircleFill;
+			sourceTree = SOURCE_ROOT;
 		};
 		5D04B67D1328F5660082AFA4 /* msaFluidSlim */ = {
 			isa = PBXGroup;
@@ -2283,20 +2298,10 @@
 			path = src;
 			sourceTree = "<group>";
 		};
-		A66D3564133271C5004AD3F2 /* ofxTextBox */ = {
-			isa = PBXGroup;
-			children = (
-				A66D3566133271C5004AD3F2 /* txtDisplay.h */,
-				A66D3565133271C5004AD3F2 /* txtDisplay.cpp */,
-			);
-			name = ofxTextBox;
-			path = ../../../addons/ofxTextBox;
-			sourceTree = "<group>";
-		};
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
-				A66D3564133271C5004AD3F2 /* ofxTextBox */,
+				4B733F861333FD22008BC0F8 /* ofxTextCircleFill */,
 				EA5850AD1331150F0048F3C3 /* ofxPolygonMask */,
 				5FFBEFBC132952AC009FBC1A /* ofxDirList */,
 				5D04B67D1328F5660082AFA4 /* msaFluidSlim */,
@@ -2972,7 +2977,6 @@
 			isa = PBXProject;
 			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "Render" */;
 			compatibilityVersion = "Xcode 2.4";
-			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				English,
@@ -3266,7 +3270,8 @@
 				EA5850B71331150F0048F3C3 /* ofxPolygonMask.cpp in Sources */,
 				5F15EF6E13313FF9008D9396 /* polygonblend.frag in Sources */,
 				5F15EF6F13313FF9008D9396 /* polygonblend.vert in Sources */,
-				A66D3567133271C5004AD3F2 /* txtDisplay.cpp in Sources */,
+				4B733F8B1333FD22008BC0F8 /* ofxTextCircleFill.cpp in Sources */,
+				4B733F8C1333FD22008BC0F8 /* txtDisplay.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
