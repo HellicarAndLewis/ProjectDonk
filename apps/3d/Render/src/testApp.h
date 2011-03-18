@@ -16,6 +16,8 @@
 #include "ofxMacKeys.h"
 #include "GradientProjection.h"
 
+//#define AUTO_TESTING
+
 class testApp : public Donk::App {
 
 public:
@@ -67,6 +69,13 @@ public:
 	ofxTuioClient tuio;
 	Donk::AudioData *audioData;
 	GradientProjection gradientProjection;
+	
+	
+#ifdef AUTO_TESTING// testing
+    float switchModeTime, switchModeLastTime;
+    float makeBubbleTime, makeBubbleLastTime;
+#endif
+
 };
 
 #endif
