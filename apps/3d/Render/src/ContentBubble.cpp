@@ -383,6 +383,14 @@ void ContentBubble::loadFont(float data_radius)
         
         textDisplay.setMessage( txt );        
     }
+    
+   	if(!font.bLoadedOk){
+		font.loadFont("global/font/Gotham-Bold.otf", 50);
+		if(font.bLoadedOk) {
+			printf("--- font is loaded ---\n");	
+		}
+	}
+ 
 }
 
 //--------------------------------------------------------------
@@ -453,22 +461,22 @@ void ContentBubble::drawTwitterData() {
 			}
 			
 			{
-                /*
-                 //JG swapped with text box
 				//draw twitter text content
-				ofRectangle textBB = font.getStringBoundingBox(data->userName, 0,0);
+                string userName = data->userName;
+				ofRectangle textBB = font.getStringBoundingBox(userName, 0,0);
 				glPushMatrix();
 				float s = data_radius/textBB.width*1.75;
-				glScalef(s,s,s);
+                glScalef(s,s,s);
 				glTranslated(-textBB.width/2, 0,0.2);
+
 				ofSetColor(0,0,0, alpha);
-				font.drawString(data->userName,0,0);
-				glTranslatef(2,2,0.2);
+				font.drawString(userName,0,0);
+				glTranslatef(-2*s,-2*s,2);
+
 				ofSetColor(255,255,255, alpha);
-				font.drawString(data->userName,0,0);
-				data->profileImage.unbind();	 //if i take these out, the GUI doesn't draw?		
+                font.drawString(userName,0,0);
+				//data->profileImage.unbind();	 //if i take these out, the GUI doesn't draw?		//jg doesn't seem necessary anymore
 				glPopMatrix();
-                 */
                 
 				
 //				if(txt.empty())txt="lorem ipsum";
@@ -490,27 +498,15 @@ void ContentBubble::drawTwitterData() {
                 
                 //DRAW Twitter Text
                 glPushMatrix();
+                glRotatef(180,0,1,0); //always flip around or text is inverted
+                glTranslatef(0,0,1);
                 ofSetColor(0,0,0, alpha);
                 textDisplay.draw(0, 10);
-                glTranslatef(0,0,-2);
+                glTranslatef(.2,.1,1);
                 ofSetColor(255,255,255, alpha);
                 textDisplay.draw(2, 12);
                 glPopMatrix();
                
-                string userToDraw = "@"+data->userName;
-                //Draw who it's from, using the other as reference
-                glPushMatrix();
-                ofTrueTypeFont* theFont = textDisplay.getBestFont();
-                ofPoint nameDrawPoint(-theFont->stringWidth(userToDraw) * .5, textDisplay.getTopLeft(0, 10).y - textDisplay.getLineHeight() );
-
-                //draw the name above
-                ofSetColor(0,0,0, alpha);
-                theFont->drawString(userToDraw, nameDrawPoint.x, nameDrawPoint.y );
-                ofTranslate(0,0,-2);
-                ofSetColor(255,255,255,alpha);
-                theFont->drawString(userToDraw, nameDrawPoint.x + 2, nameDrawPoint.y + 2 );
-                glPopMatrix();
-                
                 //JG debug square - leave in plz
 //                ofPushStyle();
 //                ofSetRectMode(OF_RECTMODE_CENTER);
