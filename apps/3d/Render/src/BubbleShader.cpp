@@ -176,7 +176,7 @@ void BubbleShader::begin(){
 	
 
 	
-	
+	delete cpos;
 	delete pos;
 	delete lPos;
 	delete eyeVector;
