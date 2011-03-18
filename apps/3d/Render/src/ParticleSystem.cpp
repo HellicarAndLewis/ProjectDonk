@@ -8,18 +8,26 @@
 
 #include "ParticleSystem.h"
 
-ParticleSystem::ParticleSystem() 
+ParticleSystem::ParticleSystem()
 {
+	currentImage = 0;
 	curIndex = 0;
 	//setWindowSize( ofVec2f( 1, 1 ) );
 	
 	shader.setup("shader/pointShader.vs", "shader/pointShader.fs" );
 	
 	ofDisableArbTex();
-	dustParticle.loadImage("shader/pointSpriteImg.png");
+	//dustParticle.loadImage("shader/pointSpriteImg.png");
+	interviewPointSprite.loadImage("shader/InterviewSpriteImg_001.png");
+	buzzPointSprite.loadImage("shader/BuzzSpriteImg_001.png");
+	votePointSprite.loadImage("shader/VoteSpriteImg_002.png");
+	performancePointSprite.loadImage("shader/PerformanceSpriteImg_001.png");
+	inspirationPointSprite.loadImage("shader/InspirationSpriteImg_002.png");
+	
 	ofEnableArbTex();
 	
 	drawingType = SHADED_POINT_SPRITE;
+	setInteractionMode(MODE_INTERVIEW);
 }
 
 void ParticleSystem::init(ofVec2f simulationPixelSize)
@@ -64,6 +72,30 @@ void ParticleSystem::init(ofVec2f simulationPixelSize)
 	}
 }
 
+void ParticleSystem::setInteractionMode(int mode)
+{
+	interactionMode = mode;
+	switch (mode) {
+		case MODE_BUZZ:
+			currentImage = &buzzPointSprite;
+			break;
+		case MODE_INTERVIEW:
+			currentImage = &interviewPointSprite;
+			break;
+		case MODE_INSPIRATION:
+			currentImage = &inspirationPointSprite;
+			break;
+		case MODE_VOTE:
+			currentImage = &votePointSprite;
+			break;
+		case MODE_PERFORMANCE:
+			currentImage = &performancePointSprite;
+			break;
+		default:
+			break;
+	}
+}
+
 void ParticleSystem::draw( bool drawingFluid ){
 
 	
@@ -98,7 +130,7 @@ void ParticleSystem::draw( bool drawingFluid ){
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 			
 			glDisable(GL_DEPTH_TEST);
-			dustParticle.bind();
+			currentImage->bind();
 			
 			glEnable(GL_POINT_SPRITE);
 			glTexEnvi(GL_POINT_SPRITE, GL_COORD_REPLACE, GL_TRUE);
@@ -114,7 +146,7 @@ void ParticleSystem::draw( bool drawingFluid ){
 			
 			glDisableClientState(GL_VERTEX_ARRAY);
 			
-			dustParticle.unbind();
+			currentImage->unbind();
 			
 			// Clean up
 			glDisableClientState(GL_VERTEX_ARRAY); 
@@ -150,7 +182,7 @@ void ParticleSystem::draw( bool drawingFluid ){
 			//glEnable(GL_ALPHA);
 			glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
 			
-			dustParticle.bind();
+			currentImage->bind();
 			
 			glEnable(GL_POINT_SPRITE);
 			glTexEnvi(GL_POINT_SPRITE, GL_COORD_REPLACE, GL_TRUE);
@@ -167,7 +199,7 @@ void ParticleSystem::draw( bool drawingFluid ){
 			glDisableClientState(GL_VERTEX_ARRAY);
 			glDisableClientState(GL_COLOR_ARRAY);
 				
-			dustParticle.unbind();
+			currentImage->unbind();
 			
 			// Clean up			
 			glDisable(GL_POINT_SPRITE);

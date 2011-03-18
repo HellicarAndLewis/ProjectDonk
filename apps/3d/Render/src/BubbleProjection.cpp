@@ -95,43 +95,42 @@ void BubbleProjection::interactionModeChange(string modeName) {
 	int mode = -1;
 	if(modeName		 == "buzz")	{
 		mode = MODE_BUZZ;
-		drawingChampagne = false;
-		drawingParticles = true;
-		particleSys.useGravity = true;
-		particleSys.pointSize = 2; // only doing this b/c point sprites don't work
-		particleSys.particleColor.set(1, 1, 1, 0.75);
+		//drawingChampagne = false;
+		//drawingParticles = true;
 	}
 	else if(modeName == "inspiration") {
 		mode = MODE_INSPIRATION;
 		/*particleSys.useGravity = false;
 		particleSys.pointSize = 5; // only doing this b/c point sprites don't work
 		particleSys.particleColor.set(1, 1, 1, 0.75);*/
-		drawingChampagne = true;
-		drawingParticles = false;
+		//drawingChampagne = true;
+		//drawingParticles = false;
 	}
 	else if(modeName == "interview") {
 		
 		mode = MODE_INTERVIEW;
-		drawingChampagne = false;
-		drawingParticles = true;
+		//drawingChampagne = false;
+		//drawingParticles = true;
 		particleSys.useGravity = false;
 		particleSys.pointSize = 5;  // only doing this b/c point sprites don't work
 	}
 	else if(modeName == "vote") {
 		mode = MODE_VOTE;
-		drawingChampagne = false;
-		drawingParticles = true;
+		//drawingChampagne = false;
+		//drawingParticles = true;
 		particleSys.useGravity = true;
 		particleSys.pointSize = 2;  // only doing this b/c point sprites don't work
 		particleSys.particleColor.set(0, 1, 1, 0.75);
 	}
 	else if(modeName == "performance") {
 		mode = MODE_PERFORMANCE;
-		drawingChampagne = false;
-		drawingParticles = true;
+		//drawingChampagne = false;
+		//drawingParticles = true;
 		particleSys.pointSize = 5;  // only doing this b/c point sprites don't work
 		particleSys.particleColor.set(1, 1, 0, 0.75);
 	}
+	
+	particleSys.setInteractionMode(mode);
 	
 	
 	if(mode != -1) {

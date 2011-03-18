@@ -13,6 +13,8 @@
 #include "Particle.h"
 #include "MSAFluid.h"
 
+#include "BaseInteraction.h"
+
 #define NUM_EMITTERS		6
 #define MAX_PARTICLES		2000 //50000
 
@@ -35,6 +37,9 @@ public:
 	void addForceAndParticle(ofVec2f pos, ofVec2f vel, bool addColor, bool addForce);
 	void addForceAtPoint( ofVec2f position );
 	
+	// set interaction
+	void setInteractionMode(int mode);
+	
     float				posArray[MAX_PARTICLES * 2 * 2];
     float				colArray[MAX_PARTICLES * 3 * 2];
 	float				heightArray[MAX_PARTICLES  * 2 * 2];
@@ -54,15 +59,25 @@ public:
 	ofVec2f				forceEmitters[6];
 	int					currentEmitter;
 	ofShader			shader;
-	ofTexture			pointSpriteTexture;
 	DRAWING_TYPE		drawingType;
 	
 	/// mode options
 	bool				useGravity;
-	// only using this b/c point sprite is broken due to secret OF-magic GL conflicts
 	ofColor				particleColor;
-	// only using this b/c point sprite is broken due to secret OF-magic GL conflicts
 	float				pointSize;
+	
+	// point sprites
+	ofImage				interviewPointSprite;
+	ofImage				buzzPointSprite;
+	ofImage				votePointSprite;
+	ofImage				performancePointSprite;
+	ofImage				inspirationPointSprite;
+	
+	ofImage*			currentImage;
+	
+	// mode
+	int					interactionMode;
+	
 	
 };
 
