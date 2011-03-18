@@ -548,7 +548,6 @@ void BubbleProjection::touchMoved(float x, float y, int touchId) {
 //--------------------------------------------------------
 void BubbleProjection::touchUp(float x, float y, int touchId) {
 	
-	cout << "touch up " << endl;
 	
 	bTouchDown = false;
 	
@@ -575,6 +574,11 @@ void BubbleProjection::touchUp(float x, float y, int touchId) {
 				
 				if (activeInteraction->name == "buzz") {
 					if( !activeInteraction->bAnimateOut ) bubble->setTarget(pos.x, pos.y);
+				}
+				
+				if (activeInteraction->name == "performance") {
+					bubble->setTarget(pos.x, pos.y);
+					bubble->performanceStartTarget = bubble->target;
 				}
 				
 				bubble->bTouched = false;
