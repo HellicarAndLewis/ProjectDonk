@@ -297,7 +297,7 @@ bool  TxtDisplay::fitText( vector<string> wrds, vector<messageLines> & linZ, int
 	ofTrueTypeFont * myFont = getFontFromSize(fontSize);
 	lineHeight = myFont->stringHeight("O");
     
-    cout << " line height <-> font :: " << lineHeight << " <-> " << fontSize << endl;
+    //cout << " line height <-> font :: " << lineHeight << " <-> " << fontSize << endl;
     
 	// min max box 
 	float maxLineWidth = textBoxWidth;

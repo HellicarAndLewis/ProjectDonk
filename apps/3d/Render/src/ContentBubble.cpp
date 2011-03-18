@@ -374,9 +374,8 @@ void ContentBubble::loadFont(float data_radius)
 {
     //lazyload the font
     if(!textDisplay.bFontsLoaded){
-        textDisplay.textBoxWidth = data_radius*contentExpand.x; //skootch it wide a bit.
-        textDisplay.textBoxHeight = data_radius*contentExpand.y;
-        textDisplay.setup("global/font/Gotham-Bold.otf", minFontSize, maxFontSize, 1); 
+
+        textDisplay.setup("global/font/Gotham-Bold.otf", minFontSize, maxFontSize, 1, data_radius*1.5); 
         
         string txt = data->text;
         if(txt.empty())txt="lorem ipsum"; //hmmm....maybe better answer?

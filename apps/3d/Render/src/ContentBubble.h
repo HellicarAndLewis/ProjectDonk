@@ -12,7 +12,8 @@
 #include "ofxBullet.h"
 #include "BubbleData.h"
 #include "ofxCubeMap.h"
-#include "txtDisplay.h"
+//#include "txtDisplay.h"
+#include "ofxTextCircleFill.h"
 
 //--------------------------------------------------------------
 class ContentBubble {
@@ -66,7 +67,8 @@ public:
     //------------------------ text formatting
     
 	static ofTrueTypeFont   font; //JG now this is just used on VOTE
-	TxtDisplay              textDisplay;
+	//TxtDisplay              textDisplay;
+    ofxTextCircleFill  textDisplay;
     ofPoint                 contentExpand;
     int                     minFontSize;
     int                     maxFontSize;
