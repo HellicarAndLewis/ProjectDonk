@@ -17,6 +17,7 @@ public:
 	
 	InteractionInterview() {
 		mode = MODE_INTERVIEW;
+		name = "interview";
 	}
 	
 	//--------------------------------------------------------
