@@ -1,4 +1,5 @@
 attribute float pointSize;
+varying float alpha;
 
 void main(void)
 {
@@ -7,6 +8,7 @@ void main(void)
    gl_Position = gl_ProjectionMatrix * eyeCoord;
    float dist = sqrt(eyeCoord.x*eyeCoord.x + eyeCoord.y*eyeCoord.y + eyeCoord.z*eyeCoord.z);
    float att = 500.0 / dist;
-   gl_PointSize = pointSize * att;
+   gl_PointSize = clamp(pointSize * att, 4.0, 16.0);
    gl_FrontColor = gl_Color;
+   alpha = pointSize/10.0;
 }

@@ -16,6 +16,7 @@ static const float FLUID_FORCE = 0.6f;
 
 Particle::Particle() {
 	incAlpha = true;
+	alpha = 0.1;
 }
 
 void Particle::init(float x, float y, ofVec2f gravitionalForce) {
@@ -75,6 +76,7 @@ void Particle::update( const FluidSolver &solver, const ofVec2f &windowSize, con
 
 void Particle::updateVertexArrays( bool drawingFluid, const ofVec2f &invWindowSize, int i, float* posBuffer, float* colBuffer, float* heightBuffer) {
 	int vi = i * 4;
+	int hi = i * 4;
 	if( gravity.y != 0 )
 	{
 		posBuffer[vi++] = pos.x - vel.x;
@@ -89,12 +91,11 @@ void Particle::updateVertexArrays( bool drawingFluid, const ofVec2f &invWindowSi
 		posBuffer[vi++] = pos.x;
 		posBuffer[vi++] = pos.y;
 	}
-
 		
-	heightBuffer[vi++] = alpha * 16;
-	heightBuffer[vi++] = alpha * 16;
-	heightBuffer[vi++] = alpha * 16;
-	heightBuffer[vi++] = alpha * 16;
+	heightBuffer[hi++] = alpha;
+	heightBuffer[hi++] = alpha;
+	heightBuffer[hi++] = alpha;
+	heightBuffer[hi++] = alpha;
 	
 	int ci = i * 6;
 	if( drawingFluid ) {

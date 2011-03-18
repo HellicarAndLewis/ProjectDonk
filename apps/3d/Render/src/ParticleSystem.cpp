@@ -25,7 +25,7 @@ ParticleSystem::ParticleSystem()
 void ParticleSystem::init(ofVec2f simulationPixelSize)
 {
 	// setup fluid stuff
-	fluidSolver.setup(100, 100);
+	fluidSolver.setup(50, 50); //fluidSolver.setup(100, 100);
     fluidSolver.enableRGB(true);
 	fluidSolver.setFadeSpeed(0.002f);
 	fluidSolver.setDeltaT(1);
@@ -55,6 +55,12 @@ void ParticleSystem::init(ofVec2f simulationPixelSize)
 	for(int i = NUM_EMITTERS/2; i<NUM_EMITTERS; i++)
 	{
 		forceEmitters[i].set((i-NUM_EMITTERS/2)*inc, windowSize.y/2);
+	}
+	
+	for( int i = 0; i < MAX_PARTICLES; i++) {
+		ofVec2f pos(ofRandom(windowSize.x), ofRandom(windowSize.y));
+		ofVec2f vel(sin(ofGetFrameNum()), cos(ofGetFrameNum()));
+		addForceAndParticle(pos, vel, true, true);
 	}
 }
 
@@ -121,52 +127,54 @@ void ParticleSystem::draw( bool drawingFluid ){
 		case SHADED_POINT_SPRITE:
 		{
 			
-			pointSize = 16;
-			glPointSize(pointSize);
+			//pointSize = 16;
+			//glPointSize(pointSize);
+			
+			ofEnableAlphaBlending();
+			
+			shader.begin(); // Turn on the Shader
 			
 			//glEnable(GL_BLEND);
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 			
-			glColor3f(particleColor.r, particleColor.g, particleColor.b);
+			//glColor3f(particleColor.r, particleColor.g, particleColor.b);
 			//ofSetColor(particleColor);
 			
 			// Get the attribute and bind it
-			
-			//shader.begin(); // Turn on the Shader
-			//glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
-			/*GLint pixel_loc = glGetAttribLocation(shader.getProgram(), "pointSize");
-			glVertexAttribPointer(pixel_loc, 4, GL_FLOAT, false, 0, heightArray);
+			GLint pixel_loc = glGetAttribLocation(shader.getProgram(), "pointSize");
+			glVertexAttribPointer(pixel_loc, 4, GL_FLOAT, GL_TRUE, 0, heightArray);
 			glBindAttribLocation(shader.getProgram(), pixel_loc, "pointSize");
-			glEnableVertexAttribArray(pixel_loc); */
-
+			glEnableVertexAttribArray(pixel_loc);
+			
 			glDisable(GL_DEPTH_TEST);
+			//glEnable(GL_ALPHA);
 			glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
+			
+			dustParticle.bind();
 			
 			glEnable(GL_POINT_SPRITE);
 			glTexEnvi(GL_POINT_SPRITE, GL_COORD_REPLACE, GL_TRUE);
-			
-			dustParticle.bind();
+			glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
 			
 			glEnableClientState(GL_VERTEX_ARRAY);
 			glVertexPointer(2, GL_FLOAT, 0, posArray);
 			
-			//glEnableClientState(GL_COLOR_ARRAY);
-			//glColorPointer(3, GL_FLOAT, 0, colArray);
+			glEnableClientState(GL_COLOR_ARRAY);
+			glColorPointer(3, GL_FLOAT, 0, colArray);
 			
 			glDrawArrays(GL_POINTS, 0, MAX_PARTICLES * 2);
 			
 			glDisableClientState(GL_VERTEX_ARRAY);
-			//glDisableClientState(GL_COLOR_ARRAY);
+			glDisableClientState(GL_COLOR_ARRAY);
 				
 			dustParticle.unbind();
 			
-			// Clean up
-			glDisableClientState(GL_VERTEX_ARRAY); 
-			
+			// Clean up			
 			glDisable(GL_POINT_SPRITE);
-			//glDisableVertexAttribArray(pixel_loc);
-			//shader.end();
-			//glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
+			glDisableVertexAttribArray(pixel_loc);
+		//	glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
+			
+			shader.end();
 			
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // put blending back
 
@@ -181,7 +189,7 @@ void ParticleSystem::update()
 {	
 	
 	fluidSolver.update();
-	
+	/*
 	for(int i = 0 ; i<NUM_EMITTERS; i++)
 	{
 		
@@ -198,15 +206,15 @@ void ParticleSystem::update()
 		//addForceAndParticle(forceEmitters[i], vel, true, true);
 		int index = fluidSolver.getIndexForPos(constrainPos);
 		fluidSolver.addForceAtIndex(index, vel * velocityMult);
-	}
+	}*/
 	
-	if(ofGetFrameNum() % 2 == 0 ) {
+	/*if(ofGetFrameNum() % 2 == 0 ) {
 		
 		ofVec2f pos(ofRandom(windowSize.x), ofRandom(windowSize.y));
 		ofVec2f vel(sin(ofGetFrameNum()), cos(ofGetFrameNum()));
 		addForceAndParticle(pos, vel, true, true);
 		
-	}
+	}*/
 	
 	// update each particle
 	for(int i=0; i<MAX_PARTICLES - 1; i++) {
