@@ -36,6 +36,8 @@ void InteractionVote::setChoiceBubble(int i, string choice) {
 	
 	voteBubbles[i]->data	  = NULL;
 	voteBubbles[i]->radius    = radius;
+	voteBubbles[i]->startRadius = radius;
+	voteBubbles[i]->maxRadius = radius;
 	voteBubbles[i]->rigidBody = bullet->createSphere(startPos, radius, 1);
 	voteBubbles[i]->createContentBubble();
 	voteBubbles[i]->setTarget(target.x, target.y, target.z);
