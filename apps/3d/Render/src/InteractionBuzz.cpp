@@ -338,6 +338,8 @@ void InteractionBuzz::killallBubbles() {
 void InteractionBuzz::doubleTouched(ofVec2f touchpos)
 {
 	
+	if(bAnimateOut) return;
+	
 	// find out who has been popped
 	int poppedID = -1;
 	
