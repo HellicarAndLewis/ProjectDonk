@@ -31,7 +31,7 @@ namespace Donk {
 		string getMode();
         
 		float getValue(const string &name);
-		string getMode();
+		
 		
 		
 		/** for debugging */
