@@ -49,7 +49,8 @@ ContentBubble::ContentBubble() {
 	buzzTime	= 0;
 	buzzWait	= 0.1;
 	loopCounter = 0;
-    
+    loopTime = ofRandom(.0015,.0025);
+	
     //JG added these vars for formatting font under different conditions.
     contentExpand = ofPoint(1.7, 1.5); //needed for formatting, multiplied by the radius. 1,1 is no change
     maxFontSize = 15;
@@ -172,7 +173,7 @@ void ContentBubble::buzzMe() {
 //--------------------------------------------------------------
 void ContentBubble::loopMe(float interactiveWidth,float interactiveHeight){
 	
-	if(loopCounter < 1 ) loopCounter += .0015;
+	if(loopCounter < 1 ) loopCounter += loopTime;//.0015;
 	
 	if( getPosition().y < -radius )
 	{
@@ -181,7 +182,14 @@ void ContentBubble::loopMe(float interactiveWidth,float interactiveHeight){
 	}
 	
 	target.x = getPosition().x;
-	target.y = ofLerp(interactiveHeight,-radius,loopCounter);
+	target.y = ofLerp(-radius,interactiveHeight,1-loopCounter);//-radius,loopCounter);
+}
+
+//--------------------------------------------------------------
+void ContentBubble::setLoopStart(float interactiveHeight){
+	
+	float scl = interactiveHeight / (interactiveHeight+radius);
+	loopCounter = 1 - (getPosition().y / interactiveHeight)*scl;
 }
 
 //--------------------------------------------------------------
