@@ -12,6 +12,7 @@ ParticleSystem::ParticleSystem()
 {
 	currentImage = 0;
 	curIndex = 0;
+	useGravity = true;
 	//setWindowSize( ofVec2f( 1, 1 ) );
 	
 	shader.setup("shader/pointShader.vs", "shader/pointShader.fs" );
@@ -169,9 +170,6 @@ void ParticleSystem::draw( bool drawingFluid ){
 			//glEnable(GL_BLEND);
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 			
-			//glColor3f(particleColor.r, particleColor.g, particleColor.b);
-			//ofSetColor(particleColor);
-			
 			// Get the attribute and bind it
 			GLint pixel_loc = glGetAttribLocation(shader.getProgram(), "pointSize");
 			glVertexAttribPointer(pixel_loc, 4, GL_FLOAT, GL_TRUE, 0, heightArray);
@@ -314,7 +312,6 @@ void ParticleSystem::addForceAndParticle( ofVec2f pos, ofVec2f vel, bool addColo
 
 void ParticleSystem::addParticles( const ofVec2f &pos, int count ){
 	for(int i=0; i<count; i++)
-		//addParticle( pos + Rand::randofVec2f() * 15 );
 		addParticle( pos + ofVec2f(ofRandom(20), ofRandom(20)) );
 }
 
@@ -324,9 +321,9 @@ void ParticleSystem::addParticle( const ofVec2f &pos ) {
 	if(curIndex < MAX_PARTICLES) 
 	{
 		if(useGravity) {
-			particles[curIndex].init( pos.x, pos.y );
+			particles[curIndex].init( pos.x, pos.y, ofVec2f(0, -0.5));
 		} else {
-			particles[curIndex].init( pos.x, pos.y, ofVec2f(0, -1));
+			particles[curIndex].init( pos.x, pos.y );
 		}
 		curIndex++;
 	}

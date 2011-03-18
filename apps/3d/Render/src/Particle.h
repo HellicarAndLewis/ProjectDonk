@@ -16,7 +16,7 @@ using namespace MSA;
 
 class Particle {
 public:	
-    ofVec2f	pos, vel, gravity;
+    ofVec2f	pos, vel, gravity, windowSize;
     float	radius;
     float	alpha;
     float	mass;

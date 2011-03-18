@@ -16,7 +16,7 @@ void InteractionInspiration::newBubbleRecieved(Donk::BubbleData * data) {
 	if(bAnimateOut) return;
 
 	ofVec3f center(interactiveRect.width/2, 0, 0);
-	float   radius = ofRandom( 20, 80 );
+	float   radius = ofRandom( 70, 90 );
 	
 	ofVec3f startPos;
 	startPos.x = (int)ofRandom(0,2) ? -100 : interactiveRect.width+100;
@@ -27,6 +27,8 @@ void InteractionInspiration::newBubbleRecieved(Donk::BubbleData * data) {
 	
 	bubble->data	  = data;
 	bubble->radius    = radius;
+	bubble->startRadius  = radius;
+	bubble->maxRadius    = 150.f;
 	bubble->rigidBody = bullet->createSphere(startPos, radius, 1);
 	bubble->createContentBubble();
 	bubble->setTarget(center.x + ofRandom(-300, 300), ofRandom(500, interactiveRect.height-300), 0);
@@ -51,9 +53,9 @@ void InteractionInspiration::update() {
 
 		
 		if(bubbles[i]->zoomTouched) {
-			bubbles[i]->lerpRadius(150,0.1);
+			bubbles[i]->lerpRadius(bubbles[i]->maxRadius,0.1);
 		}else{
-			bubbles[i]->lerpRadius(90,0.1);
+			bubbles[i]->lerpRadius(bubbles[i]->startRadius,0.1);
 		}
 		
 		if(nTouches == 0) {
