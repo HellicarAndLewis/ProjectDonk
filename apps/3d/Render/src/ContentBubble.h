@@ -31,7 +31,7 @@ public:
 	float				 distanceToTarget;
 	float				 alpha;
 	ofColor				 color;
-	float			     radius, originalRadius;
+	float			     radius;
 	float				 targetForce;
 	Donk::BubbleData *   data;
 	
@@ -46,7 +46,7 @@ public:
 	int					 performceImageID;
 	int					 performanceChannel;
 	ofVec3f				 performanceStartTarget;
-	float				 startRadius;
+	float				 startRadius, maxRadius;
 	
 	// --------------------------------- things for vote
 	int					 voteBubbleID;
