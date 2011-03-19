@@ -46,8 +46,8 @@ public:
 	ofVec2f				windowSize;
 	ofVec2f				invWindowSize;
     int					curIndex;
-	ofImage				dustParticle;
     Particle			particles[MAX_PARTICLES];
+	float				spriteSize;
 	int					fluidCellsX;
 	bool				resizeFluid;
 	bool				drawFluid;

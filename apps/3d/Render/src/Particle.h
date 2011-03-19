@@ -17,16 +17,18 @@ using namespace MSA;
 class Particle {
 public:	
     ofVec2f	pos, vel, gravity, windowSize;
-    float	radius;
+    float	spriteSize;
     float	alpha;
     float	mass;
 	
 	bool	incAlpha;
 	
+	
+	
 	Particle();
 	void init(float x, float y);
     void init(float x, float y, ofVec2f gravitationalForce);
-    void update( const FluidSolver &solver, const ofVec2f &windowSize, const ofVec2f &invWindowSize );
+    void update( const FluidSolver &solver, const ofVec2f &windowSize, const ofVec2f &invWindowSize, float maxSpriteSize );
 	void updateVertexArrays( bool drawingFluid, const ofVec2f &invWindowSize, int i, float* posBuffer, float* colBuffer, float* heightBuffer);
 };
 

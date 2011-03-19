@@ -26,7 +26,6 @@ void Particle::init(float x, float y, ofVec2f gravitionalForce) {
 	pos.set(x, y);
 	gravity.set(gravitionalForce); 
 	vel.set(0, 0);
-	radius = 5;
 	alpha = ofRandomuf();
 	mass = ofRandom(0.3f)+0.1; //Rand::randFloat( 0.1f, 1 );
 	
@@ -38,13 +37,12 @@ void Particle::init(float x, float y) {
 	
 	pos.set(x, y);
 	vel.set(0, 0);//vel.set(ofRandom(0.5), ofRandom(0.5));
-	radius = 5;
 	alpha = ofRandomuf();
 	mass = ofRandom(0.3f)+0.1; //Rand::randFloat( 0.1f, 1 );
 
 }
 
-void Particle::update( const FluidSolver &solver, const ofVec2f &windowSize, const ofVec2f &invWindowSize ) {
+void Particle::update( const FluidSolver &solver, const ofVec2f &windowSize, const ofVec2f &invWindowSize, float maxSpriteSize ) {
 	// only update if particle is visible
 	if( alpha == 0 ) {
 		return;
@@ -87,6 +85,8 @@ void Particle::update( const FluidSolver &solver, const ofVec2f &windowSize, con
 			incAlpha = true;
 		}
 	}
+	
+	spriteSize = maxSpriteSize;
 
 }
 
@@ -111,10 +111,10 @@ void Particle::updateVertexArrays( bool drawingFluid, const ofVec2f &invWindowSi
 	posBuffer[vi++] = pos.y;
 
 		
-	heightBuffer[hi++] = alpha*96;
-	heightBuffer[hi++] = alpha*96;
-	heightBuffer[hi++] = alpha*96;
-	heightBuffer[hi++] = alpha*96;
+	heightBuffer[hi++] = alpha*spriteSize;
+	heightBuffer[hi++] = alpha*spriteSize;
+	heightBuffer[hi++] = alpha*spriteSize;
+	heightBuffer[hi++] = alpha*spriteSize;
 	
 	int ci = i * 6;
 	if( drawingFluid ) {

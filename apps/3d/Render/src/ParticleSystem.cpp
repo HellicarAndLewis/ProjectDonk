@@ -13,6 +13,7 @@ ParticleSystem::ParticleSystem()
 	currentImage = 0;
 	curIndex = 0;
 	useGravity = true;
+	spriteSize = 96.0;
 	//setWindowSize( ofVec2f( 1, 1 ) );
 	
 	shader.setup("shader/pointShader.vs", "shader/pointShader.fs" );
@@ -163,6 +164,7 @@ void ParticleSystem::draw( bool drawingFluid ){
 			ofEnableAlphaBlending();
 			
 			shader.begin(); // Turn on the Shader
+			shader.setUniform1f("maxSpriteSize", spriteSize);
 
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 			
@@ -248,7 +250,8 @@ void ParticleSystem::update()
 	// update each particle
 	for(int i = 0; i<MAX_PARTICLES-1; i++) {
 		if(particles[i].alpha > 0) {
-			particles[i].update( fluidSolver, windowSize, invWindowSize );
+			
+			particles[i].update( fluidSolver, windowSize, invWindowSize, spriteSize );
 			particles[i].updateVertexArrays( false, invWindowSize, i, posArray, colArray, heightArray);
 		}
 	}
