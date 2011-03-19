@@ -307,7 +307,7 @@ void testApp::keyPressed(int key){
 		
 		json = ofxJSON();
 		string s = "{\"queueID\":\"37047\",\"profileImageURL\":\"http:\\/\\/a3.twimg.com\\/profile_images\\/1266569315\\/mallardmadness.jpg\",\
-					\"userName\":\"shortLAU\",\"text\":\"RT @lesliebradshaw: Spotted in the wild: turtle wax x MTV. #swag #winning\",\"status\":\"approved\",\
+					\"userName\":\"shortLAU\",\"text\":\"testof140charactersallinaarowmacxinightmareWkdsjkKJKdosmcapslksdjkflew32ui23hu1ih2ekj12kjehdkjchadsjkachas efajwekshf23u4iqr 3q234fqeskjfah\",\"status\":\"approved\",\
 					\"hasMedia\":\"1\",\"promoted\":null,\"media\":{\"mediaID\":\"38987\",\"mediaThumbURL\":\"http:\\/\\/twitpic.com\\/show\\/thumb\\/4aeder\",\
 					\"mediaURL\":\"http:\\/\\/twitpic.com\\/show\\/full\\/4aeder\"}}";
 		json.parse(s);
