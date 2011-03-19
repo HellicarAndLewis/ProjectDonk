@@ -9,7 +9,7 @@ void main(void)
    float dist = sqrt(eyeCoord.x*eyeCoord.x + eyeCoord.y*eyeCoord.y + eyeCoord.z*eyeCoord.z);
    //float att = 500.0 / dist;
 	
-   gl_PointSize = clamp(pointSize, 32.0, 48.0);
+   gl_PointSize = clamp(pointSize, 16.0, 96.0);
    gl_FrontColor = gl_Color;
    alpha = pointSize/32.0;
 }

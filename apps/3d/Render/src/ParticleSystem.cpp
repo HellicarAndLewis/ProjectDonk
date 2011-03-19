@@ -35,7 +35,7 @@ void ParticleSystem::init(ofVec2f simulationPixelSize)
 {
 	// setup fluid stuff
 	fluidSolver.setup(50, 50); //fluidSolver.setup(100, 100);
-    fluidSolver.enableRGB(true);
+    fluidSolver.enableRGB(false);
 	fluidSolver.setFadeSpeed(0.002f);
 	fluidSolver.setDeltaT(1);
 	fluidSolver.setColorDiffusion(0);
@@ -160,14 +160,10 @@ void ParticleSystem::draw( bool drawingFluid ){
 		case SHADED_POINT_SPRITE:
 		{
 			
-			//pointSize = 16;
-			//glPointSize(pointSize);
-			
 			ofEnableAlphaBlending();
 			
 			shader.begin(); // Turn on the Shader
-			
-			//glEnable(GL_BLEND);
+
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 			
 			// Get the attribute and bind it
@@ -219,6 +215,7 @@ void ParticleSystem::update()
 {	
 	
 	fluidSolver.update();
+	
 	/*
 	for(int i = 0 ; i<NUM_EMITTERS; i++)
 	{
@@ -238,7 +235,9 @@ void ParticleSystem::update()
 		fluidSolver.addForceAtIndex(index, vel * velocityMult);
 	}*/
 	
-	/*if(ofGetFrameNum() % 2 == 0 ) {
+	// can't add new ones b/c fluid solver breaks?
+	/* 
+	 if(ofGetFrameNum() % 5 == 0 ) {
 		
 		ofVec2f pos(ofRandom(windowSize.x), ofRandom(windowSize.y));
 		ofVec2f vel(sin(ofGetFrameNum()), cos(ofGetFrameNum()));
@@ -247,10 +246,9 @@ void ParticleSystem::update()
 	}*/
 	
 	// update each particle
-	for(int i=0; i<MAX_PARTICLES - 1; i++) {
+	for(int i = 0; i<MAX_PARTICLES-1; i++) {
 		if(particles[i].alpha > 0) {
 			particles[i].update( fluidSolver, windowSize, invWindowSize );
-			//cout << particles[i].radius << endl;
 			particles[i].updateVertexArrays( false, invWindowSize, i, posArray, colArray, heightArray);
 		}
 	}
@@ -279,9 +277,7 @@ void ParticleSystem::addForceAtPoint( ofVec2f position )
 	prevForcePosition = position;
 }
 
-// add force and dye to fluid, and create particles
 void ParticleSystem::addForceAndParticle( ofVec2f pos, ofVec2f vel, bool addColor, bool addForce ) {
-    //float speed = vel.x * vel.x  + vel.y * vel.y * getWindowAspectRatio() * getWindowAspectRatio();    
 	//balance the x and y components of speed with the screen aspect ratio
 	float aspectRatio = windowSize.x/windowSize.y;
 	float speed = vel.x * vel.x  + vel.y * vel.y * aspectRatio * aspectRatio;
@@ -304,7 +300,7 @@ void ParticleSystem::addForceAndParticle( ofVec2f pos, ofVec2f vel, bool addColo
 		}
 		
 		//particleSystem.addParticles( pos * ofVec2f( ofGetWindowSize() ), 5 );
-			addParticles( pos, 3 );
+		addParticles( pos, 1 );
 		//fluidSolver.addForceAtIndex(index, vel * velocityMult);
     }
 }
@@ -312,7 +308,7 @@ void ParticleSystem::addForceAndParticle( ofVec2f pos, ofVec2f vel, bool addColo
 
 void ParticleSystem::addParticles( const ofVec2f &pos, int count ){
 	for(int i=0; i<count; i++)
-		addParticle( pos + ofVec2f(ofRandom(20), ofRandom(20)) );
+		addParticle( pos + ofVec2f(ofRandom(50), ofRandom(50)) );
 }
 
 

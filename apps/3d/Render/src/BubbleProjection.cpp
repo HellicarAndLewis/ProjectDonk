@@ -111,14 +111,14 @@ void BubbleProjection::interactionModeChange(string modeName) {
 		mode = MODE_INTERVIEW;
 		//drawingChampagne = false;
 		//drawingParticles = true;
-		particleSys.useGravity = false;
+		//particleSys.useGravity = false;
 		particleSys.pointSize = 5;  // only doing this b/c point sprites don't work
 	}
 	else if(modeName == "vote") {
 		mode = MODE_VOTE;
 		//drawingChampagne = false;
 		//drawingParticles = true;
-		particleSys.useGravity = true;
+		//particleSys.useGravity = true;
 		particleSys.pointSize = 2;  // only doing this b/c point sprites don't work
 		particleSys.particleColor.set(0, 1, 1, 0.75);
 	}

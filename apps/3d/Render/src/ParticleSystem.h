@@ -16,7 +16,7 @@
 #include "BaseInteraction.h"
 
 #define NUM_EMITTERS		6
-#define MAX_PARTICLES		2000 //50000
+#define MAX_PARTICLES		1000 //50000
 
 enum DRAWING_TYPE { SIMPLE_POINTS, POINT_SPRITE, SHADED_POINT_SPRITE };
 
