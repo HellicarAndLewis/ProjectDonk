@@ -1,5 +1,5 @@
 <values>
-    <value controlId="Calibration Mode" value="true"></value>
+    <value controlId="Calibration Mode" value="false"></value>
     <value controlId="Projection" value="0"></value>
     <value controlId="Draw Lena" value="true"></value>
     <value controlId="Lena scale" value="2.322105408"></value>
@@ -16,4 +16,6 @@
     <value controlId="Interaction width" value="1684.210571289"></value>
     <value controlId="Interaction height" value="1136.842163086"></value>
     <value controlId="calibration points inset" value="0.113684215"></value>
+    <value controlId="particle size" value="28.294734955"></value>
+    <value controlId="particle hue" value="181"></value>
 </values>

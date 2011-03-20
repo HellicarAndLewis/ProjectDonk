@@ -98,6 +98,8 @@ void CalibrationProjection::createGui(ofxXmlGui *gui) {
 	gui->addSlider("Interaction width", rect->width, 0, PROJECTION_RESOLUTION_WIDTH);
 	gui->addSlider("Interaction height", rect->height, 0, PROJECTION_RESOLUTION_HEIGHT);
 	gui->addSlider("calibration points inset", calibrationPointsInset, 0, 0.4);
+	gui->addSlider("particle size", maxParticleSize, 0, 96.0);
+	gui->addSlider("particle hue", particleSaturation, 0, 255);
 	gui->enableAutoSave("settings/interactionSettings.xml");
 	calibrate = false;
 }

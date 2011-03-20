@@ -47,7 +47,6 @@ public:
 	ofVec2f				invWindowSize;
     int					curIndex;
     Particle			particles[MAX_PARTICLES];
-	float				spriteSize;
 	int					fluidCellsX;
 	bool				resizeFluid;
 	bool				drawFluid;
@@ -64,7 +63,7 @@ public:
 	/// mode options
 	bool				useGravity;
 	ofColor				particleColor;
-	float				pointSize;
+	float				maxSpriteSize;
 	
 	// point sprites
 	ofImage				interviewPointSprite;

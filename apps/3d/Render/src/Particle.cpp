@@ -96,7 +96,9 @@ void Particle::updateVertexArrays( bool drawingFluid, const ofVec2f &invWindowSi
 	int vi = i * 4;
 	int hi = i * 4;
 
-	if( center.y != 0 )
+	ofVec2f centerDist = pos - center;
+	
+	if( centerDist.length() > 800 )
 	{
 		vel.y += (center.y - pos.y)/300;
 		vel.x += (center.x - pos.x)/300;

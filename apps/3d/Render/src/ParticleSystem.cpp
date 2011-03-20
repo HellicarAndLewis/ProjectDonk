@@ -13,7 +13,7 @@ ParticleSystem::ParticleSystem()
 	currentImage = 0;
 	curIndex = 0;
 	useGravity = true;
-	spriteSize = 96.0;
+	maxSpriteSize = 96.0;
 	//setWindowSize( ofVec2f( 1, 1 ) );
 	
 	shader.setup("shader/pointShader.vs", "shader/pointShader.fs" );
@@ -161,9 +161,10 @@ void ParticleSystem::draw( bool drawingFluid ){
 		{
 			
 			ofEnableAlphaBlending();
+			ofSetColor(particleColor);
 			
 			shader.begin(); // Turn on the Shader
-			shader.setUniform1f("maxSpriteSize", spriteSize);
+			shader.setUniform1f("maxSpriteSize", maxSpriteSize);
 
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 			
@@ -186,13 +187,13 @@ void ParticleSystem::draw( bool drawingFluid ){
 			glEnableClientState(GL_VERTEX_ARRAY);
 			glVertexPointer(2, GL_FLOAT, 0, posArray);
 			
-			glEnableClientState(GL_COLOR_ARRAY);
-			glColorPointer(3, GL_FLOAT, 0, colArray);
+			//glEnableClientState(GL_COLOR_ARRAY);
+			//glColorPointer(3, GL_FLOAT, 0, colArray);
 			
 			glDrawArrays(GL_POINTS, 0, MAX_PARTICLES * 2);
 			
 			glDisableClientState(GL_VERTEX_ARRAY);
-			glDisableClientState(GL_COLOR_ARRAY);
+			//glDisableClientState(GL_COLOR_ARRAY);
 				
 			currentImage->unbind();
 			
@@ -250,7 +251,7 @@ void ParticleSystem::update()
 	for(int i = 0; i<MAX_PARTICLES-1; i++) {
 		if(particles[i].alpha > 0) {
 			
-			particles[i].update( fluidSolver, windowSize, invWindowSize, spriteSize );
+			particles[i].update( fluidSolver, windowSize, invWindowSize, maxSpriteSize );
 			particles[i].updateVertexArrays( false, invWindowSize, i, posArray, colArray, heightArray);
 		}
 	}
@@ -334,7 +335,7 @@ void ParticleSystem::addParticle( const ofVec2f &pos ) {
 	if(curIndex < MAX_PARTICLES) 
 	{
 		if(useGravity) {
-			particles[curIndex].init( pos.x, pos.y, ofVec2f(1000, 1000));
+			particles[curIndex].init( pos.x, pos.y, ofVec2f(ofRandom(400) + 800, ofRandom(400) + 800));
 		} else {
 			particles[curIndex].init( pos.x, pos.y );
 		}
