@@ -79,65 +79,63 @@ void testApp::update(){
 					
 					if(!json.isObject()){ // accounting for incomplete data error
 						log(source_names[i] + " error: json parsing failed. bubbles may have been lost.",1);
-					}else if(source_names[i]=="question"){ //parse question format
+					}else if(source_names[i]=="vote"){ //parse VOTE format
 						
-						for(int j=0;j<json["questions"].size();j++){
-							Json::Value question = json["questions"][j];
-							ofxOscMessage m;
-							m.setAddress("/control/question/update");
-							m.addStringArg("questionID");
-							m.addStringArg(question["questionID"].asString());
-							m.addStringArg("text");
-							m.addStringArg(question["text"].asString());
-							m.addStringArg("tag1");
-							m.addStringArg(question["tag1"].asString());
-							m.addStringArg("tag2");
-							m.addStringArg(question["tag2"].asString());
-							m.addStringArg("count_tag1");
-							m.addStringArg(question["count_tag1"].asString());
-							m.addStringArg("count_tag2");
-							m.addStringArg(question["count_tag2"].asString());
-							oscOut.sendMessage(m);
+						Json::Value question = json;
+						ofxOscMessage m;
+						m.setAddress("/control/question/update");
+						m.addStringArg("questionID");
+						m.addStringArg(question["questionID"].asString());
+						m.addStringArg("text");
+						m.addStringArg(question["text"].asString());
+						m.addStringArg("tag1");
+						m.addStringArg(question["tag1"].asString());
+						m.addStringArg("tag2");
+						m.addStringArg(question["tag2"].asString());
+						m.addStringArg("count_tag1");
+						m.addStringArg(question["count_tag1"].asString());
+						m.addStringArg("count_tag2");
+						m.addStringArg(question["count_tag2"].asString());
+						oscOut.sendMessage(m);
+						
+						log(string("question update \"") +
+							question["text"].asString() +
+							string("\" ") +
+							question["tag1"].asString() + string("=") + question["count_tag1"].asString() + string(",") +
+							question["tag2"].asString() + string("=") + question["count_tag2"].asString()
+							,0);
+						
+						//parse through each bubble set and send the bubbles
+						for(int k=0;k<2;k++){
+							Json::Value items;
+							Json::Value tag;
 							
-							log(string("question update \"") +
-								question["text"].asString() +
-								string("\" ") +
-								question["tag1"].asString() + string("=") + question["count_tag1"].asString() + string(",") +
-								question["tag2"].asString() + string("=") + question["count_tag2"].asString()
-								,0);
 							
-							//parse through each bubble set and send the bubbles
-							for(int k=0;k<2;k++){
-								Json::Value items;
-								Json::Value tag;
-								
-								
-								if(k==0){
-									items = question["tag1_items"];
-									tag = question["tag1"];
-								}else{
-									items = question["tag2_items"];
-									tag = question["tag2"];
-								}
-								
-								for(int ii=0;ii<items.size();ii++){
-									Json::Value bubble = items[ii];
+							if(k==0){
+								items = question["tag1_items"];
+								tag = question["tag1"];
+							}else{
+								items = question["tag2_items"];
+								tag = question["tag2"];
+							}
+							
+							for(int ii=0;ii<items.size();ii++){
+								Json::Value bubble = items[ii];
 
-									ofxOscMessage m;
-									m.setAddress("/control/bubble/new");
-									m.addStringArg("mode");
-									m.addStringArg("question");
-									m.addStringArg("questionID");
-									m.addStringArg(question["questionID"].asString());
-									m.addStringArg("tag");
-									m.addStringArg(tag.asString());
-									populateBubble(m,bubble);
-									oscOut.sendMessage(m);				
-									log(source_names[i] + string(" > ") +
-										bubble["queueID"].asString() + string(" > ") +
-										bubble["userName"].asString(),0);
-									
-								}
+								ofxOscMessage m;
+								m.setAddress("/control/bubble/new");
+								m.addStringArg("mode");
+								m.addStringArg("vote");
+								m.addStringArg("questionID");
+								m.addStringArg(question["questionID"].asString());
+								m.addStringArg("tag");
+								m.addStringArg(tag.asString());
+								populateBubble(m,bubble);
+								oscOut.sendMessage(m);				
+								log(source_names[i] + string(" > ") +
+									bubble["queueID"].asString() + string(" > ") +
+									bubble["userName"].asString(),0);
+								
 							}
 						}
 						
@@ -307,7 +305,7 @@ void testApp::keyPressed(int key){
 		
 		json = ofxJSON();
 		string s = "{\"queueID\":\"37047\",\"profileImageURL\":\"http:\\/\\/a3.twimg.com\\/profile_images\\/1266569315\\/mallardmadness.jpg\",\
-					\"userName\":\"shortLAU\",\"text\":\"testof140charactersallinaarowmacxinightmareWkdsjkKJKdosmcapslksdjkflew32ui23hu1ih2ekj12kjehdkjchadsjkachas efajwekshf23u4iqr 3q234fqeskjfah\",\"status\":\"approved\",\
+					\"userName\":\"shortLAU\",\"text\":\"test of 140 characters and here is a bit more text now\",\"status\":\"approved\",\
 					\"hasMedia\":\"1\",\"promoted\":null,\"media\":{\"mediaID\":\"38987\",\"mediaThumbURL\":\"http:\\/\\/twitpic.com\\/show\\/thumb\\/4aeder\",\
 					\"mediaURL\":\"http:\\/\\/twitpic.com\\/show\\/full\\/4aeder\"}}";
 		json.parse(s);
