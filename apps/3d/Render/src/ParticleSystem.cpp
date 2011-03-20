@@ -69,8 +69,7 @@ void ParticleSystem::init(ofVec2f simulationPixelSize)
 	
 	for( int i = 0; i < MAX_PARTICLES; i++) {
 		ofVec2f pos(ofRandom(windowSize.x), ofRandom(windowSize.y));
-		ofVec2f vel(sin(ofGetFrameNum()), cos(ofGetFrameNum()));
-		addForceAndParticle(pos, vel, true, true);
+		addForceAndParticle(pos, false, false);
 	}
 }
 
@@ -200,7 +199,7 @@ void ParticleSystem::draw( bool drawingFluid ){
 			// Clean up			
 			glDisable(GL_POINT_SPRITE);
 			glDisableVertexAttribArray(pixel_loc);
-		//	glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
+			glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
 			
 			shader.end();
 			
@@ -280,11 +279,29 @@ void ParticleSystem::addForceAtPoint( ofVec2f position )
 	prevForcePosition = position;
 }
 
-void ParticleSystem::addForceAndParticle( ofVec2f pos, ofVec2f vel, bool addColor, bool addForce ) {
+void ParticleSystem::addForceAndParticle( ofVec2f pos, bool addColor, bool addForce ) 
+{
 	//balance the x and y components of speed with the screen aspect ratio
 	float aspectRatio = windowSize.x/windowSize.y;
+	ofVec2f vel = pos - prevForcePosition;
 	float speed = vel.x * vel.x  + vel.y * vel.y * aspectRatio * aspectRatio;
-    if(speed > 0) {
+	
+	ofVec2f constrainPos(
+						 ofMap(pos.x, 0, windowSize.x, 0.f, 1.f, true),
+						 ofMap(pos.y, 0, windowSize.y, 0.f, 1.f, true) 
+						 );
+	
+	const float velocityMult = 0.5; //30;
+	
+	int index = fluidSolver.getIndexForPos(constrainPos);
+
+	fluidSolver.addForceAtIndex(index, vel * velocityMult);
+	addParticle( pos  );
+	
+	// store for next force
+	prevForcePosition = pos;
+	
+    /*if(speed > 0) {
 		ofVec2f constrainPos(
 							 ofMap(pos.x, 0, windowSize.x, 0.f, 1.f, true),
 							 ofMap(pos.y, 0, windowSize.y, 0.f, 1.f, true) 
@@ -301,11 +318,8 @@ void ParticleSystem::addForceAndParticle( ofVec2f pos, ofVec2f vel, bool addColo
 			//drawColor.setHsb((ofGetFrameNum() % 360 ) / 360.0f, 1, 1);
 			fluidSolver.addColorAtIndex(index, drawColor);// * colorMult);
 		}
-		
-		//particleSystem.addParticles( pos * ofVec2f( ofGetWindowSize() ), 5 );
 		addParticles( pos, 1 );
-		//fluidSolver.addForceAtIndex(index, vel * velocityMult);
-    }
+    }*/
 }
 
 
@@ -320,7 +334,7 @@ void ParticleSystem::addParticle( const ofVec2f &pos ) {
 	if(curIndex < MAX_PARTICLES) 
 	{
 		if(useGravity) {
-			particles[curIndex].init( pos.x, pos.y, ofVec2f(0, -0.5));
+			particles[curIndex].init( pos.x, pos.y, ofVec2f(1000, 1000));
 		} else {
 			particles[curIndex].init( pos.x, pos.y );
 		}

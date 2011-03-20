@@ -315,7 +315,8 @@ void BubbleProjection::draw() {
 		ofVec2f tp = mapToInteractiveArea((*tIt).second.getPosition());
 		(*tIt).second.drawTouch(tp);
 		//if(ofGetFrameNum()%12==0)champagne.particles.push_back( new BrownianObject( tp, 10));
-		particleSys.addForceAtPoint( tp );
+		//particleSys.addForceAtPoint( tp );
+		particleSys.addForceAndParticle(tp, false, true);
 	}
 	
 }

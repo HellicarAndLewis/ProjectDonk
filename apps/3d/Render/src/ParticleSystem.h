@@ -34,7 +34,7 @@ public:
 	void addParticle( const ofVec2f &pos );
 	//void setWindowSize( ofVec2f winSize );
 	void fadeToColor(float r, float g, float b, float speed);
-	void addForceAndParticle(ofVec2f pos, ofVec2f vel, bool addColor, bool addForce);
+	void addForceAndParticle(ofVec2f pos, bool addColor, bool addForce);
 	void addForceAtPoint( ofVec2f position );
 	
 	// set interaction

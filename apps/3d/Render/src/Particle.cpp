@@ -11,7 +11,7 @@
 
 using namespace MSA;
 
-static const float MOMENTUM = 0.62f;
+static const float MOMENTUM = 0.1f;
 static const float FLUID_FORCE = 0.6f;
 
 Particle::Particle() {
@@ -24,7 +24,7 @@ void Particle::init(float x, float y, ofVec2f gravitionalForce) {
 	incAlpha = true;
 	
 	pos.set(x, y);
-	gravity.set(gravitionalForce); 
+	center.set(gravitionalForce); 
 	vel.set(0, 0);
 	alpha = ofRandomuf();
 	mass = ofRandom(0.3f)+0.1; //Rand::randFloat( 0.1f, 1 );
@@ -53,17 +53,17 @@ void Particle::update( const FluidSolver &solver, const ofVec2f &windowSize, con
 	
 	// wrap positions
 	if( pos.x < 0 ) {
-		vel.x *= -1;
+		vel.x *= -5;
 		pos.x = 0;
 	} else if( pos.x > windowSize.x ) {
-		vel.x *= -1;
+		vel.x *= -5;
 		pos.x = windowSize.x;
 	}
 	if( pos.y < 0 ) {
-		vel.y *= -1;
+		vel.y *= -5;
 		pos.y = 0;
 	} else if( pos.y > windowSize.y ) {
-		vel.y *= -1;
+		vel.y *= -5;
 		pos.y = windowSize.y;
 	}
 	
@@ -96,13 +96,10 @@ void Particle::updateVertexArrays( bool drawingFluid, const ofVec2f &invWindowSi
 	int vi = i * 4;
 	int hi = i * 4;
 
-	if( gravity.y != 0 )
+	if( center.y != 0 )
 	{
-		//vel.y += gravity.y;
-	}
-	else
-	{
-		//cout << " no gravity " << endl;
+		vel.y += (center.y - pos.y)/300;
+		vel.x += (center.x - pos.x)/300;
 	}
 
 	posBuffer[vi++] = pos.x - vel.x;

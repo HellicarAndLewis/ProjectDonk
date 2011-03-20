@@ -16,7 +16,7 @@ using namespace MSA;
 
 class Particle {
 public:	
-    ofVec2f	pos, vel, gravity, windowSize;
+    ofVec2f	pos, vel, center, windowSize;
     float	spriteSize;
     float	alpha;
     float	mass;
