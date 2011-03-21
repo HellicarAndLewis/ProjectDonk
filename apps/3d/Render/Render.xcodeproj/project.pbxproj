@@ -207,6 +207,8 @@
 		E4C2424910CC5A17004149E2 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424610CC5A17004149E2 /* IOKit.framework */; };
 		E4C2426610CC5A78004149E2 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2425F10CC5A78004149E2 /* GLUT.framework */; };
 		E4C2426B10CC5AA6004149E2 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E4C2425F10CC5A78004149E2 /* GLUT.framework */; };
+		EA0485E213377507002D7D7B /* polygonblend.frag in Sources */ = {isa = PBXBuildFile; fileRef = EA0485E013377507002D7D7B /* polygonblend.frag */; };
+		EA0485E313377507002D7D7B /* polygonblend.vert in Sources */ = {isa = PBXBuildFile; fileRef = EA0485E113377507002D7D7B /* polygonblend.vert */; };
 		EA106C9F12F6CBE900DC662C /* json_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA106C9412F6CBE900DC662C /* json_reader.cpp */; };
 		EA106CA012F6CBE900DC662C /* json_value.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA106C9512F6CBE900DC662C /* json_value.cpp */; };
 		EA106CA112F6CBE900DC662C /* json_writer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA106C9712F6CBE900DC662C /* json_writer.cpp */; };
@@ -942,6 +944,8 @@
 		E4C2424510CC5A17004149E2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		E4C2424610CC5A17004149E2 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
 		E4C2425F10CC5A78004149E2 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = SOURCE_ROOT; };
+		EA0485E013377507002D7D7B /* polygonblend.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = polygonblend.frag; path = bin/data/shader/polygonblend.frag; sourceTree = "<group>"; };
+		EA0485E113377507002D7D7B /* polygonblend.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = polygonblend.vert; path = bin/data/shader/polygonblend.vert; sourceTree = "<group>"; };
 		EA106C8A12F6CBE900DC662C /* AUTHORS */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AUTHORS; sourceTree = "<group>"; };
 		EA106C8C12F6CBE900DC662C /* autolink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = autolink.h; sourceTree = "<group>"; };
 		EA106C8D12F6CBE900DC662C /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
@@ -2344,6 +2348,8 @@
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
+				EA0485E013377507002D7D7B /* polygonblend.frag */,
+				EA0485E113377507002D7D7B /* polygonblend.vert */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				1FA8D92B132A2E9D00080DC9 /* parameters.xml */,
 				1FEBF8D713254487001D9100 /* general.xml */,
@@ -3273,6 +3279,8 @@
 				5F15EF6F13313FF9008D9396 /* polygonblend.vert in Sources */,
 				4B733F8B1333FD22008BC0F8 /* ofxTextCircleFill.cpp in Sources */,
 				4B733F8C1333FD22008BC0F8 /* txtDisplay.cpp in Sources */,
+				EA0485E213377507002D7D7B /* polygonblend.frag in Sources */,
+				EA0485E313377507002D7D7B /* polygonblend.vert in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

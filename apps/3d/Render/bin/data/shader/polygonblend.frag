@@ -7,13 +7,15 @@ uniform float luminance;
 uniform float blendPower;
 uniform float height;
 uniform int flip;
+uniform vec2 offset;
 
 void main (void) {
 	vec2 texPos = gl_FragCoord.xy;
 	if(flip==1) {
 		texPos.y = height - texPos.y;
+		
 	}
-	
+	texPos -= offset;
 	vec4 sourceColor = texture2DRect(tex, texPos);
 
 	float curve = alpha;

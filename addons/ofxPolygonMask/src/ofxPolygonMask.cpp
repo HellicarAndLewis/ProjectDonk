@@ -118,6 +118,7 @@ void ofxPolygonMask::draw(ofEventArgs &args) {
 		shader.setUniform1f("luminance", luminance);
 		shader.setUniform1f("height", tex->getHeight());
 		shader.setUniform1i("flip", 1);
+		shader.setUniform2f("offset", x, y);
 	}
 	
 	ofFill();
