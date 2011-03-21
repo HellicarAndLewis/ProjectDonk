@@ -453,7 +453,8 @@ void BubbleProjection::touchDown(float x, float y, int touchId) {
 			bool bTouchedIDUsed = false;
 			for(int i=0; i<activeInteraction->bubbles.size(); i++) {
 				ContentBubble * bubble = activeInteraction->bubbles[i];
-				if (bubble->touchID == touchId) {
+				// shouldn't have to test for null here!!
+				if (bubble!=NULL && bubble->touchID == touchId) {
 					bTouchedIDUsed = true;
 				}
 			}
@@ -462,8 +463,8 @@ void BubbleProjection::touchDown(float x, float y, int touchId) {
 				for(int i=0; i<activeInteraction->bubbles.size(); i++) {
 					
 					ContentBubble * bubble = activeInteraction->bubbles[i];
-					
-					if(activeInteraction->name == "buzz" && !bubble->bAlive) continue;
+					// shouldn't have to test for null here!!
+					if(bubble==NULL || (activeInteraction->name == "buzz" && !bubble->bAlive)) continue;
 					
 					ofVec2f p1  = pos;
 					ofVec2f p2  = bubble->rigidBody->getPosition();
