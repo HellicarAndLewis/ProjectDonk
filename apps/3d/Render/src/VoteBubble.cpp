@@ -28,15 +28,13 @@ void VoteBubble::drawInsideContent() {
 	ofEnableAlphaBlending();
 	ofSetColor(255, 255, 255);
     
-	float strW = font.stringWidth(optionStr) * 30;
+	float strW = font.stringWidth(optionStr)+10.0;
 	if(strW < 0) strW = 1;
 	
-	float scl = (radius*2) / (strW+30);
-	
-	printf("%f\n", scl);
-	
+	float scl = (radius*2) / strW;
+		
 	glPushMatrix();
-	glTranslated( -(strW/2), 0, 0 );
+	glTranslated( -((strW*scl)/2.0), 0, 0 );
 	glScalef(scl, scl, 1);
     //load font the first time around
     if(!font.bLoadedOk){
