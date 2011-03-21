@@ -105,7 +105,7 @@ void InteractionVote::setVoteCount(int totalA, int totalB) {
 	pctB           = round( ((float)totalB / (float)total) * 100.0);
 	
 	
-	if(pctA != voteBubbles[0]->pct || pctB != voteBubbles[1]->pct) {
+	if(pctA == voteBubbles[0]->pct && pctB == voteBubbles[1]->pct) {
 		printf("no need to update\n");
 		return;	
 	}
