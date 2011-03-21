@@ -19,7 +19,7 @@ void InteractionVote::setup() {
 	
 	pctA			  = 0;
 	pctB			  = 0;
-	animateOutTimer   = 0;
+
 	
 	for (int i=0; i<100; i++) {
 		voteIds[i] = 0;
@@ -175,8 +175,9 @@ void InteractionVote::update() {
 			}
 		}
 		
-		float time = (ofGetElapsedTimeMillis() - animateOutTimer) / 1000.0;
-		if(bAllOffscreen && !bDoneAnimatingOut || time > 4.0) {
+		// we are down and ready tp remove all the bubbles...
+		float time = (ofGetElapsedTimeMillis() - animatedOutTimer) / 1000.0;
+		if(bAllOffscreen && !bDoneAnimatingOut || time > MAX_ANIMATION_TIME) {
 			killallBubbles();
 			
 			for (int i=0; i<2; i++) {
@@ -188,6 +189,7 @@ void InteractionVote::update() {
 			}
 			
 			bDoneAnimatingOut = true;
+			printf("all done in vote remove it all\n");
 		}
 	}
 	
@@ -316,7 +318,7 @@ void InteractionVote::animatedOut() {
 	
 	bAnimateOut		  = true;
 	bDoneAnimatingOut = false;
-	animateOutTimer   = ofGetElapsedTimeMillis();
+	animatedOutTimer  = ofGetElapsedTimeMillis();
 }
 
 //--------------------------------------------------------

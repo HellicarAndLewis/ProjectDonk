@@ -43,7 +43,6 @@ public:
 	int				voteIds[100];
 	
 	// animation
-	float			animateOutTimer;
 	int				pctA, pctB;
 };
 
