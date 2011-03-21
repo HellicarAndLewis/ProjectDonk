@@ -16,7 +16,10 @@ void InteractionPerformance::setup() {
 	lineAlpha = 0;
 	lineAlphaDes = 255;
 	
-    
+	flockTime  = 0;
+	flockPos.x = interactiveRect.width/2;
+	flockPos.y = interactiveRect.height/2;
+	flockPos.z = 0;
     
 	audio = Donk::AudioData::getInstance();	
 	nBands = audio->getNumChannels();
@@ -101,6 +104,17 @@ void InteractionPerformance::newBubbleRecieved(Donk::BubbleData * data) {
 //--------------------------------------------------------
 void InteractionPerformance::update() {
 	
+	flockTime += 0.003;
+	float div = 900.0;
+	float amp = 450.0;
+	
+	float t = ofGetElapsedTimef() * 0.3;
+	flockPos.set(ofSignedNoise(t, 0, 0),
+				 ofSignedNoise(0, t, 0),
+				 ofSignedNoise(0, 0, t));
+	flockPos *= 400.0;
+	
+	
 	bool bAllOffScreen = true;
 	
 	for(int i=0; i<bubbles.size(); i++) {
@@ -116,7 +130,7 @@ void InteractionPerformance::update() {
 		else {		
 			ofVec3f target = bubbles[i]->target;
 			target.y = (bubbles[i]->performanceStartTarget.y) - (audio->getVolume(bubbles[i]->performceImageID) * 320.0);
-			
+			target += flockPos;
 			bubbles[i]->rigidBody->body->setDamping(0.99, 0.99);
 			bubbles[i]->addAtrractionForce(target.x, target.y, target.z, 30.0);
 		}	
@@ -164,6 +178,7 @@ void InteractionPerformance::update() {
 void InteractionPerformance::drawContent() {
 	
 	ofEnableAlphaBlending();
+
 
 	/*
 	// fft goods
@@ -213,6 +228,8 @@ void InteractionPerformance::drawContent() {
 		
 	}
     
+	//ofSetColor(255, 0, 0);
+	//ofSphere(interactiveRect.width/2 + flockPos.x, flockPos.y + interactiveRect.height/2, flockPos.z+100, 10);
 	
 }
 
