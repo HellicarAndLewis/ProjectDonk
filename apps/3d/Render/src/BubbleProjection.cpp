@@ -376,7 +376,7 @@ void BubbleProjection::removeTouchConstraint(ContentBubble * bubble) {
 	int					removeInd = -1;
 	for (int i=0; i<touchConstraints.size(); i++) {
 		if(touchConstraints[i]->body == bubble->rigidBody->body) {
-			touchCon == touchConstraints[i];
+			touchCon = touchConstraints[i];
 			removeInd = i;
 			printf("remove this cont\n");
 		}
@@ -453,7 +453,8 @@ void BubbleProjection::touchDown(float x, float y, int touchId) {
 			bool bTouchedIDUsed = false;
 			for(int i=0; i<activeInteraction->bubbles.size(); i++) {
 				ContentBubble * bubble = activeInteraction->bubbles[i];
-				if (bubble->touchID == touchId) {
+				// shouldn't have to test for null here!!
+				if (bubble!=NULL && bubble->touchID == touchId) {
 					bTouchedIDUsed = true;
 				}
 			}
@@ -462,8 +463,8 @@ void BubbleProjection::touchDown(float x, float y, int touchId) {
 				for(int i=0; i<activeInteraction->bubbles.size(); i++) {
 					
 					ContentBubble * bubble = activeInteraction->bubbles[i];
-					
-					if(activeInteraction->name == "buzz" && !bubble->bAlive) continue;
+					// shouldn't have to test for null here!!
+					if(bubble==NULL || (activeInteraction->name == "buzz" && !bubble->bAlive)) continue;
 					
 					ofVec2f p1  = pos;
 					ofVec2f p2  = bubble->rigidBody->getPosition();
@@ -576,7 +577,7 @@ void BubbleProjection::touchMoved(float x, float y, int touchId) {
 			for(int i=0; i<activeInteraction->bubbles.size(); i++) {
 				ContentBubble * bubble = activeInteraction->bubbles[i];
 				
-				if(activeInteraction->name == "buzz" && !bubble->bAlive) continue;
+				if(bubble==NULL || (activeInteraction->name == "buzz" && !bubble->bAlive)) continue;
 				
 				if (bubble->touchID == touchId) {
 					bTouchedIDUsed = true;
@@ -588,7 +589,7 @@ void BubbleProjection::touchMoved(float x, float y, int touchId) {
 				
 				ContentBubble * bubble = activeInteraction->bubbles[i];
 				
-				if(activeInteraction->name == "buzz" && !bubble->bAlive) continue;
+				if(bubble==NULL || (activeInteraction->name == "buzz" && !bubble->bAlive)) continue;
 				
 				// update the interaction touch constraints
 				for (int j=0; j<touchConstraints.size(); j++) {

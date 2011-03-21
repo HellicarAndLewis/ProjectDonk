@@ -148,7 +148,7 @@ void InteractionInterview::animatedIn() {
 void InteractionInterview::doubleTouched(ofVec2f touchpos) {
 	
 	for(int i=0; i<bubbles.size(); i++) {
-		
+		if(bubbles[i]==NULL) continue;
 		ContentBubble * bubble = bubbles[i];
 		ofVec2f p1  = touchpos;
 		ofVec2f p2  = bubble->rigidBody->getPosition();
