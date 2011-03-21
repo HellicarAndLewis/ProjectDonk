@@ -10,6 +10,7 @@
 #pragma once
 #include "BaseInteraction.h"
 #include "BuzzContainerBubble.h"
+#include "Mode.h"
 
 #define BUZZ_TYPE_CONTAINER		0
 #define BUZZ_TYPE_BUBBLE_IN		1

@@ -417,11 +417,12 @@ void InteractionBuzz::createMomAndChildBubbles()
 	
 	int numChildren  = polledData.size();
 	
+	float div = (float)Donk::Mode::getInstance()->getValue("Max Bubble Size");
 	// base size on how many we have
 	float cRad		= CONTAINER_RADIUS;
 	float volCont	= (( 4.0/3.0)*PI )*(cRad*cRad*cRad);
 	float volBubb	= volCont / (numChildren * 3.f);	
-	float maxRadius	= volBubb / (( 4.0/3.0)*PI );
+	float maxRadius	= volBubb / div;//(( 4.0/3.0)*PI );
 	maxRadius	= pow(maxRadius, 1.0f/3.0f);
 	float radius	= ofRandom(maxRadius*.5,maxRadius);
 	
