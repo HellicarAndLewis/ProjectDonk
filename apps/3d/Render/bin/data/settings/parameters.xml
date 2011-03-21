@@ -14,6 +14,11 @@
 	<parameter name="Bottom BG Red" defaultValue="0" minValue="0" maxValue="255"></parameter>
     <parameter name="Bottom BG Green" defaultValue="0" minValue="0" maxValue="255"></parameter>
     <parameter name="Bottom BG Blue" defaultValue="0" minValue="0" maxValue="255"></parameter>
+	 <parameter name="Particle Red" defaultValue="0" minValue="0" maxValue="255"></parameter>
+	 <parameter name="Particle Blue" defaultValue="0" minValue="0" maxValue="255"></parameter>
+	 <parameter name="Particle Green" defaultValue="0" minValue="0" maxValue="255"></parameter>
+	 
+	 <parameter name="Max Particle Size" defaultValue="0" minValue="0" maxValue="96.0"></parameter>
 	<parameter name="Gradient Centre" defaultValue="0" minValue="0" maxValue="1"></parameter>
 	<parameter name="light x" defaultValue="0" minValue="-10" maxValue="10"></parameter>
     <parameter name="light y" defaultValue="0" minValue="-10" maxValue="10"></parameter>

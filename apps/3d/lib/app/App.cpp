@@ -43,7 +43,7 @@ App::App() {
 	blendLuminance = 1;
 	
 	
-	guiEnabled = true;
+	guiEnabled = false;
 	if(settings.getBool("using first screen for gui only", false)) {
 		guiEnabled = true;
 	}
@@ -51,11 +51,11 @@ App::App() {
 	guiChooser.setup(10, 10, 200);
 	guiChooser.addSegmentedControl(" ", whichGui, "Project|Mode|Calibrate|Blend");
 	guiChooser.addToggle("Show 4-up", show4Up);
-	guiChooser.enable();
+	guiChooser.disable();
 	guiChooser.height = 25;
 	guiChooser.addListener(this);
 	
-	sceneGui->setEnabled(true);
+	sceneGui->setEnabled(false);
 	modeGui = Mode::getInstance()->getGui();
 	modeGui->disable();
 	calibrationGui = new ofxXmlGui();
@@ -93,6 +93,8 @@ App::App() {
 														  ofGetHeight() - GUI_PADDING*2));
 	
 	viewports->setEnabled(show4Up);//gui.getControlById("Show 4-up")->boolValue());
+	ofSetFullscreen(true);
+	
 }
 
 void App::controlChanged(GuiControl *control) {
@@ -145,7 +147,12 @@ void App::drawAllProjectors() {
 
 void App::_update(ofEventArgs &e) {
 	
-
+	if(guiEnabled) {
+		ofShowCursor();
+	} else {
+		ofHideCursor();
+	}
+	
 	for(int i = 0; i < masks.size(); i++) {
 		masks[i]->blendPower = blendPower;
 		masks[i]->gamma = blendGamma;
