@@ -374,7 +374,7 @@ void ContentBubble::loadFont()
 
         textDisplay.setup("global/font/Gotham-Bold.otf", minFontSize, maxFontSize, 1, maxRadius); 
         
-        string txt = data->text;
+        string txt = data != NULL ? data->text : "nothing";
         if(txt.empty())txt="lorem ipsum"; //hmmm....maybe better answer?
         
         textDisplay.setMessage( txt );        

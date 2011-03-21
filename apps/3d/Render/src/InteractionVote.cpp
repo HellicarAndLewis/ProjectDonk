@@ -111,10 +111,10 @@ void InteractionVote::setVoteCount(int totalA, int totalB) {
 	}
 	
 	// Option A
-	if(voteBubbles[0] != NULL) voteBubbles[0]->pct = pctA;	
+	if(voteBubbles[0] != NULL) voteBubbles[0]->pctDes = pctA;	
 	
 	// Option B
-	if(voteBubbles[1] != NULL) voteBubbles[1]->pct = pctB;	
+	if(voteBubbles[1] != NULL) voteBubbles[1]->pctDes = pctB;	
 	
 	
 	// the first time we are going to make the 

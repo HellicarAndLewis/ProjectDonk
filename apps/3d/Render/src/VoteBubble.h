@@ -18,6 +18,7 @@ public:
 	
 	string optionStr;
 	int	   pct;
+	float  pctDes, pctf;
 	
 	void setOptionString(string str);
 	void drawInsideContent();
