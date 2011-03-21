@@ -14,7 +14,8 @@ public:
 	float gamma;
 	float blendPower;
 	float luminance;
-	
+	float x;
+	float y;
 	ofxPolygonMask() ;
 	
 	void setup(string file = "") ;
@@ -30,7 +31,7 @@ public:
 	void setEnableEditing(bool editingEnabled);
 	bool isEditing();
 	
-	
+	void setPosition(float x, float y);
 	void toggleEnabled();
 	void setEnabled(bool enabled);
 	bool isEnabled();

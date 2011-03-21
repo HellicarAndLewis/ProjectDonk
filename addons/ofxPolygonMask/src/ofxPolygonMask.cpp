@@ -23,6 +23,7 @@ ofxPolygonMask::ofxPolygonMask() {
 	editing = false;
 	tex = NULL;
 	usingShader = false;
+	x = y = 0;
 }
 
 void ofxPolygonMask::setTexture(ofTexture *tex) {
@@ -93,13 +94,20 @@ void ofxPolygonMask::checkWinding() {
 	
 }
 
+void ofxPolygonMask::setPosition(float x, float y) {
+	this->x = x;
+	this->y = y;
+}
 
 void ofxPolygonMask::draw(ofEventArgs &args) {
+	
 	
 	if(points.size()==0) return;
 
 	if(points.size()<4) checkWinding();
 
+	glPushMatrix();
+	glTranslatef(x, y, 0);
 	if(usingShader) {		
 		
 
@@ -108,7 +116,10 @@ void ofxPolygonMask::draw(ofEventArgs &args) {
 		shader.setUniform1f("gamma", gamma);
 		shader.setUniform1f("blendPower", blendPower);
 		shader.setUniform1f("luminance", luminance);
+		shader.setUniform1f("height", tex->getHeight());
+		shader.setUniform1i("flip", 1);
 	}
+	
 	ofFill();
 	ofSetColor(0, 0, 0);
 	
@@ -163,6 +174,7 @@ void ofxPolygonMask::draw(ofEventArgs &args) {
 		ofEndShape(true);
 		ofFill();
 	}
+	glPopMatrix();
 	
 }
 
@@ -236,13 +248,14 @@ int ofxPolygonMask::insertPoint(ofVec3f p) {
 }
 
 void ofxPolygonMask::mousePressed(ofMouseEventArgs &m) {
+	
 	if(doPoint) {
-		focusedPoint = insertPoint(ofVec3f(m.x, m.y, 20));
+		focusedPoint = insertPoint(ofVec3f(m.x-x, m.y-y, 20));
 		selectedPoint = focusedPoint;
 		return;
 	} else if(doDelete) {
 		for(int i = 0; i < points.size(); i++) {
-			if(sqrDist(m.x, m.y, points[i].x, points[i].y)<SQR_DIST_POINT_GRAB) { // 5 pixels distance
+			if(sqrDist(m.x-x, m.y-y, points[i].x, points[i].y)<SQR_DIST_POINT_GRAB) { // 5 pixels distance
 				points.erase(points.begin()+i);
 				return;
 			}
@@ -251,7 +264,7 @@ void ofxPolygonMask::mousePressed(ofMouseEventArgs &m) {
 	}
 	
 	for(int i = 0; i < points.size(); i++) {
-		if(sqrDist(m.x, m.y, points[i].x, points[i].y)<SQR_DIST_POINT_GRAB) { // 5 pixels distance
+		if(sqrDist(m.x-x, m.y-y, points[i].x, points[i].y)<SQR_DIST_POINT_GRAB) { // 5 pixels distance
 			selectedPoint = i;
 			focusedPoint = i;
 			//points[selectedPoint].x = m.x;
@@ -263,8 +276,8 @@ void ofxPolygonMask::mousePressed(ofMouseEventArgs &m) {
 
 void ofxPolygonMask::mouseDragged(ofMouseEventArgs &m) {
 	if(selectedPoint!=-1) {
-		points[selectedPoint].x = m.x;
-		points[selectedPoint].y = m.y;
+		points[selectedPoint].x = m.x-x;
+		points[selectedPoint].y = m.y-y;
 		
 		
 	}

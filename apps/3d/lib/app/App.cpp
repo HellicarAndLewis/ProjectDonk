@@ -14,13 +14,16 @@
 
 using namespace util;
 using namespace Donk;
-float f = 0;
-bool show4Up = false;
-int whichGui = 0;
 
 App::App() {
 	ofSetLogLevel(OF_LOG_NOTICE);
-	
+	show4Up = false;
+	whichGui = 0;
+	blendEnabled = false;
+
+	for(int i = 0; i < 8; i++) {
+		blendEditingEnabled[i] = false;
+	}
 	float x = GUI_PADDING*2 + CAMERA_GUI_WIDTH;
 	
 	ofAddListener(ofEvents.keyPressed, this, &App::_keyPressed);
@@ -35,6 +38,9 @@ App::App() {
 
 	sceneGui	= new SceneGui(scene);
 	
+	blendPower = 1;
+	blendGamma = 1;
+	blendLuminance = 1;
 	
 	
 	guiEnabled = true;
@@ -56,7 +62,32 @@ App::App() {
 	calibrationGui->setup(10, 60, 200);
 	calibrationGui->disable();
 	
+	
+	// setup masks - one for each projector
+	for(int i = 0; i < scene->projectors.size(); i++) {
+		masks.push_back(new ofxPolygonMask());
+		masks.back()->setup(string("mask") + ofToString(i) + ".xml");
+		masks.back()->setPosition(scene->projectors[i]->x, scene->projectors[i]->y);
+	}
+	
+	// projector blend/editing gui.
 
+	blendGui = new ofxXmlGui();
+	blendGui->setup(10, 60, 200);
+	blendGui->addToggle("enable blend", blendEnabled);
+	for(int i = 0; i < masks.size(); i++) {
+		blendGui->addToggle(string("enable editing ")+ofToString(i+1), blendEditingEnabled[i]);
+	}
+	
+	blendGui->addSlider("Blend power", blendPower, 0, 4);
+	blendGui->addSlider("gamma", blendGamma, 0, 4);
+	blendGui->addSlider("luminance", blendLuminance, 0, 4);
+	
+	blendGui->disable();
+	blendGui->enableAutoSave("settings/blend.xml");
+	
+	
+	
 	viewports	= new ofxFourUpDisplay(scene, ofRectangle(x, GUI_PADDING, 
 														  settings.getInt("projector width") - x - GUI_PADDING,
 														  ofGetHeight() - GUI_PADDING*2));
@@ -78,6 +109,7 @@ void App::drawAllProjectors() {
 
 	for(int i = 0; i < scene->projectors.size(); i++) {
 		if(scene->projectors[i]->enabled) {
+
 			screenFbo.begin();
 			ofClear(0, 0, 0, 0);
 			scene->projectors[i]->begin();
@@ -91,11 +123,18 @@ void App::drawAllProjectors() {
 			screenFbo.end();
 			
 			ofSetupScreen();
+			if(blendEnabled) {
+				
+				masks[i]->setTexture(&screenFbo.getTexture(0));
+				ofEventArgs e;
+				masks[i]->draw(e);
+			} else {
+				
+				glPushMatrix();
 			
-			glPushMatrix();
-			
-			screenFbo.draw(scene->projectors[i]->x, scene->projectors[i]->y);
-			glPopMatrix();
+				screenFbo.draw(scene->projectors[i]->x, scene->projectors[i]->y);
+				glPopMatrix();
+			}
 		}
 	}
 	
@@ -105,6 +144,15 @@ void App::drawAllProjectors() {
 }
 
 void App::_update(ofEventArgs &e) {
+	
+
+	for(int i = 0; i < masks.size(); i++) {
+		masks[i]->blendPower = blendPower;
+		masks[i]->gamma = blendGamma;
+		masks[i]->luminance = blendLuminance;
+		masks[i]->setEnableEditing(blendEditingEnabled[i]);
+	}
+	
 	scene->update();	
 	// [en|dis]able 4up if needed
 	if(show4Up!=viewports->isEnabled()) {
@@ -128,6 +176,7 @@ void App::_draw(ofEventArgs &e) {
 		if(whichGui==0) sceneGui->draw();
 		else if(whichGui==1) modeGui->draw();
 		else if(whichGui==2) calibrationGui->draw();
+		else if(whichGui==3) blendGui->draw();
 	}
 }
 
@@ -179,6 +228,7 @@ void App::_keyPressed(ofKeyEventArgs &e) {
 				modeGui->disable();
 				calibrationGui->disable();
 				guiChooser.disable();
+				blendGui->disable();
 			} else {
 				e.key = lastGui;
 				_keyPressed(e);
@@ -193,7 +243,7 @@ void App::_keyPressed(ofKeyEventArgs &e) {
 			sceneGui->setEnabled(true);
 			modeGui->disable();
 			calibrationGui->disable();
-
+			blendGui->disable();
 			break;
 			
 		case '2':
@@ -204,7 +254,7 @@ void App::_keyPressed(ofKeyEventArgs &e) {
 			sceneGui->setEnabled(false);
 			modeGui->enable();
 			calibrationGui->disable();
-
+			blendGui->disable();
 			break;
 			
 		case '3':
@@ -215,7 +265,7 @@ void App::_keyPressed(ofKeyEventArgs &e) {
 			sceneGui->setEnabled(false);
 			modeGui->disable();
 			calibrationGui->enable();
-
+			blendGui->disable();
 			break;
 			
 		case '4':
@@ -226,7 +276,7 @@ void App::_keyPressed(ofKeyEventArgs &e) {
 			sceneGui->setEnabled(false);
 			modeGui->disable();
 			calibrationGui->disable();
-
+			blendGui->enable();
 			break;
 		case 'm':
 			maskMode ^= true;

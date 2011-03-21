@@ -5,10 +5,16 @@ varying float alpha;
 uniform float gamma;
 uniform float luminance;
 uniform float blendPower;
-
+uniform float height;
+uniform int flip;
 
 void main (void) {
-	vec4 sourceColor = texture2DRect(tex, gl_FragCoord.xy);
+	vec2 texPos = gl_FragCoord.xy;
+	if(flip==1) {
+		texPos.y = height - texPos.y;
+	}
+	
+	vec4 sourceColor = texture2DRect(tex, texPos);
 
 	float curve = alpha;
 	

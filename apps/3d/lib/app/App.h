@@ -3,6 +3,7 @@
 #include "Scene.h"
 #include "SceneGui.h"
 #include "ofxFourUpDisplay.h"
+#include "ofxPolygonMask.h"
 
 namespace Donk { 
 
@@ -74,6 +75,12 @@ private:
 	// everything to do with image and interaction calibration goes here.
 	ofxXmlGui *calibrationGui;
 	
+	// for doing projector blending
+	ofxXmlGui *blendGui;
+	
+	// the masks for the edge blending
+	vector<ofxPolygonMask*> masks;
+	
 	// this is the current projector
 	// that is being modified by the keys.
 	// use the left and right arrows to select.
@@ -87,6 +94,21 @@ private:
 	// everything gets drawn to this intermediately
 	// and then it can be post-processed with a shader
 	ofFbo screenFbo;
+	
+	
+	// stuff for edge blending
+	float blendPower;
+	float blendGamma;
+	float blendLuminance;
+	
+	// whether to show the 4-up display
+	bool show4Up;
+	
+	bool blendEnabled;
+	bool blendEditingEnabled[8];
+	// which gui we're on.
+	int whichGui;
+	
 };
 }
 /**

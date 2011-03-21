@@ -572,7 +572,7 @@ void BubbleProjection::touchUp(float x, float y, int touchId) {
 	
 	// remove old touches...
 	if(touches.find(touchId) != touches.end()) {
-		printf("remove touch: %i\n", touchId);
+		//printf("remove touch: %i\n", touchId);
 		touches.erase(touchId);
 	}
 }
