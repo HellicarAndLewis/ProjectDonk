@@ -9,7 +9,7 @@
 
 #include "InteractionInspiration.h"
 #include "testApp.h"
-
+#include "Mode.h"
 
 //--------------------------------------------------------
 void InteractionInspiration::setup() {
@@ -23,7 +23,7 @@ void InteractionInspiration::newBubbleRecieved(Donk::BubbleData * data) {
 
 	
 	ofVec3f center(interactiveRect.width/2, 0, 0);
-	float   radius = ofRandom( 70, 90 );
+	float   radius = ofRandom( 70, (float)Donk::Mode::getInstance()->getValue("Max Bubble Size") );
 	
 	ofVec3f startPos;
 	startPos.x = (int)ofRandom(0,2) ? -100 : interactiveRect.width+100;
