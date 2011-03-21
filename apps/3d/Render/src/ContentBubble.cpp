@@ -12,11 +12,20 @@
 ofTrueTypeFont ContentBubble::font;
 
 //--------------------------------------------------------------
+void ContentBubble::destroy() {
+	if(rigidBody) {
+		rigidBody->destroy();
+		rigidBody = NULL;
+	}
+}
+
+//--------------------------------------------------------------
 ContentBubble::ContentBubble() {
 	
-	
-	bAnimateOut = false;
-	bAnimateIn = false;
+	bRemoveOffScreen = false;
+	bRemove	         = false;
+	bAnimateOut		 = false;
+	bAnimateIn		 = false;
 	rigidBody		 = NULL;
 	bTouched		 = false;
 	bDoubleTouched	 = false;
@@ -118,13 +127,13 @@ void ContentBubble::gotoTarget(float scale) {
 		d *= targetForce;
 		frc.normalize();
 		frc *= d;
-		
 		rigidBody->body->clearForces();
 		rigidBody->body->applyCentralForce(btVector3(frc.x, frc.y, frc.z));
 		
 		// printf("taget\n");
 	}
 }
+
 //--------------------------------------------------------------
 void ContentBubble::bobMe() {
 

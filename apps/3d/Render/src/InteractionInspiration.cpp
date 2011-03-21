@@ -10,11 +10,18 @@
 #include "InteractionInspiration.h"
 #include "testApp.h"
 
+
+//--------------------------------------------------------
+void InteractionInspiration::setup() {
+	maxBubbles = 50;
+}
+
 //--------------------------------------------------------
 void InteractionInspiration::newBubbleRecieved(Donk::BubbleData * data) { 
 
 	if(bAnimateOut) return;
 
+	
 	ofVec3f center(interactiveRect.width/2, 0, 0);
 	float   radius = ofRandom( 70, 90 );
 	
@@ -68,6 +75,10 @@ void InteractionInspiration::update() {
 			bubbles[i]->bTouched	   = false;
 			bubbles[i]->bDoubleTouched = false;
 			
+			//	ofVec3f bubPos = bubbles[i]->getPosition();
+			//			if(bubPos.z != 0) {
+			//				
+			//			}
 		}
 		
 		
@@ -103,7 +114,25 @@ void InteractionInspiration::update() {
 		killallBubbles();
 	}
 	
+	bool bNeedToCleanUp = false;
+	for (int i=0; i<bubbles.size(); i++) {
+		if(i > maxBubbles) {
+			int ind = (bubbles.size()-1) - i;
+			if(!bubbles[ind]->bRemoveOffScreen) {
+				bubbles[ind]->bRemoveOffScreen = true;
+			}
+			
+			if(bubbles[ind]->bRemoveOffScreen) {
+				bubbles[ind]->alpha -= 10.0;
+				if(bubbles[ind]->alpha <= 0.4) {
+					bubbles[ind]->bRemove = true;	
+					bNeedToCleanUp		  = true;
+				}
+			}
+		}
+	}
 	
+	if(bNeedToCleanUp) bubbles.erase(bubbles.begin(), partition(bubbles.begin(), bubbles.end(), shouldRemoveBubble));
 	
 }
 

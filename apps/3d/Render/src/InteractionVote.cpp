@@ -246,7 +246,10 @@ void InteractionVote::update() {
 
 //--------------------------------------------------------
 void InteractionVote::drawContent() {
+
 	
+	ofEnableAlphaBlending();
+
 	
 	for(int i=0; i<2; i++) {
 		if(voteBubbles[i]) voteBubbles[i]->drawInsideContent();
@@ -255,6 +258,7 @@ void InteractionVote::drawContent() {
 	
 	InteractionPerformance * interaction = (InteractionPerformance*)testApp::instance->projection->getInteraction(MODE_PERFORMANCE);
 
+	ofSetColor(255, 255, 255);
 	for(int i=0; i<bubbles.size(); i++) {
 		if(bubbles[i]->bVoteEnabled) {
 			

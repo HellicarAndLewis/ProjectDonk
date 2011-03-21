@@ -31,13 +31,15 @@ TouchedConstraint::~TouchedConstraint() {
 
 //--------------------------------------------------------
 void TouchedConstraint::destroy() {
-	if (constraint && world) {
-		world->removeConstraint(constraint);
+	if (world != NULL) {
+		if(constraint != NULL) {
+			world->removeConstraint(constraint);
+		
+		//	if(constraint->getRigidBodyA()) constraint->getRigidBodyA().removeConstraintRef(constraint);
+		//	if(constraint->getRigidBodyB()) constraint->getRigidBodyB().removeConstraintRef(constraint);
+		}	
 	}
 	
-	if(constraint) {
-		delete constraint;
-	}
 	
 	if(body) {
 		body->forceActivationState(ACTIVE_TAG);

@@ -40,8 +40,11 @@ public:
 	bool				 bTouched, bDoubleTouched;
 	int					 touchID;
 	float				 birthDate, age;
-	bool				 bAlive;
+	bool				 bAlive, bRemove;
 	bool				 bAnimateOut, bAnimateIn;
+	
+	// --------------------------------- things for inspiration
+	bool				 bRemoveOffScreen;
 	
 	// --------------------------------- things useing in performance
 	int					 performceImageID;
@@ -73,6 +76,7 @@ public:
     int                     maxFontSize;
 	// ---------------------------------
 	ContentBubble();
+	void destroy();
 	
 	// ---------------------------------
 	void doubleTouched();

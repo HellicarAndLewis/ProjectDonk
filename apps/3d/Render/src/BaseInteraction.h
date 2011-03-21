@@ -25,6 +25,21 @@ enum {
 	MODE_PERFORMANCE = 4
 };
 
+static bool shouldRemoveBubble(ContentBubble * b) {
+
+	bool bRemove = false;
+	if(b != NULL) {
+		bRemove = b->bRemove;
+		if(bRemove) {
+			b->destroy();
+			delete b;
+			b = NULL;
+		}
+	}
+	return bRemove;
+	
+}
+
 // --------------------------------------------
 class BaseInteraction {
 
