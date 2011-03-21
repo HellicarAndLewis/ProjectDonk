@@ -541,31 +541,31 @@ void BubbleProjection::touchUp(float x, float y, int touchId) {
 			
 			ContentBubble * bubble = activeInteraction->bubbles[i];
 			
-			
-			
-			if(bubble->bTouched) {
-				
-				if (activeInteraction->name == "interview") {
-					bubble->setTarget(pos.x, pos.y);
-					bubble->setLoopStart( getHeight() );
+			if(bubble != NULL) {
+				if(bubble->bTouched) {
+					
+					if (activeInteraction->name == "interview") {
+						bubble->setTarget(pos.x, pos.y);
+						bubble->setLoopStart( getHeight() );
+					}
+					
+					if (activeInteraction->name == "inspiration") {
+						bubble->setTarget(pos.x, pos.y);
+					}
+					
+					
+					if (activeInteraction->name == "buzz") {
+						if( !activeInteraction->bAnimateOut ) bubble->setTarget(pos.x, pos.y);
+					}
+					
+					if (activeInteraction->name == "performance") {
+						bubble->setTarget(pos.x, pos.y);
+						bubble->performanceStartTarget = bubble->target;
+					}
+					
+					bubble->bTouched = false;
+					removeTouchConstraint(bubble);
 				}
-				
-				if (activeInteraction->name == "inspiration") {
-					bubble->setTarget(pos.x, pos.y);
-				}
-				
-				
-				if (activeInteraction->name == "buzz") {
-					if( !activeInteraction->bAnimateOut ) bubble->setTarget(pos.x, pos.y);
-				}
-				
-				if (activeInteraction->name == "performance") {
-					bubble->setTarget(pos.x, pos.y);
-					bubble->performanceStartTarget = bubble->target;
-				}
-				
-				bubble->bTouched = false;
-				removeTouchConstraint(bubble);
 			}
 		}
 	}

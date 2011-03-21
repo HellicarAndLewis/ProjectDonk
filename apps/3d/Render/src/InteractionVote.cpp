@@ -104,12 +104,16 @@ void InteractionVote::setVoteCount(int totalA, int totalB) {
 	pctA		   = round( ((float)totalA / (float)total) * 100.0);
 	pctB           = round( ((float)totalB / (float)total) * 100.0);
 	
+	
+	if(pctA != voteBubbles[0]->pct || pctB != voteBubbles[1]->pct) {
+		printf("no need to update\n");
+		return;	
+	}
+	
 	// Option A
-	//if(voteBubbles[0] == NULL) setVoteBubble(0, optA);
 	if(voteBubbles[0] != NULL) voteBubbles[0]->pct = pctA;	
 	
 	// Option B
-	//if(voteBubbles[1] == NULL) setVoteBubble(1, optB);
 	if(voteBubbles[1] != NULL) voteBubbles[1]->pct = pctB;	
 	
 	
@@ -127,7 +131,6 @@ void InteractionVote::setVoteCount(int totalA, int totalB) {
 		printf("just made %i bubbles!\n", (int)bubbles.size());
 	}
 	printf("A:%i\nB:%i\nT:%i\n", pctA, pctB, pctA+pctB);
-	
 	
 	// now loop through all the bubbles and set them to 
 	// the vote bubble that they should be on...

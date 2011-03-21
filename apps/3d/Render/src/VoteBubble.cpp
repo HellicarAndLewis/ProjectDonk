@@ -28,7 +28,16 @@ void VoteBubble::drawInsideContent() {
 	ofEnableAlphaBlending();
 	ofSetColor(255, 255, 255);
     
-
+	float strW = font.stringWidth(optionStr) * 30;
+	if(strW < 0) strW = 1;
+	
+	float scl = (radius*2) / (strW+30);
+	
+	printf("%f\n", scl);
+	
+	glPushMatrix();
+	glTranslated( -(strW/2), 0, 0 );
+	glScalef(scl, scl, 1);
     //load font the first time around
     if(!font.bLoadedOk){
         font.loadFont("global/font/Gotham-Bold.otf",50);        
@@ -37,8 +46,9 @@ void VoteBubble::drawInsideContent() {
         
 	if(font.bLoadedOk) {
 		if(optionStr == "") optionStr = "OPTION STR";
-		float strW = font.stringWidth(optionStr);
-		font.drawString(optionStr+"\n"+ofToString(pct)+"%", -(strW/2), 0);
+		font.drawString(optionStr+"\n"+ofToString(pct)+"%", 0, 0);
 	}
+	glPopMatrix();
+	
 	glPopMatrix();
 }
