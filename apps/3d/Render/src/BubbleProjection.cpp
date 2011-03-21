@@ -209,9 +209,11 @@ void BubbleProjection::update() {
 	if(!bTouchDown && activeInteraction) {
 		
 		for (int i=touchConstraints.size()-1; i>=0; i--) {
-			touchConstraints[i]->destroy();
-			delete touchConstraints[i];
-			touchConstraints[i] = NULL;
+			if(touchConstraints[i] != NULL) {
+				touchConstraints[i]->destroy();
+				delete touchConstraints[i];
+				touchConstraints[i] = NULL;
+			}
 			touchConstraints.erase(touchConstraints.begin() + i);
 		}
 		
