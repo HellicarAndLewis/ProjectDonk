@@ -165,6 +165,7 @@ void InteractionPerformance::drawContent() {
 	
 	ofEnableAlphaBlending();
 
+	/*
 	// fft goods
 	glPushMatrix();
 	ofSetColor(255, 0, 0, lineAlpha);
@@ -184,7 +185,7 @@ void InteractionPerformance::drawContent() {
 	}
 	ofEndShape();
 	glPopMatrix();
-	
+	*/
     
     drawRibbons();
 	
