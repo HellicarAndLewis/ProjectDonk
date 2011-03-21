@@ -28,8 +28,8 @@ public:
 	float lineWidth;
 	float lenaScale;
 	float chequerboardSize;
-	float maxParticleSize;
-	int particleSaturation;
+	//float maxParticleSize;
+	//int particleSaturation;
 	void createGui(ofxXmlGui *gui);
 	float calibrationPointsInset;
 	ofRectangle *rect;

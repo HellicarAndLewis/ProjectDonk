@@ -305,8 +305,8 @@ void testApp::mouseReleased(int x, int y, int button){
 		bDidFakeSecondTouch = false;
 	}
 	
-	projection->particleSys.particleColor.setHsb(calibrationProjection.particleSaturation, 255, 255, 1);
-	projection->particleSys.maxSpriteSize = calibrationProjection.maxParticleSize;
+	projection->particleSys.particleColor.set(mode->getValue("Particle Red"), mode->getValue("Particle Green"), mode->getValue("Particle Blue"));//Hsb(calibrationProjection.particleSaturation, 255, 255, 1);
+	projection->particleSys.maxSpriteSize = mode->getValue("Max Particle Size");
 	
 }
 
