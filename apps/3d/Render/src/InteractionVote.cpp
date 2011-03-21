@@ -251,11 +251,6 @@ void InteractionVote::drawContent() {
 	ofEnableAlphaBlending();
 
 	
-	for(int i=0; i<2; i++) {
-		if(voteBubbles[i]) voteBubbles[i]->drawInsideContent();
-	}
-
-	
 	InteractionPerformance * interaction = (InteractionPerformance*)testApp::instance->projection->getInteraction(MODE_PERFORMANCE);
 
 	ofSetColor(255, 255, 255);
@@ -277,6 +272,13 @@ void InteractionVote::drawContent() {
 		}
 	}
 	
+	
+	
+	for(int i=0; i<2; i++) {
+		if(voteBubbles[i]) {
+			voteBubbles[i]->drawInsideContent();
+		}
+	}
 	
 	
 }
