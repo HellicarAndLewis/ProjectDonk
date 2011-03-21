@@ -349,7 +349,8 @@ void InteractionBuzz::doubleTouched(ofVec2f touchpos)
 	
 	for(int i=0; i<bubbles.size(); i++)
 	{
-		if(bubbles[i]->buzzID == BUZZ_TYPE_CONTAINER && bubbles[i]->bAlive)
+		
+		if(bubbles[i]!=NULL && (bubbles[i]->buzzID == BUZZ_TYPE_CONTAINER && bubbles[i]->bAlive))
 		{
 			ContentBubble * bubble = bubbles[i];
 			ofVec2f p1  = touchpos;
@@ -377,7 +378,7 @@ void InteractionBuzz::doubleTouched(ofVec2f touchpos)
 		
 		for(int i=0; i<bubbles.size(); i++) {
 			
-			if(bubbles[i]->buzzID != BUZZ_TYPE_BUBBLE_OUT) continue;
+			if(bubbles[i]==NULL || bubbles[i]->buzzID != BUZZ_TYPE_BUBBLE_OUT) continue;
 			
 			ContentBubble * bubble = bubbles[i];
 			ofVec2f p1  = touchpos;
