@@ -27,21 +27,26 @@ void InteractionVote::setup() {
 }
 
 //--------------------------------------------------------
-void InteractionVote::setChoiceBubble(int i, string choice) {
+void InteractionVote::setVoteBubble(int i, string choice) {
 	
-	float   radius = 180;
+	float   radius = 190;
 	ofVec3f center(interactiveRect.width/2, 0, 0);
 	ofVec3f startPos(center.x + ofRandom(-300, 300), interactiveRect.height, ofRandom(-100, 100));
 	ofVec3f target(i==0?center.x-300:center.x+500, interactiveRect.height/2, 0);
-	voteBubbles[i] = new VoteBubble();
 	
-	voteBubbles[i]->data	  = NULL;
-	voteBubbles[i]->radius    = radius;
-	voteBubbles[i]->startRadius = radius;
-	voteBubbles[i]->maxRadius = radius;
-	voteBubbles[i]->rigidBody = bullet->createSphere(startPos, radius, 1);
-	voteBubbles[i]->createContentBubble();
-	voteBubbles[i]->setTarget(target.x, target.y, target.z);
+	if(voteBubbles[i] == NULL) {
+		voteBubbles[i] = new VoteBubble();
+		
+		voteBubbles[i]->data	  = NULL;
+		voteBubbles[i]->radius    = radius;
+		voteBubbles[i]->startRadius = radius;
+		voteBubbles[i]->maxRadius = radius;
+		voteBubbles[i]->rigidBody = bullet->createSphere(startPos, radius, 1);
+		voteBubbles[i]->createContentBubble();
+		voteBubbles[i]->setTarget(target.x, target.y, target.z);
+		voteBubbles[i]->setOptionString(choice);
+	}
+	
 	voteBubbles[i]->setOptionString(choice);
 	
 	if(voteBubbles[0] != NULL && voteBubbles[1] != NULL) {
@@ -53,7 +58,7 @@ void InteractionVote::setChoiceBubble(int i, string choice) {
 //--------------------------------------------------------
 ContentBubble * InteractionVote::addBubbleToVote(int voteID) {
 	
-	float   radius = 40;
+	float   radius = ofRandom(20, 40);
 	ofVec3f center(interactiveRect.width/2, 0, 0);
 	
 	ofVec3f startPos;
@@ -82,27 +87,30 @@ ContentBubble * InteractionVote::addBubbleToVote(int voteID) {
 
 //--------------------------------------------------------
 void InteractionVote::newBubbleRecieved(Donk::BubbleData * data) { 
+}
+
+//--------------------------------------------------------
+void InteractionVote::setVoteCount(int totalA, int totalB) {
 	
 	if(bAnimateOut) return;
+
+	///int totalA = Donk::QuestionData::all[data->questionID].tag_counts[0];
+	///int totalB = Donk::QuestionData::all[data->questionID].tag_counts[1];
 	
-	int totalA = Donk::QuestionData::all[data->questionID].tag_counts[0];
-	int totalB = Donk::QuestionData::all[data->questionID].tag_counts[1];
-	
-	string optA = Donk::QuestionData::all[data->questionID].tags[0];
-	string optB = Donk::QuestionData::all[data->questionID].tags[1];
-	
-	
+	///string optA = Donk::QuestionData::all[data->questionID].tags[0];
+	///string optB = Donk::QuestionData::all[data->questionID].tags[1];
+	 
 	int total      = totalA + totalB;
 	pctA		   = round( ((float)totalA / (float)total) * 100.0);
 	pctB           = round( ((float)totalB / (float)total) * 100.0);
 	
 	// Option A
-	if(voteBubbles[0] == NULL) setChoiceBubble(0, optA);
-	voteBubbles[0]->pct = pctA;	
+	//if(voteBubbles[0] == NULL) setVoteBubble(0, optA);
+	if(voteBubbles[0] != NULL) voteBubbles[0]->pct = pctA;	
 	
 	// Option B
-	if(voteBubbles[1] == NULL) setChoiceBubble(1, optB);
-	voteBubbles[1]->pct = pctB;	
+	//if(voteBubbles[1] == NULL) setVoteBubble(1, optB);
+	if(voteBubbles[1] != NULL) voteBubbles[1]->pct = pctB;	
 	
 	
 	// the first time we are going to make the 
@@ -200,6 +208,7 @@ void InteractionVote::update() {
 				int voteID   = bubbles[i]->voteBubbleID;
 				if(voteID != -1) {
 					ofVec3f  pos = voteBubbles[ voteID ]->getPosition();
+					pos.z -= 130;
 					bubbles[i]->setTarget( pos );
 				}
 				
@@ -311,4 +320,6 @@ void InteractionVote::animatedOut() {
 void InteractionVote::animatedIn() {
 	bAnimateOut		  = false;
 	bDoneAnimatingOut = false;
+	printf("--- Vote Animate In ---\n");
 }
+

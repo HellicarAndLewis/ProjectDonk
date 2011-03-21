@@ -25,7 +25,7 @@ void VoteBubble::drawInsideContent() {
 	glEnable(GL_DEPTH_TEST);
 	glPushMatrix();
 	glMultMatrixf(billboadMatrix);
-	
+	ofEnableAlphaBlending();
 	ofSetColor(255, 255, 255);
     
 

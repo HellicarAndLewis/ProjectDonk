@@ -19,6 +19,7 @@ public:
 	
 	InteractionVote() {
 		mode = MODE_VOTE;
+		name = "vote";
 	}
 	
 	void setup();
@@ -34,7 +35,9 @@ public:
 	void animatedIn();	
 	
 	//--------------------------------------------------------
-	void			setChoiceBubble(int i, string choice);
+	void			setVoteBubble(int i, string choice);
+	void			setVoteCount(int totalA, int totalB);
+	
 	bool			bMadeVoteBubbles;
 	VoteBubble *	voteBubbles[2];
 	int				voteIds[100];

@@ -83,6 +83,13 @@ public:
 	Champagne champagne;
 	BaseInteraction *           getInteraction(int mode);
 
+	//--------------------------------------------------------
+	// Interactions
+	vector <BaseInteraction*>	interactions;
+	BaseInteraction *			activeInteraction;
+	BaseInteraction *			previousInteraction;
+	BaseInteraction *			nextInteraction;
+	
 private:
 	
 	//--------------------------------------------------------
@@ -92,13 +99,6 @@ private:
 	vector <TouchedConstraint*> touchConstraints;
 	float						touchPadding;
 
-	//--------------------------------------------------------
-	// Interactions
-	vector <BaseInteraction*>	interactions;
-	BaseInteraction *			activeInteraction;
-	BaseInteraction *			previousInteraction;
-	BaseInteraction *			nextInteraction;
-	
 	// Sphere rendering
 	//--------------------------------------------------------
 	BubbleShader				bubbleShader;

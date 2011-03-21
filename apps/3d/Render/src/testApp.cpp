@@ -348,12 +348,26 @@ void testApp::processOsc() {
 			
 			Donk::QuestionData qd(m);
 			Donk::QuestionData::all[qd.id] = qd;
-			//cout << "todo: handle question update \"" << qd.text << "\" " << qd.tags[0] << "=" <<
-			//qd.tag_counts[0] << "," << qd.tags[1] << "=" << qd.tag_counts[1] << endl;
+			
+			
+			if(projection->activeInteraction != NULL) {
+				if (projection->activeInteraction->name == "vote") {
+					cout << "todo: handle question update \"" << qd.text << "\" " << qd.tags[0] << "=" <<
+					qd.tag_counts[0] << "," << qd.tags[1] << "=" << qd.tag_counts[1] << endl;
+					
+					InteractionVote * interaction = (InteractionVote*)projection->activeInteraction;
+					interaction->setVoteBubble(0, qd.tags[0]);
+					interaction->setVoteBubble(1, qd.tags[1]);
+					interaction->setVoteCount(qd.tag_counts[0], qd.tag_counts[1]);
+				}
+			}
+			
 			
 		}
+		
 	}
 	audioData->update();
+
 }
 
 void testApp::setupKinect() {
