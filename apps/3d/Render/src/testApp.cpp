@@ -352,8 +352,8 @@ void testApp::processOsc() {
 			
 			if(projection->activeInteraction != NULL) {
 				if (projection->activeInteraction->name == "vote") {
-					cout << "todo: handle question update \"" << qd.text << "\" " << qd.tags[0] << "=" <<
-					qd.tag_counts[0] << "," << qd.tags[1] << "=" << qd.tag_counts[1] << endl;
+					//cout << "todo: handle question update \"" << qd.text << "\" " << qd.tags[0] << "=" <<
+					//qd.tag_counts[0] << "," << qd.tags[1] << "=" << qd.tag_counts[1] << endl;
 					
 					InteractionVote * interaction = (InteractionVote*)projection->activeInteraction;
 					interaction->setVoteBubble(0, qd.tags[0]);

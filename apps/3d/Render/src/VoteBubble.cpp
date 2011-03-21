@@ -38,7 +38,7 @@ void VoteBubble::drawInsideContent() {
 	float strW = font.stringWidth(optionStr)+10.0;
 	if(strW < 0) strW = 1;
 	
-	float scl = MIN(1.0, (radius*2) / strW);
+	float scl = MIN(1.0, (radius*2) / strW) * 0.89f;
 		
 	glPushMatrix();
 	glTranslated( -((strW*scl)/2.0), 0, 0 );
@@ -46,14 +46,20 @@ void VoteBubble::drawInsideContent() {
 	font.drawString(optionStr, 0, 0);
 	glPopMatrix();
 	
-	string pctStr   = ofToString(pct)+"%";
+	string pctStr   = ofToString(pct);
 	float  pctWidth = font.stringWidth(pctStr);
-	float  optH     = font.stringHeight(optionStr);
+	float  optH     = font.stringHeight(optionStr)+8.0;
 	glPushMatrix();
-	glTranslated( -((pctWidth)/2.0), optH, 0 );
+	glTranslated( -((pctWidth+10.0)/2.0), optH, 0 );
+	glScalef(1.2, 1.2, 1);
 	font.drawString(pctStr, 0, 0);
 	glPopMatrix();
 	
+	glPushMatrix();
+	glTranslated( pctWidth-3.0, optH, 0 );
+	glScalef(0.52, 0.52, 1);
+	font.drawString("%", 0, 0);
+	glPopMatrix();
 	
 	glPopMatrix();
 }

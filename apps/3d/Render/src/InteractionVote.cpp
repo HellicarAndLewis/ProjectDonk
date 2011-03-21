@@ -58,7 +58,7 @@ void InteractionVote::setVoteBubble(int i, string choice) {
 //--------------------------------------------------------
 ContentBubble * InteractionVote::addBubbleToVote(int voteID) {
 	
-	float   radius = ofRandom(20, 40);
+	float   radius = ofRandom(10, 40);
 	ofVec3f center(interactiveRect.width/2, 0, 0);
 	
 	ofVec3f startPos;
@@ -107,7 +107,7 @@ void InteractionVote::setVoteCount(int totalA, int totalB) {
 	
 	if(pctA == voteBubbles[0]->pct && pctB == voteBubbles[1]->pct) {
 		printf("no need to update\n");
-		return;	
+		//return;	
 	}
 	
 	// Option A
@@ -134,32 +134,29 @@ void InteractionVote::setVoteCount(int totalA, int totalB) {
 	
 	// now loop through all the bubbles and set them to 
 	// the vote bubble that they should be on...
-	int incA = 0;
-	int incB = 0;
 	for (int i=0; i<100; i++) {
 		ContentBubble * bubble = bubbles[i];
 		
-		if(incA < pctA) {
+		if(i < pctA) {
 			bubble->setTarget( voteBubbles[0]->getPosition() );
 			bubble->bVoteEnabled = true;
 			//bubble->voteBubbleID = 0;
-			incA ++;	
 			voteIds[i] = 0;
 		}
-		if(incA == pctA && incB < pctB) {
+		else {
 			bubble->setTarget( voteBubbles[1]->getPosition() );
 			bubble->bVoteEnabled = true;
 			//bubble->voteBubbleID = 1;
-			incB ++;	
 			voteIds[i] = 1;
+			
 		}
+		
 		bubble->voteDelay = ofRandom(0.5, 2.0);		
 		bubble->voteTimer = ofGetElapsedTimeMillis();
 		bubble->bVoteNeedsUpdate = true;
 	}
 	
-	printf("pctA:%i - %i\n", pctA, incA);
-	printf("pctB:%i - %i\n", pctB, incB);
+	
 
 	
 };
