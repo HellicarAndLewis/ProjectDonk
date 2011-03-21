@@ -8,6 +8,7 @@
  */
 
 #include "BuzzContainerBubble.h"
+#include "Mode.h"
 
 BuzzContainerBubble::BuzzContainerBubble(){
 	

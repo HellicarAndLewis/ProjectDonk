@@ -209,9 +209,11 @@ void BubbleProjection::update() {
 	if(!bTouchDown && activeInteraction) {
 		
 		for (int i=touchConstraints.size()-1; i>=0; i--) {
-			touchConstraints[i]->destroy();
-			delete touchConstraints[i];
-			touchConstraints[i] = NULL;
+			if(touchConstraints[i] != NULL) {
+				touchConstraints[i]->destroy();
+				delete touchConstraints[i];
+				touchConstraints[i] = NULL;
+			}
 			touchConstraints.erase(touchConstraints.begin() + i);
 		}
 		
@@ -376,7 +378,7 @@ void BubbleProjection::removeTouchConstraint(ContentBubble * bubble) {
 	int					removeInd = -1;
 	for (int i=0; i<touchConstraints.size(); i++) {
 		if(touchConstraints[i]->body == bubble->rigidBody->body) {
-			touchCon == touchConstraints[i];
+			touchCon = touchConstraints[i];
 			removeInd = i;
 			printf("remove this cont\n");
 		}
@@ -577,7 +579,7 @@ void BubbleProjection::touchMoved(float x, float y, int touchId) {
 			for(int i=0; i<activeInteraction->bubbles.size(); i++) {
 				ContentBubble * bubble = activeInteraction->bubbles[i];
 				
-				if(activeInteraction->name == "buzz" && !bubble->bAlive) continue;
+				if(bubble==NULL || (activeInteraction->name == "buzz" && !bubble->bAlive)) continue;
 				
 				if (bubble->touchID == touchId) {
 					bTouchedIDUsed = true;
@@ -589,7 +591,7 @@ void BubbleProjection::touchMoved(float x, float y, int touchId) {
 				
 				ContentBubble * bubble = activeInteraction->bubbles[i];
 				
-				if(activeInteraction->name == "buzz" && !bubble->bAlive) continue;
+				if(bubble==NULL || (activeInteraction->name == "buzz" && !bubble->bAlive)) continue;
 				
 				// update the interaction touch constraints
 				for (int j=0; j<touchConstraints.size(); j++) {

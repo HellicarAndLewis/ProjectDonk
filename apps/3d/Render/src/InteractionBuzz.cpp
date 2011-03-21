@@ -349,7 +349,8 @@ void InteractionBuzz::doubleTouched(ofVec2f touchpos)
 	
 	for(int i=0; i<bubbles.size(); i++)
 	{
-		if(bubbles[i]->buzzID == BUZZ_TYPE_CONTAINER && bubbles[i]->bAlive)
+		
+		if(bubbles[i]!=NULL && (bubbles[i]->buzzID == BUZZ_TYPE_CONTAINER && bubbles[i]->bAlive))
 		{
 			ContentBubble * bubble = bubbles[i];
 			ofVec2f p1  = touchpos;
@@ -377,7 +378,7 @@ void InteractionBuzz::doubleTouched(ofVec2f touchpos)
 		
 		for(int i=0; i<bubbles.size(); i++) {
 			
-			if(bubbles[i]->buzzID != BUZZ_TYPE_BUBBLE_OUT) continue;
+			if(bubbles[i]==NULL || bubbles[i]->buzzID != BUZZ_TYPE_BUBBLE_OUT) continue;
 			
 			ContentBubble * bubble = bubbles[i];
 			ofVec2f p1  = touchpos;
@@ -417,12 +418,13 @@ void InteractionBuzz::createMomAndChildBubbles()
 	
 	int numChildren  = polledData.size();
 	
+	float div = (float)Donk::Mode::getInstance()->getValue("Max Bubble Size");
 	// base size on how many we have
 	float cRad		= CONTAINER_RADIUS;
 	float volCont	= (( 4.0/3.0)*PI )*(cRad*cRad*cRad);
 	float volBubb	= volCont / (numChildren * 3.f);	
-	float maxRadius	= volBubb / (( 4.0/3.0)*PI );
-	maxRadius	= pow(maxRadius, 1.0f/3.0f);
+	float maxRadius	= volBubb / div;//(( 4.0/3.0)*PI );
+	maxRadius		= div;//pow(maxRadius, 1.0f/3.0f);
 	float radius	= ofRandom(maxRadius*.5,maxRadius);
 	
 	// create inner content bubbles
