@@ -53,3 +53,4 @@ apps/*/*/Release Linux64
 !tools/*.app
 apps/3d/Render/bin/data/settings/*.xml
 !apps/3d/Render/bin/data/settings/parameters.xml
+apps/3d/Render/bin/data/mask*.xml
