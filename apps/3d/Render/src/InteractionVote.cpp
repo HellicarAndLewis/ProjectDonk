@@ -228,6 +228,11 @@ void InteractionVote::update() {
 	for (int i=0; i<2; i++) {
 		if(!voteBubbles[i]) continue;
 		
+		
+		if(nTouches == 0) {
+			voteBubbles[i]->bTouched = false;	
+		}
+		
 		if(bAnimateOut) {
 			voteBubbles[i]->gotoTarget();
 			voteBubbles[i]->update();

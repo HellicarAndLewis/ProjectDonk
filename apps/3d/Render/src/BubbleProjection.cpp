@@ -66,7 +66,7 @@ void BubbleProjection::setup() {
 	// probably only want to do this when the particle system is used //
 	if(drawingParticles)
 		particleSys.init(ofVec2f(2000, 2000));
-		
+	
 	bTouchDown = false;
 }
 
@@ -127,13 +127,13 @@ void BubbleProjection::update() {
 	
 	
 	//if(bAnimateOut) {
-//		float time = (ofGetElapsedTimeMillis()-animatedOutTimer) / 1000.0;
-//		if(time > MAX_ANIMATION_TIME || bAllOffScreen && !bDoneAnimatingOut) {
-//			bDoneAnimatingOut = true;
-//			killallBubbles();
-//		}
-//	}
-//	
+	//		float time = (ofGetElapsedTimeMillis()-animatedOutTimer) / 1000.0;
+	//		if(time > MAX_ANIMATION_TIME || bAllOffScreen && !bDoneAnimatingOut) {
+	//			bDoneAnimatingOut = true;
+	//			killallBubbles();
+	//		}
+	//	}
+	//	
 	
 	for (int i=0; i<interactions.size(); i++) {
 		if(!interactions[i]->bActive && interactions[i]->bAnimateOut) {
@@ -168,7 +168,7 @@ void BubbleProjection::update() {
 		
 		
 	}
-
+	
 	// -------------------
 	// Active Interaction
 	// -------------------
@@ -201,8 +201,8 @@ void BubbleProjection::update() {
 	if(drawingParticles) {
 		particleSys.update();
 	}
-
-
+	
+	
 	//----------------
 	// check to clean up touch constraints
 	// need to check that this works!
@@ -214,7 +214,7 @@ void BubbleProjection::update() {
 			touchConstraints[i] = NULL;
 			touchConstraints.erase(touchConstraints.begin() + i);
 		}
-
+		
 	}
 	
 	
@@ -397,44 +397,90 @@ void BubbleProjection::touchDown(float x, float y, int touchId) {
 	
 	// cout << touchId << endl;
 	bTouchDown = true;
-
+	
 	ofVec2f touchCoords(x, y);
 	ofVec2f pos = mapToInteractiveArea(touchCoords);
-	
-	
 	if(activeInteraction) {
 		
-		// first we check to see if any bubbles are using 
-		// the touchID. if not then we can make a constraint
-		bool bTouchedIDUsed = false;
-		for(int i=0; i<activeInteraction->bubbles.size(); i++) {
-			ContentBubble * bubble = activeInteraction->bubbles[i];
-			if (bubble->touchID == touchId) {
-				bTouchedIDUsed = true;
+		
+		
+		InteractionVote * voteInteraction = NULL;
+		bool bInVoteMode = false;
+		if(activeInteraction->name == "vote") {
+			voteInteraction = (InteractionVote*)activeInteraction;	
+			if(voteInteraction) {
+				bInVoteMode = true;
 			}
 		}
 		
-		if(!bTouchedIDUsed) {
-			for(int i=0; i<activeInteraction->bubbles.size(); i++) {
-				
-				ContentBubble * bubble = activeInteraction->bubbles[i];
-				
-				if(activeInteraction->name == "buzz" && !bubble->bAlive) continue;
-				
-				ofVec2f p1  = pos;
-				ofVec2f p2  = bubble->rigidBody->getPosition();
-				float	dis = p1.distance(p2);
-				if(dis < bubble->radius + touchPadding) {
-					bubble->touchID = touchId;
-					addTouchConstraints(bubble);
-					bubble->bTouched = true;
-					break;
+		// ----------
+		// vote mode
+		// -----------
+		if(bInVoteMode) {
+			if(voteInteraction->bMadeVoteBubbles) {
+				for(int i=0; i<2; i++) {
+					
+					ContentBubble * bubble = (ContentBubble*)voteInteraction->voteBubbles[i];
+					if(bubble) {
+						if(!bubble->bTouched) {
+							ofVec2f p1  = pos;
+							ofVec2f p2  = bubble->rigidBody->getPosition();
+							float	dis = p1.distance(p2);
+							if(dis < bubble->radius + touchPadding) {
+								addTouchConstraints(bubble);
+								bubble->bTouched = true;
+								break;
+							}
+							else {
+								bubble->bTouched = false;			
+							}
+						}
+					}
 				}
-				else {
-					bubble->bTouched = false;			
+			}
+			
+		}
+		
+		// -----------
+		// normal mode
+		// ------------
+		else {
+			
+			
+			
+			// first we check to see if any bubbles are using 
+			// the touchID. if not then we can make a constraint
+			bool bTouchedIDUsed = false;
+			for(int i=0; i<activeInteraction->bubbles.size(); i++) {
+				ContentBubble * bubble = activeInteraction->bubbles[i];
+				if (bubble->touchID == touchId) {
+					bTouchedIDUsed = true;
+				}
+			}
+			
+			if(!bTouchedIDUsed) {
+				for(int i=0; i<activeInteraction->bubbles.size(); i++) {
+					
+					ContentBubble * bubble = activeInteraction->bubbles[i];
+					
+					if(activeInteraction->name == "buzz" && !bubble->bAlive) continue;
+					
+					ofVec2f p1  = pos;
+					ofVec2f p2  = bubble->rigidBody->getPosition();
+					float	dis = p1.distance(p2);
+					if(dis < bubble->radius + touchPadding) {
+						bubble->touchID = touchId;
+						addTouchConstraints(bubble);
+						bubble->bTouched = true;
+						break;
+					}
+					else {
+						bubble->bTouched = false;			
+					}
 				}
 			}
 		}
+		
 	}
 	
 	
@@ -468,55 +514,103 @@ void BubbleProjection::touchDown(float x, float y, int touchId) {
 void BubbleProjection::touchMoved(float x, float y, int touchId) {
 	
 	// cout << touchId << endl;
-
+	
 	
 	ofVec2f p(x, y);
 	touches[touchId].setPosition( p );
 	ofVec2f pos = mapToInteractiveArea( p );
 	
-
+	
 	if(activeInteraction) {
 		
-		// first we check to see if any bubbles are using 
-		// this touchID. if not then we can make a constraint
-		bool bTouchedIDUsed = false;
-		
-		for(int i=0; i<activeInteraction->bubbles.size(); i++) {
-			ContentBubble * bubble = activeInteraction->bubbles[i];
-			
-			if(activeInteraction->name == "buzz" && !bubble->bAlive) continue;
-			
-			if (bubble->touchID == touchId) {
-				bTouchedIDUsed = true;
+		InteractionVote * voteInteraction = NULL;
+		bool bInVoteMode = false;
+		if(activeInteraction->name == "vote") {
+			voteInteraction = (InteractionVote*)activeInteraction;	
+			if(voteInteraction) {
+				bInVoteMode = true;
 			}
 		}
 		
-		
-		for(int i=0; i<activeInteraction->bubbles.size(); i++) {
+		if(bInVoteMode) {
 			
-			ContentBubble * bubble = activeInteraction->bubbles[i];
-			
-			if(activeInteraction->name == "buzz" && !bubble->bAlive) continue;
-			
-			// update the interaction touch constraints
-			for (int j=0; j<touchConstraints.size(); j++) {
-				TouchedConstraint * tc = touchConstraints[j];
-				if(tc->body == bubble->rigidBody->body) {
-					touchConstraints[j]->updateTouchConstraint(pos);
+			if(voteInteraction->bMadeVoteBubbles) {
+				for(int i=0; i<2; i++) {
+					
+					ContentBubble * bubble = (ContentBubble*)voteInteraction->voteBubbles[i];				
+					if(bubble) {
+						if(bubble->bTouched == false) {
+							ofVec2f p1  = pos;
+							ofVec2f p2  = bubble->rigidBody->getPosition();
+							float	dis = p1.distance(p2);
+							if(dis < bubble->radius + touchPadding) {
+								addTouchConstraints(bubble);
+								bubble->bTouched = true;
+							}
+						}
+						// update the interaction touch constraints
+						for (int j=0; j<touchConstraints.size(); j++) {
+							TouchedConstraint * tc = touchConstraints[j];
+							if(tc->body == bubble->rigidBody->body) {
+								touchConstraints[j]->updateTouchConstraint(pos);
+							}
+						}	
+					}
+					
+					
 				}
-			}	
-			
-			if(!bTouchedIDUsed) {
-				ofVec2f p1  = pos;
-				ofVec2f p2  = bubble->rigidBody->getPosition();
-				float	dis = p1.distance(p2);
 				
-				if(dis < bubble->radius+touchPadding && !bubble->bTouched) {
-					bubble->touchID = touchId;
-					addTouchConstraints(bubble);
-					bubble->bTouched = true;
-					break;
+				
+			}
+			
+		}
+		
+		
+		
+		else {
+			
+			// first we check to see if any bubbles are using 
+			// this touchID. if not then we can make a constraint
+			bool bTouchedIDUsed = false;
+			
+			for(int i=0; i<activeInteraction->bubbles.size(); i++) {
+				ContentBubble * bubble = activeInteraction->bubbles[i];
+				
+				if(activeInteraction->name == "buzz" && !bubble->bAlive) continue;
+				
+				if (bubble->touchID == touchId) {
+					bTouchedIDUsed = true;
 				}
+			}
+			
+			
+			for(int i=0; i<activeInteraction->bubbles.size(); i++) {
+				
+				ContentBubble * bubble = activeInteraction->bubbles[i];
+				
+				if(activeInteraction->name == "buzz" && !bubble->bAlive) continue;
+				
+				// update the interaction touch constraints
+				for (int j=0; j<touchConstraints.size(); j++) {
+					TouchedConstraint * tc = touchConstraints[j];
+					if(tc->body == bubble->rigidBody->body) {
+						touchConstraints[j]->updateTouchConstraint(pos);
+					}
+				}	
+				
+				if(!bTouchedIDUsed) {
+					ofVec2f p1  = pos;
+					ofVec2f p2  = bubble->rigidBody->getPosition();
+					float	dis = p1.distance(p2);
+					
+					if(dis < bubble->radius+touchPadding && !bubble->bTouched) {
+						bubble->touchID = touchId;
+						addTouchConstraints(bubble);
+						bubble->bTouched = true;
+						break;
+					}
+				}
+				
 			}
 			
 		}
@@ -537,44 +631,81 @@ void BubbleProjection::touchUp(float x, float y, int touchId) {
 	ofVec2f pos = mapToInteractiveArea(ofVec2f(x, y));
 	
 	if(activeInteraction) {
-		for(int i=0; i<activeInteraction->bubbles.size(); i++) {
-			
-			ContentBubble * bubble = activeInteraction->bubbles[i];
-			
-			if(bubble != NULL) {
-				if(bubble->bTouched) {
-					
-					if (activeInteraction->name == "interview") {
-						bubble->setTarget(pos.x, pos.y);
-						bubble->setLoopStart( getHeight() );
-					}
-					
-					if (activeInteraction->name == "inspiration") {
-						bubble->setTarget(pos.x, pos.y);
-					}
-					
-					
-					if (activeInteraction->name == "buzz") {
-						if( !activeInteraction->bAnimateOut ) bubble->setTarget(pos.x, pos.y);
-					}
-					
-					if (activeInteraction->name == "performance") {
-						bubble->setTarget(pos.x, pos.y);
-						bubble->performanceStartTarget = bubble->target;
-					}
-					
-					bubble->bTouched = false;
-					removeTouchConstraint(bubble);
-				}
+		
+		InteractionVote * voteInteraction = NULL;
+		bool bInVoteMode = false;
+		if(activeInteraction->name == "vote") {
+			voteInteraction = (InteractionVote*)activeInteraction;	
+			if(voteInteraction) {
+				bInVoteMode = true;
 			}
 		}
+		
+		
+		if(bInVoteMode) {
+			for(int i=0; i<2; i++) {
+				
+				if(voteInteraction->bMadeVoteBubbles) {
+					ContentBubble * bubble = (ContentBubble*)voteInteraction->voteBubbles[i];				
+					if(bubble != NULL) {
+						if(bubble->bTouched) {
+							
+							bubble->bTouched = false;
+							removeTouchConstraint(bubble);
+							
+						}
+					}
+				}
+			}
+			
+		}
+		
+		
+		else {
+			
+			for(int i=0; i<activeInteraction->bubbles.size(); i++) {
+				
+				ContentBubble * bubble = activeInteraction->bubbles[i];
+				
+				if(bubble != NULL) {
+					if(bubble->bTouched) {
+						
+						if (activeInteraction->name == "interview") {
+							bubble->setTarget(pos.x, pos.y);
+							bubble->setLoopStart( getHeight() );
+						}
+						
+						if (activeInteraction->name == "inspiration") {
+							bubble->setTarget(pos.x, pos.y);
+						}
+						
+						
+						if (activeInteraction->name == "buzz") {
+							if( !activeInteraction->bAnimateOut ) bubble->setTarget(pos.x, pos.y);
+						}
+						
+						if (activeInteraction->name == "performance") {
+							bubble->setTarget(pos.x, pos.y);
+							bubble->performanceStartTarget = bubble->target;
+						}
+						
+						bubble->bTouched = false;
+						removeTouchConstraint(bubble);
+					}
+				}
+			}
+			
+		}
 	}
+	
 	
 	// remove old touches...
 	if(touches.find(touchId) != touches.end()) {
 		//printf("remove touch: %i\n", touchId);
 		touches.erase(touchId);
 	}
+	
+	
 }
 
 //--------------------------------------------------------
