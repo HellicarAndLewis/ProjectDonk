@@ -251,7 +251,7 @@ int ofxPolygonMask::insertPoint(ofVec3f p) {
 void ofxPolygonMask::mousePressed(ofMouseEventArgs &m) {
 	
 	if(doPoint) {
-		focusedPoint = insertPoint(ofVec3f(m.x-x, m.y-y, 20));
+		focusedPoint = insertPoint(ofVec3f(m.x-x, m.y-y, 60));
 		selectedPoint = focusedPoint;
 		return;
 	} else if(doDelete) {
