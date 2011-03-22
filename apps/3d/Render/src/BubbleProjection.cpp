@@ -21,6 +21,19 @@ static bool shouldRemoveTouch(BubbleTouch &t) {
 	return t.bRemove;	
 }
 
+static bool shouldRemoveConstraint(TouchedConstraint * tc) {
+	bool bRemove = false;
+	if(tc != NULL) {
+		bRemove = tc->bRemove;
+		if(bRemove) {
+			tc->destroy();
+			delete tc;
+			tc = NULL;
+		}
+	}
+	return bRemove;
+}
+
 //--------------------------------------------------------
 BubbleProjection::BubbleProjection() {
 	interactiveArea     = ofRectangle(100,100,900,500);
@@ -218,6 +231,15 @@ void BubbleProjection::update() {
 	// need to check that this works!
 	if(!bTouchDown && activeInteraction) {
 		
+		for (int i=0; i<touchConstraints.size(); i++) {
+			touchConstraints[i]->bRemove  = true;
+		}
+		
+		touchConstraints.erase(touchConstraints.begin(),
+							   partition(touchConstraints.begin(), 
+										 touchConstraints.end(), 
+										 shouldRemoveConstraint));
+		
 		/*for (int i=touchConstraints.size()-1; i>=0; i--) {
 			if(touchConstraints[i] != NULL) {
 				touchConstraints[i]->destroy();
@@ -378,27 +400,33 @@ void BubbleProjection::addTouchConstraints(ContentBubble * bubble) {
 //--------------------------------------------------------
 void BubbleProjection::removeTouchConstraint(ContentBubble * bubble) {
 	
-	if(bubble == NULL) return;
-	
-	bubble->touchID = -1;
-	TouchedConstraint * touchCon = NULL;
-	int					removeInd = -1;
-	for (int i=0; i<touchConstraints.size(); i++) {
-		if(touchConstraints[i]->body == bubble->rigidBody->body) {
-			touchCon = touchConstraints[i];
-			removeInd = i;
-			printf("remove this cont\n");
+	if(bubble != NULL) {
+		bubble->touchID = -1;
+		TouchedConstraint * touchCon = NULL;
+		int					removeInd = -1;
+		for (int i=0; i<touchConstraints.size(); i++) {
+			if(touchConstraints[i]->body == bubble->rigidBody->body) {
+				touchCon = touchConstraints[i];
+				removeInd = i;
+				printf("remove this cont\n");
+			}
+		}
+		
+		if(removeInd != -1) {
+			touchCon->bRemove = true;
 		}
 	}
 	
-	if(removeInd != -1) {
-		touchCon->destroy();
-		delete touchCon;
-		touchConstraints[removeInd] = NULL;
-		touchConstraints.erase(touchConstraints.begin() + removeInd);
+	for (int i=0; i<touchConstraints.size(); i++) {
+		if(touchConstraints[i]->body == NULL) {
+			touchConstraints[i]->bRemove  = true;
+		}
 	}
 	
-	// printf("Touch Constraint Size:%i\n", (int)touchConstraints.size());
+	touchConstraints.erase(touchConstraints.begin(),
+						   partition(touchConstraints.begin(), touchConstraints.end(), shouldRemoveConstraint));
+
+	printf("Touch Constraint Size:%i\n", (int)touchConstraints.size());
 }
 
 //--------------------------------------------------------

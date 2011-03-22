@@ -16,6 +16,7 @@ TouchedConstraint::TouchedConstraint() {
 	constraint = NULL;
 	body	   = NULL;
 	world	   = NULL;
+	bRemove    = false;
 }
 
 TouchedConstraint::~TouchedConstraint() {

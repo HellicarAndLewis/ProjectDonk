@@ -14,6 +14,7 @@ class TouchedConstraint {
 	
 public:
 	
+	bool bRemove;
 	//--------------------------------------------------------
 	TouchedConstraint();
 	~TouchedConstraint();
