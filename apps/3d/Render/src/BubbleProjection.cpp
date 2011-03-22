@@ -318,7 +318,7 @@ void BubbleProjection::draw() {
 	}
 	
 	if(drawingParticles) {
-		particleSys.draw(false);
+		//particleSys.draw(false);
 	}
 	
 	if(drawingChampagne){

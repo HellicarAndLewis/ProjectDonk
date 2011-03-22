@@ -58,28 +58,21 @@ void InteractionInspiration::update() {
 	
 	for(int i=0; i<bubbles.size(); i++) {
 
+		if(nTouches == 0) {
+			if(bubbles[i]->bDoubleTouched) {
+				printf("Double Touched Off!\n");
+			}
+			bubbles[i]->bTouched	   = false;
+			bubbles[i]->bDoubleTouched = false;
+		}
 		
-		if(bubbles[i]->zoomTouched) {
+		if(bubbles[i]->bDoubleTouched) {
 			bubbles[i]->lerpRadius(bubbles[i]->maxRadius,0.1);
 		}else{
 			bubbles[i]->lerpRadius(bubbles[i]->startRadius,0.1);
 		}
 		
-		if(nTouches == 0) {
-			
-			if(bubbles[i]->bDoubleTouched) {
-				printf("Double Touched Off!\n");
-				//bubbles[i]->setRadius(90);
-			}
-			
-			bubbles[i]->bTouched	   = false;
-			bubbles[i]->bDoubleTouched = false;
-			
-			//	ofVec3f bubPos = bubbles[i]->getPosition();
-			//			if(bubPos.z != 0) {
-			//				
-			//			}
-		}
+	
 		
 		
 		if(bAnimateIn) {
@@ -194,11 +187,12 @@ void InteractionInspiration::doubleTouched(ofVec2f touchpos) {
 	
 	for(int i=0; i<bubbles.size(); i++) {
 		
+		if(bubbles[i]==NULL) continue;
 		ContentBubble * bubble = bubbles[i];
 		ofVec2f p1  = touchpos;
 		ofVec2f p2  = bubble->rigidBody->getPosition();
 		float	dis = p1.distance(p2);
-		
+		/*
 		if(dis < bubble->radius + 10.0) {
 			//bubble->setRadius(150);
 			//bubble->doubleTouched();
@@ -212,6 +206,12 @@ void InteractionInspiration::doubleTouched(ofVec2f touchpos) {
 			}
 
 			
+			printf("hit this bubble: %p\n", bubble);
+			break;
+		}*/
+		if(dis < bubble->radius + 10.0) {
+			//bubble->setRadius(150);
+			bubble->doubleTouched();
 			printf("hit this bubble: %p\n", bubble);
 			break;
 		}
