@@ -343,12 +343,15 @@ void BubbleProjection::draw() {
 	// draw touches
 	// -------------------
 	for (int i=0; i<touches.size(); i++) {
-		ofVec2f tp = mapToInteractiveArea(touches[i].getPosition());
-		touches[i].drawTouch(tp);
-		
-		if(ofGetFrameNum()%12==0)champagne.particles.push_back( new BrownianObject( tp, 10));
-		
-		particleSys.addForceAtPoint( tp );
+		if(!touches[i].bChildOfGesture) {
+			ofVec2f tp = mapToInteractiveArea(touches[i].getPosition());
+			
+			touches[i].drawTouch(tp);
+			
+			if(ofGetFrameNum()%12==0)champagne.particles.push_back( new BrownianObject( tp, 10));
+			
+			particleSys.addForceAtPoint( tp );
+		}
 		//particleSys.addForceAndParticle(tp, false, true);
 	}
 	
@@ -563,10 +566,13 @@ void BubbleProjection::touchMoved(float x, float y, int touchId) {
 	
 	
 	ofVec2f p(x, y);
-	
+	bool bTouchFromDoubleTouch = false;
 	for (int i=0; i<touches.size(); i++) {
 		if(touches[i].id == touchId) {
 			touches[i].setPosition( p );
+			if (touches[i].bChildOfGesture) {
+				bTouchFromDoubleTouch = true;
+			}
 		}
 	}
 	
@@ -633,9 +639,12 @@ void BubbleProjection::touchMoved(float x, float y, int touchId) {
 				if (bubble->touchID == touchId) {
 					bTouchedIDUsed = true;
 				}
+				
+				printf( "%i - id:%i\n", i, bubble->touchID);
 			}
 			
-			
+			if(bTouchFromDoubleTouch) bTouchedIDUsed = true;
+
 			for(int i=0; i<activeInteraction->bubbles.size(); i++) {
 				
 				ContentBubble * bubble = activeInteraction->bubbles[i];
@@ -677,6 +686,17 @@ void BubbleProjection::touchMoved(float x, float y, int touchId) {
 //--------------------------------------------------------
 void BubbleProjection::touchUp(float x, float y, int touchId) {
 	
+	for (int i=0; i<touches.size(); i++) {
+		if(touches[i].id == touchId) {
+			//printf("*** %p\n", touches[i].secondTouch);
+			if(touches[i].secondTouch) {
+				
+				touches[i].secondTouch->bChildOfGesture = false;
+				touches[i].secondTouch->radiusDes = 30;
+				touches[i].secondTouch->touchAlphaDes = 200;
+			}
+		}
+	}
 	
 	bTouchDown = false;
 	
@@ -789,6 +809,7 @@ void BubbleProjection::doubleTouchGesture(int touch1Id, int touch2Id) {
 		// anymore cause we have a double gesture
 		t2->touchAlphaDes = 0;
 		t2->radiusDes = 0;
+		t2->bChildOfGesture = true; // kinda a hack...
 		
 		t1->secondTouch = t2;
 		t1->setPosition(doubleTouchCenter); 

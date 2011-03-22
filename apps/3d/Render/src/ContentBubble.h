@@ -39,6 +39,7 @@ public:
 	float				 touchAlpha, touchAlphaTarget;
 	bool				 bTouched, bDoubleTouched;
 	bool				 bFlipToggle;
+	float				 timeSinceLastFlip;
 	int					 touchID;
 	float				 birthDate, age;
 	bool				 bAlive, bRemove;

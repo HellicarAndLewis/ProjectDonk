@@ -22,6 +22,7 @@ void ContentBubble::destroy() {
 //--------------------------------------------------------------
 ContentBubble::ContentBubble() {
 	
+	timeSinceLastFlip = 0;
 	bFlipToggle      = false;
 	bRemoveOffScreen = false;
 	bRemove	         = false;
@@ -279,15 +280,21 @@ void ContentBubble::doubleTouched() {
 	
 	if(bDoubleTouched) {
 		
-		bFlipToggle = !bFlipToggle;
-	
-		touchAlphaTarget = 160;
+		float time = (ofGetElapsedTimeMillis()-timeSinceLastFlip) / 1000.0;
+		if(time < 2.0) {
+			return;
+		}
 
+		bFlipToggle = !bFlipToggle;
+		touchAlphaTarget = 160;
+		
 		if(bFlipToggle) {
 			rotateYTarget = rotateYDirectionOn;
+			timeSinceLastFlip = ofGetElapsedTimeMillis();
 		}
 		else {
 			rotateYTarget = rotateYDirectionOff;
+			timeSinceLastFlip = ofGetElapsedTimeMillis();
 		}
 		
 	}
