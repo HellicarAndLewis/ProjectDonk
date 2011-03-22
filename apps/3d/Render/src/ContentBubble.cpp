@@ -59,7 +59,7 @@ ContentBubble::ContentBubble() {
 	buzzTime	= 0;
 	buzzWait	= 0.1;
 	loopCounter = 0;
-    loopTime = ofRandom(.0015,.0025);
+    loopTime = ofRandom(.0015/2.0,.0025/2.0);
 	
     maxFontSize = 15;
     minFontSize = 9;
