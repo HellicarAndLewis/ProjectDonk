@@ -45,6 +45,9 @@ void testApp::update(){
 
 	Donk::BubbleData::update();
 	
+	projection->particleSys.particleColor.set(mode->getValue("Particle Red"), mode->getValue("Particle Green"), mode->getValue("Particle Blue"));//Hsb(calibrationProjection.particleSaturation, 255, 255, 1);
+	projection->particleSys.maxSpriteSize = mode->getValue("Max Particle Size");
+	
 	processOsc();
 	projection->update();
 	
@@ -305,8 +308,7 @@ void testApp::mouseReleased(int x, int y, int button){
 		bDidFakeSecondTouch = false;
 	}
 	
-	projection->particleSys.particleColor.set(mode->getValue("Particle Red"), mode->getValue("Particle Green"), mode->getValue("Particle Blue"));//Hsb(calibrationProjection.particleSaturation, 255, 255, 1);
-	projection->particleSys.maxSpriteSize = mode->getValue("Max Particle Size");
+	
 	
 }
 

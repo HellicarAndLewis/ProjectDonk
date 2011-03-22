@@ -54,11 +54,11 @@ void InteractionPerformance::setup() {
     
     maxRibbonsPerChannel = 100;
     //add uggo-matic colors on purpose for debug
-    colors[0] = ofColor(1.0, 0.0, 0.0);
-    colors[1] = ofColor(1.0, 1.0, 0.0);
-    colors[2] = ofColor(0.0, 1.0, 1.0);
-    colors[3] = ofColor(1.0, 0.0, 1.0);
-    colors[4] = ofColor(0.0, 1.0, 0.0);
+    colors[0] = ofColor(184.0/255.f, 19.0/255.f, 33.0/255.f);
+    colors[1] = ofColor(184.0/255.f, 19.0/255.f, 33.0/255.f);
+    colors[2] = ofColor(184.0/255.f, 19.0/255.f, 33.0/255.f);
+    colors[3] = ofColor(1.0, 1.0, 1.0);
+    colors[4] = ofColor(1.0, 1.0, 1.0);
     colors[5] = ofColor(1.0, 1.0, 1.0);
 }
 

@@ -43,7 +43,7 @@ BubbleProjection::BubbleProjection() {
 	touchPadding		= 10.0;
 	//drawingParticles	= false;
 	drawingParticles	= true;
-	drawingChampagne	= false;
+	drawingChampagne	= true;
 }
 
 //--------------------------------------------------------
@@ -282,7 +282,6 @@ void BubbleProjection::drawOnModel(Model *model) {
 	glMatrixMode(GL_MODELVIEW);
 	
 	//particleSys.draw(true); // just checking if these can draw outside of FBO
-	
 }
 
 //--------------------------------------------------------
@@ -320,10 +319,11 @@ void BubbleProjection::draw() {
 	
 	if(drawingParticles) {
 		particleSys.draw(false);
-	} else {
-		champagne.draw();
 	}
 	
+	if(drawingChampagne){
+		champagne.draw();	
+	}
 	
 	// -------------------
 	if(previousInteraction) {
@@ -345,7 +345,9 @@ void BubbleProjection::draw() {
 	for (int i=0; i<touches.size(); i++) {
 		ofVec2f tp = mapToInteractiveArea(touches[i].getPosition());
 		touches[i].drawTouch(tp);
-		//if(ofGetFrameNum()%12==0)champagne.particles.push_back( new BrownianObject( tp, 10));
+		
+		if(ofGetFrameNum()%12==0)champagne.particles.push_back( new BrownianObject( tp, 10));
+		
 		particleSys.addForceAtPoint( tp );
 		//particleSys.addForceAndParticle(tp, false, true);
 	}
