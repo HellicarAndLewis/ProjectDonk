@@ -48,7 +48,7 @@ void InteractionPerformance::setup() {
 	}
 	
 	//now lets have 36 bubbles in total, in random positions
-	// addBubbles();
+	//addBubbles();
 	
 	
     
@@ -64,6 +64,9 @@ void InteractionPerformance::setup() {
 
 //--------------------------------------------------------
 void InteractionPerformance::addBubbles() {
+	
+	cout << "Number of bands is:" << nBands << endl;
+	
 	for(int j=0; j<nBands; j++){
 		for(int i=0; i<nBands; i++) {
 			
@@ -85,7 +88,7 @@ void InteractionPerformance::addBubbles() {
 			bubble->createContentBubble();
 			bubble->setTarget(center.x + ofRandom(-300, 300), ofRandom(500, interactiveRect.height-300), 0);			
 			
-			bubble->performceImageID   = (int)ofRandom(0, images.size());//(j*6)+i; //now we are making 36, so go deeper into the image array
+			bubble->performceImageID   = (int)ofRandom(0, images.size()-1);//(j*6)+i; //now we are making 36, so go deeper into the image array
 			bubble->performanceChannel = i;
 			
 			bubble->performanceStartTarget = bubble->target;
@@ -137,6 +140,8 @@ void InteractionPerformance::update() {
 		
 		bubbles[i]->update();
 		
+		cout << "Bubble: " << i << ", performance channel is " << bubbles[i]->performanceChannel << " with value " << freq[ bubbles[i]->performanceChannel ] << endl;
+		
         float newRad = freq[ bubbles[i]->performanceChannel ] * 100.0;
 		bubbles[i]->lerpRadius(bubbles[i]->startRadius + newRad, 0.94);
 		
@@ -178,7 +183,15 @@ void InteractionPerformance::update() {
 void InteractionPerformance::drawContent() {
 	
 	ofEnableAlphaBlending();
-
+	
+		//needed this bit to update audio! (-; JGL
+	for (int i=0; i<nBands; i++) {
+		
+		freq[i] *= 0.986f;
+		if(freq[i] < audio->getVolume(i)) {
+			freq[i] = audio->getVolume(i);
+		}
+	}	
 
 	/*
 	// fft goods

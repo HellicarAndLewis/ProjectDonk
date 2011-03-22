@@ -48,6 +48,7 @@ void AudioData::update() {
 			
 			for(int i = 0; i < numChannels; i++) {
 				signals[i] = m.getArgAsFloat(i);
+//				cout << "Audio value, " << i << " is: " << m.getArgAsFloat(i) << endl;
 			}
 		}
 	}
