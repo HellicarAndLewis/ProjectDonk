@@ -41,9 +41,12 @@ void Champagne::update(){
 		}
 	}
 	
+	/*
+	 //emit a bubble from the emitter
 	if(ofRandomuf() < 0.01){
 		particles.push_back( new BrownianObject( emitter, 32));
 	}
+	 */
 	
 	vector<BrownianObject*>::iterator it = particles.begin();
 	
