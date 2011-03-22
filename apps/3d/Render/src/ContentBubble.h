@@ -50,7 +50,7 @@ public:
 	// --------------------------------- things useing in performance
 	int					 performceImageID;
 	int					 performanceChannel;
-	ofVec3f				 performanceStartTarget;
+	ofVec3f				 performanceStartTarget, noise;
 	float				 startRadius, maxRadius;
 	
 	// --------------------------------- things for vote

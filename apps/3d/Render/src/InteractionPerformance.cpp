@@ -113,6 +113,10 @@ void InteractionPerformance::update() {
 	center.y = interactiveRect.height/2;
 	center.z = 0;
 	
+	float speed = (float)Donk::Mode::getInstance()->getValue("Noise Speed");
+	flockTime  += speed;
+	float t		= flockTime;
+	
 	bool bAllOffScreen = true;
 	
 	for(int i=0; i<bubbles.size(); i++) {
@@ -128,17 +132,16 @@ void InteractionPerformance::update() {
 		else {		
 			float   vol    = audio->getVolume(bubbles[i]->performceImageID);
 			ofVec3f pos    = bubbles[i]->getPosition();
+			bubbles[i]->noise = ofVec3f(ofSignedNoise(t, 0, 0),
+										ofSignedNoise(0, t, 0),
+										ofSignedNoise(0, 0, t));
 			
-			float t = ofGetElapsedTimef() * 0.43;
-			ofVec3f noise(ofSignedNoise(t, 0, 0),
-						  ofSignedNoise(0, t, 0),
-						  ofSignedNoise(0, 0, t));
-			noise *= 300.0;
-			
+			bubbles[i]->noise *= (float)Donk::Mode::getInstance()->getValue("Noise Scale");;
+			bubbles[i]->noise *= (float)Donk::Mode::getInstance()->getValue("Noise Damp");
 			ofVec3f target = center;
 			//target	   += (bubbles[i]->performanceStartTarget.y) - (vol * 320.0);
 
-			target += noise;
+			target += bubbles[i]->noise;
 			
 			bubbles[i]->rigidBody->body->setDamping(0.99, 0.99);
 			bubbles[i]->addAtrractionForce(target.x, target.y, target.z, 30.0);
