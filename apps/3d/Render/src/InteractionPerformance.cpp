@@ -108,12 +108,10 @@ void InteractionPerformance::update() {
 	float div = 900.0;
 	float amp = 450.0;
 	
-	float t = ofGetElapsedTimef() * 0.3;
-	flockPos.set(ofSignedNoise(t, 0, 0),
-				 ofSignedNoise(0, t, 0),
-				 ofSignedNoise(0, 0, t));
-	flockPos *= 400.0;
-	
+	ofVec3f center;
+	center.x = interactiveRect.width/2;
+	center.y = interactiveRect.height/2;
+	center.z = 0;
 	
 	bool bAllOffScreen = true;
 	
@@ -128,11 +126,33 @@ void InteractionPerformance::update() {
 			
 		}
 		else {		
+			ofVec3f pos    = bubbles[i]->getPosition();
 			ofVec3f target = bubbles[i]->target;
 			target.y = (bubbles[i]->performanceStartTarget.y) - (audio->getVolume(bubbles[i]->performceImageID) * 320.0);
-			target += flockPos;
+			
+			float t = ofGetElapsedTimef() * 0.03;
+			float div = 400.0;
+			ofVec3f noise(ofSignedNoise(t, pos.y/div, pos.z/div),
+						  ofSignedNoise(pos.x/div, t, pos.z/div),
+						  ofSignedNoise(pos.x/div, pos.y/div, t));
+			noise *= 200.0;
+			
+			bubbles[i]->flockPos.y -= 5;
+			bubbles[i]->flockPos.x = cos(t) * 20;
+			
+			target += bubbles[i]->flockPos;
+			target += noise;
+			
 			bubbles[i]->rigidBody->body->setDamping(0.99, 0.99);
 			bubbles[i]->addAtrractionForce(target.x, target.y, target.z, 30.0);
+			//bubbles[i]->rigidBody->setPosition(center, 0, 0);
+		//	bubbles[i]->rigidBody->body->a ( ofVec3fToBtVec(target) );
+			
+			if(pos.y < -(bubbles[i]->radius*2)) {
+				bubbles[i]->flockPos = 0;
+				ofVec3f resetPos(pos.x, interactiveRect.height, 0);
+				bubbles[i]->rigidBody->setPosition(resetPos, 0, 0);	
+			}
 		}	
 		
 		bubbles[i]->update();
