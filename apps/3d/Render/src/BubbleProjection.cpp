@@ -15,6 +15,12 @@
 
 #define DEBUG_INTERATIONS 1
 int		debugCount = 0;
+
+//--------------------------------------------------------
+static bool shouldRemoveTouch(BubbleTouch &t) {
+	return t.bRemove;	
+}
+
 //--------------------------------------------------------
 BubbleProjection::BubbleProjection() {
 	interactiveArea     = ofRectangle(100,100,900,500);
@@ -180,9 +186,13 @@ void BubbleProjection::update() {
 	// -------------------
 	// Update the touches
 	// -------------------
-	for(tIt = touches.begin(); tIt!=touches.end(); tIt++) {
-		(*tIt).second.update();
+	bool bNeedToCleanUp = false;
+	for (int i=0; i<touches.size(); i++) {
+		touches[i].update();
+		if(touches[i].bRemove) bNeedToCleanUp = true;
 	}
+	
+	if(bNeedToCleanUp) touches.erase(touches.begin(), partition(touches.begin(), touches.end(), shouldRemoveTouch));
 	
 	
 	// -------------------
@@ -208,16 +218,17 @@ void BubbleProjection::update() {
 	// need to check that this works!
 	if(!bTouchDown && activeInteraction) {
 		
-		for (int i=touchConstraints.size()-1; i>=0; i--) {
+		/*for (int i=touchConstraints.size()-1; i>=0; i--) {
 			if(touchConstraints[i] != NULL) {
 				touchConstraints[i]->destroy();
 				delete touchConstraints[i];
 				touchConstraints[i] = NULL;
 			}
 			touchConstraints.erase(touchConstraints.begin() + i);
-		}
+		}*/
 		
 	}
+	
 	
 	
 }
@@ -309,16 +320,12 @@ void BubbleProjection::draw() {
 	// -------------------
 	// draw touches
 	// -------------------
-	tIt = touches.begin();
-	for(; 
-		tIt!=touches.end(); 
-		tIt++) 
-	{
-		ofVec2f tp = mapToInteractiveArea((*tIt).second.getPosition());
-		(*tIt).second.drawTouch(tp);
+	for (int i=0; i<touches.size(); i++) {
+		ofVec2f tp = mapToInteractiveArea(touches[i].getPosition());
+		touches[i].drawTouch(tp);
 		//if(ofGetFrameNum()%12==0)champagne.particles.push_back( new BrownianObject( tp, 10));
-		//particleSys.addForceAtPoint( tp );
-		particleSys.addForceAndParticle(tp, false, true);
+		particleSys.addForceAtPoint( tp );
+		//particleSys.addForceAndParticle(tp, false, true);
 	}
 	
 }
@@ -491,21 +498,27 @@ void BubbleProjection::touchDown(float x, float y, int touchId) {
 	float minSqrDist = FLT_MAX; // do squares
 	int minTouchId   = -1;
 	
-	for(tIt = touches.begin(); tIt!=touches.end(); tIt++) {
-		float sqrDist = touchCoords.squareDistance((*tIt).second.getPosition());
+	
+	for (int i=0; i<touches.size(); i++) {
+		float sqrDist = touchCoords.squareDistance(touches[i].getPosition());
+		
 		if(sqrDist < minSqrDist) {
-			minTouchId = (*tIt).first;
+			//printf("%f\n", sqrDist);
+			minTouchId = touches[i].id;
 			minSqrDist = sqrDist;
 		}
+		
 	}
+	
+	// add the touch
+	touches.push_back(BubbleTouch());
+	touches.back().setPosition(touchCoords);
+	touches.back().id = touchId;
 	
 	// the minimum distance between the 2 closest touches 
 	// in order for it to be a double touch.
 	float doubleTouchDist = 0.1;
-	
-	// add the touch
-	touches[touchId].setPosition( touchCoords );
-	
+		
 	// if there's another touch, and it's close enough, call doubleTouchGesture
 	if(minTouchId!=-1 && sqrt(minSqrDist) < doubleTouchDist) { 
 		doubleTouchGesture(touchId, minTouchId);
@@ -520,7 +533,13 @@ void BubbleProjection::touchMoved(float x, float y, int touchId) {
 	
 	
 	ofVec2f p(x, y);
-	touches[touchId].setPosition( p );
+	
+	for (int i=0; i<touches.size(); i++) {
+		if(touches[i].id == touchId) {
+			touches[i].setPosition( p );
+		}
+	}
+	
 	ofVec2f pos = mapToInteractiveArea( p );
 	
 	
@@ -703,9 +722,10 @@ void BubbleProjection::touchUp(float x, float y, int touchId) {
 	
 	
 	// remove old touches...
-	if(touches.find(touchId) != touches.end()) {
-		//printf("remove touch: %i\n", touchId);
-		touches.erase(touchId);
+	for (int i=0; i<touches.size(); i++) {
+		if(touches[i].id == touchId) {
+			touches[i].bRemove = true;
+		}
 	}
 	
 	
@@ -720,28 +740,37 @@ ofVec2f BubbleProjection::mapToInteractiveArea(ofVec2f inPoint) {
 //--------------------------------------------------------
 void BubbleProjection::doubleTouchGesture(int touch1Id, int touch2Id) {
 	
+	BubbleTouch *t1 = NULL;
+	BubbleTouch *t2 = NULL;
+	
 	printf("%i %i\n", touch1Id, touch2Id);
-	
-	ofVec2f doubleTouchCenter = (touches[touch1Id].getPosition() + touches[touch2Id].getPosition())/2;
-	
-	// fade out this touch we are not using it 
-	// anymore cause we have a double gesture
-	touches[touch2Id].touchAlphaDes = 0;
-	touches[touch2Id].radiusDes = 0;
-	
-	touches[touch1Id].secondTouch = &touches[touch2Id];
-	touches[touch1Id].setPosition(doubleTouchCenter); 
-	touches[touch1Id].enableGesture();
-	
-	
-	
-	// map for the active interaction
-	doubleTouchCenter = mapToInteractiveArea(doubleTouchCenter);
-	
-	// send the active interaction the double gesture!
-	if(activeInteraction) {
-		activeInteraction->doubleTouched(doubleTouchCenter);	
+	for (int i=0; i<touches.size(); i++) {
+		if(touches[i].id == touch1Id) t1 = &touches[i];
+		if(touches[i].id == touch2Id) t2 = &touches[i];
 	}
 	
-	printf("doubleTouchGesture\n");
+	if(t1 && t2) {
+		ofVec2f doubleTouchCenter = (t1->getPosition() + t2->getPosition())/2;
+		
+		// fade out this touch we are not using it 
+		// anymore cause we have a double gesture
+		t2->touchAlphaDes = 0;
+		t2->radiusDes = 0;
+		
+		t1->secondTouch = t2;
+		t1->setPosition(doubleTouchCenter); 
+		t1->enableGesture();
+		
+		
+		
+		// map for the active interaction
+		doubleTouchCenter = mapToInteractiveArea(doubleTouchCenter);
+		
+		// send the active interaction the double gesture!
+		if(activeInteraction) {
+			activeInteraction->doubleTouched(doubleTouchCenter);	
+		}
+		
+		printf("doubleTouchGesture\n");
+	}
 }

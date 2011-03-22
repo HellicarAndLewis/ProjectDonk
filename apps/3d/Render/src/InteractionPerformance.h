@@ -12,6 +12,7 @@
 #include "BaseInteraction.h"
 #include "AudioData.h"
 #include "ofxDirList.h"
+#include "Mode.h"
 
 #include "Ribbon.h"
 

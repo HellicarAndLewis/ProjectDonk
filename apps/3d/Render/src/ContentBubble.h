@@ -50,7 +50,6 @@ public:
 	int					 performceImageID;
 	int					 performanceChannel;
 	ofVec3f				 performanceStartTarget;
-	ofVec3f				 flockPos;
 	float				 startRadius, maxRadius;
 	
 	// --------------------------------- things for vote

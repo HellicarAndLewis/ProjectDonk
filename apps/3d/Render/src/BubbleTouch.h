@@ -24,10 +24,11 @@ public:
 	float   touchAlpha, touchAlphaDes;
 	ofColor	color, colorDes;
 	float	radius, radiusDes;
-	bool	bDraw;
+	bool	bDraw, bRemove;
 	BubbleTouch * secondTouch;
 	
 	BubbleTouch() {
+		bRemove			= false;
 		secondTouch	    = NULL;
 		bDraw			= true;
 		id			    = -1;

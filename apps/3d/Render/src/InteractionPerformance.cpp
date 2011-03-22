@@ -71,7 +71,7 @@ void InteractionPerformance::addBubbles() {
 		for(int i=0; i<nBands; i++) {
 			
 			ofVec3f center(interactiveRect.width/2, 0, 0);
-			float radius = ofRandom(70, 120);
+			float radius = ofRandom(20, (float)Donk::Mode::getInstance()->getValue("Max Bubble Size"));
 			
 			ofVec3f startPos;
 			startPos.x = (int)ofRandom(0,2) ? -100 : interactiveRect.width+100;
@@ -107,9 +107,6 @@ void InteractionPerformance::newBubbleRecieved(Donk::BubbleData * data) {
 //--------------------------------------------------------
 void InteractionPerformance::update() {
 	
-	flockTime += 0.003;
-	float div = 900.0;
-	float amp = 450.0;
 	
 	ofVec3f center;
 	center.x = interactiveRect.width/2;
@@ -131,32 +128,22 @@ void InteractionPerformance::update() {
 		else {		
 			float   vol    = audio->getVolume(bubbles[i]->performceImageID);
 			ofVec3f pos    = bubbles[i]->getPosition();
-			ofVec3f target = bubbles[i]->target;
-			target.y = (bubbles[i]->performanceStartTarget.y) - (vol * 320.0);
 			
-			float t = ofGetElapsedTimef() * 0.03;
-			float div = 400.0;
-			ofVec3f noise(ofSignedNoise(t, pos.y/div, pos.z/div),
-						  ofSignedNoise(pos.x/div, t, pos.z/div),
-						  ofSignedNoise(pos.x/div, pos.y/div, t));
+			float t = ofGetElapsedTimef() * 0.43;
+			ofVec3f noise(ofSignedNoise(t, 0, 0),
+						  ofSignedNoise(0, t, 0),
+						  ofSignedNoise(0, 0, t));
 			noise *= 300.0;
 			
-			bubbles[i]->flockPos.y -= (10 + (vol*8.0));
-			bubbles[i]->flockPos.x = cos(t) * 80;
-			
-			target += bubbles[i]->flockPos;
+			ofVec3f target = center;
+			//target	   += (bubbles[i]->performanceStartTarget.y) - (vol * 320.0);
+
 			target += noise;
 			
 			bubbles[i]->rigidBody->body->setDamping(0.99, 0.99);
 			bubbles[i]->addAtrractionForce(target.x, target.y, target.z, 30.0);
-			//bubbles[i]->rigidBody->setPosition(center, 0, 0);
-		//	bubbles[i]->rigidBody->body->a ( ofVec3fToBtVec(target) );
 			
-			if(pos.y < -(bubbles[i]->radius*2)) {
-				bubbles[i]->flockPos = 0;
-				ofVec3f resetPos(pos.x, interactiveRect.height+200, 0);
-				bubbles[i]->rigidBody->setPosition(resetPos, 0, 0);	
-			}
+			
 		}	
 		
 		bubbles[i]->update();

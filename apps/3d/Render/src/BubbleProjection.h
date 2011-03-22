@@ -109,15 +109,16 @@ private:
 	
 	//--------------------------------------------------------	
 	ofRectangle interactiveArea;
-
+	vector <BubbleTouch> touches;
+	
 	/** this gets called (from touchDown) when there is a detected double touch */
 	void doubleTouchGesture(int touch1Id, int touch2Id);
 	
 	/** This is a local copy of the current touches */
-	map<int,BubbleTouch> touches;
+	//map<int,BubbleTouch> touches;
 	
 	/** Convenience so you don't have to keep typing it */
-	map<int,BubbleTouch>::iterator tIt;
+	//map<int,BubbleTouch>::iterator tIt;
 	
 	// safety for touch clean up
 	bool bTouchDown;
