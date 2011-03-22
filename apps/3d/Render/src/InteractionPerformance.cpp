@@ -48,7 +48,7 @@ void InteractionPerformance::setup() {
 	}
 	
 	//now lets have 36 bubbles in total, in random positions
-	// addBubbles();
+	//addBubbles();
 	
 	
     
@@ -64,6 +64,9 @@ void InteractionPerformance::setup() {
 
 //--------------------------------------------------------
 void InteractionPerformance::addBubbles() {
+	
+	cout << "Number of bands is:" << nBands << endl;
+	
 	for(int j=0; j<nBands; j++){
 		for(int i=0; i<nBands; i++) {
 			
@@ -85,7 +88,7 @@ void InteractionPerformance::addBubbles() {
 			bubble->createContentBubble();
 			bubble->setTarget(center.x + ofRandom(-300, 300), ofRandom(500, interactiveRect.height-300), 0);			
 			
-			bubble->performceImageID   = (int)ofRandom(0, images.size());//(j*6)+i; //now we are making 36, so go deeper into the image array
+			bubble->performceImageID   = (int)ofRandom(0, images.size()-1);//(j*6)+i; //now we are making 36, so go deeper into the image array
 			bubble->performanceChannel = i;
 			
 			bubble->performanceStartTarget = bubble->target;
@@ -126,19 +129,20 @@ void InteractionPerformance::update() {
 			
 		}
 		else {		
+			float   vol    = audio->getVolume(bubbles[i]->performceImageID);
 			ofVec3f pos    = bubbles[i]->getPosition();
 			ofVec3f target = bubbles[i]->target;
-			target.y = (bubbles[i]->performanceStartTarget.y) - (audio->getVolume(bubbles[i]->performceImageID) * 320.0);
+			target.y = (bubbles[i]->performanceStartTarget.y) - (vol * 320.0);
 			
 			float t = ofGetElapsedTimef() * 0.03;
 			float div = 400.0;
 			ofVec3f noise(ofSignedNoise(t, pos.y/div, pos.z/div),
 						  ofSignedNoise(pos.x/div, t, pos.z/div),
 						  ofSignedNoise(pos.x/div, pos.y/div, t));
-			noise *= 200.0;
+			noise *= 300.0;
 			
-			bubbles[i]->flockPos.y -= 5;
-			bubbles[i]->flockPos.x = cos(t) * 20;
+			bubbles[i]->flockPos.y -= (10 + (vol*8.0));
+			bubbles[i]->flockPos.x = cos(t) * 80;
 			
 			target += bubbles[i]->flockPos;
 			target += noise;
@@ -150,12 +154,14 @@ void InteractionPerformance::update() {
 			
 			if(pos.y < -(bubbles[i]->radius*2)) {
 				bubbles[i]->flockPos = 0;
-				ofVec3f resetPos(pos.x, interactiveRect.height, 0);
+				ofVec3f resetPos(pos.x, interactiveRect.height+200, 0);
 				bubbles[i]->rigidBody->setPosition(resetPos, 0, 0);	
 			}
 		}	
 		
 		bubbles[i]->update();
+		
+		//cout << "Bubble: " << i << ", performance channel is " << bubbles[i]->performanceChannel << " with value " << freq[ bubbles[i]->performanceChannel ] << endl;
 		
         float newRad = freq[ bubbles[i]->performanceChannel ] * 100.0;
 		bubbles[i]->lerpRadius(bubbles[i]->startRadius + newRad, 0.94);
@@ -198,7 +204,15 @@ void InteractionPerformance::update() {
 void InteractionPerformance::drawContent() {
 	
 	ofEnableAlphaBlending();
-
+	
+		//needed this bit to update audio! (-; JGL
+	for (int i=0; i<nBands; i++) {
+		
+		freq[i] *= 0.986f;
+		if(freq[i] < audio->getVolume(i)) {
+			freq[i] = audio->getVolume(i);
+		}
+	}	
 
 	/*
 	// fft goods
