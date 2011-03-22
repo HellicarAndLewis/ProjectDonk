@@ -392,8 +392,8 @@ void BubbleProjection::removeTouchConstraint(ContentBubble * bubble) {
 	}
 	
 	if(removeInd != -1) {
-		touchConstraints[removeInd]->destroy();
-		delete touchConstraints[removeInd];
+		touchCon->destroy();
+		delete touchCon;
 		touchConstraints[removeInd] = NULL;
 		touchConstraints.erase(touchConstraints.begin() + removeInd);
 	}
