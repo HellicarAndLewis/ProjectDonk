@@ -26,6 +26,9 @@ public:
 	vector	<ofImage>	images;
 	float				lineAlpha, lineAlphaDes;
 	
+	ofVec3f				flockPos;
+	float				flockTime;
+	
 	//--------------------------------------------------------
 	InteractionPerformance() {
 		mode = MODE_PERFORMANCE;
