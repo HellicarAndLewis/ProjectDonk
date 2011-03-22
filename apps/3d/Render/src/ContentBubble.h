@@ -38,6 +38,7 @@ public:
 	
 	float				 touchAlpha, touchAlphaTarget;
 	bool				 bTouched, bDoubleTouched;
+	bool				 bFlipToggle;
 	int					 touchID;
 	float				 birthDate, age;
 	bool				 bAlive, bRemove;
@@ -80,6 +81,8 @@ public:
 	
 	// ---------------------------------
 	void doubleTouched();
+	void releaseTouch();
+	
 	void setRadius(float r);
 	void lerpRadius(float r,float speed);
 	ofVec3f getPosition();

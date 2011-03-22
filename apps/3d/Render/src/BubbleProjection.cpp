@@ -720,7 +720,10 @@ void BubbleProjection::touchUp(float x, float y, int touchId) {
 				ContentBubble * bubble = activeInteraction->bubbles[i];
 				
 				if(bubble != NULL) {
+					
 					if(bubble->bTouched) {
+						
+						bubble->releaseTouch();
 						
 						if (activeInteraction->name == "interview") {
 							bubble->setTarget(pos.x, pos.y);

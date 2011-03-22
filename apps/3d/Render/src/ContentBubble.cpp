@@ -22,6 +22,7 @@ void ContentBubble::destroy() {
 //--------------------------------------------------------------
 ContentBubble::ContentBubble() {
 	
+	bFlipToggle      = false;
 	bRemoveOffScreen = false;
 	bRemove	         = false;
 	bAnimateOut		 = false;
@@ -275,7 +276,34 @@ void ContentBubble::addAtrractionForce(ofVec3f &p, float scale) {
 //--------------------------------------------------------------
 void ContentBubble::doubleTouched() {
 	bDoubleTouched = true;	
+	
+	if(bDoubleTouched) {
+		
+		bFlipToggle = !bFlipToggle;
+	
+		touchAlphaTarget = 160;
+
+		if(bFlipToggle) {
+			rotateYTarget = rotateYDirectionOn;
+		}
+		else {
+			rotateYTarget = rotateYDirectionOff;
+		}
+		
+	}
+	
+	
 }
+
+//--------------------------------------------------------------
+void ContentBubble::releaseTouch() {
+	
+	if(bDoubleTouched) {
+		printf("double Touch Relesed\n");	
+	}
+	touchAlphaTarget = 0;
+}
+
 
 //--------------------------------------------------------------
 void ContentBubble::setRadius(float r) {
@@ -308,14 +336,6 @@ void ContentBubble::update() {
 
 	touchAlpha += (touchAlphaTarget-touchAlpha) * 0.1;
 	rotateY += (rotateYTarget-rotateY) * 0.05;
-	if(bDoubleTouched){
-		touchAlphaTarget = 160;
-		rotateYTarget = rotateYDirectionOn;
-	}else{
-		touchAlphaTarget = 0;
-		rotateYTarget = rotateYDirectionOff;
-	}
-	
 	age = ofGetElapsedTimeMillis()-birthDate;
 	
 	

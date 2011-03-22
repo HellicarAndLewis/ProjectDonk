@@ -73,6 +73,7 @@ public:
 	virtual void setup()  {}
 	virtual void draw()   {}
 	virtual void doubleTouched(ofVec2f touchpos) {}
+	
 	virtual void putToRest() {} 
 	
 	virtual void killallBubbles() {
