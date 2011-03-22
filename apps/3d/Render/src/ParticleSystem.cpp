@@ -159,14 +159,14 @@ void ParticleSystem::draw( bool drawingFluid ){
 			
 		case SHADED_POINT_SPRITE:
 		{
-			
+
 			ofEnableAlphaBlending();
 			ofSetColor(particleColor);
 			
 			shader.begin(); // Turn on the Shader
 			shader.setUniform1f("maxSpriteSize", maxSpriteSize);
 
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+			//glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 			
 			// Get the attribute and bind it
 			GLint pixel_loc = glGetAttribLocation(shader.getProgram(), "pointSize");
