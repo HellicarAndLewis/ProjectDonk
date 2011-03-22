@@ -133,8 +133,9 @@ void testApp::drawView() {
 		//printf("%f %f %f\n", mode->getValue("light x"), mode->getValue("light y"), mode->getValue("light z"));
 		glShadeModel(GL_FLAT);
 		ofEnableLighting();
+		//ofDisableLighting();
 		scene->getLight()->enable();
-//		scene->getModel()->drawSolid();
+
 		gradientProjection.drawOnModel(scene->getModel());
 		
 		
