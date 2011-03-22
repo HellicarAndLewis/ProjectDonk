@@ -30,6 +30,7 @@ void VoteBubble::drawInsideContent() {
 	// really weird with drawing type
 	// inside the shader not sure why...
 	glEnable(GL_DEPTH_TEST);
+
 	glPushMatrix();
 	glMultMatrixf(billboadMatrix);
 	ofEnableAlphaBlending();
@@ -43,7 +44,15 @@ void VoteBubble::drawInsideContent() {
 	glPushMatrix();
 	glTranslated( -((strW*scl)/2.0), 0, 0 );
 	glScalef(scl, scl, 1);
+	
+	ofSetColor(20, 20, 20, 230);
+	font.drawString(optionStr, 3, 3);
+	glPushMatrix();
+	glTranslatef(0, 0, 0.01);
+	ofSetColor(255, 255, 255, 255);
 	font.drawString(optionStr, 0, 0);
+	glPopMatrix();
+	
 	glPopMatrix();
 	
 	string pctStr   = ofToString(pct);
@@ -52,13 +61,28 @@ void VoteBubble::drawInsideContent() {
 	glPushMatrix();
 	glTranslated( -((pctWidth+10.0)/2.0), optH, 0 );
 	glScalef(1.2, 1.2, 1);
+	
+	ofSetColor(20, 20, 20, 230);
+	
+	font.drawString(pctStr, 3, 3);
+	ofSetColor(255, 255, 255, 255);
+	glPushMatrix();
+	glTranslatef(0, 0, 0.01);
 	font.drawString(pctStr, 0, 0);
+	glPopMatrix();
 	glPopMatrix();
 	
 	glPushMatrix();
 	glTranslated( pctWidth-3.0, optH, 0 );
+	
 	glScalef(0.52, 0.52, 1);
+	ofSetColor(20, 20, 20, 230);
+	font.drawString("%", 3, 3);
+	glPushMatrix();
+	glTranslatef(0, 0, 0.01);
+	ofSetColor(255, 255, 255, 255);
 	font.drawString("%", 0, 0);
+	glPopMatrix();
 	glPopMatrix();
 	
 	glPopMatrix();
