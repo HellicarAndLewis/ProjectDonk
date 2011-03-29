@@ -1,0 +1,26 @@
+<install>
+	<name>ofxControlBar</name>
+	<version>0.01</version>
+	<author>josh nimoy</author>
+	<url></url>
+	
+	<add>
+		
+		<!-- 	=====================================================================	-->
+		<!--	========================== add per project using this addon =========	-->
+		<!-- 	=====================================================================	-->
+	
+		<src>
+			<folder name="addons/ofxControlBar/src">
+				<file>../../../addons/ofxControlBar/src/ofxControlBar.h</file>
+				<file>../../../addons/ofxControlBar/src/ofxControlBar.cpp</file>
+			</folder>
+		</src>
+		
+		<include>
+			<path>../../../addons/ofxControlBar/src</path>
+		</include>
+		
+	</add>
+	 
+</install>

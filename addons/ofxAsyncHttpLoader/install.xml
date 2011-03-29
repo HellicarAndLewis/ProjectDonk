@@ -1,0 +1,28 @@
+<install>
+	<name>ofxAsyncHttpLoader</name>
+	<version>0.01</version>
+	<author>josh nimoy</author>
+	<url></url>
+	
+	<add>
+		
+		<!-- 	=====================================================================	-->
+		<!--	========================== add per project using this addon =========	-->
+		<!-- 	=====================================================================	-->
+	
+		<src>
+			<folder name="addons/ofxAsyncHttpLoader/src">
+				<file>../../../addons/ofxAsyncHttpLoader/src/ofxAsyncHttpLoader.h</file>
+				<file>../../../addons/ofxAsyncHttpLoader/src/ofxAsyncHttpLoader.cpp</file>
+				<file>../../../addons/ofxAsyncHttpLoader/src/base64.h</file>
+				<file>../../../addons/ofxAsyncHttpLoader/src/base64.cpp</file>
+			</folder>
+		</src>
+		
+		<include>
+			<path>../../../addons/ofxAsyncHttpLoader/src</path>
+		</include>
+		
+	</add>
+	 
+</install>
